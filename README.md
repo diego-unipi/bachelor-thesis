@@ -1,9 +1,7 @@
 # [Title]
 
-## PDF compilato
+Download the compiled PDF [here](actions/workflows/latex.yml).
 
-Scarica l'ultima build da GitHub Actions: [Download PDF](actions/workflows/latex.yml)
-Apri l'ultima run e scarica l'artifact main-pdf.
 
 ## License
 
