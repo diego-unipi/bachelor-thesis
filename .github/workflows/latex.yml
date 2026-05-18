@@ -22,12 +22,13 @@ jobs:
         with:
           root_file: main.tex
           latexmk_use_biber: true
+          args: -pdf -jobname=monaco_bachelor_thesis
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
-          name: main-pdf
-          path: main.pdf
+          name: monaco_bachelor_thesis
+          path: monaco_bachelor_thesis.pdf
 
       - name: Publish latest PDF release
         if: github.event_name != 'pull_request'
@@ -39,5 +40,5 @@ jobs:
           prerelease: true
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: main.pdf
+          artifacts: monaco_bachelor_thesis.pdf
           token: ${{ secrets.GITHUB_TOKEN }}
