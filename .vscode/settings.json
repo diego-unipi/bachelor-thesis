@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
         "Cleveref",
-        "Fancyhdr"
+        "Fancyhdr",
+        "pdfdisplaydoctitle",
+        "pdftitle"
     ],
     "latex-workshop.latex.autoClean.run": "onBuilt",
     "latex-workshop.latex.clean.method": "glob",

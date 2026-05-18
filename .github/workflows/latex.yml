@@ -8,7 +8,7 @@ on:
   pull_request:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -28,3 +28,16 @@ jobs:
         with:
           name: main-pdf
           path: main.pdf
+
+      - name: Publish latest PDF release
+        if: github.event_name != 'pull_request'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest-pdf
+          name: Latest compiled PDF
+          body: Release aggiornata automaticamente da GitHub Actions.
+          prerelease: true
+          allowUpdates: true
+          replacesArtifacts: true
+          artifacts: main.pdf
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -10,10 +10,12 @@
 \usepackage{xcolor} % colors for links
 \usepackage{tikz} % diagrams
 \usepackage{fancyhdr} % headers and footers
-\usepackage{quiver}
-\usepackage{lipsum}
+\usepackage{quiver} % commutative diagrams
+\usepackage{lipsum} % dummy text
 
-% Lingua, citazioni e bibliografia
+% --------------------------------
+% Language, citations and bibliography
+% --------------------------------
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \usepackage[backend=biber, style=alphabetic]{biblatex}
@@ -32,6 +34,7 @@
 }
 
 \setlength{\parindent}{0pt}
+
 % --------------------------------
 % Theorem Styles
 % --------------------------------
@@ -74,27 +77,29 @@
 % --------------------------------
 % Title Page
 % --------------------------------
+\newcommand{\ThesisTitle}{Thesis title}
+\newcommand{\ThesisAuthor}{Diego Monaco}
 
-\title{\huge \textbf{Title}}%\\[0.5em]
-\author{\Large Diego Monaco}
+\title{\ThesisTitle}
+\author{\ThesisAuthor}
 \date{July, 2026}
 
 % --------------------------------
-% Link, riferimenti e licenze (da caricare per ultimi)
+% Link, references and licenses (to be loaded last)
 % --------------------------------
 \usepackage{url}
-\usepackage{hyperref} 
-
-% Setup per Hyperref deve venire DOPO aver caricato il pacchetto hyperref
+\usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue!60!black,
     urlcolor=blue!60!black,
     citecolor=blue!60!black
 }
-
 \usepackage{cleveref} 
 
+% --------------------------------
+% License
+% --------------------------------
 \usepackage[
     type={CC},
     modifier={by-nc-sa},

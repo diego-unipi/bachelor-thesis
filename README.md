@@ -1,6 +1,6 @@
 # [Title]
 
-Download the compiled PDF [here](actions/workflows/latex.yml).
+Download the compiled PDF [here](https://github.com/diego-unipi/bachelor-thesis/releases/download/latest-pdf/main.pdf).
 
 
 ## License
