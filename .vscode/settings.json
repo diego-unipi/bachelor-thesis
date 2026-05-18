@@ -1,0 +1,78 @@
+{
+    "cSpell.words": [
+        "Cleveref",
+        "Fancyhdr"
+    ],
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    "latex-workshop.latex.clean.method": "glob",
+    "latex-workshop.latex.clean.patterns": [
+        "*.aux",
+        "*.bbl",
+        "*.bcf",
+        "*.blg",
+        "*.fdb_latexmk",
+        "*.fls",
+        "*.log",
+        "*.out",
+        "*.run.xml",
+        "*.toc",
+        "*.synctex.gz",
+        "sections/**/*.aux"
+    ],
+    "latex-workshop.latex.clean.subfolder.enabled": true,
+    "latex-workshop.latex.clean.fileTypes": [
+        "aux",
+        "bbl",
+        "bcf",
+        "blg",
+        "fdb_latexmk",
+        "fls",
+        "log",
+        "out",
+        "run.xml",
+        "synctex.gz",
+        "toc"
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk-build",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk-clean",
+            "command": "latexmk",
+            "args": [
+                "-c",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "ps-clean",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "%DIR%/.vscode/clean.ps1"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (build+clean)",
+            "tools": [
+                "latexmk-build",
+                "ps-clean"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "first"
+}

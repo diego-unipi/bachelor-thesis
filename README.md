@@ -1,5 +1,10 @@
 # [Title]
 
+## PDF compilato
+
+Scarica l'ultima build da GitHub Actions: [Download PDF](actions/workflows/latex.yml)
+Apri l'ultima run e scarica l'artifact main-pdf.
+
 ## License
 
 The code in this repository is licensed under the [MIT License](https://opensource.org/licenses/MIT).

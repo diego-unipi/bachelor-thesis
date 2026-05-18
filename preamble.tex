@@ -1,0 +1,105 @@
+% --------------------------------
+% Packages
+% --------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathpazo} % Palatino font
+\usepackage{microtype} % better spacing
+\usepackage{geometry} % easy margins
+\usepackage{enumitem} % customizable lists
+\usepackage{xcolor} % colors for links
+\usepackage{tikz} % diagrams
+\usepackage{fancyhdr} % headers and footers
+\usepackage{quiver}
+\usepackage{lipsum}
+
+% Lingua, citazioni e bibliografia
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\addbibresource{bibliography.bib}
+
+% --------------------------------
+% Geometry
+% --------------------------------
+\geometry{
+    a4paper,
+    twoside,
+    inner=3.5cm,
+    outer=2.5cm,
+    top=3cm,
+    bottom=3cm
+}
+
+\setlength{\parindent}{0pt}
+% --------------------------------
+% Theorem Styles
+% --------------------------------
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+
+\theoremstyle{plain}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{remark}[definition]{Remark}
+
+\newenvironment{proofsketch}{\paragraph{Proof Sketch.}}{\hfill$\square$}
+
+% --------------------------------
+% Fancyhdr setup
+% --------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textsc{da aggiungere}}
+\rhead{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+
+% --------------------------------
+% Custom Commands
+% --------------------------------
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\op}{^{\text{op}}}
+
+% --------------------------------
+% Title Page
+% --------------------------------
+
+\title{\huge \textbf{Title}}%\\[0.5em]
+\author{\Large Diego Monaco}
+\date{July, 2026}
+
+% --------------------------------
+% Link, riferimenti e licenze (da caricare per ultimi)
+% --------------------------------
+\usepackage{url}
+\usepackage{hyperref} 
+
+% Setup per Hyperref deve venire DOPO aver caricato il pacchetto hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    urlcolor=blue!60!black,
+    citecolor=blue!60!black
+}
+
+\usepackage{cleveref} 
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+    lang={english},
+    imagewidth=5em,
+    imagedistance=0.5em
+]{doclicense}
