@@ -1,6 +1,6 @@
 # [Title]
 
-Download the compiled PDF [here](https://github.com/diego-unipi/bachelor-thesis/releases/download/latest-pdf/main.pdf).
+Download the compiled PDF [here](https://github.com/diego-unipi/bachelor-thesis/releases/download/latest-pdf/monaco_bachelor_thesis.pdf).
 
 
 ## License
