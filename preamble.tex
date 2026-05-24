@@ -1,7 +1,8 @@
 % --------------------------------
 % Packages
 % --------------------------------
-\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} % for accented characters in output
+\usepackage[utf8]{inputenc} % for accented characters
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{mathpazo} % Palatino font
 \usepackage{microtype} % better spacing
@@ -11,7 +12,7 @@
 \usepackage{tikz} % diagrams
 \usepackage{fancyhdr} % headers and footers
 \usepackage{quiver} % commutative diagrams
-\usepackage{lipsum} % dummy text
+\usepackage{lipsum} % dummy text (to be removed in the final version)
 
 % --------------------------------
 % Language, citations and bibliography
@@ -33,7 +34,7 @@
     bottom=3cm
 }
 
-\setlength{\parindent}{0pt}
+\setlength{\parindent}{0pt} % no indentation, use \parskip for spacing between paragraphs
 
 % --------------------------------
 % Theorem Styles
@@ -58,11 +59,17 @@
 % --------------------------------
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\textsc{da aggiungere}} %mettere che si alternano i nomi di capitolo e sezione (o meglio, vedere dopo)
-\rhead{\thepage}
+\fancyhead[LE]{\thepage}          % pari: numero a sinistra
+\fancyhead[RE]{\textsc{\leftmark}}  % pari: capitolo a destra
+\fancyhead[LO]{\textsc{\rightmark}} % dispari: sezione a sinistra
+\fancyhead[RO]{\thepage}          % dispari: numero a destra
 \renewcommand{\headrulewidth}{0.4pt}
 \setlength{\headheight}{14.5pt}
 \addtolength{\topmargin}{-2.5pt}
+
+%To only show chapter in header, without section/chapter
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
 
 % --------------------------------
 % Custom Commands
