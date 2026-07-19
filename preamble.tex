@@ -1,3 +1,5 @@
+% LTeX: enabled=false
+
 % --------------------------------
 % Packages
 % --------------------------------
@@ -7,10 +9,13 @@
 \usepackage{mathpazo} % Palatino font
 \usepackage{microtype} % better spacing
 \usepackage{geometry} % easy margins
+\usepackage{titling} % expose title, author and date for the custom title page
 \usepackage{enumitem} % customizable lists
 \usepackage{xcolor} % colors for links
+\usepackage{graphicx} % images
 \usepackage{tikz} % diagrams
 \usepackage{fancyhdr} % headers and footers
+\usepackage{emptypage} % suppress headers and page numbers on blank verso pages
 \usepackage{quiver} % commutative diagrams
 \usepackage{lipsum} % dummy text (to be removed in the final version)
 
@@ -34,7 +39,8 @@
     bottom=3cm
 }
 
-\setlength{\parindent}{0pt} % no indentation, use \parskip for spacing between paragraphs
+\setlength{\parindent}{1.2em} % indent subsequent paragraphs
+\setlength{\parskip}{0pt}     % keep paragraphs vertically compact
 
 % --------------------------------
 % Theorem Styles
@@ -51,8 +57,6 @@
 
 \theoremstyle{remark}
 \newtheorem{remark}[definition]{Remark}
-
-\newenvironment{proofsketch}{\paragraph{Proof Sketch.}}{\hfill$\square$}
 
 % --------------------------------
 % Fancyhdr setup
@@ -84,23 +88,14 @@
 % --------------------------------
 % Title Page
 % --------------------------------
-\newcommand{\ThesisAuthor}{Diego Monaco}
-
-\title{}
-\author{\ThesisAuthor}
-\date{July, 2026}
+\title{Thesis Title}
+\author{Diego Monaco}
+\date{September, 2026}
 
 % --------------------------------
 % Link, references and licenses (to be loaded last)
 % --------------------------------
-\usepackage{url}
 \usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue!60!black,
-    urlcolor=blue!60!black,
-    citecolor=blue!60!black
-}
 \usepackage{cleveref} 
 
 % --------------------------------
@@ -114,3 +109,20 @@
     imagewidth=5em,
     imagedistance=0.5em
 ]{doclicense}
+
+\hypersetup{
+    pdfauthor={\theauthor},
+    pdfsubject={Bachelor's thesis in Mathematics - \thedate},
+    pdfinfo={ThesisDate={\thedate}},
+    keeppdfinfo=true,
+    pdfdisplaydoctitle=false,
+    pdflang={en},
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    urlcolor=blue!60!black,
+    citecolor=blue!60!black
+}
+
+% hyperxmp, loaded by doclicense, otherwise copies \title back into pdftitle
+% at the end of the preamble. Clear only that PDF field after its hook runs.
+\AtBeginDocument{\hypersetup{pdftitle={}}}

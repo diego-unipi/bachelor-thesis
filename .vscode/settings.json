@@ -2,10 +2,21 @@
     "cSpell.words": [
         "Cleveref",
         "Fancyhdr",
-        "pdfdisplaydoctitle",
-        "pdftitle"
+        "pdfdisplaydoctitle"
     ],
-    "latex-workshop.latex.autoClean.run": "onBuilt",
+    "cSpell.enabledFileTypes": {
+        "*": true,
+        "latex": false,
+        "bibtex": false
+    },
+    "ltex.enabled": [
+        "latex",
+        "bibtex"
+    ],
+    "ltex.language": "en-US",
+    "ltex.diagnosticSeverity": "information",
+    "latex-workshop.view.pdf.viewer": "browser",
+    "latex-workshop.latex.autoClean.run": "never",
     "latex-workshop.latex.clean.method": "glob",
     "latex-workshop.latex.clean.patterns": [
         "*.aux",
@@ -19,7 +30,7 @@
         "*.run.xml",
         "*.toc",
         "*.synctex.gz",
-        "sections/**/*.aux"
+        "chapters/**/*.aux"
     ],
     "latex-workshop.latex.clean.subfolder.enabled": true,
     "latex-workshop.latex.clean.fileTypes": [
@@ -46,33 +57,13 @@
                 "-pdf",
                 "%DOC%"
             ]
-        },
-        {
-            "name": "latexmk-clean",
-            "command": "latexmk",
-            "args": [
-                "-c",
-                "%DOC%"
-            ]
-        },
-        {
-            "name": "ps-clean",
-            "command": "powershell",
-            "args": [
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-File",
-                "%DIR%/.vscode/clean.ps1"
-            ]
         }
     ],
     "latex-workshop.latex.recipes": [
         {
-            "name": "latexmk (build+clean)",
+            "name": "latexmk (incremental)",
             "tools": [
-                "latexmk-build",
-                "ps-clean"
+                "latexmk-build"
             ]
         }
     ],

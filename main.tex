@@ -2,7 +2,13 @@
 \input{preamble.tex}
 
 \begin{document}
-    \include{chapters/front}
+    \hypersetup{pageanchor=false}
+    \pagenumbering{gobble}
+    \input{chapters/front}
+    \cleardoublepage
+
+    \hypersetup{pageanchor=true}
+    \pagenumbering{roman}
     \tableofcontents
     \vfill
     \begin{minipage}{\linewidth}
@@ -10,10 +16,12 @@
         \doclicenseImage \\[0.4em]
         \doclicenseLongText
     \end{minipage}
+
+    \cleardoublepage
+    \pagenumbering{arabic}
     \include{chapters/introduction}
     \include{chapters/chapter_01}
 
     \cleardoublepage
-    \printbibliography
-    \addcontentsline{toc}{chapter}{Bibliography}
+    \printbibliography[heading=bibintoc]
 \end{document}

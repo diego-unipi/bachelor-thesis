@@ -3,27 +3,27 @@
     "tasks": [
         {
             "label": "latex: clean",
-            "type": "shell",
-            "command": "powershell",
+            "type": "process",
+            "command": "latexmk",
             "args": [
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-File",
-                "${workspaceFolder}\\.vscode\\clean.ps1"
+                "-c",
+                "${workspaceFolder}\\main.tex"
             ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "problemMatcher": []
         },
         {
-            "label": "latex: build+clean",
-            "type": "shell",
-            "command": "powershell",
+            "label": "latex: build (incremental)",
+            "type": "process",
+            "command": "latexmk",
             "args": [
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-Command",
-                "latexmk -synctex=1 -interaction=nonstopmode -file-line-error -pdf \"${workspaceFolder}\\main.tex\"; & \"${workspaceFolder}\\.vscode\\clean.ps1\""
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "${workspaceFolder}\\main.tex"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
