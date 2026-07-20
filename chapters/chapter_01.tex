@@ -1,10 +1,44 @@
 \chapter{Preliminaries}
-Here you can find a reference \cite{serre1955}.
+\section{Categories as deductive systems}
+Following \cite{LambekScott1994}, we will define a category as a particular kind of graph, but first we'll construct a series of structures that will lead us
+to have a working intuitionistic deductive system made entirely of objects and arrows.
 
-\lipsum[1-8]
-\section{Category theory}
-\lipsum[4-6]
-\subsection{Natural transformation}
-\lipsum[7-8]
-\section{Type theory}
-\lipsum[9-10]
+\begin{definition}[Graph]
+    A \textit{graph} $\mathcal G$ is given by a class of \textit{objects}, $\ob(\mathcal G)$, a class of \textit{arrows}, $\mor(\mathcal G)$, and two functions
+    \textit{source} and \textit{target}, $s,t:\mor(\mathcal G)\to\ob(\mathcal G)$, which assign to each arrow $f$ its source $s(f)$ and its target $t(f)$.
+\end{definition}
+
+\begin{notation}
+    We will denote with $\Hom(A,B)$ the class of arrows $f$ such that $s(f)=A$ and $t(f)=B$.
+\end{notation}
+
+\begin{definition}[Deductive system]
+    A \textit{deductive system} is a graph $\mathcal G$ where we have a class of arrows $1_A : A \to A$, for each object $A$, called \textit{identity arrows}, and a function
+    of \textit{composition} between arrows
+    \[ \circ : \mor(\mathcal G)\times\mor(\mathcal G)\to\mor(\mathcal G) : (f,g)\mapsto f\circ g, \]
+    which can be alternatively defined as:
+    \[ \circ : \Hom(A,B) \times \Hom(B,C) \to \Hom(A,C) : (f,g) \mapsto g \circ f. \]
+\end{definition}
+
+\begin{notation}
+    For brevity, we will denote with $gf$ the composition $g\circ f$ of two arrows $f$ and $g$. Following a familiar logic notation, we will also write:
+    \[ \frac{A \xrightarrow{f} B \quad B \xrightarrow{g} C}{A \xrightarrow{gf} C}. \]
+\end{notation}
+
+The elements of a deductive system can be thought as \textit{propositions}, the arrows as \textit{proofs} and the composition as a \textit{rule of inference}.
+
+\begin{definition}[Conjunction calculus]
+    A \textit{conjunction calculus} is a deductive system $\mathcal G$, with a special object $\top$, the \textit{tautological proposition}, and a function
+    \[ \wedge : \ob(\mathcal G)\times\ob(\mathcal G) \to \ob(\mathcal G) : (A,B) \mapsto A\wedge B, \]
+    which is called \textit{conjunction}. In addition we also have that the following rules, that states the existence of certain classes of arrows, hold:
+    \begin{itemize}
+        \item[(\textnormal{Conj 1})] for each object $A$ there exists an arrow $\bigcirc_A : A \to \top$;
+        \item[(\textnormal{Conj 2a})] for each object $A \wedge B$ there exist arrows $\pi_{A,B} : A \wedge B \to A$;
+        \item[(\textnormal{Conj 2b})] for each object $A \wedge B$ there exist arrows $\pi_{A,B}' : A \wedge B \to B$;
+        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f,g\rangle : A \to B \wedge C$, which we can write as:
+        \[ \frac{A \xrightarrow{f} B \quad A \xrightarrow{g} C}{A \xrightarrow{\langle f,g\rangle} B \wedge C}
+        \]
+    \end{itemize}
+\end{definition}
+
+% write a remark to compare these rules with ND inference rules and add a reference for such rules

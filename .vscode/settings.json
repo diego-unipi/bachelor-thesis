@@ -2,17 +2,12 @@
     "cSpell.words": [
         "Cleveref",
         "Fancyhdr",
-        "pdfdisplaydoctitle"
+        "intuitionistic",
+        "Lambek",
+        "pdfdisplaydoctitle",
+        "pdftitle"
     ],
-    "cSpell.enabledFileTypes": {
-        "*": true,
-        "latex": false,
-        "bibtex": false
-    },
-    "ltex.enabled": [
-        "latex",
-        "bibtex"
-    ],
+    "ltex.enabled": [],
     "ltex.language": "en-US",
     "ltex.diagnosticSeverity": "information",
     "latex-workshop.view.pdf.viewer": "browser",
