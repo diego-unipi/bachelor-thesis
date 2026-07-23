@@ -62,5 +62,7 @@
             ]
         }
     ],
-    "latex-workshop.latex.recipe.default": "first"
+    "latex-workshop.latex.recipe.default": "first",
+    "chat.notifyWindowOnConfirmation": "off",
+    "chat.notifyWindowOnResponseReceived": "off"
 }
