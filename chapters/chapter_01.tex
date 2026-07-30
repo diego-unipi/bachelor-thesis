@@ -5,7 +5,9 @@ with a working intuitionistic deductive system made entirely of objects and arro
 
 \begin{definition}[Graph]
     A \textit{graph} $\mathcal G$ is given by a class of \textit{objects}, $\ob(\mathcal G)$, a class of \textit{arrows}, $\mor(\mathcal G)$, and two functions
-    \textit{source} and \textit{target}, $s,t:\mor(\mathcal G)\to\ob(\mathcal G)$, which assign to each arrow $f$ its source $s(f)$ and its target $t(f)$.
+    \textit{source} and \textit{target}
+    \[ s,t:\mor(\mathcal G)\to\ob(\mathcal G),\]
+    which assign to each arrow $f$ its source $s(f)$ and its target $t(f)$.
 \end{definition}
 
 \begin{notation}
@@ -13,32 +15,64 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{notation}
 
 \begin{definition}[Deductive system]
-    A \textit{deductive system} is a graph $\mathcal G$ where we have a class of arrows $1_A : A \to A$, for each object $A$, called \textit{identity arrows}, and a function
+    A \textit{deductive system} $\mathcal D$ is graph where, for each object $A$, there is an arrow $1_A : A \to A$, called \textit{identity arrow}, and there exists a function
     of \textit{composition} between arrows
-    \[ \circ : \mor(\mathcal G)\times\mor(\mathcal G)\to\mor(\mathcal G) : (f,g)\mapsto f\circ g, \]
-    which can be alternatively defined as:
-    \[ \circ : \Hom(A,B) \times \Hom(B,C) \to \Hom(A,C) : (f,g) \mapsto g \circ f. \]
+    \[ \circ : (f,g) \mapsto g \circ f \qquad \text{for all $f$ and $g$ such that $t(f)=s(g)$.} \]
+    We could also define the composition as a family of functions, one for each triple of objects $A,B,C \in \ob(\mathcal D)$:
+    \[ \circ_{A,B,C} : \Hom(A,B) \times \Hom(B,C) \to \Hom(A,C) : (f,g) \mapsto g \circ f, \]
+    and we would get an equivalent definition.
 \end{definition}
 
 \begin{notation}
-    For brevity, we will denote with $gf$ the composition $g\circ f$ of two arrows $f$ and $g$. Following a familiar logic notation, we will also write:
+    For brevity, we will denote with $gf$ the composition $g\circ f$ of two arrows $f$ and $g$. Following a familiar logical notation, we will also denote the composition as:
     \[ \frac{A \xrightarrow{f} B \quad B \xrightarrow{g} C}{A \xrightarrow{gf} C}. \]
 \end{notation}
 
 The elements of a deductive system can be thought as \textit{propositions}, the arrows as \textit{proofs} and the composition as a \textit{rule of inference}.
 
 \begin{definition}[Conjunction calculus]
-    A \textit{conjunction calculus} is a deductive system $\mathcal G$, with a special object $\top$, the \textit{tautological proposition}, and a function
-    \[ \wedge : \ob(\mathcal G)\times\ob(\mathcal G) \to \ob(\mathcal G) : (A,B) \mapsto A\wedge B, \]
-    which is called \textit{conjunction}. In addition we also have that the following rules, that states the existence of certain classes of arrows, hold:
+    A \textit{conjunction calculus} is a deductive system $\mathcal C$, with a special object $\top$, the \textit{tautological proposition}, and a function
+    \[ \wedge : \ob(\mathcal C)\times\ob(\mathcal C) \to \ob(\mathcal C) : (A,B) \mapsto A\wedge B, \]
+    called \textit{conjunction}. In addition we also have that the following rules, which states the existence of certain classes of arrows, hold:
     \begin{itemize}
-        \item[(\textnormal{Conj 1})] for each object $A$ there exists an arrow $\bigcirc_A : A \to \top$;
+        \item[(\textnormal{Conj 1})] for each object $A$ there exists an arrow $!_A : A \to \top$;
         \item[(\textnormal{Conj 2a})] for each object $A \wedge B$ there exists an arrow $\pi_{A,B} : A \wedge B \to A$;
         \item[(\textnormal{Conj 2b})] for each object $A \wedge B$ there exists an arrow $\pi_{A,B}' : A \wedge B \to B$;
-        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f,g\rangle : A \to B \wedge C$, which we can write as:
-        \[ \frac{A \xrightarrow{f} B \quad A \xrightarrow{g} C}{A \xrightarrow{\langle f,g\rangle} B \wedge C}
+        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f,g\rangle : A \to B \wedge C$, the \textit{pairing arrow}, that we can also denote with:
+        \[ \frac{A \xrightarrow{f} B \quad A \xrightarrow{g} C}{A \xrightarrow{\langle f,g\rangle} B \wedge C}.
         \]
     \end{itemize}
 \end{definition}
 
-% write a remark to compare these rules with ND inference rules and add a reference for such rules
+To find a proof in a conjunction calculus means to find a (finite) sequence of arrows that starts from the source proposition and ends at the target proposition.
+
+\begin{example}[Commutativity of conjunction]
+    Given two objects $A$ and $B$ in a conjunction calculus, we can find a proof of $B \land A$ from $A \land B$ using the projections and the pairing arrow
+    \[ \frac{A \wedge B \xrightarrow{\pi_{A,B}'} B \quad A \wedge B \xrightarrow{\pi_{A,B}} A}{A \wedge B \xrightarrow{\langle \pi_{A,B}',\pi_{A,B}\rangle} B \wedge A}, \]
+    therefore the arrow $\langle \pi_{A,B}',\pi_{A,B}\rangle : A \wedge B \to B \wedge A$ is a proof of $B \land A$ from $A \land B$.
+\end{example}
+
+Continuing down on this parallel, one could think of (Conj 2a) and (Conj 2b) as the \textit{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA}\cite{Mennuni2025}, of (Conj 2c) as the \textit{introduction rule} for conjunction, and of
+(Conj 1) as the \textit{axiom rule} united to \textit{weakening} rule. We will progressively add more rules, or rather more arrows, to our deductive systems until we reach a complete intuitionistic deductive system.
+
+\begin{remark}
+    Using the rules of a conjunction calculus, we can also define new rules of inference, or rather new operations on arrows, using the existing ones (for now only the composition and the pairing).
+    For example, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ through:
+    \[ \frac{\frac{A \wedge C \xrightarrow{\pi_{A,C}} A \quad A \xrightarrow{f} B}{A \wedge C \xrightarrow{f\pi_{A,C}} B} \quad \frac{A \wedge C \xrightarrow{\pi_{A,C}'} C \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{g\pi_{A,C}'} D}}{A \wedge C \xrightarrow{\langle f\pi_{A,C},g\pi_{A,C}'\rangle} B \wedge D}, \]
+    and then we put $f \wedge g := \langle f\pi_{A,C},g\pi_{A,C}'\rangle$. Thus, from now on, we will simply write:
+    \[ \frac{A \xrightarrow{f} B \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{f \wedge g} B \wedge D}. \]
+\end{remark}
+
+We're still far from having a complete intuitionistic deductive system, we still don't have a way to express the implication, so we give the following definition.
+
+\begin{definition}[Positive intutionistic calculus]
+    A \textit{positive intuitionistic propositional calculus} is a conjunction calculus $\mathcal P$ with a function
+    \[ \Leftarrow : \ob(\mathcal P)\times\ob(\mathcal P) \to \ob(\mathcal P) : (A,B) \mapsto A \Leftarrow B, \]
+    called \textit{implication}, and the following rules of inference:
+    \begin{itemize}
+        \item[(\textnormal{Impl 1})] for each pair of objects $A$ and $B$ there exists an arrow $\ev_{A,B} : (A \Leftarrow B) \wedge B \to A$, called \textit{evaluation arrow};
+        \item[(\textnormal{Impl 2})] for each triple of objects $A$, $B$ and $C$ and for each arrow $h : A \wedge B \to C$ there is an arrow $h^* : A \to (C \Leftarrow B)$, called \textit{currying of $h$}.
+    \end{itemize}
+\end{definition}
+
+\section{Cartesian (closed) categories}

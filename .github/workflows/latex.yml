@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Ignore includeonly in CI
+        run: perl -0pi -e 's/\\includeonly\s*\{[^{}]*\}//g' main.tex
+
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:

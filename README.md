@@ -1,4 +1,6 @@
-# [Title]
+# Lawvere's fixed-point theorem through the Curry–Howard–Lambek correspondence
+
+**Abstract**: We prove Lawvere’s fixed-point theorem using the Curry–Howard–Lambek correspondence. To this end, we develop the categorical background required to establish this correspondence, starting from the definition of cartesian closed categories. Finally, we survey several consequences of Lawvere’s theorem, with emphasis on fixed-point results and diagonal arguments that arise as instances or corollaries of it.
 
 Download the compiled PDF [here](https://github.com/diego-unipi/bachelor-thesis/releases/download/latest-pdf/monaco_bachelor_thesis.pdf).
 
