@@ -24,7 +24,7 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{definition}
 
 \begin{notation}
-    For brevity, we will denote with $gf$ the composition $g\circ f$ of two arrows $f$ and $g$. Following a familiar logical notation, we will also denote the composition as:
+    For brevity, we will often denote with $gf$ the composition $g\circ f$ of two arrows $f$ and $g$. Following a familiar logical notation, we will also denote the composition as:
     \[ \frac{A \xrightarrow{f} B \quad B \xrightarrow{g} C}{A \xrightarrow{gf} C}. \]
 \end{notation}
 
@@ -44,7 +44,7 @@ The elements of a deductive system can be thought as \textit{propositions}, the 
     \end{itemize}
 \end{definition}
 
-To find a proof in a conjunction calculus means to find a (finite) sequence of arrows that starts from the source proposition and ends at the target proposition.
+To find a proof in a conjunction calculus means to find an arrow that starts from the source proposition and ends at the target proposition.
 
 \begin{example}[Commutativity of conjunction]
     Given two objects $A$ and $B$ in a conjunction calculus, we can find a proof of $B \land A$ from $A \land B$ using the projections and the pairing arrow
@@ -52,20 +52,20 @@ To find a proof in a conjunction calculus means to find a (finite) sequence of a
     therefore the arrow $\langle \pi_{A,B}',\pi_{A,B}\rangle : A \wedge B \to B \wedge A$ is a proof of $B \land A$ from $A \land B$.
 \end{example}
 
-Continuing down on this parallel, one could think of (Conj 2a) and (Conj 2b) as the \textit{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA}\cite{Mennuni2025}, of (Conj 2c) as the \textit{introduction rule} for conjunction, and of
+Continuing down on this parallel, one could think of (Conj 2a) and (Conj 2b) as the \textit{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA,Mennuni2025}, of (Conj 2c) as the \textit{introduction rule} for conjunction, and of
 (Conj 1) as the \textit{axiom rule} united to \textit{weakening} rule. We will progressively add more rules, or rather more arrows, to our deductive systems until we reach a complete intuitionistic deductive system.
 
 \begin{remark}
     Using the rules of a conjunction calculus, we can also define new rules of inference, or rather new operations on arrows, using the existing ones (for now only the composition and the pairing).
-    For example, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ through:
+    For instance, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ through:
     \[ \frac{\frac{A \wedge C \xrightarrow{\pi_{A,C}} A \quad A \xrightarrow{f} B}{A \wedge C \xrightarrow{f\pi_{A,C}} B} \quad \frac{A \wedge C \xrightarrow{\pi_{A,C}'} C \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{g\pi_{A,C}'} D}}{A \wedge C \xrightarrow{\langle f\pi_{A,C},g\pi_{A,C}'\rangle} B \wedge D}, \]
     and then we put $f \wedge g := \langle f\pi_{A,C},g\pi_{A,C}'\rangle$. Thus, from now on, we will simply write:
     \[ \frac{A \xrightarrow{f} B \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{f \wedge g} B \wedge D}. \]
 \end{remark}
 
-We're still far from having a complete intuitionistic deductive system, we still don't have a way to express the implication, so we give the following definition.
+We're still far from having a complete intuitionistic deductive system, we still don't have a way to express the implication for example, so we give the following definition.
 
-\begin{definition}[Positive intutionistic calculus]
+\begin{definition}[Positive intuitionistic calculus]
     A \textit{positive intuitionistic propositional calculus} is a conjunction calculus $\mathcal P$ with a function
     \[ \Leftarrow : \ob(\mathcal P)\times\ob(\mathcal P) \to \ob(\mathcal P) : (A,B) \mapsto A \Leftarrow B, \]
     called \textit{implication}, and the following rules of inference:
@@ -75,4 +75,206 @@ We're still far from having a complete intuitionistic deductive system, we still
     \end{itemize}
 \end{definition}
 
-\section{Cartesian (closed) categories}
+\begin{remark}
+    As for the conjunction rules, we can see here the parallel with the natural deduction system, in fact (Impl 1) is the \textit{elimination rule} for implication, however (Impl 2) does not correspond to any basic inference rule, but rather to a derived one:
+    \[ \textnormal{In}_{\Leftarrow}\frac{\displaystyle\textnormal{El}_{\Leftarrow}\frac{\displaystyle \textnormal{Wk}\frac{\displaystyle \textnormal{In}_{\Leftarrow}\frac{\displaystyle\frac{}{A \land B \vdash C}}{\vdash C \Leftarrow A \land B}}{A,B \vdash C \Leftarrow A \land B} \quad \displaystyle\textnormal{In}_{\land}\frac{\displaystyle\textnormal{Wk}\frac{\displaystyle\textnormal{Ax}\frac{}{A \vdash A}}{A, B \vdash A} \quad \displaystyle\textnormal{Wk}\frac{\displaystyle\textnormal{Ax}\frac{}{B \vdash B}}{A, B \vdash B}}{A, B \vdash A \land B}}{A,B \vdash C}}{A \vdash C \Leftarrow B}. \]
+\end{remark}
+
+\begin{remark}[Equivalent definition of positive intuitionistic calculus]
+    We can also define a positive intuitionistic propositional calculus as a conjunction calculus $\mathcal P$ with the function $\Leftarrow$ and the following alternative rules of inference:
+    \begin{itemize}
+        \item[(\textnormal{Impl 1'})] for each pair of objects $B$ and $C$ there exists an arrow $\eta_{C,B} : C \to (C \land B) \Leftarrow B$, called \textit{co-evaluation arrow};
+        \item[(\textnormal{Impl 2'})] given an arrow $g : D \to A$ and an object $B$, we have the \textit{co-currying} arrow
+        \[ \frac{D \xrightarrow{g} A}{(D \Leftarrow B) \xrightarrow{g \Leftarrow 1_B} (A \Leftarrow B)}, \]
+    which expresses the covariance of implication in its first argument.   
+    \end{itemize}
+    Both of this alternative rules can be derived from the original ones, for example taking $\eta_{C,B} := 1_{C \land B}^*$ and $g \Leftarrow 1_B := (g \circ \ev_{D,B})^*$.
+\end{remark}
+
+\begin{notation}
+    We will often forget the subscripts of the evaluation and co-evaluation arrows when they are clear from the context, denoting them simply as $\ev$ and $\eta$ respectively.
+\end{notation}
+
+Before moving on, let's also define two more rules of inference that follow from the previous ones, which will be very useful in the next sections.
+
+\begin{example}
+    Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ as
+    \[ \frac{A \xrightarrow{f} B}{\top \xrightarrow{\ulcorner f \urcorner} B \Leftarrow A}, \]
+    that is just $\ulcorner f \urcorner := (f \circ \pi_{\top,A}')^*$. Similarly, given $g : \top \to B \Leftarrow A$, we can define 
+    \[ \frac{\top \xrightarrow{g} B \Leftarrow A}{A \xrightarrow{g^\natural} B} \]
+    as $g^\natural := \ev_{B,A} \circ \langle g\circ !_A,1_A\rangle$. 
+\end{example}
+
+We now need to add falsehood and disjunction to our positive intuitionistic propositional calculus, to obtain a complete intuitionistic propositional calculus.
+To this end we give the following definition.
+
+\begin{definition}[Intuitionistic propositional calculus]
+    An \textit{intuitionistic propositional calculus} is a positive intuitionistic propositional calculus $\mathcal I$ with a special object $\bot$, the \textit{falsehood formula}, a function
+    \[ \lor : \ob(\mathcal I)\times\ob(\mathcal I) \to \ob(\mathcal I) : (A,B) \mapsto A \lor B, \]
+    called \textit{disjunction}, and the following rules of inference:
+    \begin{itemize}
+        \item[(\textnormal{Int 1})] for each object $A$ there exists an arrow $?_A : \bot \to A$;
+        \item[(\textnormal{Int 2a})] for each pair of objects $A$ and $B$ there exists an arrow $\iota_{A,B} : A \to A \lor B$;
+        \item[(\textnormal{Int 2b})] for each pair of objects $A$ and $B$ there exists an arrow $\iota_{A,B}' : B \to A \lor B$;
+        \item[(\textnormal{Int 2c})] for each triple of objects $A$, $B$ and $C$ there exists an arrow
+        \[ \zeta_{A,B}^C : (C \Leftarrow A) \land (C \Leftarrow B) \to C \Leftarrow (A \lor B),\]
+        called \textit{disjunction elimination arrow}.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    One can recognize in the above rules (Int 2a), (Int 2b) the introduction rules for disjunction in the natural deduction system,
+    in (Int 2c) an internalized version of the elimination rule for disjunction, and in (Int 1) the elimination rule for falsehood.
+\end{remark}
+
+Let's define another useful inference rule that can be derived in this system.
+
+\begin{example}[Co-pairing arrow]
+    Given the arrows $f : A \to C$ and $g : B \to C$, we can define the \textit{co-pairing arrow}
+    \[ \frac{A \xrightarrow{f} C \quad B \xrightarrow{g} C}{A \lor B \xrightarrow{[f,g]} C} \]
+    as $[f,g] := (\zeta_{A,B}^C \circ \langle \ulcorner f \urcorner, \ulcorner g \urcorner\rangle)^\natural$.
+    This inference rule is the real counterpart of the elimination rule for disjunction in $\mathsf{ND}$. 
+\end{example}
+
+We have now constructed a complete intuitionistic propositional calculus, to conclude this section we will make the final step and define a category that has the structure of the classical propositional logic.
+
+\begin{definition}[Classical propositional calculus]
+    A \textit{classical propositional calculus} is an intuitionistic propositional calculus $\mathcal C$ where for each object $A$ there exists the arrow:
+    \[ \neg\neg : \bot \Leftarrow (\bot \Leftarrow A) \to A. \]
+\end{definition}
+
+Even though both intuitionistic and classical propositional calculi will not play an important role in the rest of this work, we have defined them to show how the structure of a category
+can be used to represent a complete deductive system for classical and intuitionistic propositional logic, thinking of the objects of the category as propositions and of the arrows as proofs.
+
+\section{Cartesian closed categories}
+Now that we have defined enough structure to represent a complete deductive system, we want to impose some rules on the arrows of a category to obtain a structure that is more suitable for our purposes, that is a cartesian closed structure.
+
+\begin{definition}[Category]
+    A \textit{category} is a deductive system $\mathcal C$ where the following equations hold:
+    \[ f \circ 1_A = f, \qquad 1_B \circ f = f, \qquad (h \circ g) \circ f = h \circ (g \circ f),\]
+    for all arrows $f : A \to B$, $g : B \to C$ and $h : C \to D$. The first two equations are called \textit{identity laws}, while the third one is the \textit{associativity law}.
+\end{definition}
+
+Let's observe that we can always construct a category from a deductive system, this notion will be developed more in depth later.
+
+\begin{remark}[Category generated by a deductive system]
+    Given a deductive system $\mathcal D$ we can always construct a category $\mathcal C$ from it by taking the same objects and arrows of $\mathcal D$ and imposing the identity and associativity laws.
+    In particular, we can define
+    \[ \ob(\mathcal C) = \ob(\mathcal D), \quad \mor(\mathcal C) = \mor(\mathcal D)/\sim_{\textnormal{Cat}}, \]
+    where $\sim_{\textnormal{Cat}}$ is the equivalence relation generated by the identity and associativity laws which is compatible with composition,
+    i.e. the smallest equivalence relation such that the equations above hold (it is well-defined, for example, since there exists the equivalence relation of having the same source and target, which is compatible with composition and contains $\sim_{\textnormal{Cat}}$). 
+\end{remark}
+
+A cartesian structure over a category basically means that the category resembles in some sense the category of sets, in particular it has a terminal object and it is closed under binary products,
+we'll use the following definition, which is equivalent to the usual one, but algebraic in nature, in the sense that it is based on the existence of certain equations that the arrows of the category must satisfy.
+
+\begin{definition}[Cartesian category]
+    A \textit{cartesian category} is a category $\mathcal C$ that is also a conjunction calculus, where the following equations hold:
+    \begin{itemize}
+        \item[(\textnormal{CC1})] for every object $A$ and arrows $f : A \to \top$, we have $f = !_A$;
+    \end{itemize}
+    for $f : C \to A$, $g : C \to B$ and $h : C \to A \land B$ we have:
+    \begin{itemize}
+        \item[(\textnormal{CC2a})] $\pi_{A,B} \circ \langle f,g\rangle = f$;
+        \item[(\textnormal{CC2b})] $\pi_{A,B}' \circ \langle f,g\rangle = g$;
+        \item[(\textnormal{CC2c})] $\langle \pi_{A,B} \circ h, \pi_{A,B}' \circ h\rangle = h$.
+    \end{itemize}
+\end{definition}
+
+The condition (CC1) states that $\top$ is the terminal object of the category, while (CC2a), (CC2b) and (CC2c) state that $A \land B$ 
+satisfies the universal property of the product of $A$ and $B$, with $\pi_{A,B}$ and $\pi_{A,B}'$ as projections.
+
+\begin{notation}[Terminal object and product]
+    From now on, we will denote both with $\top$ and $1$ the terminal object of a cartesian category, and with $A \land B$ and $A \times B$ the product of two objects $A$ and $B$.
+\end{notation}
+
+\begin{remark}[Equivalent definition of terminal object]
+    The equation (CC1) is equivalent to the following
+    \begin{itemize}
+        \item[(\textnormal{CC1'})] for all $f : A \to B$ we have $!_B \circ f = !_A$ and $1_1 = !_1$.
+    \end{itemize}
+    One can easily show that (CC1) implies (CC1') and vice versa, operating in the metatheory; the core difference is in the fact that (CC1') states the uniqueness algebraically, while (CC1) states it directly, and this
+    assumes that we have a map that selects for each object $A$ the unique arrow $!_A : A \to 1$, which would require to assume some form of global choice, whereas in (CC1') we don't need any choice.
+\end{remark}
+
+As consequence of the definition we have the following useful lemma.
+
+\begin{lemma}[Distributive law]
+    In a cartesian category, for all $f : C \to A$, $g : C \to B$ and $h : D \to C$ we have:
+    \[ \langle f,g\rangle \circ h = \langle f \circ h, g \circ h\rangle. \]
+\end{lemma}
+
+\begin{proof}
+    The proof is just a chain of equalities using the definition of cartesian category:
+    \begin{align*}
+        \langle f,g\rangle \circ h &= \langle \pi_{A,B} \circ (\langle f,g\rangle \circ h), \pi_{A,B}' \circ (\langle f,g\rangle \circ h)\rangle &&(\textnormal{by CC2c}) \\
+                                   &= \langle (\pi_{A,B} \circ \langle f,g\rangle) \circ h, (\pi_{A,B}' \circ \langle f,g\rangle) \circ h\rangle &&(\textnormal{by associativity law}) \\
+                                   &= \langle f \circ h, g \circ h\rangle &&(\textnormal{by CC2a and CC2b}).
+    \end{align*}
+\end{proof}
+
+Let's already see a consequence of the distributive law in the fact that $\cdot \land \cdot$ is a functor.
+
+\begin{notation}[Product of arrows]
+    Given $f : A \to B$ and $g : C \to D$, we will denote with $f \times g$ the arrow $f \land g : A \land C \to B \land D$.
+\end{notation}
+
+\begin{corollary}[Functoriality of the product of arrows]
+    In a cartesian category $\mathcal C$, the operation (inference rule) $\times$ is a functor $\times : \mathcal C \times \mathcal C \to \mathcal C$.
+\end{corollary}
+
+\begin{proof}
+    We need to check that $\times$ preserves identities and composition.
+    \begin{itemize}
+        \item[$\boxed{\textnormal{identity}}$] Given $A$ and $B$ in $\mathcal C$, we have:
+        \begin{align*}
+            1_A \times 1_B &= \langle 1_A \circ \pi_{A,B}, 1_B \circ \pi_{A,B}'\rangle &&(\textnormal{by definition of $\times$}) \\
+                           &= \langle \pi_{A,B}, \pi_{A,B}'\rangle &&(\textnormal{by identity law}) \\
+                           &= \langle \pi_{A,B} \circ 1_{A \times B}, \pi_{A,B}' \circ 1_{A \times B}\rangle &&(\textnormal{by identity law}) \\
+                           &= 1_{A \times B} &&(\textnormal{by CC2c}).
+        \end{align*} 
+        \item[$\boxed{\textnormal{composition}}$] Given $f : A \to B$, $g : C \to D$, $f' : B \to B'$ and $g' : D \to D'$, we have with similar passages:
+        \begin{align*}
+            (f' \times g') \circ (f \times g) &= \langle f' \circ \pi_{B,D}, g' \circ \pi_{B,D}'\rangle \circ (f \times g) &&(\textnormal{by definition of $\times$}) \\
+                                              &= \langle (f' \circ \pi_{B,D}) \circ (f \times g), (g' \circ \pi_{B,D}') \circ (f \times g)\rangle &&(\textnormal{by distributive law})\\
+                                              &= \langle (f' \circ f) \circ \pi_{A,C}, (g' \circ g) \circ \pi_{A,C}'\rangle &&(\textnormal{by CC2a and CC2b}) \\
+                                              &= (f' \circ f) \times (g' \circ g). &&(\textnormal{by definition of $\times$})
+        \end{align*}
+    \end{itemize}
+\end{proof}
+
+We are now ready to give the definition of cartesian closed category, which will be the central structure of this work. The idea is that a cartesian closed category is a category that behaves like $\mathsf{Set}$ in many aspects.
+
+\begin{definition}[Cartesian closed category]
+    A \textit{cartesian closed category} is a cartesian category $\mathcal C$ that is also a positive intuitionistic propositional calculus, where the following equations hold:
+    \begin{itemize}
+        \item[(\textnormal{CCC1})] for all $h : A \times B \to C$ we have:
+        \[ \ev_{C,B} \circ (h^* \times 1_B) = \ev_{C,B} \circ \langle h^* \circ \pi_{A,B}, \pi_{A,B}'\rangle = h; \]
+        \item[(\textnormal{CCC2})] for all $k : A \to (C \Leftarrow B)$ we have:
+        \[ (\ev_{C,B} \circ (k \times 1_B))^* = (\ev_{C,B} \circ \langle k \circ \pi_{A,B}, \pi_{A,B}'\rangle)^* = k. \]
+    \end{itemize} 
+\end{definition}
+
+Even though the definition just given seems a bit abstract, we can give an equivalent, more concrete, definition of cartesian closed category as it follows.
+
+\begin{remark}[Equivalent definition of cartesian closed category]
+    If we define the functions:
+    \begin{align*}
+        & \Phi : \Hom(A \times B, C) \to \Hom(A, C \Leftarrow B) : h \mapsto h^*, \\
+        & \Psi : \Hom(A, C \Leftarrow B) \to \Hom(A \times B, C) : k \mapsto \ev_{C,B} \circ (k \times 1_B),
+    \end{align*}
+    then (CCC1) is equivalent to $\Psi \circ \Phi(h) = h$ for all $h : A \times B \to C$, while (CCC2) is equivalent to $\Phi \circ \Psi(k) = k$ for all $k : A \to (C \Leftarrow B)$.
+\end{remark}
+
+The second definition is exactly the universal property of the exponential object, that is $\Hom(A \times B, C) \cong \Hom(A, C^B)$, therefore we can also say that a cartesian closed category is a cartesian category that is closed under exponentials.
+
+\begin{remark}[Adjunction between $- \times B$ and $-^B$]
+    The universal property of the exponential object can be equivalently expressed as an adjunction between the functors $- \times B$ and $-^B$, this
+    perfectly captures the idea of currying and uncurrying, that is the idea that a function of two variables can be seen as a function of one variable that returns a function of one variable.
+\end{remark}
+
+\begin{notation}[Exponential object]
+    From now on, we will denote both with $B \Leftarrow A$ and $B^A$ the exponential object of $B$ and $A$ in a cartesian closed category.
+\end{notation}
+
+\section{Polynomial categories}
