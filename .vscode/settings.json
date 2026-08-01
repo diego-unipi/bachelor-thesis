@@ -5,6 +5,7 @@
         "Fancyhdr",
         "intuitionistic",
         "Lambek",
+        "MBNF",
         "pdfdisplaydoctitle",
         "pdftitle"
     ],
