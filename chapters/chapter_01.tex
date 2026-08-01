@@ -455,6 +455,57 @@ We can now state the universal property of the cartesian closed category freely 
     and this will imply that if $[f] = [g]$ then $\overline F(f) = \overline F(g)$ (since it's true for a relation that contains ours).\\
     We just need to prove that $\sim_{\overline F}$, where $f \sim_{\overline F} g$ if and only if $\overline F(f) = \overline F(g)$, has all the properties listed above:
     \begin{itemize}
-        \item 
+        \item it is obviously an equivalence relation, since equality is an equivalence relation;
+        \item it is compatible with composition, since if $\overline F(f) = \overline F(g)$ and $\overline F(f') = \overline F(g')$ then, by the functoriality of $\overline F$:
+        \[ \overline F(f \circ f') = \overline F(f) \circ \overline F(f') = \overline F(g) \circ \overline F(g') = \overline F(g \circ g');\]
+        \item it is compatible with pairing, in the sense that if $\overline F(f) = \overline F(f')$ and $\overline F(g) = \overline F(g')$ then, by the cartesian closedness of $\overline F$:
+        \[ \overline F(\langle f,g\rangle) = \langle \overline F(f), \overline F(g)\rangle = \langle \overline F(f'), \overline F(g')\rangle = \overline F(\langle f',g'\rangle);\]
+        \item it is compatible with currying, with the same argument, i.e. if $\overline F(h) = \overline F(h')$ then:
+        \[ \overline F(h^*) = \overline F(h)^* = \overline F(h')^* = \overline F((h')^*);\]
+        \item it contains the category axioms:
+        \begin{itemize}[label=$\ast$]
+            \item $1_Bf \sim_{\overline F} f$, since $\overline F(1_Bf) = \overline F(1_B)\overline F(f) = 1_{\overline F(B)}\overline F(f) = \overline F(f)$, and similarly for the other identity law;
+            \item $(h \circ g) \circ f \sim_{\overline F} h \circ (g \circ f)$, also by the functoriality of $\overline F$;
+        \end{itemize}
+        \item it contains the cartesian axioms:
+        \begin{itemize}[label=$\ast$]
+            \item for (CC1), given $f : A \to 1$, we have $\overline F(f) : \overline F(A) \to 1$, therefore $\overline F(f) = !_{\overline F(A)}$, which is $\overline F(!_A)$, by the cartesian closedness;
+            \item for (CC2a), given $f : C \to A$, $g : C \to B$, we have:
+            \begin{align*}
+                \overline F(\pi_{A,B} \circ \langle f,g\rangle) &= \overline F(\pi_{A,B}) \circ \overline F(\langle f,g\rangle) &&(\textnormal{by functoriality}) \\
+                &= \pi_{\overline F(A),\overline F(B)} \circ \langle \overline F(f), \overline F(g)\rangle &&(\textnormal{by cartesian closedness}) \\
+                &= \overline F(f) &&(\textnormal{by CC2a in $\mathcal C$});
+            \end{align*}
+            \item similarly for (CC2b);
+            \item for (CC2c), given $h : C \to A \times B$, we have:
+            \begin{align*}
+                \overline F(\langle \pi_{A,B} \circ h, \pi_{A,B}' \circ h\rangle) &= \langle \overline F(\pi_{A,B}) \circ \overline F(h), \overline F(\pi_{A,B}') \circ \overline F(h)\rangle \\
+                                                                                  &= \langle \pi_{\overline F(A),\overline F(B)} \circ \overline F(h), \pi_{\overline F(A),\overline F(B)}' \circ \overline F(h)\rangle \\
+                                                                                  &= \overline F(h) &&(\textnormal{by CC2c in $\mathcal C$});
+            \end{align*}  
+        \item it contains the cartesian closed axioms:
+        \begin{itemize}[label=$\ast$]
+            \item for (CCC1), given $h : A \times B \to C$, we have:
+            \begin{align*}
+                \overline F(\ev_{C,B} \circ (h^* \times 1_B)) &= \overline F(\ev_{C,B}) \circ \overline F(h^* \times 1_B) \\
+                                                              &= \ev_{\overline F(C),\overline F(B)} \circ (\overline F(h)^* \times 1_{\overline F(B)}) \\
+                                                              &= \overline F(h) &&(\textnormal{by CCC1 in $\mathcal C$}).
+            \end{align*}
+            \item for (CCC2), given $k : A \to C^B$, we have:
+            \begin{align*}
+                \overline F((\ev_{C,B} \circ (k \times 1_B))^*) &= (\overline F(\ev_{C,B} \circ (k \times 1_B)))^* \\
+                                                                 &= (\ev_{\overline F(C),\overline F(B)}) \circ (\overline F(k) \times 1_{\overline F(B)}))^* \\
+                                                                 &= \overline F(k) &&(\textnormal{by CCC2 in $\mathcal C$}).
+            \end{align*}
+        \end{itemize}
+    \end{itemize}
     \end{itemize}
 \end{proof}
+
+\begin{remark}
+    This universal property can be equivalently expressed as the following adjunction:
+    \[ \Hom_{\mathsf{CCC}}(\mathcal F(\mathcal G), \mathcal C) \cong \Hom_{\mathsf{Grph}}(\mathcal G, \mathcal U(\mathcal C)), \]
+    so that the functor freely generated CCC $\mathcal F : \mathsf{Grph} \to \mathsf{CCC}$ is left adjoint to the forgetful functor $\mathcal U : \mathsf{CCC} \to \mathsf{Grph}$, and vice versa.
+\end{remark}
+
+Finally, we now define the core notion of this section, that is the notion of polynomial category over a cartesian closed category. 
