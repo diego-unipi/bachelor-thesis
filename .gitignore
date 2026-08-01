@@ -13,3 +13,6 @@
 
 # Locally compiled thesis; GitHub Actions publishes the release PDF
 /main.pdf
+
+# Local Codex instructions
+/AGENTS.md
