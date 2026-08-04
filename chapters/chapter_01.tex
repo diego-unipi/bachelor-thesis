@@ -11,12 +11,12 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{definition}
 
 \begin{notation}
-    We will denote with $\Hom_{\mathcal G}(A,B)$, omitting the subscript when it is clear from the context, the class of arrows $f$ such that $s(f)=A$ and $t(f)=B$.
+    We will denote by $\Hom_{\mathcal G}(A,B)$, omitting the subscript when it is clear from the context, the class of arrows $f$ such that $s(f)=A$ and $t(f)=B$.
 \end{notation}
 
 \begin{definition}[Deductive system]
-    A \textit{deductive system} $\mathcal D$ is graph where, for each object $A$, there is an arrow $1_A : A \to A$, called \textit{identity arrow}, and there exists a function
-    of \textit{composition} between arrows
+    A \textit{deductive system} $\mathcal D$ is a graph in which, for each object $A$, there is an arrow $1_A : A \to A$, called \textit{identity arrow}, and there exists a
+    \textit{composition} function between arrows
     \[ \circ : (f,g) \mapsto g \circ f \qquad \text{for all $f$ and $g$ such that $t(f)=s(g)$.} \]
     We could also define the composition as a family of functions, one for each triple of objects $A,B,C \in \ob(\mathcal D)$:
     \[ \circ_{A,B,C} : \Hom(A,B) \times \Hom(B,C) \to \Hom(A,C) : (f,g) \mapsto g \circ f, \]
@@ -24,27 +24,27 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{definition}
 
 \begin{notation}
-    For brevity, we will often denote with $gf$ the composition $g\circ f$ of two arrows $f$ and $g$. Following a familiar logical notation, we will also denote the composition as:
+    For brevity, we will often write the composition $g\circ f$ of two arrows $f$ and $g$ as $gf$. Following a familiar logical notation, we will also denote the composition as:
     \[ \frac{A \xrightarrow{f} B \quad B \xrightarrow{g} C}{A \xrightarrow{gf} C}. \]
 \end{notation}
 
-The elements of a deductive system can be thought as \textit{propositions}, the arrows as \textit{proofs} and the composition as a \textit{rule of inference}.
+The objects of a deductive system can be thought of as \textit{propositions}, the arrows as \textit{proofs} and the composition as a \textit{rule of inference}.
 
 \begin{definition}[Conjunction calculus]
     A \textit{conjunction calculus} is a deductive system $\mathcal C$, with a special object $\top$, the \textit{tautological proposition}, and a function
     \[ \wedge : \ob(\mathcal C)\times\ob(\mathcal C) \to \ob(\mathcal C) : (A,B) \mapsto A\wedge B, \]
-    called \textit{conjunction}. In addition we also have that the following rules, which states the existence of certain classes of arrows, hold:
+    called \textit{conjunction}. We also have, in addition, that the following rules, which state the existence of certain classes of arrows, hold:
     \begin{itemize}
         \item[(\textnormal{Conj 1})] for each object $A$ there exists an arrow $!_A : A \to \top$;
         \item[(\textnormal{Conj 2a})] for each pair of objects $A,B$ there exists an arrow $\pi_{A,B} : A \wedge B \to A$;
         \item[(\textnormal{Conj 2b})] for each pair of objects $A,B$ there exists an arrow $\pi_{A,B}' : A \wedge B \to B$;
-        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f,g\rangle : A \to B \wedge C$, the \textit{pairing arrow}, that we can also denote with:
+        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f,g\rangle : A \to B \wedge C$, the \textit{pairing arrow}, which can also be written as:
         \[ \frac{A \xrightarrow{f} B \quad A \xrightarrow{g} C}{A \xrightarrow{\langle f,g\rangle} B \wedge C}.
         \]
     \end{itemize}
 \end{definition}
 
-To find a proof in a conjunction calculus means to find an arrow that starts from the source proposition and ends at the target proposition.
+Finding a proof in a conjunction calculus means finding an arrow that starts from the source proposition and ends at the target proposition.
 
 \begin{example}[Commutativity of conjunction]
     Given two objects $A$ and $B$ in a conjunction calculus, we can find a proof of $B \land A$ from $A \land B$ using the projections and the pairing arrow
@@ -52,12 +52,12 @@ To find a proof in a conjunction calculus means to find an arrow that starts fro
     therefore the arrow $\langle \pi_{A,B}',\pi_{A,B}\rangle : A \wedge B \to B \wedge A$ is a proof of $B \land A$ from $A \land B$.
 \end{example}
 
-Continuing down on this parallel, one could think of (Conj 2a) and (Conj 2b) as the \textit{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA,Mennuni2025}, of (Conj 2c) as the \textit{introduction rule} for conjunction, and of
-(Conj 1) as the \textit{axiom rule} united to \textit{weakening} rule. We will progressively add more rules, or rather more arrows, to our deductive systems until we reach a complete intuitionistic deductive system.
+Continuing this analogy, one could think of (Conj 2a) and (Conj 2b) as the \textit{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA,Mennuni2025}, of (Conj 2c) as the \textit{introduction rule} for conjunction, and of
+(Conj 1) as the \textit{introduction rule} for $\top$ united to \textit{weakening} rule. We will progressively add more rules, or rather more arrows, to our deductive systems until we reach a complete intuitionistic deductive system.
 
 \begin{remark}
     Using the rules of a conjunction calculus, we can also define new rules of inference, or rather new operations on arrows, using the existing ones (for now only the composition and the pairing).
-    For instance, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ through:
+    For instance, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ by:
     \[ \frac{\frac{A \wedge C \xrightarrow{\pi_{A,C}} A \quad A \xrightarrow{f} B}{A \wedge C \xrightarrow{f\pi_{A,C}} B} \quad \frac{A \wedge C \xrightarrow{\pi_{A,C}'} C \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{g\pi_{A,C}'} D}}{A \wedge C \xrightarrow{\langle f\pi_{A,C},g\pi_{A,C}'\rangle} B \wedge D}, \]
     and then we put $f \wedge g := \langle f\pi_{A,C},g\pi_{A,C}'\rangle$. Thus, from now on, we will simply write:
     \[ \frac{A \xrightarrow{f} B \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{f \wedge g} B \wedge D}. \]
@@ -76,7 +76,7 @@ We're still far from having a complete intuitionistic deductive system, we still
 \end{definition}
 
 \begin{remark}
-    As for the conjunction rules, we can see here the parallel with the natural deduction system, in fact (Impl 1) is the \textit{elimination rule} for implication, however (Impl 2) does not correspond to any basic inference rule, but rather to a derived one:
+    As for the conjunction rules, we can also see here the analogy with the natural deduction system, in fact (Impl 1) is the \textit{elimination rule} for implication, however (Impl 2) does not correspond to any basic inference rule, but rather to a derived one:
     \[ \textnormal{In}_{\Leftarrow}\frac{\displaystyle\textnormal{El}_{\Leftarrow}\frac{\displaystyle \textnormal{Wk}\frac{\displaystyle \textnormal{In}_{\Leftarrow}\frac{\displaystyle\frac{}{A \land B \vdash C}}{\vdash C \Leftarrow A \land B}}{A,B \vdash C \Leftarrow A \land B} \quad \displaystyle\textnormal{In}_{\land}\frac{\displaystyle\textnormal{Wk}\frac{\displaystyle\textnormal{Ax}\frac{}{A \vdash A}}{A, B \vdash A} \quad \displaystyle\textnormal{Wk}\frac{\displaystyle\textnormal{Ax}\frac{}{B \vdash B}}{A, B \vdash B}}{A, B \vdash A \land B}}{A,B \vdash C}}{A \vdash C \Leftarrow B}. \]
 \end{remark}
 
@@ -88,15 +88,15 @@ We're still far from having a complete intuitionistic deductive system, we still
         \[ \frac{D \xrightarrow{g} A}{(D \Leftarrow B) \xrightarrow{g \Leftarrow 1_B} (A \Leftarrow B)}, \]
     which expresses the covariance of implication in its first argument.   
     \end{itemize}
-    Both of this can be derived from the original rules, for example taking $\eta_{C,B} := 1_{C \land B}^*$ and $g \Leftarrow 1_B := (g \circ \ev_{D,B})^*$. It can also be shown that (Impl 1') and (Impl 2') implies (Impl 2),
+    Both of these alternative rules can be derived from the original ones, for example, by taking $\eta_{C,B} := 1_{C \land B}^*$ and $g \Leftarrow 1_B := (g \circ \ev_{D,B})^*$. It can also be shown that (Impl 1') and (Impl 2') imply (Impl 2),
     but not (Impl 1), so they are not equivalent to the original rules.
 \end{remark}
 
 \begin{notation}
-    We will often forget the subscripts of the evaluation and co-evaluation arrows when they are clear from the context, denoting them simply as $\ev$ and $\eta$ respectively.
+    We will often forget the subscripts of the evaluation and co-evaluation arrows when they are clear from the context, denoting them simply by $\ev$ and $\eta$, respectively.
 \end{notation}
 
-Before moving on, let's also define two more rules of inference that follow from the previous ones, which will be very useful in the next sections.
+Before moving on, let's also define two more rules of inference which follow from the previous ones and will be very useful in the next sections.
 
 \begin{example}
     Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ as
@@ -124,7 +124,7 @@ To this end we give the following definition.
 \end{definition}
 
 \begin{remark}
-    One can recognize in the above rules (Int 2a), (Int 2b) the introduction rules for disjunction in the natural deduction system,
+    One can recognize in (Int 2a) and (Int 2b) the introduction rules for disjunction in the natural deduction system,
     in (Int 2c) an internalized version of the elimination rule for disjunction, and in (Int 1) the elimination rule for falsehood.
 \end{remark}
 
@@ -134,17 +134,17 @@ Let's define another useful inference rule that can be derived in this system.
     Given the arrows $f : A \to C$ and $g : B \to C$, we can define the \textit{co-pairing arrow}
     \[ \frac{A \xrightarrow{f} C \quad B \xrightarrow{g} C}{A \lor B \xrightarrow{[f,g]} C} \]
     where $[f,g] := (\zeta_{A,B}^C \circ \langle \ulcorner f \urcorner, \ulcorner g \urcorner\rangle)^\sharp$.
-    This inference rule is the real counterpart of the elimination rule for disjunction in $\mathsf{ND}$ (the Natural Deduction system). 
+    This inference rule is the direct counterpart of the elimination rule for disjunction in $\mathsf{ND}$ (the Natural Deduction system). 
 \end{example}
 
-We have now constructed a complete intuitionistic propositional calculus, to conclude this section we will make the final step and define a category that has the structure of the classical propositional logic.
+We have now constructed a complete intuitionistic propositional calculus, to conclude this section we will take the final step and define a category that has the structure of classical propositional logic.
 
 \begin{definition}[Classical propositional calculus]
-    A \textit{classical propositional calculus} is an intuitionistic propositional calculus $\mathcal C$ where for each object $A$ there exists the arrow:
+    A \textit{classical propositional calculus} is an intuitionistic propositional calculus $\mathcal C$ where for each object $A$ there exists an arrow:
     \[ \neg\neg : \bot \Leftarrow (\bot \Leftarrow A) \to A. \]
 \end{definition}
 
-Even though both intuitionistic and classical propositional calculi will not play an important role in the rest of this work, we have defined them to show how the structure of a category
+Although intuitionistic and classical propositional calculi will not play an important role in the rest of this work, we have defined them to show how the structure of a category
 can be used to represent a complete deductive system for classical and intuitionistic propositional logic, thinking of the objects of the category as propositions and of the arrows as proofs.
 
 \section{Cartesian closed categories}
@@ -159,11 +159,11 @@ Now that we have defined enough structure to represent a complete deductive syst
 Let's observe that we can always construct a category from a deductive system, this notion will be developed more in depth later.
 
 \begin{remark}[Category freely generated by a deductive system]\label{rem:category-generated-by-deductive-system}
-    Given a deductive system $\mathcal D$ we can always construct the \textit{freely generated category} $\mathcal C$ over $\mathcal D$, by taking the same objects and, as arrows, the arrows of $\mathcal D$ imposing the identity and associativity laws.
+    Given a deductive system $\mathcal D$ we can always construct the \textit{freely generated category} $\mathcal C$ over $\mathcal D$, by taking the same objects and, as arrows, the equivalence classes of arrows of $\mathcal D$ modulo the identity and associativity laws.
     In particular, we can define
     \[ \ob(\mathcal C) = \ob(\mathcal D), \quad \mor(\mathcal C) = \mor(\mathcal D)/\sim_{\textnormal{Cat}}, \]
     where $\sim_{\textnormal{Cat}}$ is the equivalence relation generated by the identity and associativity laws which is compatible with composition,
-    i.e.,\ the smallest equivalence relation such that the equations above hold (it is well-defined, for example, since there exists the equivalence relation of having the same source and target, which is compatible with composition and contains $\sim_{\textnormal{Cat}}$). 
+    i.e.,\ the smallest equivalence relation such that the equations above hold (it is well-defined, for example, since there exists the equivalence relation of having the same source and target, which is compatible with composition and contains the identity and associativity laws). 
 \end{remark}
 
 A cartesian structure over a category basically means that the category resembles in some sense the category of sets, in particular it has a terminal object and it is closed under binary products,
@@ -172,7 +172,7 @@ we'll use the following definition, which is equivalent to the usual one, but al
 \begin{definition}[Cartesian category]
     A \textit{cartesian category} is a category $\mathcal C$ that is also a conjunction calculus, where the following equations hold:
     \begin{itemize}
-        \item[(\textnormal{CC1})] for every object $A$ and arrows $f : A \to \top$, we have $f = !_A$;
+        \item[(\textnormal{CC1})] for every object $A$ and every arrow $f : A \to \top$, we have $f = !_A$;
     \end{itemize}
     for $f : C \to A$, $g : C \to B$ and $h : C \to A \land B$ we have:
     \begin{itemize}
@@ -186,7 +186,7 @@ The condition (CC1) states that $\top$ is the terminal object of the category, w
 satisfies the universal property of the product of $A$ and $B$, with $\pi_{A,B}$ and $\pi_{A,B}'$ as projections.
 
 \begin{notation}[Terminal object and product]
-    From now on, we will denote both with $\top$ and $1$ the terminal object of a cartesian category, and with $A \land B$ and $A \times B$ the product of two objects $A$ and $B$.
+    From now on, we will denote by $1$ the terminal object of a cartesian category, and by $A \times B$ the product of two objects $A$ and $B$.
 \end{notation}
 
 \begin{remark}[Equivalent definition of terminal object]
@@ -194,11 +194,11 @@ satisfies the universal property of the product of $A$ and $B$, with $\pi_{A,B}$
     \begin{itemize}
         \item[(\textnormal{CC1'})] for all $f : A \to B$ we have $!_B \circ f = !_A$ and $1_1 = !_1$.
     \end{itemize}
-    One can easily show that (CC1) implies (CC1') and vice versa, operating in the metatheory; the core difference is in the fact that (CC1') states the uniqueness algebraically, while (CC1) states it directly, and this
-    assumes that we have a map that selects for each object $A$ the unique arrow $!_A : A \to 1$, which would require to assume some form of global choice, whereas in (CC1') we don't need any choice.
+    Indeed, one can easily show that (CC1) implies (CC1') and vice versa, operating in the metatheory; the core difference is in the fact that (CC1') states the uniqueness algebraically, while (CC1) states it directly.
+    There's no difference in terms of choice, since the conjunction calculus already provides us with the collection of arrows $!_A$ for each object $A$.
 \end{remark}
 
-As consequence of the definition we have the following useful lemma.
+As a consequence of the definition we have the following useful lemma.
 
 \begin{lemma}[Distributive law]
     In a cartesian category, for all $f : C \to A$, $g : C \to B$ and $h : D \to C$ we have:
@@ -214,10 +214,10 @@ As consequence of the definition we have the following useful lemma.
     \end{align*}
 \end{proof}
 
-Let's already see a consequence of the distributive law in the fact that $\cdot \land \cdot$ is a functor.
+The distributive law immediately implies the fact that $\cdot \times \cdot$ is a functor.
 
 \begin{notation}[Product of arrows]
-    Given $f : A \to B$ and $g : C \to D$, we will denote with $f \times g$ the arrow $f \land g : A \land C \to B \land D$.
+    Given $f : A \to B$ and $g : C \to D$, we will write $f \times g : A \times C \to B \times D$ for the arrow $\langle f \circ \pi_{A,C}, g \circ \pi_{A,C}'\rangle$.
 \end{notation}
 
 \begin{corollary}[Functoriality of the product of arrows]
@@ -234,7 +234,7 @@ Let's already see a consequence of the distributive law in the fact that $\cdot 
                            &= \langle \pi_{A,B} \circ 1_{A \times B}, \pi_{A,B}' \circ 1_{A \times B}\rangle &&(\textnormal{by identity law}) \\
                            &= 1_{A \times B} &&(\textnormal{by CC2c}).
         \end{align*} 
-        \item[$\boxed{\textnormal{composition}}$] Given $f : A \to B$, $g : C \to D$, $f' : B \to B'$ and $g' : D \to D'$, we have with similar passages:
+        \item[$\boxed{\textnormal{composition}}$] Given $f : A \to B$, $g : C \to D$, $f' : B \to B'$ and $g' : D \to D'$, similar steps give us:
         \begin{align*}
             (f' \times g') \circ (f \times g) &= \langle f' \circ \pi_{B,D}, g' \circ \pi_{B,D}'\rangle \circ (f \times g) &&(\textnormal{by definition of $\times$}) \\
                                               &= \langle (f' \circ \pi_{B,D}) \circ (f \times g), (g' \circ \pi_{B,D}') \circ (f \times g)\rangle &&(\textnormal{by distributive law})\\
@@ -244,19 +244,19 @@ Let's already see a consequence of the distributive law in the fact that $\cdot 
     \end{itemize}
 \end{proof}
 
-We are now ready to give the definition of cartesian closed category, which will be the central structure of this work. The idea is that a cartesian closed category is a category that behaves like $\mathsf{Set}$ in many aspects.
+We are now ready to give the definition of a cartesian closed category, which will be the central structure of this work. The idea is that a cartesian closed category is a category that behaves like $\mathsf{Set}$ in many respects.
 
 \begin{definition}[Cartesian closed category]
     A \textit{cartesian closed category} is a cartesian category $\mathcal C$ that is also a positive intuitionistic propositional calculus, where the following equations hold:
     \begin{itemize}
         \item[(\textnormal{CCC1})] for all $h : A \times B \to C$ we have:
         \[ \ev_{C,B} \circ (h^* \times 1_B) = \ev_{C,B} \circ \langle h^* \circ \pi_{A,B}, \pi_{A,B}'\rangle = h; \]
-        \item[(\textnormal{CCC2})] for all $k : A \to (C \Leftarrow B)$ we have:
+        \item[(\textnormal{CCC2})] for all $k : A \to C \Leftarrow B$ we have:
         \[ (\ev_{C,B} \circ (k \times 1_B))^* = (\ev_{C,B} \circ \langle k \circ \pi_{A,B}, \pi_{A,B}'\rangle)^* = k. \]
     \end{itemize} 
 \end{definition}
 
-Even though the definition just given seems a bit abstract, we can give an equivalent, more concrete, definition of cartesian closed category as it follows.
+Even though the definition just given seems a bit abstract, we can give an equivalent, more concrete, definition of cartesian closed category as follows.
 
 \begin{remark}[Equivalent definition of cartesian closed category]
     If we define the functions:
@@ -264,21 +264,21 @@ Even though the definition just given seems a bit abstract, we can give an equiv
         & \Phi : \Hom(A \times B, C) \to \Hom(A, C \Leftarrow B) : h \mapsto h^*, \\
         & \Psi : \Hom(A, C \Leftarrow B) \to \Hom(A \times B, C) : k \mapsto \ev_{C,B} \circ (k \times 1_B),
     \end{align*}
-    then (CCC1) is equivalent to $\Psi \circ \Phi(h) = h$ for all $h : A \times B \to C$, while (CCC2) is equivalent to $\Phi \circ \Psi(k) = k$ for all $k : A \to (C \Leftarrow B)$.
+    then (CCC1) is equivalent to $\Psi \circ \Phi(h) = h$ for all $h : A \times B \to C$, while (CCC2) is equivalent to $\Phi \circ \Psi(k) = k$ for all $k : A \to C \Leftarrow B$.
 \end{remark}
 
-The second definition is exactly the universal property of the exponential object, that is $\Hom(A \times B, C) \cong \Hom(A, C^B)$, therefore we can also say that a cartesian closed category is a cartesian category that is closed under exponentials.
+The second definition is exactly the universal property of the exponential object, that is $\Hom(A \times B, C) \cong \Hom(A, C^B)$. Therefore we can also say that a cartesian closed category is a cartesian category that is closed under exponentials.
 
 \begin{notation}[Exponential object]
-    From now on, we will denote both with $B \Leftarrow A$ and $B^A$ the exponential object of $B$ and $A$ in a cartesian closed category.
+    From now on, we will denote by $B^A$ the exponential object of $B$ and $A$ in a cartesian closed category.
 \end{notation}
 
 \begin{remark}[Adjunction between $- \times B$ and $-^B$]
-    The universal property of the exponential object can be equivalently expressed as an adjunction between the functors $- \times B$ and $-^B$, this
+    The universal property of the exponential object can be equivalently expressed as an adjunction between the functors $- \times B$ and $-^B$. This
     perfectly captures the idea of currying and uncurrying, that is the idea that a function of two variables can be seen as a function of one variable that returns a function of one variable.
 \end{remark}
 
-Let's now state two useful results for the next sections.
+Let's now state two results that will be useful in the next sections.
 
 \begin{proposition}[Distributivity of currying]
     In a cartesian closed category, given $h \in \Hom(A \times B, C)$ and $k \in \Hom(D, A)$, we have:
@@ -311,9 +311,9 @@ Let's now state two useful results for the next sections.
                                      &= (f \circ \pi_{1,A}') \circ \langle !_A, 1_A\rangle &&(\textnormal{by CCC1}) \\
                                      &= f &&(\textnormal{by associativity law + CC2b}),
     \end{align*}
-    where with $\star$ we mean the following identity, given $\ell \in \Hom(1,B^A)$:
+    where $\star$ denotes the following identity, given $\ell \in \Hom(1,B^A)$:
     \[ \langle \ell \circ !_A, 1_A\rangle = (\ell \times 1_A) \circ \langle !_A, 1_A\rangle. \]
-    For the other direction, take $g : 1 \to B^A$, then we have:
+    For the other direction, we take $g : 1 \to B^A$, hence:
     \begin{align*}
         \ulcorner g^\sharp \urcorner &= ((\ev_{B,A} \circ \langle g\circ !_A,1_A\rangle) \circ \pi_{1,A}')^* &&(\textnormal{by the definitions}) \\
                                      &= (\ev_{B,A} \circ (\langle g\circ !_A, 1_A\rangle \circ \pi_{1,A}'))^* &&(\textnormal{by associativity law}) \\
@@ -322,20 +322,20 @@ Let's now state two useful results for the next sections.
                                      &= (\ev_{B,A} \circ (g \times 1_A))^* &&(\textnormal{by the definition of $\times$}) \\
                                      &= g &&(\textnormal{by CCC2}),
     \end{align*}
-    where in $\spadesuit$ we used the fact that $!_A \circ \pi_{1,A}' : 1 \times A \to 1$, since $1$ is the terminal object, then $!_A \circ \pi_{1,A}' = !_{1 \times A} = \pi_{1,A}$, because of (CC1).
+    where, in the step marked by $\spadesuit$, we used the fact that $!_A \circ \pi_{1,A}' : 1 \times A \to 1$, since $1$ is the terminal object, then (CC1) gives $!_A \circ \pi_{1,A}' = !_{1 \times A} = \pi_{1,A}$.
 \end{proof}
 
  
 \section{Polynomial categories}
-Now that we have defined the structure of a cartesian closed category, we want a way to define a new category, that is built from an existing one,
-adding a new arrow to it. In order to do this we first need to give a precise definition of cartesian closed category generated by a graph.
+Now that we have defined the structure of a cartesian closed category, we want a way to construct a new category, from an existing one, adding a new arrow.
+In order to do this, we first need to give a precise definition of a cartesian closed category generated by a graph.
 
 We proceed in two steps, first we define the positive intuitionistic propositional calculus generated by a graph, then we define the cartesian closed category generated by a positive intuitionistic propositional calculus.
 
 \begin{definition}[Freely generated positive intuitionistic calculus by a graph]
-    Given a graph $\mathcal G$, the \textit{freely generated positive intuitionistic propositional calculus} generated by $\mathcal G$, denoted with $\mathcal P(\mathcal G)$,
+    Given a graph $\mathcal G$, the \textit{freely generated positive intuitionistic propositional calculus} generated by $\mathcal G$, written as $\mathcal P(\mathcal G)$,
     is the smallest positive intuitionistic propositional calculus whose formulas include the objects of $\mathcal G$ and whose proofs include the arrows of $\mathcal G$.
-    More precisely, we can give a recursive definition for both the objects and the arrows of $\mathcal P(\mathcal G)$:
+    More precisely, we can give a recursive definition of both the objects and the arrows of $\mathcal P(\mathcal G)$:
     \begin{itemize}
         \item the objects of $\mathcal P(\mathcal G)$ are the formulas generated by the following grammar:
         \[ A,B ::= \top \mid X \mid A \land B \mid A \Leftarrow B,\text{\footnotemark} \]
@@ -348,8 +348,7 @@ We proceed in two steps, first we define the positive intuitionistic proposition
     \end{itemize} 
 \end{definition}
 
-Now that we have the positive intuitionistic calculus generated by $\mathcal G$, we can define the cartesian closed category generated by it. We'll do that in a couple of steps,
-first with the following lemma.
+Now that we have the positive intuitionistic calculus generated by $\mathcal G$, we can define the cartesian closed category generated by it. We'll do that in two steps, beginning with the following lemma.
 
 \begin{lemma}\label{lem:ccc-quotient-existence}
 Given a graph $\mathcal G$, there exists an equivalence relation $\sim$ on the
@@ -361,42 +360,42 @@ $\mathcal P(\mathcal G)/{\sim}$ is a cartesian closed category.
 
 \begin{proof}
     We already said in \Cref{rem:category-generated-by-deductive-system} that if we take the equivalence relation of having the same source and target, 
-    this is compatible with composition, and it contains the category axioms; if we check that: it is compatible with the operation (inference rules) of
+    this is compatible with composition, and it contains the category axioms; if we check that: it is compatible with the operations (inference rules) of
     pairing, currying, and it contains the cartesian and cartesian closed axioms, then we can conclude that the quotient is a cartesian closed category.
 
     Let's check point by point:
     \begin{itemize}
         \item for the pairing, if we take $f,f' : A \to B$, $g,g' : A \to C$, then:
-        \[ \langle f,g\rangle : A \to B \times C, \qquad \langle f',g'\rangle : A \to B \times C, \]
+        \[ \langle f,g\rangle : A \to B \land C, \qquad \langle f',g'\rangle : A \to B \land C, \]
         therefore $\langle f,g\rangle$ and $\langle f',g'\rangle$ have the same source and target, so they are equivalent;
-        \item for the currying, if we take $h,h' : A \times B \to C$, then:
-        \[ h^* : A \to C^B, \qquad h'^* : A \to C^B, \]
+        \item for the currying, if we take $h,h' : A \land B \to C$, then:
+        \[ h^* : A \to C \Leftarrow B, \qquad h'^* : A \to C \Leftarrow B, \]
         therefore $h^* \sim (h')^*$;
         \item for the cartesian axioms, we have:
         \begin{itemize}[label=$\ast$]
-            \item for (CC1), given $f : A \to 1$, we have $f \sim !_A$;
-            \item for (CC2a), given $f : C \to A$, $g : C \to B$, we have $\pi_{A,B} \circ \langle f,g\rangle \sim f$, by the definition of the projection;
+            \item for (CC1), given $f : A \to \top$, we have $f \sim !_A$;
+            \item for (CC2a), given $f : C \to A$, $g : C \to B$, we have $\pi_{A,B} \circ \langle f,g\rangle \sim f$, by their definition;
             \item similarly for (CC2b);
-            \item for (CC2c), given $h : C \to A \times B$, we have $\langle \pi_{A,B} \circ h, \pi_{A,B}' \circ h\rangle : C \to A \times B$, therefore it's equivalent to $h$;
+            \item for (CC2c), given $h : C \to A \land B$, we have $\langle \pi_{A,B} \circ h, \pi_{A,B}' \circ h\rangle : C \to A \land B$, therefore it's equivalent to $h$;
         \end{itemize}
-        \item for cartesian closed axioms, we have:
+        \item for the cartesian closed axioms, we have:
         \begin{itemize}[label=$\ast$]
-            \item for (CCC1), given $h : A \times B \to C$, we have $\ev_{C,B} \circ (h^* \times 1_B) \sim h$;
-            \item for (CCC2), given $k : A \to C^B$, we have $(\ev_{C,B} \circ (k \times 1_B))^* \sim k$.
+            \item for (CCC1), given $h : A \land B \to C$, we have $\ev_{C,B} \circ (h^* \wedge 1_B) \sim h$;
+            \item for (CCC2), given $k : A \to C \Leftarrow B$, we have $(\ev_{C,B} \circ (k \wedge 1_B))^* \sim k$.
         \end{itemize}
     \end{itemize}
     Since the equivalence relation of having the same source and target is compatible with composition, pairing, currying, and contains the category, cartesian and cartesian closed axioms, we can conclude that the quotient $\mathcal P(\mathcal G)/{\sim}$ is a cartesian closed category.
 \end{proof}
 
-We can now give the definition of cartesian closed category generated by a graph, which will be well-defined thanks to the previous lemma.
+We can now give the definition of a cartesian closed category generated by a graph, which will be well-defined thanks to the previous lemma.
 
 \begin{definition}[Cartesian closed category generated by a graph]
-    Given a graph $\mathcal G$, the \textit{cartesian closed category freely generated} by $\mathcal G$, denoted with $\mathcal F(\mathcal G)$,
-    is the quotient of $\mathcal P(\mathcal G)$ by the smallest equivalence relation between proof satisfying the category, cartesian and cartesian closed axioms, and compatible with composition, pairing and currying.
+    Given a graph $\mathcal G$, the \textit{cartesian closed category freely generated} by $\mathcal G$, written as $\mathcal F(\mathcal G)$,
+    is the quotient of $\mathcal P(\mathcal G)$ by the smallest equivalence relation on proofs that contains the category, cartesian and cartesian closed axioms and is compatible with composition, pairing and currying.
 \end{definition}
 
-The cartesian closed category freely generated by a graph has an important universal property, which will be important later,
-before stating and proving it, let's define the notion of functor between cartesian closed categories.
+The cartesian closed category freely generated by a graph has an important universal property, which will be important later.
+Before stating and proving it, let's define the notion of functor between cartesian closed categories.
 
 \begin{definition}[Cartesian closed functor]
     Given two cartesian closed categories $\mathcal C$ and $\mathcal D$, a \textit{cartesian closed functor} $F : \mathcal C \to \mathcal D$ is a functor with the following properties:
@@ -414,16 +413,16 @@ before stating and proving it, let's define the notion of functor between cartes
 \end{definition}
 
 \begin{notation}
-    We denote with $\mathsf{CCC}$ the category of cartesian closed categories (whose morphisms are cartesian closed functors) and with $\mathsf{Grph}$ the category of graphs (whose morphisms are maps that commute with the functions $s$ and $t$).
-    Moreover, we will denote with $\mathcal U : \mathsf{CCC} \to \mathsf{Grph}$ the forgetful functor that sends a cartesian closed category to its underlying graph.
+    We denote by $\mathsf{CCC}$ the category of cartesian closed categories (whose morphisms are cartesian closed functors) and by $\mathsf{Grph}$ the category of graphs (whose morphisms are maps that commute with the functions $s$ and $t$).
+    Moreover, we will denote by $\mathcal U : \mathsf{CCC} \to \mathsf{Grph}$ the forgetful functor that sends a cartesian closed category to its underlying graph.
 \end{notation}
 
 \begin{definition}[Canonical inclusion into the free CCC underlying graph]
     Given a graph $\mathcal G$, we define the following morphism of graphs:
     \[ H_\mathcal G : \mathcal G \to \mathcal U(\mathcal F(\mathcal G)) : X \mapsto X, f \mapsto [f],\]
     that is each object, $X$ of $\mathcal G$, is sent to itself in $\mathcal F(\mathcal G)$ and
-    each arrow $f : X \to Y$ of $\mathcal G$ is sent to its equivalence class $[f]$ in $\mathcal U(\mathcal F(\mathcal G))$, i.e. the same 
-    equivalence class of $f$ in $\mathcal F(\mathcal G)$, we're just forgetting the additional structure properties given by the cartesian closedness.
+    each arrow $f : X \to Y$ of $\mathcal G$ is sent to its equivalence class $[f]$ in $\mathcal U(\mathcal F(\mathcal G))$. That is, the same 
+    equivalence class of $f$ as in $\mathcal F(\mathcal G)$. We're simply viewing it in the underlying graph structure and forgetting the cartesian closed structure.
 \end{definition}
 
 We can now state the universal property of the cartesian closed category freely generated by a graph.
@@ -431,24 +430,24 @@ We can now state the universal property of the cartesian closed category freely 
 \begin{theorem}[Universal property of CCCs generated by a graph]
     Given a cartesian closed category $\mathcal C$, a graph $\mathcal G$ and a morphism of graphs $F : \mathcal G \to \mathcal U(\mathcal C)$,
     there is a unique cartesian closed functor $\overline F : \mathcal F(\mathcal G) \to \mathcal C$ such that the following diagram commutes:
-    % https://q.uiver.app/#q=WzAsMyxbMCwxLCJcXG1hdGhjYWwgVShcXG1hdGhjYWwgRihcXG1hdGhjYWwgRykpIl0sWzAsMCwiXFxtYXRoY2FsIEciXSxbMSwwLCJcXG1hdGhjYWwgVShcXG1hdGhjYWwgQykiXSxbMCwyLCJcXG92ZXJsaW5lIEYiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMSwyLCJGIl0sWzEsMCwiSF97XFxtYXRoY2FsIEd9IiwyXV0=
+    % https://q.uiver.app/#q=WzAsMyxbMCwxLCJcXG1hdGhjYWwgVShcXG1hdGhjYWwgRihcXG1hdGhjYWwgRykpIl0sWzAsMCwiXFxtYXRoY2FsIEciXSxbMSwwLCJcXG1hdGhjYWwgVShcXG1hdGhjYWwgQykiXSxbMCwyLCJcXG1hdGhjYWwgVShcXG92ZXJsaW5lIEYpIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMiwiRiJdLFsxLDAsIkhfe1xcbWF0aGNhbCBHfSIsMl1d
     \[\begin{tikzcd}
         {\mathcal G} & {\mathcal U(\mathcal C)} \\
         {\mathcal U(\mathcal F(\mathcal G))}
         \arrow["F", from=1-1, to=1-2]
         \arrow["{H_{\mathcal G}}"', from=1-1, to=2-1]
-        \arrow["{\mathcal U(\overline F) }"', dashed, from=2-1, to=1-2]
+        \arrow["{\mathcal U(\overline F)}"', dashed, from=2-1, to=1-2]
     \end{tikzcd}\]
 \end{theorem}
 
 \begin{proof}
-    We need to uniquely define a cartesian closed functor $\overline F : \mathcal F(\mathcal G) \to \mathcal C$, we know that the objects of $\mathcal F(\mathcal G)$ coincides with the objects of the positive intuitionistic calculus $\mathcal P(\mathcal G)$,
-    which are generated by the objects of $\mathcal G$ through the grammar:
-    \[ A,B ::= \top \mid X \mid A \times B \mid A^B, \]
+    We need to uniquely define a cartesian closed functor $\overline F : \mathcal F(\mathcal G) \to \mathcal C$, we know that the objects of $\mathcal F(\mathcal G)$ coincide with the objects of the positive intuitionistic calculus $\mathcal P(\mathcal G)$,
+    which, using categorical notation, are generated by the objects of $\mathcal G$ through the grammar:
+    \[ A,B ::= 1 \mid X \mid A \times B \mid A^B, \]
     where $X \in \ob(\mathcal G)$. Since we want $\mathcal U(\overline F) \circ H_\mathcal G = F$, for every $X \in \ob(\mathcal G)$, we must have
     \[ F(X) = \mathcal U(\overline F)\circ (H_\mathcal G)(X) = \mathcal U(\overline F)(X)  \qquad (\text{by definition of $H_{\mathcal G}$})\]
     and because $\mathcal U(\overline F)$ coincides with $\overline F$ on objects, by definition, we have that $\overline F(X) = F(X)$, $\forall X \in \ob(\mathcal G)$.
-    This definition of $\overline F$ can be recursively extended on the objects of $\mathcal P(\mathcal G)$ by imposing the cartesian closed structure, therefore $\overline F$ is uniquely defined on the objects of $\mathcal F(\mathcal G)$\footnote{To be completely rigorous, we should invoke the principles of recursion on the grammar, to define $\overline F$, and induction on the grammar, to prove its uniqueness.}.\par
+    This definition of $\overline F$ can be recursively extended to the objects of $\mathcal P(\mathcal G)$ by imposing the cartesian closed structure, therefore $\overline F$ is uniquely defined on the objects of $\mathcal F(\mathcal G)$\footnote{To be completely rigorous, we should invoke the principles of recursion on the grammar, to define $\overline F$, and induction on the grammar, to prove its uniqueness.}.\par
     By the same reasoning, we can recursively define $\overline F$ on the arrows of $\mathcal P(\mathcal G)$ - the positive intuitionistic calculus generated by $\mathcal G$, so it's cartesian closed, since they are generated by the grammar:
     \[ f,g ::= h \mid 1_A \mid !_A \mid f \circ g \mid \pi_{A,B} \mid \pi_{A,B}' \mid \langle f,g\rangle \mid f^* \mid \ev_{A,B},\]
     where $h \in \mor(\mathcal G)$, $A$ and $B$ are objects of $\mathcal F(\mathcal G)$, and $f, g \in \mor(\mathcal F(\mathcal G))$.\par
@@ -526,27 +525,28 @@ easily check that $\mathcal F$ preserves identities and composition using the fu
 \begin{remark}
     This universal property can be equivalently expressed as the following adjunction:
     \[ \Hom_{\mathsf{CCC}}(\mathcal F(\mathcal G), \mathcal C) \overset{1:1}{\longleftrightarrow} \Hom_{\mathsf{Grph}}(\mathcal G, \mathcal U(\mathcal C)), \]
-    so that the functor freely generated CCC, $\mathcal F : \mathsf{Grph} \to \mathsf{CCC}$, is left adjoint to the forgetful functor $\mathcal U : \mathsf{CCC} \to \mathsf{Grph}$, and vice versa (so we can write $\mathcal F \dashv \mathcal U$).
+    natural in both $\mathcal G$ and $\mathcal C$, i.e., compatible with precomposition in $\mathcal G$\footnote{Which means precomposing with a graph morphism into $\mathcal G$ and then extending it with the universal property is the same as extending and then composing. The same applies to the postcomposition with cartesian closed functors out of $\mathcal C$.} and postcomposition in $\mathcal C$.
+    Therefore the free-CCC functor, $\mathcal F : \mathsf{Grph} \to \mathsf{CCC}$, is left adjoint to the forgetful functor $\mathcal U : \mathsf{CCC} \to \mathsf{Grph}$; or equivalently $\mathcal U$ is right adjoint to $\mathcal F$ (so we can write $\mathcal F \dashv \mathcal U$).
 \end{remark}
 
 Finally, we now define the core notion of this section, that is the notion of polynomial category over a cartesian closed category. The question is:
 given two objects $A_0$ and $A$ of a (cartesian, cartesian closed) category $\mathcal C$, how does one adjoin an \textit{indeterminate} arrow $x : A_0 \to A$ to $\mathcal C$?
 
 \begin{definition}[Polynomial category - v.1]
-    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects of such category $A_0$ and $A$, and an indeterminate arrow $x : A_0 \to A$, we define the \textit{polynomial category} $\mathcal C[x]$ 
+    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, and an indeterminate arrow $x : A_0 \to A$, we define the \textit{polynomial category} $\mathcal C[x]$ 
     as the cartesian closed category freely generated by the graph $\mathcal U(\mathcal C)$ with the additional arrow $x : A_0 \to A$, quotiented in order to preserve the relations between the arrows of $\mathcal C$ and make the natural immersion a functor.
 \end{definition}
 
 \begin{notation}[Polynomial arrows]
-    We will denote with $\varphi(x), \psi(x), \ldots$ the arrows of $\mathcal C[x]$ that are generated by the indeterminate arrow $x : A_0 \to A$. These arrows 
-    can be thought as proofs under the \textit{assumption} $x : A_0 \to A$.
+    We will denote by $\varphi(x), \psi(x), \ldots$ the arrows of $\mathcal C[x]$ that are generated by the indeterminate arrow $x : A_0 \to A$. These arrows 
+    can be thought of as proofs under the \textit{assumption} $x : A_0 \to A$.
 \end{notation}
 
-The previous definition it's not precise but it gives us the general idea, it can be made precise by following a similar approach to the one used to define the cartesian closed category freely generated by a graph.
+The previous definition is not precise, but it conveys the general idea. It can be made precise by following a similar approach to the one used to define the cartesian closed category freely generated by a graph.
 This provides us with an explicit description of the arrows of $\mathcal C[x]$ and of the equivalence relation used to define it, which will be useful later.
 
 \begin{definition}[Polynomial category - v.2]
-    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects of such category $A_0$ and $A$, and an indeterminate arrow $x : A_0 \to A$, we define the \textit{polynomial category} $\mathcal C[x]$
+    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, and an indeterminate arrow $x : A_0 \to A$, we define the \textit{polynomial category} $\mathcal C[x]$
     in two steps:
     \begin{itemize}
         \item first we define the positive intuitionistic propositional calculus, this time, since $\mathcal C$ is already a cartesian closed category, we can directly take its objects $\ob(\mathcal C)$ as the objects of the calculus; for the arrows,
@@ -555,7 +555,7 @@ This provides us with an explicit description of the arrows of $\mathcal C[x]$ a
         where $A, B \in \ob(\mathcal C)$, $h \in \mor(\mathcal C)$ and $x : A_0 \to A$ is the indeterminate arrow;
         \item now we need to impose the equivalence relation $\sim$ on the arrows so that the quotient $\mathcal C[x]$ is a (cartesian, cartesian closed) category and the immersion
         \[ \iota_x : \mathcal C \rightarrow \mathcal C[x] : X \mapsto X, f \mapsto [f], \]
-        is a (cartesian, cartesian closed) functor. We choose the smallest equivalence relation with these properties, and we denote it with $\underset{x}{=}$. In the case of a cartesian closed category, we need the following properties for $\underset{x}{=}$ to be satisfied:
+        is a (cartesian, cartesian closed) functor. We choose the smallest equivalence relation with these properties, and we denote it by $\underset{x}{=}$. In the case of a cartesian closed category, we require $\underset{x}{=}$ to satisfy the following properties:
         \begin{itemize}[label=$\ast$]
             \item $g \circ f = h$ in $\mathcal C$ implies $g \circ f \underset{x}{=} h$ in $\mathcal C[x]$ (the composition in $\mathcal C[x]$ extends the one in $\mathcal C$);
             \item if $\varphi(x) \underset{x}{=} \varphi'(x)$ and $\psi(x) \underset{x}{=} \psi'(x)$ then $\varphi(x) \circ \psi(x) \underset{x}{=} \varphi'(x) \circ \psi'(x)$ (the equivalence relation is compatible with composition);
@@ -567,12 +567,12 @@ This provides us with an explicit description of the arrows of $\mathcal C[x]$ a
             \item for each $\varphi(x) \underset{x}{=} \varphi'(x)$, we have $\varphi(x)^* \underset{x}{=} \varphi'(x)^*$ (the currying is compatible with the equivalence relation);
             \item for every object $A$ of $\mathcal C$, $1_A^{\mathcal C} \underset{x}{=} 1_A^{\mathcal C[x]}$ (so the identities are preserved).
         \end{itemize}
-        The fact that $!_A^{\mathcal C} \underset{x}{=} !_A^{\mathcal C[x]}$ follows from the (CC1) in $\mathcal C[x]$; the fact that $\pi_{A,B}^{\mathcal C} \underset{x}{=} \pi_{A,B}^{\mathcal C[x]}$ follows from (CC2a) + the fact that $1_A^{\mathcal C} \underset{x}{=} 1_A^{\mathcal C[x]}$ and the preservation of pairing:
+        The fact that $!_A^{\mathcal C} \underset{x}{=} !_A^{\mathcal C[x]}$ follows from (CC1) in $\mathcal C[x]$; the fact that $\pi_{A,B}^{\mathcal C} \underset{x}{=} \pi_{A,B}^{\mathcal C[x]}$ follows from (CC2a) + the fact that $1_A^{\mathcal C} \underset{x}{=} 1_A^{\mathcal C[x]}$ and the preservation of pairing:
         \[ \langle \pi_{A,B}^{\mathcal C}, (\pi_{A,B}')^{\mathcal C}\rangle = 1_{A \times B}^{\mathcal C} \implies \langle \iota_x(\pi_{A,B}^{\mathcal C}), \iota_x((\pi_{A,B}')^{\mathcal C})\rangle \underset{x}{=} 1_{A \times B}^{\mathcal C[x]}, \]
-        now composing with $\pi_{A,B}^{\mathcal C[x]}$ we get $\iota_x(\pi_{A,B}^{\mathcal C}) \underset{x}{=} \pi_{A,B}^{\mathcal C[x]}$, same exact argument for $(\pi_{A,B}')^{\mathcal C}$. Lastly, the fact that $\ev_{A,B}^{\mathcal C} \underset{x}{=} \ev_{A,B}^{\mathcal C[x]}$
+        now composing with $\pi_{A,B}^{\mathcal C[x]}$ we get $\iota_x(\pi_{A,B}^{\mathcal C}) \underset{x}{=} \pi_{A,B}^{\mathcal C[x]}$. Exactly the same argument applies to $(\pi_{A,B}')^{\mathcal C}$. Lastly, the fact that $\ev_{A,B}^{\mathcal C} \underset{x}{=} \ev_{A,B}^{\mathcal C[x]}$
         follows from (CCC2) taking $k = 1_{A^B}^{\mathcal C}$:
         \[ (\ev_{A,B}^{\mathcal C} \circ (1_{A^B}^{\mathcal C} \times 1_B^{\mathcal C}))^* = 1_{A^B}^{\mathcal C} \implies (\ev_{A,B}^{\mathcal C})^* = 1_{A^B}^{\mathcal C}, \]
-        this identity is derived just by (CCC2) and the functoriality of $\times$, therefore holds in $\mathcal C[x]$ as well, then if we apply $\iota_x$ to both sides we get:
+        this identity follows solely from (CCC2) and the functoriality of $\times$, therefore holds in $\mathcal C[x]$ as well, then if we apply $\iota_x$ to both sides we get:
         \[ (\iota_x(\ev_{A,B}^{\mathcal C}))^* \underset{x}{=} 1_{A^B}^{\mathcal C[x]} \underset{x}{=} (\ev_{A,B}^{\mathcal C[x]})^*, \]
         applying (CCC1) to both sides, we get $\iota_x(\ev_{A,B}^{\mathcal C}) \underset{x}{=} \ev_{A,B}^{\mathcal C[x]}$.
     \end{itemize}
@@ -580,19 +580,19 @@ This provides us with an explicit description of the arrows of $\mathcal C[x]$ a
 
 \begin{remark}[Well-posedness of the definition v.2]
     By \Cref{lem:ccc-quotient-existence}, we already know that the relation of having the same source and target is compatible with composition, pairing, currying, and contains the category, cartesian and cartesian closed axioms.
-    One can easily check that this equivalence relation contains also the remaining properties above, therefore the quotient is a (cartesian, cartesian closed) category and the immersion $\iota_x : \mathcal C \rightarrow \mathcal C[x]$ is a (cartesian, cartesian closed) functor,
+    One can easily check that this equivalence relation also contains the remaining properties above, therefore the quotient is a (cartesian, cartesian closed) category and the immersion $\iota_x : \mathcal C \rightarrow \mathcal C[x]$ is a (cartesian, cartesian closed) functor,
     so the definition above is well-posed.
 \end{remark}
 
 \begin{notation}[Canonical functor $\mathcal C \to \mathcal C{[x]}$]
-    From now on we will denote with $\iota_x : \mathcal C \rightarrow \mathcal C[x]$ the immersion of $\mathcal C$ into $\mathcal C[x]$, which is a (cartesian, cartesian closed) functor.
+    From now on we will denote by $\iota_x : \mathcal C \rightarrow \mathcal C[x]$ the immersion of $\mathcal C$ into $\mathcal C[x]$, which is a (cartesian, cartesian closed) functor.
     When it is clear from the context, we will sometimes omit the subscript $x$ and just write $\iota : \mathcal C \rightarrow \mathcal C[x]$.
 \end{notation}
 
 The polynomial category $\mathcal C[x]$ has an important universal property, which is the following.
 
 \begin{theorem}[Universal property of polynomial categories]
-    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects of such category $A_0$ and $A$, an indeterminate arrow $x : A_0 \to A$, a (cartesian, cartesian closed) category $\mathcal D$, a (cartesian, cartesian closed) functor $F : \mathcal C \to \mathcal D$ and an arrow $a : F(A_0) \to F(A)$ in $\mathcal D$,
+    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, an indeterminate arrow $x : A_0 \to A$, a (cartesian, cartesian closed) category $\mathcal D$, a (cartesian, cartesian closed) functor $F : \mathcal C \to \mathcal D$ and an arrow $a : F(A_0) \to F(A)$ in $\mathcal D$,
     there is a unique (cartesian, cartesian closed) functor $\widehat F : \mathcal C[x] \to \mathcal D$ such that $\widehat F([x]) = a$ and the following diagram commutes:
     % https://q.uiver.app/#q=WzAsMyxbMCwxLCJcXG1hdGhjYWwgQ1t4XSJdLFswLDAsIlxcbWF0aGNhbCBDIl0sWzEsMCwiXFxtYXRoY2FsIEQiXSxbMSwwLCJcXGlvdGFfeCIsMl0sWzEsMiwiRiJdLFswLDIsIlxcd2lkZWhhdCBGIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
     \[\begin{tikzcd}
@@ -619,14 +619,14 @@ The polynomial category $\mathcal C[x]$ has an important universal property, whi
         \widehat F([\langle \psi(x), \varphi(x)\rangle]) &:= \langle \widehat F([\psi(x)]), \widehat F([\varphi(x)])\rangle, \\
         \widehat F([\varphi(x)^*]) &:= \widehat F([\varphi(x)])^*.
     \end{align*}
-    If we check that $\widehat F$ is well-defined on the equivalence classes of arrows, then it will be automatically a cartesian closed functor, it will make the diagram commute, and it will be uniquely determined by the definition above\footnote{As we remarked before, to be completely rigorous, we should invoke recursion and induction on the grammar.}.\par
+    If we check that $\widehat F$ is well-defined on the equivalence classes of arrows, then it will automatically be a cartesian closed functor, it will make the diagram commute, and it will be uniquely determined by the definition above\footnote{As we remarked before, to be completely rigorous, we should invoke recursion and induction on the grammar.}.\par
     The idea for proving the well-definedness is the same as in the proof of the other universal property already seen, we define the equivalence relation on the arrows, $f \sim_{\widehat F} g$ if and only if $\widehat F(f) = \widehat F(g)$ and $f,g \in \Hom(A,B)$ for some $A$ and $B$, and we prove that such relation respects all the properties listed in the definition,
     so it must contain $\underset{x}{=}$, and this will imply that if $[f] = [g]$ then $\widehat F(f) = \widehat F(g)$. All the checks are similar to the ones in the other proof and follow the scheme in the definition v.2, so we omit them here. 
 \end{proof}
 
 \section{Functional completeness and Lambek's normal form}
 The aim of this section is to provide a normal form for the arrows of the polynomial category $\mathcal C[x]$ of a cartesian closed category $\mathcal C$.
-Such normal form wants to be unique and follows the same idea behind the normal form of polynomials in $R[x]$, that is, for a commutative unital ring $R$,
-every polynomial can be uniquely expressed in the form $a_n x^n + a_{n-1} x^{n-1} + \ldots + a_1 x + a_0$, with $a_i \in R$.\par
-We'll try do a similar thing for the arrows of $\mathcal C[x]$ and to get the \textit{Lambek's normal form}. In order to do this we first need to introduce a couple 
-of results, each a stronger version of the previous one, they go under the name of \textit{deduction theorem} or, more broadly, \textit{functional completeness}.
+Such normal form should be unique and is based on the same idea as the normal form of polynomials in $R[x]$, that is, for a commutative unital ring $R$,
+every polynomial can be uniquely expressed in the form $a_n x^n + a_{n-1} x^{n-1} + \ldots + a_1 x + a_0$, with $a_i \in R$, $n \in \NN$.\par
+We'll try to do something similar for the arrows of $\mathcal C[x]$ and obtain \textit{Lambek's normal form}. In order to do this we first need to introduce a couple 
+of results, each a stronger version of the previous one; these results go under the name of \textit{deduction theorem} or, more broadly, \textit{functional completeness} theorems.
