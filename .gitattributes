@@ -1,0 +1,5 @@
+# Keep text-file line endings consistent across operating systems.
+* text=auto eol=lf
+
+# Never apply text normalization to PDF assets.
+*.pdf -text

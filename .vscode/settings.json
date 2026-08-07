@@ -9,6 +9,11 @@
         "pdfdisplaydoctitle",
         "pdftitle"
     ],
+    "[latex]": {
+        "files.eol": "\n",
+        "files.insertFinalNewline": true,
+        "files.trimTrailingWhitespace": true
+    },
     "ltex.enabled": [],
     "ltex.language": "en-US",
     "ltex.diagnosticSeverity": "information",
