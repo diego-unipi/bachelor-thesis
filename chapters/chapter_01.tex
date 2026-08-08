@@ -608,6 +608,33 @@ The polynomial category $\mathcal C[x]$ has an important universal property, whi
     The argument for well-definedness is the same as in the proof of the preceding universal property. We define the equivalence relation on the arrows, $f \sim_{\widehat F} g$ if and only if $\widehat F(f) = \widehat F(g)$ and $f,g \in \Hom(A,B)$ for some $A$ and $B$, and prove that such a relation is compatible with composition, pairing and currying, contains the category, cartesian and cartesian closed axioms, and satisfies the extension properties listed in the definition. Therefore, it contains $\underset{x}{=}$, which implies that $[f] = [g]$ entails $\widehat F(f) = \widehat F(g)$. All the checks are similar to the ones in the other proof and follow the scheme in the definition v.2, so we omit them here.
 \end{proof}
 
+Let's see an important consequence of this universal property.
+
+\begin{corollary}[Substitution]
+    Given a (cartesian, cartesian closed) category $\mathcal C$, an indeterminate arrow $x : A_0 \to A$ and an existing arrow $a : A_0 \to A$ in $\mathcal C$, there is a unique (cartesian, cartesian closed) functor $S[a/x] : \mathcal C[x] \to \mathcal C$ such that $S[a/x]([x]) = a$ and the following diagram commutes:
+    % https://q.uiver.app/#q=WzAsMyxbMCwxLCJcXG1hdGhjYWwgQ1t4XSJdLFswLDAsIlxcbWF0aGNhbCBDIl0sWzEsMCwiXFxtYXRoY2FsIEMiXSxbMSwwLCJcXGlvdGFfeCIsMl0sWzEsMiwiMV97XFxtYXRoY2FsIEN9Il0sWzAsMiwiU1thL3hdIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+    \[\begin{tikzcd}
+        {\mathcal C} & {\mathcal C} \\
+        {\mathcal C[x]}
+        \arrow["{1_{\mathcal C}}", from=1-1, to=1-2]
+        \arrow["{\iota_x}"', from=1-1, to=2-1]
+        \arrow["{S[a/x]}"', dashed, from=2-1, to=1-2]
+    \end{tikzcd}.\]
+\end{corollary}
+
+\begin{proof}
+    This follows applying the universal property with $F = 1_\mathcal C$.
+\end{proof}
+
+\begin{notation}
+    $S[a/x]$ can regarded as the process of \textit{substituting} the arrow $a$ for the indeterminate arrow $x$, therefore we will use the notation:
+    \[ S(a/x)(\varphi(x)) = \varphi(a). \]
+\end{notation}
+
+\begin{remark}[Faithfulness of the canonical functor]
+    The commutativity of the diagram in the corollary implies that, if there exists an $a : A_0 \to A$ in $\mor(\mathcal C)$, then the canonical functor $\iota_x : \mathcal C \to \mathcal C[x]$ is faithful.
+\end{remark}
+
 \section{Functional completeness and Lambek's normal form}
 The aim of this section is to provide a normal form for the arrows of the polynomial category $\mathcal C[x]$ of a cartesian closed category $\mathcal C$.
 Such a normal form should be unique and is based on the same idea as the normal form of polynomials in $R[x]$, that is, for a commutative unital ring $R$,
@@ -744,7 +771,8 @@ We now give a constructive proof of the deduction theorem stated above.
 \end{proof}
 
 \begin{example}[Collapse of $\mathsf{Set}{[x]}$, {\cite[Part~I, \S5]{LambekScott1994}}]\label{ex:collapse-of-set-x}
-    Consider the polynomial category obtained by formally adjoining an indeterminate arrow $x : 1 \to \varnothing$ to $\mathsf{Set}$. There is no such function in $\mathsf{Set}$, but $x$ is a formal arrow of $\mathsf{Set}[x]$.
+    Consider the polynomial category obtained by formally adjoining an indeterminate arrow $x : 1 \to \varnothing$ to $\mathsf{Set}$.
+    There is no such function in $\mathsf{Set}$, since there's no function to $\varnothing$ from any non-empty set.
     Let $f,g : B \to C$ be any two arrows of $\mathsf{Set}$ and define
     \[ s := \langle x \circ !_B, 1_B\rangle : B \to \varnothing \times B. \]
     By (CC2b), $\pi_{\varnothing,B}' \circ s \underset{x}{=} 1_B$. Moreover, since $\varnothing \times B = \varnothing$, the arrows
@@ -758,7 +786,7 @@ We now give a constructive proof of the deduction theorem stated above.
           &\underset{x}{=} g.
     \end{align*}
     Hence the canonical functor $\iota_x : \mathsf{Set} \to \mathsf{Set}[x]$ identifies all parallel arrows of $\mathsf{Set}$ and is not faithful.
-
+    [DA RIVEDERE, MAGARI SPLITTARE IN DUE ESEMPI]
     Functional completeness gives the stronger conclusion
     \[ \Hom_{\mathsf{Set}[x]}(B,C) \cong \Hom_{\mathsf{Set}}(\varnothing \times B,C) = \Hom_{\mathsf{Set}}(\varnothing,C). \]
     The last set has exactly one element, so there is exactly one arrow between any two objects of $\mathsf{Set}[x]$. Thus all its objects are isomorphic and $\mathsf{Set}[x]$ is equivalent to the terminal category. Logically, adjoining $x : 1 \to \varnothing$ amounts to assuming a proof of falsehood, so this collapse is the categorical counterpart of the principle of explosion.
