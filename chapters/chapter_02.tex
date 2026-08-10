@@ -4,13 +4,13 @@ From this chapter onward, we will only consider cartesian closed categories, for
 
 \section{Natural number objects in CCCs}
 The aim of this section is to provide cartesian closed categories with a notion of recursion,
-which is fundamental if we want to interpret a simply typed $\lambda$-calculus with iterator in a CCC.
+which is fundamental if we want to interpret a simply $\lambda$-calculus with iterator in a CCC.
 Even though this notion won't be necessary for the correspondence used to prove Lawvere's fixed-point theorem,
 it is stil necessary to prove the Curry--Howard--Lambek correspondence in its general version, and nevertheless
 interesting in its own right. One notable application of this notion is, for example, the interpretation of all primitive recursive functions in a CCC with a natural number object, see \cite[Part~III, \S\S~1--2]{LambekScott1994}.
 
 \begin{definition}[Natural number object]
-    Given a cartesian closed category $\mathcal{C}$, a \textit{natural number object} (NNO) is an initial object
+    Given a cartesian closed category $\mathcal{C}$, a \emph{natural number object} (NNO) is an initial object
     \[ 1 \xrightarrow{0} N \xrightarrow{s} N \]
     in the category of diagrams of the form $1 \xrightarrow{a} A \xrightarrow{b} A$ in $\mathcal{C}$. An equivalent way to define it is
     by saying that, for all such diagrams, there exists a unique arrow $h : N \to A$ such that the following diagram commutes:
@@ -34,7 +34,7 @@ interesting in its own right. One notable application of this notion is, for exa
 If we require only the existence of an arrow that makes the diagram above commute, we obtain the following.
 
 \begin{definition}[Weak natural number object]
-    Given a cartesian closed category $\mathcal{C}$, a \textit{weak natural number object} (WNNO) is an object $N$ together with two arrows $1 \xrightarrow{0} N$ and $N \xrightarrow{s} N$ in $\mathcal C$ such that,
+    Given a cartesian closed category $\mathcal{C}$, a \emph{weak natural number object} (WNNO) is an object $N$ together with two arrows $1 \xrightarrow{0} N$ and $N \xrightarrow{s} N$ in $\mathcal C$ such that,
     for all diagrams of the form $1 \xrightarrow{a} A \xrightarrow{b} A$ in $\mathcal{C}$, there exists an arrow $h : N \to A$ that makes the following diagram commute:
     \[\begin{tikzcd}
         1 & N & N \\
@@ -201,7 +201,7 @@ Let's see now that if a cartesian closed category has a NNO/WNNO, then the polyn
 \end{remark}
 
 We introduced the notation $J_A(a,f)$ to denote a generic arrow that makes the diagram commute, but this notation does not express the
-fact that $J_A(a,f)$ is a function that associates to each pair $(a,f)$ an arrow that makes the diagram commute.
+fact that $J_A(a,f)$ is a function which associates to each pair $(a,f)$ an arrow that makes the diagram commute.
 Now that we have the proposition above, we can define, for each object, an actual function that associates to each pair $(a,f)$ an arrow that makes the diagram commute, and we can do it in the following way.
 
 \begin{definition}[Parameterized iterator]
@@ -230,7 +230,7 @@ Now that we have the proposition above, we can define, for each object, an actua
     \[ I_B := \kappa_{x \in B \times B^B}(\chi_B(x)) : (B \times B^B) \times N \to B \]
     in $\mathcal{C}$ such that
     \[ I_B \circ \langle x \circ !_N,1_N\rangle \underset{x}{=} \chi_B(x), \]
-    $I_B$ is called the \textit{parameterized iterator} for $B$.
+    we call $I_B$ the \emph{parameterized iterator} for $B$.
 \end{definition}
 
 \begin{remark}
@@ -242,16 +242,16 @@ Now that we have the proposition above, we can define, for each object, an actua
 Let's consider $y : 1 \to B$, $v : 1 \to B^B$ and $z : 1 \to N$ indeterminate arrows, let's also define $\mathcal{C}[y,v] := \mathcal{C}[y][v]$ and $\mathcal{C}[y,v,z] := \mathcal{C}[y][v][z]$.\newline
 The universal property of polynomial categories gives a canonical isomorphism $F : \mathcal{C}[x] \xrightarrow{\sim} \mathcal{C}[y,v]$ over $\mathcal{C}$, determined by $x \mapsto \langle y,v\rangle$;
 its inverse sends $y$ to $y(x)$ and $v$ to $v(x)$, therefore $F = \widehat{\iota_{y,v}}$. It's easy to check that the isomorphism extends, in the natural way, to $\mathcal{C}[x][z] \cong \mathcal{C}[y,v,z]$, through $\widehat F$.
-Since $F$ is a cartesian closed functor and $\mathcal C[x]$ and $\mathcal C[y,v]$ have the same WNNO, applying $F$ to $\chi_B(x)$ preserves the commutativity of the diagram.
-Due to the fact that $v(x) \leftrightarrow v$ and $y(x) \leftrightarrow y$ we have $F(\chi_B(x)) = J_B(y,v^\sharp)$.\newline
-By the definition of iterator we have $J_B(y,v^\sharp) = I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle$, therefore, adding the indeterminate $z : 1 \to N$, and consequently moving to $\mathcal{C}[y,v,z]$, if we precompose $J_B(y,v^\sharp)$ with $z$, we get
+Since $F$ is a cartesian closed functor and $\mathcal C[x]$ and $\mathcal C[y,v]$ has the same WNNO, applying $F$ to $\chi_B(x)$ preserves the commutativity of the diagram.
+Due to the fact that $v(x) \leftrightarrow v$ and $y(x) \leftrightarrow y$ we have $F(\chi_B(x)) = J_B(y,v^\sharp)$. Using the definition of iterator in $\mathcal{C}[y,v]$, we have
+\[ J_B(y,v^\sharp) \underset{y,v}{=} I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle.\]
+If we now add the indeterminate $z : 1 \to N$, precomposing with $z$ gives:
 \begin{align*}
     J_B(y,v^\sharp) \circ z &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle \circ z \\
-                            &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle, z\rangle
+                            &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle z\rangle.
 \end{align*}
-we'll write $\langle y,v,z\rangle := \langle \langle y,v\rangle, z\rangle : 1 \to (B \times B^B) \times N$ for the sake of brevity.
-The same universal-property argument gives
-\[ \mathcal{C}[y,v,z] \cong \mathcal{C}[w], \qquad w : 1 \to (B \times B^B) \times N, \qquad w \longleftrightarrow \langle y,v,z\rangle. \]
+Using the notation $\langle y,v,z\rangle := \langle \langle y,v\rangle, z\rangle : 1 \to (B \times B^B) \times N$ we get the equality in $\mathcal{C}[y,v,z]$:
+\[ J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle. \]
 
 \begin{corollary}[Internal form of a WNNO]
     An object $N$ equipped with arrows
@@ -261,29 +261,187 @@ The same universal-property argument gives
         I_B \circ \langle y,v,0\rangle &\underset{y,v}{=} y, \\
         I_B \circ \langle y,v,s \circ z\rangle &\underset{y,v,z}{=} v^\sharp \circ I_B \circ \langle y,v,z\rangle.
     \end{align*}
-    Equivalently, if $P_B := B \times B^B$, the corresponding identities in $\mathcal{C}$ are
-    \begin{align*}
-        I_B \circ \langle 1_{P_B},0 \circ !_{P_B}\rangle
-            &= \pi_{B,B^B}, \\
-        I_B \circ \langle \pi_{P_B,N},s \circ \pi_{P_B,N}'\rangle
-            &= \ev_{B,B} \circ \langle \pi_{B,B^B}' \circ \pi_{P_B,N},I_B\rangle.
-    \end{align*}
 \end{corollary}
 
 \begin{proof}
-    Starting from a WNNO, the construction above gives $I_B$. Apply, respectively, the substitution functors supplied by the universal property
-    \[ S[0/z] : \mathcal{C}[y,v,z] \to \mathcal{C}[y,v] \qquad\text{and}\qquad
-       S[s \circ z/t] : \mathcal{C}[y,v,t] \to \mathcal{C}[y,v,z] \]
-    to the identity above and to the same identity written with $t : 1 \to N$. Using
-    \[ J_B(y,v^\sharp) \circ 0 \underset{y,v}{=} y \qquad\text{and}\qquad
-       J_B(y,v^\sharp) \circ s \underset{y,v}{=} v^\sharp \circ J_B(y,v^\sharp) \]
-    gives the two required polynomial identities. The uniqueness clause of functional completeness, applied through $\mathcal{C}[x] \cong \mathcal{C}[y,v]$ to the first and $\mathcal{C}[w] \cong \mathcal{C}[y,v,z]$ to the second, gives the two identities in $\mathcal{C}$ after the canonical identifications $P_B \times 1 \cong P_B$ and $(P_B \times N) \times 1 \cong P_B \times N$.
-
-    Conversely, suppose that for every object $B$ such an arrow $I_B$ exists. For $a : 1 \to B$ and $f : B \to B$, let
-    \[ p := \langle a,\ulcorner f\urcorner\rangle : 1 \to P_B \qquad\text{and}\qquad
-       h := I_B \circ \langle p \circ !_N,1_N\rangle : N \to B. \]
-    Precomposing the identities in $\mathcal{C}$ with $p$ and $\langle p \circ !_N,1_N\rangle$, respectively, gives $h \circ 0 = a$ and $h \circ s = \ulcorner f\urcorner^\sharp \circ h = f \circ h$. Thus $(N,0,s)$ is a WNNO.
+    Let's prove the two implications separately.
+    \begin{itemize}
+        \item[$\boxed{\Longrightarrow}$] Let's assume that $(N,0,s)$ is a WNNO in $\mathcal{C}$. By the construction above, we have the identity
+        \[ J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle, \]
+        in $\mathcal{C}[y,v,z]$. If we apply the substitution functor $S[0/z] : \mathcal{C}[y,v,z] \to \mathcal{C}[y,v]$ to both sides, we get
+        \[ J_B(y,v^\sharp) \circ 0 \underset{y,v}{=} I_B \circ \langle y,v,0\rangle. \]
+        Since $J_B(y,v^\sharp) \circ 0 \underset{y,v}{=} y$, we have
+        \[ y \underset{y,v}{=} I_B \circ \langle y,v,0\rangle. \]
+        Similarly, let's temporarily use $t : 1 \to N$ instead of $z$ in the identity above, and apply the substitution functor $S[s \circ z/t] : \mathcal{C}[y,v,t] \to \mathcal{C}[y,v,z]$ to both sides, we get
+        \[ J_B(y,v^\sharp) \circ s \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle. \]
+        Using the fact that $J_B(y,v^\sharp) \circ s \underset{y,v}{=} v^\sharp \circ J_B(y,v^\sharp)$, we have
+        \[ v^\sharp \circ J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle, \]
+        and, finally, using again the initial identity, $J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle$, we find
+        \[ v^\sharp \circ I_B \circ \langle y,v,z\rangle \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle. \]
+        In both cases we used the commutativity of the diagram given by the initial WNNO in $\mathcal C[y,v]$, which also holds in $\mathcal C[y,v,z]$.
+        \item[$\boxed{\Longleftarrow}$] Conversely, suppose that for every object $B$ of $\mathcal{C}$ there exists an arrow $I_B : (B \times B^B) \times N \to B$ such that the two polynomial identities in the statement are true.
+        Given a diagram
+        % https://q.uiver.app/#q=WzAsNixbMCwxLCIxIl0sWzEsMSwiQiJdLFsyLDEsIkIiXSxbMCwwLCIxIl0sWzEsMCwiTiJdLFsyLDAsIk4iXSxbMyw0LCIwIl0sWzQsNSwicyJdLFswLDEsImIiLDJdLFsxLDIsImYiLDJdLFszLDAsIiIsMix7Im9mZnNldCI6MSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDAsIiIsMSx7Im9mZnNldCI6LTEsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
+        % shift left and right to the arrows from 1 to 1
+        \[\begin{tikzcd}
+            1 & N & N \\
+            1 & B & B
+            \arrow["0", from=1-1, to=1-2]
+            \arrow[shift right = 0.20ex, no head, from=1-1, to=2-1]
+            \arrow[shift left = 0.20ex, no head, from=1-1, to=2-1]
+            \arrow["s", from=1-2, to=1-3]
+            \arrow["b"', from=2-1, to=2-2]
+            \arrow["f"', from=2-2, to=2-3]
+        \end{tikzcd},\]
+        we need to find an arrow $h : N \to B$ that makes it commute. Let $\langle b,\ulcorner f\urcorner\rangle : 1 \to B \times B^B$, then we have the arrow
+        \[ I_B \circ \langle \langle b,\ulcorner f\urcorner\rangle \circ !_N,1_N\rangle = I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle : N \to B. \]
+        Now, precomposing and using the two polynomial identities we get
+        \begin{align*}
+            I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle \circ 0 &= I_B \circ \langle b, \ulcorner f\urcorner, 0\rangle \\
+                                                                                              &= b,
+        \end{align*}
+        and, similarly
+        \begin{align*}
+            I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle \circ s \circ z &\underset{z}{=} I_B \circ \langle b, \ulcorner f\urcorner, s \circ z\rangle \\
+                                                                                                      &\underset{z}{=} \ulcorner f\urcorner^\sharp \circ I_B \circ \langle b, \ulcorner f\urcorner, z\rangle \\
+                                                                                                      &\underset{z}{=} f \circ I_B \circ \langle b, \ulcorner f\urcorner, z\rangle \\
+                                                                                                      &\underset{z}{=} f \circ I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle \circ z.
+        \end{align*}
+        Therefore, $h := I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle$ makes the diagram commute pointwise
+    \end{itemize}
 \end{proof}
+%DOVREI AGGIUNGERE LA DEFINIZIONE DI FUNTORE CARTESIANO CHIUSO CHE PRESERVA NNO/WNNO(?)
 
 \section{Typed \texorpdfstring{$\lambda$}{lambda}-calculi}
+Now that we have seen cartesian closed categories with WNNOs, we know categories that are models of positive intuitionistic propositional
+logic, and have a notion of recursion. We also want to see how this kind of categories can interpret typed $\lambda$-calculus,
+and to see the latter as a sort of “internal language” of cartesian closed categories.
+
+The specific kind of typed $\lambda$-calculus we will consider is a \emph{typed $\lambda\beta\eta$-calculus}, with \emph{terminal type}, \emph{product types}, \emph{surjective pairing} and \emph{iterator}.
+This will be the first step towards establishing Lambek's equivalence of categories.
+
+\begin{definition}
+    A \emph{typed $\lambda$-calculus} is a triple $(\textsf{Ty},\textsf{Tm},\textsf{Eq})$, made of \emph{types}, \emph{terms} and \emph{equations} between terms,
+    which are said to \emph{hold}, all subject to certain closure conditions. We write $a \in A$ to say that $a$ is a term of type $A$.
+    The types are defined recursively as follows:
+    \begin{itemize}
+        \item[(Ty1)] there are $1,N$ in $\textsf{Ty}$, called \emph{basic types};
+        \item[(Ty2)] if $A$ and $B$ are types, then $A \times B$ is a type;
+        \item[(Ty3)] if $A$ and $B$ are types, then $B^A$ is a type.
+    \end{itemize}
+    The class of terms is defined recursively as follows:
+    \begin{itemize}
+        \item[(Tm1)] for each type $A$, there are countably many variables, $x_i^A \in A$, of type $A$;
+        \item[(Tm2)] the type $1$ has a term $* \in 1$;
+        \item[(Tm3a)] if $a \in A$ and $b \in B$, then there is a term $\langle a,b\rangle$ of type $A \times B$;
+        \item[(Tm3b)] if $c \in A \times B$, then there are $\pi_{A,B}(c) \in A$ and $\pi_{A,B}'(c) \in B$;
+        \item[(Tm4)] if $f \in B^A$ and $a \in A$, then $\ev_{A,B}(f,a)$ is a term of type $B$;
+        \item[(Tm5)] if $x \in A$ is a variable and $\varphi(x) \in B$ is a term, then $\lambda_{x \in A} \varphi(x) \in B^A$;\newline (\emph{$\lambda$-abstraction})
+        \item[(Tm6a)] there is a term $0 \in N$;
+        \item[(Tm6b)] if $n \in N$, then $s(n) \in N$;
+        \item[(Tm7)] if $a \in A$, $f \in A^A$ and $n \in N$, then $I_A(a,f,n) \in A$.
+    \end{itemize}
+    In (Tm5) we mean that there can be a free occurrence of $x$ in $\varphi(x)$.
+    We'll often abbreviate $\ev_{A,B}(f,a)$ as $f^\sharp(a)$, when the types are clear from the context.\\
+    We now define recursively the class of equations between terms:
+    \begin{itemize}
+        \item[(Eq0)] every equation between terms is of the form $a \underset{X}{=} b$, where $a$ and $b$ are terms of the same type,
+        and $X$ is a finite set of variables containing all the free variables of $a$ and $b$;
+        \item[(Eq1)] $\underset{X}{=}$ is a binary relation on terms of the same type, specifically, it is an equivalence relation;
+        \item[(Eq2)] if $a \underset{X}{=} b$ and $X \subseteq Y$, then $a \underset{Y}{=} b$;
+        \item[(Eq3a)] if $a \underset{X}{=} b$, then $f^\sharp(a) \underset{X}{=} f^\sharp(b)$, for any $f \in B^A$ and $a,b \in A$;
+        \item[(Eq3b)] if $\varphi(x) \underset{X \cup\{x\}}{=} \varphi'(x)$, then $\lambda_{x \in A} \varphi(x) \underset{X}{=} \lambda_{x \in A} \varphi'(x)$, for a variable $x \in A$ and $\varphi(x),\varphi'(x) \in B$;
+        \item[(Eq4)] $a \underset{X}{=} *$, for any $a \in 1$;
+        \item[(Eq5a)] $\pi_{A,B}(\langle a,b\rangle) \underset{X}{=} a$, for all $a \in A$ and $b \in B$;
+        \item[(Eq5b)] $\pi_{A,B}'(\langle a,b\rangle) \underset{X}{=} b$, for all $a \in A$ and $b \in B$;
+        \item[(Eq5c)] $\langle \pi_{A,B}(c),\pi_{A,B}'(c)\rangle \underset{X}{=} c$, for all $c \in A \times B$; (\emph{surjective pairing})
+        \item[(Eq6a)] $(\lambda_{x \in A} \varphi(x))^\sharp(a) \underset{X}{=} \varphi(a)$, for all $a \in A$, which are substitutable for $x$ in $\varphi(x)$; (\emph{$\beta$-reduction})
+        \item[(Eq6b)] $\lambda_{x \in A}(f^\sharp(x)) \underset{X}{=} f$, for all $f \in B^A$ such that $x \notin X$; (\emph{$\eta$-reduction})
+        \item[(Eq7a)] $I_A(a,f,0) \underset{X}{=} a$, for all $a \in A$, $f \in A^A$ and $0 \in N$;
+        \item[(Eq7b)] $I_A(a,f,s(n)) \underset{X}{=} f^\sharp(I_A(a,f,n))$, for all $a \in A$, $f \in A^A$, $n \in N$ and $s(n) \in N$;
+        \item[(Eq8)] $\lambda_{x \in A} \varphi(x) \underset{X}{=} \lambda_{x' \in A} \varphi(x')$, if $x'$ is substitutable for $x$ in $\varphi(x)$ and $x'$ is not free in $\varphi(x)$; (\emph{$\alpha$-conversion}).
+    \end{itemize}
+\end{definition}
+
+\begin{remark}[On the definition of typed $\lambda$-calculi]
+    There may be other basic types, terms, type-forming rules, term-forming rules and equations.
+    What we defined is a \emph{simply typed $\lambda$-calculus} with product types and iterator, that any other typed $\lambda$-calculus, also with product types and iterator, can be seen as an extension of.
+\end{remark}
+
+\begin{remark}
+    (Eq7), the $\alpha$-conversion rule, may be omitted if we are willing to identify terms that differ only by the names of their bound variables.
+\end{remark}
+
+\begin{notation}[Free variables and closed terms]
+    We denote the free variables of a term $t$, with $\FV(t)$. The definition of free variables is the standard one, see for example \cite{Carpenter1997}.
+    We also say that a term $t$ is \emph{closed} if $\FV(t) = \varnothing$, and that a term $t$ is \emph{substitutable} for a variable $x$ in another term $\varphi(x)$,
+    if no free occurrence of a variable in $t$ becomes bound in $\varphi(t)$.
+\end{notation}
+
+The rule (Eq2) already allows us to pass from $a \underset{X}{=} b$ to $b \underset{X \cup \{x\}}{=} a$.
+Under certain assumptions, we can go the opposite way, as we see in the following propositions.
+
+\begin{proposition}[Equality implies pointwise equality]
+    In any typed $\lambda$-calculus, if $\varphi(x) \underset{X \cup \{x\}}{=} \psi(x)$, for $x \in A$, then $\varphi(a) \underset{X}{=} \psi(a)$, for all $a \in A$, assuming that:
+    \begin{enumerate}[label=(\roman*)]
+        \item $x \not \in X$;
+        \item $\FV(a) \subseteq X$, for all $a \in A$, otherwise the thesis does not make sense.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    From the hypothesis, we apply the rule (Eq3b) to get
+    \[ \lambda_{x \in A} \varphi(x) \underset{X}{=} \lambda_{x \in A} \psi(x), \]
+    and then, applying the $\beta$-reduction rule to both sides, we get
+    \[ \varphi(a) \underset{X}{=} (\lambda_{x \in A} \varphi(x))^\sharp(a) \underset{X}{=} (\lambda_{x \in A} \psi(x))^\sharp(a) \underset{X}{=} \psi(a). \]
+\end{proof}
+
+\begin{corollary}
+    If $f$ and $g$ do not contain free occurrences of $x \in A$, then $f(x) \underset{X \cup \{x\}}{=} g(x)$ implies $f \underset{X}{=} g$,
+    assuming that the type is \emph{inhabited}, i.e., there exists a closed term $a \in A$.
+\end{corollary}
+
+\begin{proof}
+   Let $a \in A$ be a closed term, then from $f(x) \underset{X \cup \{x\}}{=} g(x)$, using the previous proposition, we get $f(a) \underset{X}{=} g(a)$.
+   Since no free occurrence of $x$ is in $f$ and $g$, we have $f(a) \underset{X}{=} f$ and $g(a) \underset{X}{=} g$ (formally by using the definition of substitution), therefore, $f \underset{X}{=} g$.
+\end{proof}
+
+It can happen that the type $A$ is \emph{empty}, or, on the other hand, that every type is inhabited, and, therefore, the previous corollary is always applicable.\newline
+If we know that $f$ and $g$ are of type $B^A$, then we prove the corollary above, without the assumption that $A$ is inhabited, as follows.
+
+\begin{proposition}
+    Given $f,g \in B^A$, if $f \underset{X \cup \{x\}}{=} g$, for $x \in A$, then $f \underset{X}{=} g$.
+\end{proposition}
+
+\begin{proof}
+    We'd like to use $\eta$-reduction, but we first need to go from the hypothesis to $f^\sharp(x) \underset{X \cup \{x\}}{=} g^\sharp(x)$.
+    In order to do that, let's first define a new term. Let $h \in B^A$ and $x \in A$ a variable, then $h^\sharp(x) \in B$, and we can define the term:
+    \[ \varphi(x) = \lambda_{h \in B^A} h^\sharp(x) \in B^{B^A}. \]
+    Since $f \underset{X \cup \{x\}}{=} g$, we can apply (Eq3b) to get
+    \[ \varphi^\sharp(f) \underset{X \cup \{x\}}{=} \varphi^\sharp(g), \]
+    and then, by $\beta$-reduction, we have
+    \[ f^\sharp(x) \underset{X \cup \{x\}}{=} g^\sharp(x). \]
+    Now we can apply the $\lambda$-abstraction to both sides, since they are $A$-terms, hence
+    \[ \lambda_{x \in A} (f^\sharp(x)) \underset{X}{=} \lambda_{x \in A} (g^\sharp(x)). \]
+    Finally, by $\eta$-reduction, we get $f \underset{X}{=} g$.
+\end{proof}
+
+Let's see some examples of typed $\lambda$-calculi.
+
+\begin{example}[Simply typed $\lambda$-calculus]
+    As we already mentioned, if there are not types, terms, equations, type-forming rules and term-forming rules other than those in the definition above,
+    we have what is called a \emph{simply typed $\lambda\beta\eta$-calculus} with terminal type, product types, surjective pairing and iterator.
+    Also called \emph{pure typed $\lambda$-calculus} with \emph{weak natural object} and all the other features above. We denote this calculus by $\mathcal L_0$.
+\end{example}
+
+\begin{example}[$\lambda$-calculus generated by a graph]
+
+\end{example}
+
+The next example is fundamental for this thesis, and it's perfect as a bridge for the next section.
+
+\begin{example}[Internal language of a CCC]
+
+\end{example}
+
 \section{Lambek's equivalence}

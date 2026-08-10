@@ -4,8 +4,8 @@ Following \cite{LambekScott1994}, we will define a category as a particular kind
 with a working intuitionistic deductive system made entirely of objects and arrows.
 
 \begin{definition}[Graph]
-    A \textit{graph} $\mathcal G$ is given by a class of \textit{objects}, $\ob(\mathcal G)$, a class of \textit{arrows}, $\mor(\mathcal G)$, and two functions
-    \textit{source} and \textit{target}
+    A \emph{graph} $\mathcal G$ is given by a class of \emph{objects}, $\ob(\mathcal G)$, a class of \emph{arrows}, $\mor(\mathcal G)$, and two functions
+    \emph{source} and \emph{target}
     \[ s,t:\mor(\mathcal G)\to\ob(\mathcal G),\]
     which assign to each arrow $f$ its source $s(f)$ and its target $t(f)$.
 \end{definition}
@@ -15,8 +15,8 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{notation}
 
 \begin{definition}[Deductive system]
-    A \textit{deductive system} $\mathcal D$ is a graph in which, for each object $A$, there is an arrow $1_A : A \to A$, called \textit{identity arrow}, and there exists a
-    \textit{composition} function between arrows
+    A \emph{deductive system} $\mathcal D$ is a graph in which, for each object $A$, there is an arrow $1_A : A \to A$, called \emph{identity arrow}, and there exists a
+    \emph{composition} function between arrows
     \[ \circ : (f,g) \mapsto g \circ f \qquad \textnormal{for all $f$ and $g$ such that $t(f)=s(g)$.} \]
     We could also define the composition as a family of functions, one for each triple of objects $A,B,C \in \ob(\mathcal D)$:
     \[ \circ_{A,B,C} : \Hom(A,B) \times \Hom(B,C) \to \Hom(A,C) : (f,g) \mapsto g \circ f, \]
@@ -28,17 +28,17 @@ with a working intuitionistic deductive system made entirely of objects and arro
     \[ \frac{A \xrightarrow{f} B \quad B \xrightarrow{g} C}{A \xrightarrow{gf} C}. \]
 \end{notation}
 
-The objects of a deductive system can be thought of as \textit{propositions}, the arrows as \textit{proofs} and the composition as a \textit{rule of inference}.
+The objects of a deductive system can be thought of as \emph{propositions}, the arrows as \emph{proofs} and the composition as a \emph{rule of inference}.
 
 \begin{definition}[Conjunction calculus]
-    A \textit{conjunction calculus} is a deductive system $\mathcal C$, with a special object $\top$, the \textit{tautological proposition}, and a function
+    A \emph{conjunction calculus} is a deductive system $\mathcal C$, with a special object $\top$, the \emph{tautological proposition}, and a function
     \[ \wedge : \ob(\mathcal C)\times\ob(\mathcal C) \to \ob(\mathcal C) : (A,B) \mapsto A\wedge B, \]
-    called \textit{conjunction}. The following rules, which state the existence of certain classes of arrows, also hold:
+    called \emph{conjunction}. The following rules, which state the existence of certain classes of arrows, also hold:
     \begin{itemize}
         \item[(\textnormal{Conj 1})] for each object $A$ there exists an arrow $!_A : A \to \top$;
         \item[(\textnormal{Conj 2a})] for each pair of objects $A,B$ there exists an arrow $\pi_{A,B} : A \wedge B \to A$;
         \item[(\textnormal{Conj 2b})] for each pair of objects $A,B$ there exists an arrow $\pi_{A,B}' : A \wedge B \to B$;
-        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f, g \rangle : A \to B \wedge C$, the \textit{pairing arrow}, which can also be written as:
+        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f, g \rangle : A \to B \wedge C$, the \emph{pairing arrow}, which can also be written as:
         \[ \frac{A \xrightarrow{f} B \quad A \xrightarrow{g} C}{A \xrightarrow{\langle f, g \rangle} B \wedge C}.
         \]
     \end{itemize}
@@ -57,8 +57,8 @@ Finding a proof in a conjunction calculus means finding an arrow that starts fro
     \[ \alpha_{A,B,C} := \langle \pi_{A,B}\circ \pi_{A \land B,C}, \langle \pi_{A,B}'\circ \pi_{A \land B,C}, \pi_{A \land B,C}'\rangle\rangle. \]
 \end{example}
 
-Continuing this analogy, one could think of (Conj 2a) and (Conj 2b) as the \textit{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA,Mennuni2025}, of (Conj 2c) as the \textit{introduction rule} for conjunction, and of
-(Conj 1) as the \textit{introduction rule} for $\top$ together with the \textit{weakening rule}. We will progressively add more rules, or rather more arrows, to our deductive systems until we reach a complete intuitionistic deductive system.
+Continuing this analogy, one could think of (Conj 2a) and (Conj 2b) as the \emph{elimination rules} for conjunction in the natural deduction system \cite{ChiswellHodgesAppendixA,Mennuni2025}, of (Conj 2c) as the \emph{introduction rule} for conjunction, and of
+(Conj 1) as the \emph{introduction rule} for $\top$ together with the \emph{weakening rule}. We will progressively add more rules, or rather more arrows, to our deductive systems until we reach a complete intuitionistic deductive system.
 
 \begin{remark}
     Using the rules of a conjunction calculus, we can also define new rules of inference, or rather new operations on arrows, using the existing ones (for now only the composition and the pairing).
@@ -71,25 +71,25 @@ Continuing this analogy, one could think of (Conj 2a) and (Conj 2b) as the \text
 We are still far from having a complete intuitionistic deductive system: for example, we still have no way to express implication. We therefore give the following definition.
 
 \begin{definition}[Positive intuitionistic calculus]
-    A \textit{positive intuitionistic propositional calculus} is a conjunction calculus $\mathcal P$ with a function
+    A \emph{positive intuitionistic propositional calculus} is a conjunction calculus $\mathcal P$ with a function
     \[ \Leftarrow : \ob(\mathcal P)\times\ob(\mathcal P) \to \ob(\mathcal P) : (A,B) \mapsto A \Leftarrow B, \]
-    called \textit{implication}, and the following rules of inference:
+    called \emph{implication}, and the following rules of inference:
     \begin{itemize}
-        \item[(\textnormal{Impl 1})] for each pair of objects $A$ and $B$ there exists an arrow $\ev_{A,B} : (A \Leftarrow B) \wedge B \to A$, called \textit{evaluation arrow};
-        \item[(\textnormal{Impl 2})] for each triple of objects $A$, $B$ and $C$ and for each arrow $h : A \wedge B \to C$ there is an arrow $h^* : A \to (C \Leftarrow B)$, called \textit{currying of $h$}.
+        \item[(\textnormal{Impl 1})] for each pair of objects $A$ and $B$ there exists an arrow $\ev_{A,B} : (A \Leftarrow B) \wedge B \to A$, called \emph{evaluation arrow};
+        \item[(\textnormal{Impl 2})] for each triple of objects $A$, $B$ and $C$ and for each arrow $h : A \wedge B \to C$ there is an arrow $h^* : A \to (C \Leftarrow B)$, called \emph{currying of $h$}.
     \end{itemize}
 \end{definition}
 
 \begin{remark}
-    As with the conjunction rules, we can see an analogy with natural deduction here. In fact, (Impl 1) is the \textit{elimination rule} for implication; however, (Impl 2) does not correspond to a basic inference rule, but rather to a derived one:
+    As with the conjunction rules, we can see an analogy with natural deduction here. In fact, (Impl 1) is the \emph{elimination rule} for implication; however, (Impl 2) does not correspond to a basic inference rule, but rather to a derived one:
     \[ \textnormal{In}_{\Leftarrow}\frac{\displaystyle\textnormal{El}_{\Leftarrow}\frac{\displaystyle \textnormal{Wk}\frac{\displaystyle \textnormal{In}_{\Leftarrow}\frac{\displaystyle\frac{}{A \land B \vdash C}}{\vdash C \Leftarrow A \land B}}{A,B \vdash C \Leftarrow A \land B} \quad \displaystyle\textnormal{In}_{\land}\frac{\displaystyle\textnormal{Wk}\frac{\displaystyle\textnormal{Ax}\frac{}{A \vdash A}}{A, B \vdash A} \quad \displaystyle\textnormal{Wk}\frac{\displaystyle\textnormal{Ax}\frac{}{B \vdash B}}{A, B \vdash B}}{A, B \vdash A \land B}}{A,B \vdash C}}{A \vdash C \Leftarrow B}. \]
 \end{remark}
 
 \begin{remark}[Derived rules of inference]
     From (Impl 1) and (Impl 2) we can derive the following rules of inference:
     \begin{itemize}
-        \item[(\textnormal{Impl 1'})] for each pair of objects $B$ and $C$ there exists an arrow $\eta_{C,B} : C \to (C \land B) \Leftarrow B$, called \textit{co-evaluation arrow};
-        \item[(\textnormal{Impl 2'})] given an arrow $g : D \to A$ and an object $B$, we have the \textit{co-currying} arrow
+        \item[(\textnormal{Impl 1'})] for each pair of objects $B$ and $C$ there exists an arrow $\eta_{C,B} : C \to (C \land B) \Leftarrow B$, called \emph{co-evaluation arrow};
+        \item[(\textnormal{Impl 2'})] given an arrow $g : D \to A$ and an object $B$, we have the \emph{co-currying} arrow
         \[ \frac{D \xrightarrow{g} A}{(D \Leftarrow B) \xrightarrow{g \Leftarrow 1_B} (A \Leftarrow B)}, \]
     which expresses the covariance of implication in its first argument.
     \end{itemize}
@@ -115,16 +115,16 @@ We now need to add falsehood and disjunction to our positive intuitionistic prop
 To this end we give the following definition.
 
 \begin{definition}[Intuitionistic propositional calculus]
-    An \textit{intuitionistic propositional calculus} is a positive intuitionistic propositional calculus $\mathcal I$ with a special object $\bot$, the \textit{falsehood formula}, a function
+    An \emph{intuitionistic propositional calculus} is a positive intuitionistic propositional calculus $\mathcal I$ with a special object $\bot$, the \emph{falsehood formula}, a function
     \[ \lor : \ob(\mathcal I)\times\ob(\mathcal I) \to \ob(\mathcal I) : (A,B) \mapsto A \lor B, \]
-    called \textit{disjunction}, and the following rules of inference:
+    called \emph{disjunction}, and the following rules of inference:
     \begin{itemize}
         \item[(\textnormal{Int 1})] for each object $A$ there exists an arrow $?_A : \bot \to A$;
         \item[(\textnormal{Int 2a})] for each pair of objects $A$ and $B$ there exists an arrow $\iota_{A,B} : A \to A \lor B$;
         \item[(\textnormal{Int 2b})] for each pair of objects $A$ and $B$ there exists an arrow $\iota_{A,B}' : B \to A \lor B$;
         \item[(\textnormal{Int 2c})] for each triple of objects $A$, $B$ and $C$ there exists an arrow
         \[ \zeta_{A,B}^C : (C \Leftarrow A) \land (C \Leftarrow B) \to C \Leftarrow (A \lor B),\]
-        called \textit{disjunction elimination arrow}.
+        called \emph{disjunction elimination arrow}.
     \end{itemize}
 \end{definition}
 
@@ -136,7 +136,7 @@ To this end we give the following definition.
 Let's define another useful inference rule that can be derived in this system.
 
 \begin{example}[Co-pairing arrow]
-    Given the arrows $f : A \to C$ and $g : B \to C$, we can define the \textit{co-pairing arrow}
+    Given the arrows $f : A \to C$ and $g : B \to C$, we can define the \emph{co-pairing arrow}
     \[ \frac{A \xrightarrow{f} C \quad B \xrightarrow{g} C}{A \lor B \xrightarrow{[f,g]} C}, \]
     where $[f,g] := (\zeta_{A,B}^C \circ \langle \ulcorner f \urcorner, \ulcorner g \urcorner\rangle)^\sharp$.
     This inference rule is the direct counterpart of the elimination rule for disjunction in $\mathsf{ND}$ (the Natural Deduction system).
@@ -145,7 +145,7 @@ Let's define another useful inference rule that can be derived in this system.
 We have now constructed a complete intuitionistic propositional calculus. To conclude this section, we take the final step and define a deductive system with the structure of classical propositional logic.
 
 \begin{definition}[Classical propositional calculus]
-    A \textit{classical propositional calculus} is an intuitionistic propositional calculus $\mathcal C$ where for each object $A$ there exists an arrow:
+    A \emph{classical propositional calculus} is an intuitionistic propositional calculus $\mathcal C$ where for each object $A$ there exists an arrow:
     \[ \neg\neg_A : \bot \Leftarrow (\bot \Leftarrow A) \to A. \]
 \end{definition}
 
@@ -156,15 +156,15 @@ can be used to represent a complete deductive system for classical and intuition
 Now that we have defined enough structure to represent a complete deductive system, we want to impose some rules on the arrows of a category to obtain a structure that is more suitable for our purposes, that is a cartesian closed structure.
 
 \begin{definition}[Category]
-    A \textit{category} is a deductive system $\mathcal C$ where the following equations hold:
+    A \emph{category} is a deductive system $\mathcal C$ where the following equations hold:
     \[ f \circ 1_A = f, \qquad 1_B \circ f = f, \qquad (h \circ g) \circ f = h \circ (g \circ f),\]
-    for all arrows $f : A \to B$, $g : B \to C$ and $h : C \to D$. The first two equations are called \textit{identity laws}, while the third one is the \textit{associativity law}.
+    for all arrows $f : A \to B$, $g : B \to C$ and $h : C \to D$. The first two equations are called \emph{identity laws}, while the third one is the \emph{associativity law}.
 \end{definition}
 
 Observe that we can always construct a category from a deductive system. This notion will be developed in greater depth later.
 
 \begin{remark}[Category freely generated by a deductive system]\label{rem:category-generated-by-deductive-system}
-    Given a deductive system $\mathcal D$, we can always construct the \textit{freely generated category} $\mathcal C$ over $\mathcal D$, by taking the same objects and, as arrows, the equivalence classes of arrows of $\mathcal D$ modulo the identity and associativity laws.
+    Given a deductive system $\mathcal D$, we can always construct the \emph{freely generated category} $\mathcal C$ over $\mathcal D$, by taking the same objects and, as arrows, the equivalence classes of arrows of $\mathcal D$ modulo the identity and associativity laws.
     In particular, we can define
     \[ \ob(\mathcal C) = \ob(\mathcal D), \quad \mor(\mathcal C) = \mor(\mathcal D)/\sim_{\textnormal{Cat}}, \]
     where $\sim_{\textnormal{Cat}}$ is the equivalence relation generated by the identity and associativity laws which is compatible with composition,
@@ -175,7 +175,7 @@ A cartesian structure on a category essentially means that the category resemble
 We will use the following definition, which is equivalent to the usual one but algebraic in nature.
 
 \begin{definition}[Cartesian category]
-    A \textit{cartesian category} is a category $\mathcal C$ that is also a conjunction calculus, where the following equations hold:
+    A \emph{cartesian category} is a category $\mathcal C$ that is also a conjunction calculus, where the following equations hold:
     \begin{itemize}
         \item[(\textnormal{CC1})] for every object $A$ and every arrow $f : A \to \top$, we have $f = !_A$;
     \end{itemize}
@@ -252,7 +252,7 @@ The distributive law immediately implies the fact that $\cdot \times \cdot$ is a
 We are now ready to give the definition of a cartesian closed category, which will be the central structure of this work. The idea is that a cartesian closed category is a category that behaves like $\mathsf{Set}$ in many respects.
 
 \begin{definition}[Cartesian closed category]
-    A \textit{cartesian closed category} is a cartesian category $\mathcal C$ that is also a positive intuitionistic propositional calculus, where the following equations hold:
+    A \emph{cartesian closed category} is a cartesian category $\mathcal C$ that is also a positive intuitionistic propositional calculus, where the following equations hold:
     \begin{itemize}
         \item[(\textnormal{CCC1})] for all $h : A \times B \to C$ we have:
         \[ \ev_{C,B} \circ (h^* \times 1_B) = \ev_{C,B} \circ \langle h^* \circ \pi_{A,B}, \pi_{A,B}'\rangle = h; \]
@@ -338,7 +338,7 @@ In order to do this, we first need to give a precise definition of a cartesian c
 We proceed in two steps: first, we define the positive intuitionistic propositional calculus generated by a graph; then, we define the cartesian closed category generated by a positive intuitionistic propositional calculus.
 
 \begin{definition}[Positive intuitionistic calculus freely generated by a graph]
-    Given a graph $\mathcal G$, the \textit{positive intuitionistic propositional calculus freely generated by $\mathcal G$}, written as $\mathcal P(\mathcal G)$,
+    Given a graph $\mathcal G$, the \emph{positive intuitionistic propositional calculus freely generated by $\mathcal G$}, written as $\mathcal P(\mathcal G)$,
     is the smallest positive intuitionistic propositional calculus whose formulas include the objects of $\mathcal G$ and whose proofs include the arrows of $\mathcal G$.
     More precisely, we can give a recursive definition of both the objects and the arrows of $\mathcal P(\mathcal G)$:
     \begin{itemize}
@@ -390,7 +390,7 @@ pairing, currying, and containing the category, cartesian and cartesian closed a
 We can now give the definition of a cartesian closed category generated by a graph, which will be well-defined thanks to the previous lemma.
 
 \begin{definition}[Cartesian closed category generated by a graph]
-    Given a graph $\mathcal G$, the \textit{cartesian closed category freely generated} by $\mathcal G$, written as $\mathcal F(\mathcal G)$,
+    Given a graph $\mathcal G$, the \emph{cartesian closed category freely generated} by $\mathcal G$, written as $\mathcal F(\mathcal G)$,
     is the quotient of $\mathcal P(\mathcal G)$ by the smallest equivalence relation on parallel arrows that contains the category, cartesian and cartesian closed axioms and is compatible with composition, pairing and currying.
 \end{definition}
 
@@ -398,8 +398,8 @@ The cartesian closed category freely generated by a graph has an important unive
 Before stating and proving it, let's define the notion of functor between cartesian closed categories.
 
 \begin{definition}[Cartesian closed functor]
-    Given two cartesian closed categories $\mathcal C$ and $\mathcal D$, a \textit{cartesian closed functor} $F : \mathcal C \to \mathcal D$ is a functor with the following properties:
-    \begin{enumerate}[label=(\textit{\roman*})]
+    Given two cartesian closed categories $\mathcal C$ and $\mathcal D$, a \emph{cartesian closed functor} $F : \mathcal C \to \mathcal D$ is a functor with the following properties:
+    \begin{enumerate}[label=(\emph{\roman*})]
         \item $F(1_\mathcal C) = 1_\mathcal D$;
         \item $F(A \times B) = F(A) \times F(B)$;
         \item $F(A^B) = F(A)^{F(B)}$;
@@ -527,23 +527,23 @@ easily check that $\mathcal F$ preserves identities and composition using the fu
 \end{remark}
 
 Finally, we now define the core notion of this section, that is the notion of polynomial category over a cartesian closed category. The question is:
-given two objects $A_0$ and $A$ of a (cartesian, cartesian closed) category $\mathcal C$, how does one adjoin an \textit{indeterminate} arrow $x : A_0 \to A$ to $\mathcal C$?
+given two objects $A_0$ and $A$ of a (cartesian, cartesian closed) category $\mathcal C$, how does one adjoin an \emph{indeterminate} arrow $x : A_0 \to A$ to $\mathcal C$?
 
 \begin{definition}[Polynomial category -- v.1]
-    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, and an indeterminate arrow $x : A_0 \to A$, we define the \textit{polynomial category} $\mathcal C[x]$
+    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, and an indeterminate arrow $x : A_0 \to A$, we define the \emph{polynomial category} $\mathcal C[x]$
     as the cartesian closed category freely generated by the graph $\mathcal U(\mathcal C)$ with the additional arrow $x : A_0 \to A$, quotiented in order to preserve the relations between the arrows of $\mathcal C$ and make the natural map a (cartesian, cartesian closed) functor.
 \end{definition}
 
 \begin{notation}[Polynomial arrows]
     We will denote by $\varphi(x), \psi(x), \ldots$ the arrows of $\mathcal C[x]$ that are generated by the indeterminate arrow $x : A_0 \to A$. These arrows
-    can be thought of as proofs under the \textit{assumption} $x : A_0 \to A$.
+    can be thought of as proofs under the \emph{assumption} $x : A_0 \to A$.
 \end{notation}
 
 The previous definition is not precise, but it conveys the general idea. It can be made precise by following a similar approach to the one used to define the cartesian closed category freely generated by a graph.
 This provides us with an explicit description of the arrows of $\mathcal C[x]$ and of the equivalence relation used to define it, which will be useful later.
 
 \begin{definition}[Polynomial category -- v.2]
-    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, and an indeterminate arrow $x : A_0 \to A$, we define the \textit{polynomial category} $\mathcal C[x]$
+    Given a (cartesian, cartesian closed) category $\mathcal C$, two objects $A_0$ and $A$ of $\mathcal C$, and an indeterminate arrow $x : A_0 \to A$, we define the \emph{polynomial category} $\mathcal C[x]$
     in two steps:
     \begin{itemize}
         \item First, we define the positive intuitionistic propositional calculus. Since $\mathcal C$ is already a cartesian closed category, we can directly take its objects $\ob(\mathcal C)$ as the objects of the calculus. Moreover, the tautological object, conjunction and implication functions are those of $\mathcal C$. For the arrows, we take those generated by the following grammar:
@@ -627,7 +627,7 @@ Let's see an important consequence of this universal property.
 \end{proof}
 
 \begin{notation}
-    $S[a/x]$ can regarded as the process of \textit{substituting} the arrow $a$ for the indeterminate arrow $x$, therefore we will use the notation:
+    $S[a/x]$ can regarded as the process of \emph{substituting} the arrow $a$ for the indeterminate arrow $x$, therefore we will use the notation:
     \[ S(a/x)(\varphi(x)) = \varphi(a). \]
 \end{notation}
 
@@ -639,8 +639,8 @@ Let's see an important consequence of this universal property.
 The aim of this section is to provide a normal form for the arrows of the polynomial category $\mathcal C[x]$ of a cartesian closed category $\mathcal C$.
 Such a normal form should be unique and is based on the same idea as the normal form of polynomials in $R[x]$, that is, for a commutative unital ring $R$,
 every polynomial can be uniquely expressed in the form $a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$, with $a_i \in R$, $n \in \NN$.\par
-We'll try to do something similar for the arrows of $\mathcal C[x]$ and obtain \textit{Lambek's normal form}. In order to do this, we first need to introduce a couple
-of results, each a stronger version of the previous one. These results go under the name of \textit{deduction theorems} or, more broadly, \textit{functional completeness} theorems.
+We'll try to do something similar for the arrows of $\mathcal C[x]$ and obtain \emph{Lambek's normal form}. In order to do this, we first need to introduce a couple
+of results, each a stronger version of the previous one. These results go under the name of \emph{deduction theorems} or, more broadly, \emph{functional completeness} theorems.
 
 \begin{theorem}[Deduction theorem for positive intuitionistic calculi]
     Given a positive intuitionistic propositional calculus $\mathcal P$, an object $A$ of $\mathcal P$ and an indeterminate arrow $x : \top \to A$,
@@ -652,7 +652,7 @@ By $\mathcal P\langle x\rangle$ we mean the formal polynomial positive intuition
 
 \begin{definition}
     Given a positive intuitionistic propositional calculus $\mathcal P$, an object $A$ of $\mathcal P$ and an indeterminate arrow $x : \top \to A$, we denote by
-    $\mathcal P\langle x\rangle$ the \textit{formal polynomial positive intuitionistic calculus over $\mathcal P$}. Its objects, tautological object, conjunction and implication are those of
+    $\mathcal P\langle x\rangle$ the \emph{formal polynomial positive intuitionistic calculus over $\mathcal P$}. Its objects, tautological object, conjunction and implication are those of
     $\mathcal P$, while its arrows are generated by the grammar
     \[ \varphi,\psi ::= h \mid x \mid \psi \circ \varphi \mid \langle \varphi,\psi\rangle \mid \varphi^*, \]
     where $h \in \mor(\mathcal P)$ and $A \in \ob(\mathcal P)$. In particular, the identity, terminal, projection and evaluation arrows $1_B$, $!_B$, $\pi_{B,C}$, $\pi_{B,C}'$ and $\textnormal{ev}_{B,C}$ of $\mathcal P$ are the same as those of $\mathcal P\langle x \rangle$, since they are included in the $h$ above.
@@ -675,7 +675,7 @@ We now give a constructive proof of the deduction theorem stated above.
 \begin{proof}
     By the definition of $\mathcal P\langle x\rangle$, every formal arrow $\varphi(x) : B \to C$ has one of the following forms:
     \[ g,\quad x,\quad \psi(x) \circ \chi(x),\quad \langle \psi(x),\chi(x)\rangle,\quad \psi(x)^*, \]
-    where $g \in \mor(\mathcal P)$ and $x : \top \to A$ is the indeterminate arrow. We proceed by induction on the \textit{length} $\ell$ of the term, that is defined as follows:
+    where $g \in \mor(\mathcal P)$ and $x : \top \to A$ is the indeterminate arrow. We proceed by induction on the \emph{length} $\ell$ of the term, that is defined as follows:
     \begin{itemize}
         \item if $\varphi(x) = g$ or $\varphi(x) = x$, then $\ell(\varphi(x)) := 1$;
         \item if $\varphi(x) = \psi(x) \circ \chi(x)$, then $\ell(\varphi(x)) := \ell(\psi(x)) + \ell(\chi(x)) + 1$;
@@ -700,7 +700,7 @@ We now give a constructive proof of the deduction theorem stated above.
 
 \begin{notation}
     From now on we will denote by $\kappa_{x \in A}\varphi(x)$ the arrow in $\mathcal P$ associated to $\varphi(x)$ by the deduction theorem above.
-    The subscript $x \in A$ indicates that $x$ is of \textit{type} $A$, i.e.,\ $x : \top \to A$.
+    The subscript $x \in A$ indicates that $x$ is of \emph{type} $A$, i.e.,\ $x : \top \to A$.
 \end{notation}
 
 \begin{remark}[Classical deduction theorem]
