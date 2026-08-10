@@ -65,7 +65,7 @@ If we require only the existence of an arrow that makes the diagram above commut
     \[  f \leq_{B^A} g \quad\overset{\textnormal{def}}{\Longleftrightarrow}\quad f(a) \leq_B g(a) \quad\text{for every } a \in A. \]
     The usual evaluation map is monotone, idem the currying map and (CCC1) + (CCC2) are easily verified. Thus $\textsf{Pos}$ is cartesian closed.
     Let $\omega_1$ be the first uncountable ordinal and let $W := (\omega_1)_{\mathrm{disc}}$ be its underlying set equipped with the discrete order, rather than with the usual ordinal order; explicitly:
-    \[ \alpha \leq_W \beta \quad\Longleftrightarrow\quad \alpha = \beta. \]
+    \[ \alpha \leq_W \beta \quad\overset{\textnormal{def}}{\Longleftrightarrow}\quad \alpha = \beta. \]
     We choose the arrows $0 : 1 \to W : * \mapsto 0$ and $s : W \to W : \alpha \mapsto \alpha + 1$, which is monotone and well-defined since $\omega_1$ is a limit ordinal.\newline
     Let's consider an arbitrary diagram $1 \xrightarrow{a} A \xrightarrow{f} A$ in $\textsf{Pos}$, then we can define $h$ by transfinite recursion as follows:
     \[ h(\alpha) := \begin{cases}
@@ -113,10 +113,16 @@ If we require only the existence of an arrow that makes the diagram above commut
         \arrow["a", from=2-1, to=2-2]
         \arrow["f", from=2-2, to=2-3]
     \end{tikzcd}\]
-    commute, i.e.,\ $J_A(a,f) \circ 0 = a$ and $J_A(a,f) \circ s = f \circ J_A(a,f)$. [DISCUTERE BREVEMENTE QUANTO AC SERVA]
+    commute, i.e.,\ $J_A(a,f) \circ 0 = a$ and $J_A(a,f) \circ s = f \circ J_A(a,f)$. For each object $A$, given $(a,f) \in \Hom(1,A) \times \Hom(A,A)$, we know
+    by the definition of WNNO that $\Hom(N,A)$ is nonempty, therefore we can pick an element and define $J_A(\cdot,\cdot)$ as a function.
+    In order to define $J_A(\cdot,\cdot)$ as a function, we need to choose simultaneously an element for each pair $(a,f)$, i.e. to choose a function in $\prod_{(a,f)} \Hom(N,A)$.
+    If $\mathcal C$ is \emph{locally small}, i.e.,\ all the $\Hom$ are sets, this can be done using simply the classical axiom of choice. If $\mathcal C$ is not locally small,
+    then $\{(a,f)\}$ it's a proper class, therefore we need to use a stronger version of $\mathsf{AC}$, so some form of global choice.\newline
+    The last thing to say about $J_A(\cdot,\cdot)$ is that this is an “external" function used to describe a WNNO/NNO, shortly we will see that we can define an “internal function",
+    in the category itself, instead of its $\Hom$-sets, which is more useful for our purposes.
 \end{notation}
 
-Let's see now that if a cartesian closed category has a NNO/WNNO, then the polynomial category over it has the same NNO/WNNO.
+Let's see that if a cartesian closed category has a NNO/WNNO, then a polynomial category over it has the same NNO/WNNO.
 
 \begin{proposition}[NNO/WNNO in polynomial categories]
     If a cartesian closed category $\mathcal{C}$ has a natural number object (resp. a weak natural number object), and if $x : 1 \to A$
@@ -241,17 +247,23 @@ Now that we have the proposition above, we can define, for each object, an actua
 
 Let's consider $y : 1 \to B$, $v : 1 \to B^B$ and $z : 1 \to N$ indeterminate arrows, let's also define $\mathcal{C}[y,v] := \mathcal{C}[y][v]$ and $\mathcal{C}[y,v,z] := \mathcal{C}[y][v][z]$.\newline
 The universal property of polynomial categories gives a canonical isomorphism $F : \mathcal{C}[x] \xrightarrow{\sim} \mathcal{C}[y,v]$ over $\mathcal{C}$, determined by $x \mapsto \langle y,v\rangle$;
-its inverse sends $y$ to $y(x)$ and $v$ to $v(x)$, therefore $F = \widehat{\iota_{y,v}}$. It's easy to check that the isomorphism extends, in the natural way, to $\mathcal{C}[x][z] \cong \mathcal{C}[y,v,z]$, through $\widehat F$.
-Since $F$ is a cartesian closed functor and $\mathcal C[x]$ and $\mathcal C[y,v]$ has the same WNNO, applying $F$ to $\chi_B(x)$ preserves the commutativity of the diagram.
-Due to the fact that $v(x) \leftrightarrow v$ and $y(x) \leftrightarrow y$ we have $F(\chi_B(x)) = J_B(y,v^\sharp)$. Using the definition of iterator in $\mathcal{C}[y,v]$, we have
-\[ J_B(y,v^\sharp) \underset{y,v}{=} I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle.\]
-If we now add the indeterminate $z : 1 \to N$, precomposing with $z$ gives:
+its inverse sends $y$ to $y(x)$ and $v$ to $v(x)$, therefore $F = \widehat{\iota_{y,v}}$.
+Since $F$ is over $\mathcal C$, it fixes the objects and arrows of $\mathcal C$, in particular $B$, $N$, $0$, $s$ and $I_B$. Moreover, since it is a cartesian closed functor,
+\[ F(y(x)) = y, \qquad F(v(x)) = v \qquad\text{and}\qquad F(v(x)^\sharp) = F(v(x))^\sharp = v^\sharp. \]
+Let
+\[ \widetilde{\chi}_B(y,v) := F(\chi_B(x)) : N \to B. \]
+Applying $F$ to the two equations satisfied by $\chi_B(x)$ gives
+\[ \widetilde{\chi}_B(y,v) \circ 0 \underset{y,v}{=} y \qquad\text{and}\qquad
+\widetilde{\chi}_B(y,v) \circ s \underset{y,v}{=} v^\sharp \circ \widetilde{\chi}_B(y,v). \]
+Thus $\widetilde{\chi}_B(y,v)$ is a solution of the corresponding recursion diagram in $\mathcal C[y,v]$. Applying $F$ to the defining equation for $I_B$ gives
+\[ \widetilde{\chi}_B(y,v) \underset{y,v}{=} I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle.\]
+If we now add the indeterminate $z : 1 \to N$, precomposing with $z$ gives
 \begin{align*}
-    J_B(y,v^\sharp) \circ z &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle \circ z \\
-                            &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle z\rangle.
+    \widetilde{\chi}_B(y,v) \circ z &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle \circ !_N,1_N\rangle \circ z \\
+                                     &\underset{y,v,z}{=} I_B \circ \langle \langle y,v\rangle,z\rangle.
 \end{align*}
 Using the notation $\langle y,v,z\rangle := \langle \langle y,v\rangle, z\rangle : 1 \to (B \times B^B) \times N$ we get the equality in $\mathcal{C}[y,v,z]$:
-\[ J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle. \]
+\[ \widetilde{\chi}_B(y,v) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle. \]
 
 \begin{corollary}[Internal form of a WNNO]
     An object $N$ equipped with arrows
@@ -267,18 +279,18 @@ Using the notation $\langle y,v,z\rangle := \langle \langle y,v\rangle, z\rangle
     Let's prove the two implications separately.
     \begin{itemize}
         \item[$\boxed{\Longrightarrow}$] Let's assume that $(N,0,s)$ is a WNNO in $\mathcal{C}$. By the construction above, we have the identity
-        \[ J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle, \]
+        \[ \widetilde{\chi}_B(y,v) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle, \]
         in $\mathcal{C}[y,v,z]$. If we apply the substitution functor $S[0/z] : \mathcal{C}[y,v,z] \to \mathcal{C}[y,v]$ to both sides, we get
-        \[ J_B(y,v^\sharp) \circ 0 \underset{y,v}{=} I_B \circ \langle y,v,0\rangle. \]
-        Since $J_B(y,v^\sharp) \circ 0 \underset{y,v}{=} y$, we have
+        \[ \widetilde{\chi}_B(y,v) \circ 0 \underset{y,v}{=} I_B \circ \langle y,v,0\rangle. \]
+        Since $\widetilde{\chi}_B(y,v) \circ 0 \underset{y,v}{=} y$, we have
         \[ y \underset{y,v}{=} I_B \circ \langle y,v,0\rangle. \]
         Similarly, let's temporarily use $t : 1 \to N$ instead of $z$ in the identity above, and apply the substitution functor $S[s \circ z/t] : \mathcal{C}[y,v,t] \to \mathcal{C}[y,v,z]$ to both sides, we get
-        \[ J_B(y,v^\sharp) \circ s \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle. \]
-        Using the fact that $J_B(y,v^\sharp) \circ s \underset{y,v}{=} v^\sharp \circ J_B(y,v^\sharp)$, we have
-        \[ v^\sharp \circ J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle, \]
-        and, finally, using again the initial identity, $J_B(y,v^\sharp) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle$, we find
+        \[ \widetilde{\chi}_B(y,v) \circ s \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle. \]
+        Using the fact that $\widetilde{\chi}_B(y,v) \circ s \underset{y,v}{=} v^\sharp \circ \widetilde{\chi}_B(y,v)$, we have
+        \[ v^\sharp \circ \widetilde{\chi}_B(y,v) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle, \]
+        and, finally, using again the initial identity, $\widetilde{\chi}_B(y,v) \circ z \underset{y,v,z}{=} I_B \circ \langle y,v,z\rangle$, we find
         \[ v^\sharp \circ I_B \circ \langle y,v,z\rangle \underset{y,v,z}{=} I_B \circ \langle y,v,s \circ z\rangle. \]
-        In both cases we used the commutativity of the diagram given by the initial WNNO in $\mathcal C[y,v]$, which also holds in $\mathcal C[y,v,z]$.
+        In both cases, we used the recursion equations satisfied by $\widetilde{\chi}_B(y,v)$ in $\mathcal C[y,v]$; applying the canonical inclusion, the same equations hold in $\mathcal C[y,v,z]$.
         \item[$\boxed{\Longleftarrow}$] Conversely, suppose that for every object $B$ of $\mathcal{C}$ there exists an arrow $I_B : (B \times B^B) \times N \to B$ such that the two polynomial identities in the statement are true.
         Given a diagram
         % https://q.uiver.app/#q=WzAsNixbMCwxLCIxIl0sWzEsMSwiQiJdLFsyLDEsIkIiXSxbMCwwLCIxIl0sWzEsMCwiTiJdLFsyLDAsIk4iXSxbMyw0LCIwIl0sWzQsNSwicyJdLFswLDEsImIiLDJdLFsxLDIsImYiLDJdLFszLDAsIiIsMix7Im9mZnNldCI6MSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDAsIiIsMSx7Im9mZnNldCI6LTEsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XV0=
@@ -293,24 +305,66 @@ Using the notation $\langle y,v,z\rangle := \langle \langle y,v\rangle, z\rangle
             \arrow["b"', from=2-1, to=2-2]
             \arrow["f"', from=2-2, to=2-3]
         \end{tikzcd},\]
-        we need to find an arrow $h : N \to B$ that makes it commute. Let $\langle b,\ulcorner f\urcorner\rangle : 1 \to B \times B^B$, then we have the arrow
-        \[ I_B \circ \langle \langle b,\ulcorner f\urcorner\rangle \circ !_N,1_N\rangle = I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle : N \to B. \]
-        Now, precomposing and using the two polynomial identities we get
+        we need to find an arrow $h : N \to B$ that makes it commute. Let $p := \langle b,\ulcorner f\urcorner\rangle : 1 \to B \times B^B$ and define
+        \[ h := I_B \circ \langle p \circ !_N,1_N\rangle = I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle : N \to B. \]
+        Precomposing and using the two polynomial identities, we get
         \begin{align*}
-            I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle \circ 0 &= I_B \circ \langle b, \ulcorner f\urcorner, 0\rangle \\
-                                                                                              &= b,
+            h \circ 0 &= I_B \circ \langle b, \ulcorner f\urcorner, 0\rangle \\
+                       &= b,
         \end{align*}
         and, similarly
         \begin{align*}
-            I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle \circ s \circ z &\underset{z}{=} I_B \circ \langle b, \ulcorner f\urcorner, s \circ z\rangle \\
-                                                                                                      &\underset{z}{=} \ulcorner f\urcorner^\sharp \circ I_B \circ \langle b, \ulcorner f\urcorner, z\rangle \\
-                                                                                                      &\underset{z}{=} f \circ I_B \circ \langle b, \ulcorner f\urcorner, z\rangle \\
-                                                                                                      &\underset{z}{=} f \circ I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle \circ z.
+            h \circ s \circ z &\underset{z}{=} I_B \circ \langle b, \ulcorner f\urcorner, s \circ z\rangle \\
+                               &\underset{z}{=} \ulcorner f\urcorner^\sharp \circ I_B \circ \langle b, \ulcorner f\urcorner, z\rangle \\
+                               &\underset{z}{=} f \circ I_B \circ \langle b, \ulcorner f\urcorner, z\rangle \\
+                               &\underset{z}{=} f \circ h \circ z.
         \end{align*}
-        Therefore, $h := I_B \circ \langle b \circ !_N, \ulcorner f\urcorner \circ !_N, 1_N\rangle$ makes the diagram commute pointwise
+        The calculation above shows that
+        \[ (h \circ s) \circ z \underset{z}{=} (f \circ h) \circ z. \]
+        By the uniqueness in Lambek's normal form with respect to the indeterminate $z : 1 \to N$, the map
+        \[ \Hom_{\mathcal C}(N,B) \longrightarrow \Hom_{\mathcal C[z]}(1,B) : q \longmapsto q \circ z \]
+        is injective. Hence $h \circ s = f \circ h$. Together with $h \circ 0 = b$, this shows that $h$ makes the diagram commute.
     \end{itemize}
 \end{proof}
-%DOVREI AGGIUNGERE LA DEFINIZIONE DI FUNTORE CARTESIANO CHIUSO CHE PRESERVA NNO/WNNO(?)
+
+\begin{definition}[Cartesian closed functor preserving a WNNO]
+    Let $F : \mathcal C \to \mathcal D$ be a cartesian closed functor and let $(N,0,s)$ be a WNNO in $\mathcal C$. We say that $F$ \emph{preserves} $(N,0,s)$ if
+    \[ 1_{\mathcal D} = F(1_{\mathcal C}) \xrightarrow{F(0)} F(N) \xrightarrow{F(s)} F(N) \]
+    is a WNNO in $\mathcal D$.
+    If $\mathcal C$ and $\mathcal D$ are equipped with chosen WNNOs $(N_{\mathcal C},0_{\mathcal C},s_{\mathcal C})$ and $(N_{\mathcal D},0_{\mathcal D},s_{\mathcal D})$, respectively, we say that $F$ \emph{strictly preserves the chosen WNNOs} if
+    \[ F(N_{\mathcal C}) = N_{\mathcal D}, \qquad F(0_{\mathcal C}) = 0_{\mathcal D} \qquad\text{and}\qquad F(s_{\mathcal C}) = s_{\mathcal D}. \]
+\end{definition}
+
+\begin{definition}[Cartesian closed functor preserving an NNO]
+    Let $F : \mathcal C \to \mathcal D$ be a cartesian closed functor and let $(N,0,s)$ be an NNO in $\mathcal C$. We say that $F$ \emph{preserves} $(N,0,s)$ if
+    \[ 1_{\mathcal D} = F(1_{\mathcal C}) \xrightarrow{F(0)} F(N) \xrightarrow{F(s)} F(N) \]
+    is an NNO in $\mathcal D$.
+    If $\mathcal C$ and $\mathcal D$ are equipped with chosen NNOs $(N_{\mathcal C},0_{\mathcal C},s_{\mathcal C})$ and $(N_{\mathcal D},0_{\mathcal D},s_{\mathcal D})$, respectively, we say that $F$ \emph{strictly preserves the chosen NNOs} if
+    \[ F(N_{\mathcal C}) = N_{\mathcal D}, \qquad F(0_{\mathcal C}) = 0_{\mathcal D} \qquad\text{and}\qquad F(s_{\mathcal C}) = s_{\mathcal D}. \]
+\end{definition}
+
+\begin{remark}[Images of recursion diagrams]
+    Let $F : \mathcal C \to \mathcal D$ be a cartesian closed functor, and consider arrows $0 : 1_{\mathcal C} \to N$, $s : N \to N$, $a : 1_{\mathcal C} \to A$ and $f : A \to A$ in $\mathcal C$. Suppose that $h : N \to A$ satisfies
+    \[ h \circ 0 = a \qquad\text{and}\qquad h \circ s = f \circ h. \]
+    Functoriality gives
+    \[ F(h) \circ F(0) = F(a) \qquad\text{and}\qquad F(h) \circ F(s) = F(f) \circ F(h), \]
+    so $F(h)$ is a solution of the image recursion diagram. This alone does not show that $F$ preserves $(N,0,s)$: a recursion diagram in $\mathcal D$ need not be the image of one in $\mathcal C$. Moreover, when $(N,0,s)$ is only a WNNO, $F(h)$ need not coincide with a solution chosen independently in $\mathcal D$.
+\end{remark}
+
+\begin{definition}[The category $\mathsf{CCC}_N$]
+    We denote by $\mathsf{CCC}_N$ the category whose objects are tuples
+    \[ \big(\mathcal C,N_{\mathcal C},0_{\mathcal C},s_{\mathcal C},(I_A^{\mathcal C})_{A \in \ob(\mathcal C)}\big), \]
+    where $\mathcal C$ is a cartesian closed category, $(N_{\mathcal C},0_{\mathcal C},s_{\mathcal C})$ is a chosen WNNO and
+    \[ I_A^{\mathcal C} : (A \times A^A) \times N_{\mathcal C} \to A \]
+    is a chosen parameterized iterator satisfying the identities of the preceding corollary, for every object $A$ of $\mathcal C$.
+    A morphism between two such objects, based on $\mathcal C$ and $\mathcal D$, is a cartesian closed functor $F : \mathcal C \to \mathcal D$ that strictly preserves the chosen WNNOs and satisfies
+    \[ F(I_A^{\mathcal C}) = I_{F(A)}^{\mathcal D} \]
+    for every object $A$ of $\mathcal C$. Identities and composition are inherited from $\mathsf{CCC}$.
+\end{definition}
+
+\begin{remark}
+    For an NNO, the parameterized iterators are unique, so their preservation follows from the strict preservation of the chosen NNOs. For a WNNO, preserving the chosen parameterized iterators is an additional condition.
+\end{remark}
 
 \section{Typed \texorpdfstring{$\lambda$}{lambda}-calculi}
 Now that we have seen cartesian closed categories with WNNOs, we know categories that are models of positive intuitionistic propositional
@@ -333,9 +387,9 @@ This will be the first step towards establishing Lambek's equivalence of categor
     \begin{itemize}
         \item[(Tm1)] for each type $A$, there are countably many variables, $x_i^A \in A$, of type $A$;
         \item[(Tm2)] the type $1$ has a term $* \in 1$;
-        \item[(Tm3a)] if $a \in A$ and $b \in B$, then there is a term $\langle a,b\rangle$ of type $A \times B$;
+        \item[(Tm3a)] if $a \in A$ and $b \in B$, then there is a term $\langle a,b\rangle$ of type $A \times B$; (\emph{pairing})
         \item[(Tm3b)] if $c \in A \times B$, then there are $\pi_{A,B}(c) \in A$ and $\pi_{A,B}'(c) \in B$;
-        \item[(Tm4)] if $f \in B^A$ and $a \in A$, then $\ev_{A,B}(f,a)$ is a term of type $B$;
+        \item[(Tm4)] if $f \in B^A$ and $a \in A$, then $\ev_{A,B}(f,a)$ is a term of type $B$; (\emph{evaluation})
         \item[(Tm5)] if $x \in A$ is a variable and $\varphi(x) \in B$ is a term, then $\lambda_{x \in A} \varphi(x) \in B^A$;\newline (\emph{$\lambda$-abstraction})
         \item[(Tm6a)] there is a term $0 \in N$;
         \item[(Tm6b)] if $n \in N$, then $s(n) \in N$;
@@ -435,10 +489,47 @@ Let's see some examples of typed $\lambda$-calculi.
 \end{example}
 
 \begin{example}[$\lambda$-calculus generated by a graph]
-
+    Given a graph $\mathcal G$, the $\lambda$-calculus $\Lambda(\mathcal G)$ \emph{generated} by $\mathcal G$ is defined as it follows.
+    The types and type-forming rules are the standard ones with the addition of a basic type for each vertex. The terms and term-forming rules are the standard ones
+    with the addition of a new term-forming operation: if $a \in A$ is a term of type $A$ and there is an arrow $f : A \to B$ in $\mathcal G$,
+    then $f(a) \in B$ is a term of type $B$. The equations are the standard ones.\newline
+    We note that all vertices of $\mathcal G$ are empty types. Moreover, if we take the empty graph $\varnothing$, then $\Lambda(\varnothing) = \mathcal L_0$.
 \end{example}
 
-The next example is fundamental for this thesis, and it's perfect as a bridge for the next section.
+The next example is fundamental for this dissertation, and it's perfect as a bridge for the next section.
+But before we can see it, we need to introduce the notion of morphisms between $\lambda$-calculi.
+
+\begin{definition}[Translation between $\lambda$-calculi]
+    Given two typed $\lambda$-calculi $\mathcal L$ and $\mathcal L'$, we call \emph{translation} a map $\Phi : \mathcal L \to \mathcal L'$
+    such that:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\Phi$ sends types of $\mathcal L$ to types of $\mathcal L'$ and terms of $\mathcal L$ to terms of $\mathcal L'$, such that
+         if $a \in A$, then $\Phi(a) \in \Phi(A)$;
+        \item $\Phi(x_i^A) = x_i^{\Phi(A)}$, for all $i \in \NN$;
+    \end{enumerate}
+    moreover, $\Phi$ preserves the type-forming rules and the term-forming rules:
+    \begin{enumerate}[label=(\roman*),resume]
+        \item $\Phi(1) = 1$ and $\Phi(N) = N$;
+        \item $\Phi(A \times B) = \Phi(A) \times \Phi(B)$ and $\Phi(B^A) = \Phi(B)^{\Phi(A)}$;
+        \item $\Phi(*) = *$;
+        \item $\Phi(\langle a,b\rangle) = \langle \Phi(a),\Phi(b)\rangle$, furthermore, $\Phi(\pi_{A,B}(c)) = \pi_{\Phi(A),\Phi(B)}(\Phi(c))$ and $\Phi(\pi_{A,B}'(c)) = \pi_{\Phi(A),\Phi(B)}'(\Phi(c))$;
+        \item $\Phi(f^\sharp(a)) = \Phi(f)^\sharp(\Phi(a))$;
+        \item $\Phi(\lambda_{x \in A} \varphi(x)) = \lambda_{x \in \Phi(A)} \Phi(\varphi(x))$;
+        \item $\Phi(0) = 0$ and $\Phi(s(n)) = s(\Phi(n))$;
+        \item $\Phi(I_A(a,f,n)) = I_{\Phi(A)}(\Phi(a),\Phi(f),\Phi(n))$;
+    \end{enumerate}
+    finally, $\Phi$ preserves the equations:
+    \begin{enumerate}[label=(\roman*),resume]
+        \item if $a \underset{X}{=} b$, then $\Phi(a) \underset{\Phi(X)}{=} \Phi(b)$, where $\Phi(X) := \{\Phi(x) : x \in X\}$.
+    \end{enumerate}
+\end{definition}
+
+There may be other things that a translation preserves, depending on the specific $\lambda$-calculi involved.
+
+\begin{remark}[Closed terms are preserved by translations]
+    It follows from the definition above that, if $a \in A$ is closed, then, since $a = a$, we have $\Phi(a) = \Phi(a)$, and therefore $\Phi(a)$ is closed too.
+    Therefore, a translation sends closed terms to closed terms.
+\end{remark}
 
 \begin{example}[Internal language of a CCC]
 
