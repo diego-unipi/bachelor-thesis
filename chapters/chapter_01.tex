@@ -285,7 +285,7 @@ The second definition is exactly the universal property of the exponential objec
 
 Let's now state two results that will be useful in the next sections.
 
-\begin{proposition}[Distributivity of currying]
+\begin{proposition}[Distributivity of currying]\label{prop:distributivity-of-currying}
     In a cartesian closed category, given $h \in \Hom(A \times B, C)$ and $k \in \Hom(D, A)$, we have:
     \[ h^* \circ k = (h \circ (k \times 1_B))^*. \]
 \end{proposition}
@@ -707,7 +707,7 @@ We now give a constructive proof of the deduction theorem stated above.
     [PLACEHOLDER]
 \end{remark}
 
-\begin{theorem}[Functional completeness]
+\begin{theorem}[Functional completeness]\label{thm:functional-completeness}
     Given a cartesian closed category $\mathcal C$, an object $A$ of $\mathcal C$ and an indeterminate arrow $x : 1 \to A$, for every arrow $\varphi(x) : B \to C$ of $\mathcal C[x]$
     there is a unique arrow $f : A \times B \to C$ in $\mathcal C$ such that:
     \[ f \circ \langle x \circ !_B, 1_B\rangle \underset{x}{=} \varphi(x). \]
@@ -792,10 +792,11 @@ We now give a constructive proof of the deduction theorem stated above.
     The last set has exactly one element, so there is exactly one arrow between any two objects of $\mathsf{Set}[x]$. Thus all its objects are isomorphic and $\mathsf{Set}[x]$ is equivalent to the terminal category. Logically, adjoining $x : 1 \to \varnothing$ amounts to assuming a proof of falsehood, so this collapse is the categorical counterpart of the principle of explosion.
 \end{example}
 
-\begin{corollary}[Lambek's normal form]
+\begin{corollary}[Lambek's normal form]\label{cor:lambeks-normal-form}
     Given a cartesian closed category $\mathcal C$ and an indeterminate arrow $x : 1 \to A$, for every polynomial arrow $\varphi(x) : 1 \to C$ there is a unique arrow $f : A \to C$ in $\mathcal C$ such that:
     \[ f \circ x \underset{x}{=} \varphi(x). \]
-    Moreover, there's a unique $h : 1 \to C^A$ such that $\textnormal{ev}_{C,A} \circ \langle h,x \rangle \underset{x}{=} \varphi(x)$.
+    Equivalently, $\Hom_{\mathcal C[x]}(1,C) \cong \Hom_{\mathcal C}(A,C)$.
+    Moreover, there's a unique $h : 1 \to C^A$ such that $\textnormal{ev}_{C,A} \circ \langle h,x \rangle \underset{x}{=} \varphi(x)$. Equivalently, $\Hom_{\mathcal C[x]}(1,C) \cong \Hom_{\mathcal C}(1,C^A)$.
 \end{corollary}
 
 The idea behind the corollary is that, ultimately, in both $\mathcal C$ and $\mathcal C[x]$, every arrow can be identified with an arrow from $1$.
