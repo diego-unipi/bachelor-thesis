@@ -202,7 +202,7 @@ Let's see that if a cartesian closed category has a NNO/WNNO, then a polynomial 
     The heuristic behind the choice of $q = f \circ \langle \pi_{B^A,A}', \ev_{B,A}\rangle : B^A \times A \to B$ is pointwise. Using for a moment the set-theoretic interpretation, an element $g \in B^A$ is a map $g : A \to B$, and
     \[ q(g,a) = f(a,g(a)). \]
     Therefore, for $(n,a) \in N \times A$, we have
-    \[ \big(q \circ (h' \times 1_A)\big)(n,a) = q(h'(n),a) = f(a,h'(n)(a)). \]
+    \[ \left(q \circ (h' \times 1_A)\right)(n,a) = q(h'(n),a) = f(a,h'(n)(a)). \]
     Since $\Psi(h') = h \circ \sigma_{N,A}$, we have $h'(n)(a) = h(a,n)$, that is precisely the value of $f \circ \langle \pi_{A,N}, h \rangle \circ \sigma_{N,A}$ at $(n,a)$.
 \end{remark}
 
@@ -357,7 +357,7 @@ Before ending this section, we give the following definitions, which will be use
 
 \begin{definition}[$\mathsf{CCC}_N$]
     We denote by $\mathsf{CCC}_N$ the category whose objects are tuples
-    \[ \big(\mathcal C,N_{\mathcal C},0_{\mathcal C},s_{\mathcal C},(I_A^{\mathcal C})_{A \in \ob(\mathcal C)}\big), \]
+    \[ \left(\mathcal C,N_{\mathcal C},0_{\mathcal C},s_{\mathcal C},(I_A^{\mathcal C})_{A \in \ob(\mathcal C)}\right), \]
     where $\mathcal C$ is a cartesian closed category, $(N_{\mathcal C},0_{\mathcal C},s_{\mathcal C})$ is a chosen WNNO and
     \[ I_A^{\mathcal C} : (A \times A^A) \times N_{\mathcal C} \to A \]
     is a chosen parameterized iterator satisfying the identities of the preceding corollary, for every object $A$ of $\mathcal C$.
@@ -365,6 +365,10 @@ Before ending this section, we give the following definitions, which will be use
     \[ F(I_A^{\mathcal C}) = I_{F(A)}^{\mathcal D} \]
     for every object $A$ of $\mathcal C$. Identities and composition are inherited from $\mathsf{CCC}$.
 \end{definition}
+
+\begin{notation}
+    Sometimes we will denote an object of $\mathsf{CCC}_N$ just by the underlying cartesian closed category $\mathcal C$.
+\end{notation}
 
 \begin{remark}
     For a NNO, the parameterized iterators are unique, so their preservation follows from the preservation of the NNO, therefore we can just ask the morphisms to preserve the NNO, without specifying the parameterized iterator. For a WNNO, preserving the chosen parameterized iterators is an additional condition.
@@ -531,8 +535,10 @@ But before we can see it, we need to introduce the notion of morphisms between $
 There may be other things that a translation preserves, depending on the specific $\lambda$-calculi involved.
 
 \begin{example}[Translation between graph-generated $\lambda$-calculi]
-
-
+    Given a graph morphism $\varphi : \mathcal G \to \mathcal H$, we can define a translation $\Lambda(\varphi) : \Lambda(\mathcal G) \to \Lambda(\mathcal H)$, which respects
+    the condition in the definition above, and sends each vertex $A$ of $\mathcal G$ to the vertex $\varphi(A)$ of $\mathcal H$, and each arrow $f : A \to B$ of $\mathcal G$ to the arrow $\varphi(f) : \varphi(A) \to \varphi(B)$ of $\mathcal H$.
+    Therefore, other than such rules, it also preserves the term-forming operation $f(a) \in B$, for $a \in A$ and $f : A \to B$ in $\mathcal G$:
+    \[ \Phi(f(a)) = \Phi(f)(\Phi(a)) = \varphi(f)(\Phi(a)) \in \varphi(B). \]
 \end{example}
 
 \begin{remark}[Closed terms are preserved by translations]
@@ -540,12 +546,56 @@ There may be other things that a translation preserves, depending on the specifi
     Therefore, a translation sends closed terms to closed terms.
 \end{remark}
 
-\begin{definition}[$\lambda$-\textsf{Calc}]
+\begin{remark}[Well-definedness of translations]
+    Technically, we saw that $\underset{X}{=}$ is a family of equivalence relations, one for each finite set of variables $X$. Therefore, a translation $\Phi$ has to be well-defined with respect to all of them,
+    and this is the reason why we require (xi) in that form in the definition above.
+\end{remark}
 
+\begin{definition}[Equality of translations]
+    Given two translations $\Phi, \Psi : \mathcal L \to \mathcal L'$, we say that they are \emph{equal} if, for every type $A$ of $\mathcal L$, $\Phi(A) = \Psi(A)$, and for every term $a \in A$, $\Phi(a) \underset{\Phi(X)}{=} \Psi(a)$, where $X$ is a finite set of variables containing all the free variables of $a$.
+\end{definition}
+
+\begin{definition}[$\lambda$-\textsf{Calc}]
+    We define by $\lambda$-\textsf{Calc} the category of \emph{typed $\lambda$-calculi}, whose objects are typed $\lambda$-calculi that respect the definition above, possibly with additional basic types, terms, type-forming rules, term-forming rules and equations, and whose morphisms are translations between them.
+    Thus, a morphism is only required to satisfy conditions (i)--(xi) above, even when its source and target have additional structure.
 \end{definition}
 
 \begin{example}[Internal language of a CCC]
-
+    We define a functor
+    \[ \mathbf L : \mathsf{CCC}_N \to \lambda\text{-}\mathsf{Calc}, \]
+    called \emph{internal language} of a CCC. Given an object $\mathcal C$ of $\mathsf{CCC}_N$, the $\lambda$-calculus $\mathbf L(\mathcal C)$ is defined as follows:
+    \begin{itemize}
+        \item the types are the objects of $\mathcal C$, with the basic types $1$ and $N$, and the type-forming rules are the standard ones, they are defined by the cartesian closed structure of $\mathcal C$;
+        \item the terms of type $A$ are the polynomial arrows $\varphi(x_1,\dots,x_n) : 1 \to A$ in $\mathcal C[x_1,\dots,x_n]$, with indeterminate $x_i : 1 \to A$, that are obtained from variables $x_i$ and
+        basic constants - or closed terms, namely $1 \to A$, through the term-forming rules, that, again, are defined by the cartesian closed structure and the chosen WNNO, for example:
+        \[ \frac{a : 1 \to A \quad b : 1 \to B}{\langle a,b\rangle : 1 \to A \times B}, \qquad \frac{a : 1 \to A}{f^\sharp(a) : 1 \to B}, \qquad \frac{\varphi(x) : 1 \to B}{\lambda_{x \in A} \varphi(x) : 1 \to B^A}, \quad \ldots \]
+        where $\langle a, b \rangle$ is the pairing arrow, $f^\sharp(a) := \ev_{A,B}(f,a) \circ \langle \pi_{B^A,A} ,a \rangle$ is the evaluation arrow, and $\lambda_{x \in A} \varphi(x) := \ulcorner \kappa_{x \in A}(\varphi(x)) \circ \langle 1_A, !_A \rangle \urcorner$,
+        just like we did in the proof of Lambek's normal form, \Cref{cor:lambeks-normal-form}. We define $* = !_1$. Furthermore, if $\varphi(x)$ and $\psi(y)$ are terms of type $A$, whose free variables belongs to $X$, $\varphi(x) \underset{X}{=} \psi(y)$
+        is said to hold in $\mathbf L(\mathcal C)$ if the corresponding polynomial arrows are equal, $\underset{X}{=}$, in $\mathcal C[x_1,\dots,x_n]$.
+        \item the equations are the standard ones, and one can verify that they hold in $\mathbf L(\mathcal C)$, since they hold in the underlying cartesian closed structure.
+    \end{itemize}
+    Given a cartesian closed functor that strictly preserves the chosen WNNOs, $F : \mathcal C \to \mathcal D$, we define a translation $\mathbf L(F) : \mathbf L(\mathcal C) \to \mathbf L(\mathcal D)$ as follows:
+    \begin{itemize}
+        \item on the types, $\mathbf L(F)$ sends an object $A$ of $\mathcal C$ to the object $F(A)$ of $\mathcal D$, and it preserves the type-forming rules, since $F$ is cartesian closed;
+        \item on the terms, by the first point, $\mathbf L(F)(x_i^A) = x_i^{F(A)}$, and, for a term $\varphi(x_1,\dots,x_n) : 1 \to A$ we consider the functor given by the universal property of the polynomial category
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWwgQyJdLFsxLDAsIlxcbWF0aGNhbCBEIl0sWzIsMCwiXFxtYXRoY2FsIERbWF0iXSxbMCwxLCJcXG1hdGhjYWwgQ1tYXSJdLFswLDEsIkYiXSxbMSwyLCJcXGlvdGFfWF57XFxtYXRoY2FsIER9Il0sWzAsMywiXFxpb3RhX1hee1xcbWF0aGNhbCBDfSIsMl0sWzMsMiwiXFx3aWRlaGF0e1xcaW90YV9YXntcXG1hdGhjYWwgRH1cXGNpcmMgRn09Olxcd2lkZWhhdHtGfV9YIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+        \[\begin{tikzcd}
+            {\mathcal C} & {\mathcal D} & {\mathcal D[X]} \\
+            {\mathcal C[X]}
+            \arrow["F", from=1-1, to=1-2]
+            \arrow["{\iota_X^{\mathcal C}}"', from=1-1, to=2-1]
+            \arrow["{\iota_X^{\mathcal D}}", from=1-2, to=1-3]
+            \arrow["{\widehat{\iota_X^{\mathcal D}\circ F}=:\widehat{F}_X}"', dashed, from=2-1, to=1-3]
+        \end{tikzcd}\]
+        and define $\mathbf L(F)(\varphi(x_1,\dots,x_n))$ as the polynomial arrow $\widehat{F}_X(\varphi(x_1,\dots,x_n)) : 1 \to F(A)$ in $\mathcal D[X]$;
+        \item on the equations, $\mathbf L(F)$ preserves them, since it the definition is well-posed, the functor $\widehat{F}_X$ is cartesian closed and, it is easy to verify, it preserves the chosen WNNOs and iterators, thus preservers the equalities between terms.
+    \end{itemize}
 \end{example}
+
+\begin{notation}[Multi-index notation for indeterminates]
+    We will sometimes abbreviate the indeterminates of a term $\varphi(x_1,\dots,x_n) : 1 \to A$ as $\varphi(X)$, using $X = x_1,\dots,x_n$. Furthermore, we will use the multi-index notation also for the subscript of the natural inclusion functor $\iota_X : \mathcal C \to \mathcal C[X]$, and for the the polynomial category itself, $\mathcal C[X]$.
+\end{notation}
+
+[AGGIUNGERE UN REMARK SULLA DIMENSIONE DELLE CATEGORIE, EVENTUALMENTE LEGATO AD UN'APPENDICE SU NBG]
 
 \section{Lambek's equivalence}

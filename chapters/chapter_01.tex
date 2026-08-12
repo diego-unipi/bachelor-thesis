@@ -691,7 +691,7 @@ We now give a constructive proof of the deduction theorem stated above.
         \item if $\varphi(x) = \langle \psi(x), \chi(x)\rangle$, where $\psi(x) : B \to D$, $\chi(x) : B \to E$ and $C = D \land E$, then we define
         \[ \kappa_{x \in A} \langle \psi(x), \chi(x)\rangle := \langle \kappa_{x \in A} \psi(x), \kappa_{x \in A} \chi(x)\rangle : A \land B \to C; \]
         \item if $\varphi(x) = \psi(x)^*$, where $\psi(x) : B \land D \to E$ and $C = E \Leftarrow D$, then $\kappa_{x \in A}\psi(x) : A \land (B \land D) \to E$. We define
-        \[ \kappa_{x \in A}\big(\psi(x)^*\big) := \big(\kappa_{x \in A}\psi(x) \circ \alpha_{A,B,D}\big)^* : A \land B \to C, \]
+        \[ \kappa_{x \in A}(\psi(x)^*) := (\kappa_{x \in A}\psi(x) \circ \alpha_{A,B,D})^* : A \land B \to C, \]
         where $\alpha_{A,B,D} : (A \land B) \land D \to A \land (B \land D)$ denotes the \hyperref[ex:associativity-of-conjunction]{associativity arrow}.
     \end{itemize}
     In every case the displayed expression is an arrow of $\mathcal P$ of the required type. The recursive construction therefore yields
