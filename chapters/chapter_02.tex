@@ -595,7 +595,72 @@ There may be other things that a translation preserves, depending on the specifi
 \begin{notation}[Multi-index notation for indeterminates]
     We will sometimes abbreviate the indeterminates of a term $\varphi(x_1,\dots,x_n) : 1 \to A$ as $\varphi(X)$, using $X = x_1,\dots,x_n$. Furthermore, we will use the multi-index notation also for the subscript of the natural inclusion functor $\iota_X : \mathcal C \to \mathcal C[X]$, and for the the polynomial category itself, $\mathcal C[X]$.
 \end{notation}
-
+slob
 [AGGIUNGERE UN REMARK SULLA DIMENSIONE DELLE CATEGORIE, EVENTUALMENTE LEGATO AD UN'APPENDICE SU NBG]
 
 \section{Lambek's equivalence}
+We want to show that the functor $\mathbf L : \mathsf{CCC}_N \to \lambda\text{-}\mathsf{Calc}$ is an equivalence of categories, and to do that we need to define a functor in the opposite direction.
+
+\begin{definition}[CCC defined by a $\lambda$-calculus]
+    Given a typed $\lambda$-calculus $\mathcal L$, we define a cartesian closed category $\mathbf C(\mathcal L)$ as follows:
+    \begin{itemize}
+        \item the objects of such category are the types of $\mathcal L$;
+        \item given two objects $A$ and $B$ of this category, the arrows from $A$ to $B$ are the equivalence classes of pairs $(x, \varphi(x))$, where $x \in A$ and  $\varphi(x) \in B$ is a term with no free variables other than $x$.
+        Equivalently, $\Hom_{\mathbf C(\mathcal L)}(A,B) = \{[(x,\varphi(x))] : x \in A, \varphi(x) \in B\}$, where $[(x,\varphi(x))]$ is the equivalence class of $(x,\varphi(x))$ with respect to the relation
+        \[ (x,\varphi(x)) \sim (y,\psi(y)) \quad\overset{\textnormal{def}}{\iff}\quad \varphi(z) \underset{\{z\}}{=} \psi(z), \]
+        for $x,y \in A$, $\varphi(x),\psi(y) \in B$ and $z \in A$ (basically, up to $\alpha$-conversion, they are the same term). The categorical of $\mathbf C(\mathcal L)$ can be retrieved from the type-forming rules, as follows:
+        \begin{itemize}[label=$*$]
+            \item $(x,x)$ is the identity arrow of $A$;
+            \item given $[(x,\varphi(x))] : A \to B$ and $[(y,\psi(y))] : B \to C$, the composition is defined as
+            \[ [(x,\psi(\varphi(x)))], \]
+            where $\psi(\varphi(x))$ is the term obtained by substituting $\varphi(x)$ for $y$ in $\psi(y)$;
+            \item by the definition of composition, it is easy to verify that the identity and associativity laws hold.
+        \end{itemize}
+        The cartesian closed structure is also defined by the type-forming rules, as follows:
+        \begin{itemize}[label=$*$]
+            \item $!_A = [(x,*)] : A \to 1$ is the unique arrow from $A$ to $1$;
+            \item $\pi_{A,B} = [(z,\pi_{A,B}(z))] : A \times B \to A$ and $\pi_{A,B}' = [(z,\pi_{A,B}'(z))] : A \times B \to B$ are the projections;
+            \item $\langle [(x,\varphi(x))],[(y,\psi(y))] \rangle = [(z,\langle \varphi(z),\psi(z) \rangle)] : C \to A \times B$ is the pairing of two arrows $[(x,\varphi(x))]$ and $[(y,\psi(y))]$;
+            \item $[(z,\chi(z))]^* = [(x,\lambda_{y \in B} \chi(\langle x,y\rangle)] : A \to B$, where $z \in A \times B^C$ is the currying of an arrow $[(z,\chi(z))] : A \times B \to C$;
+            \item $\ev_{C,A} = [(y,\ev_{C,A}(\pi_{B^C,A}(y),\pi_{A,B^C}(y)))] : A \times B^C \to B$ is the evaluation arrow.
+        \end{itemize}
+        Finally, the chosen WNNO and iterator are defined as:
+        \begin{itemize}[label=$*$]
+            \item $0 = [(x,0)] : 1 \to N$;
+            \item $s = [(x,s(x))] : N \to N$;
+            \item $I_A = [(w,I_B(\pi_{B,B^B}(\pi_{B \times B^B,N}(w)), \pi_{B,B^B}'(\pi_{B \times B^B,N}(w)), \pi_{B \times B^B,N}(w)))] : (B \times B^B) \times N \to B$.
+        \end{itemize}
+    \end{itemize}
+    Given a translation $\Phi : \mathcal L \to \mathcal L'$, we define a cartesian closed functor that strictly preserves the chosen WNNOs and iterators, $\mathbf C(\Phi) : \mathbf C(\mathcal L) \to \mathbf C(\mathcal L')$, as follows:
+    \[ \mathbf C(\Phi) := \begin{cases}
+        A \mapsto \Phi(A) \\
+        [f \in B^A] = [(x,\varphi(x))] \mapsto [\Phi(f) \in \Phi(B)^{\Phi(A)}] = [(\Phi(x),\Phi(\varphi(x)))]
+    \end{cases}, \]
+    and easily follows form the definition of translation that $\mathbf C(\Phi)$ is well-defined and preserves the cartesian closed structure, the chosen WNNOs and iterators.
+\end{definition}
+
+Before proving the equivalence, we need to introduce one last idea, we want to find the correspondent construction, in terms of $\lambda$-calculi, of the polynomial category of a CCC.\newline
+Instead of adding an indeterminate arrow $x : 1 \to A$ to the cartesian closed category $\mathbf C(\mathcal L)$, we could add a \emph{parameter} $x$ of type $A$ to the $\lambda$-calculus $\mathcal L$.
+
+\begin{definition}[$\lambda$-calculus with a parameter]
+    Given a typed $\lambda$-calculus $\mathcal L$ and a type $A$ of $\mathcal L$, we define the $\lambda$-calculus with the \emph{adjoint parameter} $x$ of type $A$, denoted by $\mathcal L(x)$,
+    as the $\lambda$-calculus obtained by considering $x$ as a closed term of type $A$. Therefore, $\mathcal L(x)$ has the same types of $\mathcal L$, however, the closed terms of $\mathcal L(x)$
+are the terms $\varphi(x)$ of $\mathcal L$, which contain no free variables other than $x$.
+\end{definition}
+
+It won't surprise us that $\mathbf C(\mathcal L)[x]$ and $\mathbf C(\mathcal L(x))$ are isomorphic categories.
+
+\begin{proposition}
+    $\mathbf C(\mathcal L)[x] \cong \mathbf C(\mathcal L(x))$.
+\end{proposition}
+
+\begin{proof}
+    The universal property of the polynomial category characterizes $\mathbf C(\mathcal L)[x]$ up to isomorphism, therefore, if we check that $\mathbf C(\mathcal L(x))$ satisfies the same universal property, we can conclude that they are isomorphic categories.\newline
+    First, we need to define a natural map $\iota_x : \mathbf C(\mathcal L) \to \mathbf C(\mathcal L(x))$.
+\end{proof}
+
+Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and $\lambda$-\textsf{Calc}.
+
+\begin{theorem}[Curry--Howard--Lambek correspondence, {\cite[Part~I, Thm.~11.4]{LambekScott1994}}]
+    $\mathsf{CCC}_N \simeq \lambda\text{-}\mathsf{Calc}$.
+\end{theorem}
