@@ -775,3 +775,15 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
         To check that $\eta_\mathcal L$ is an isomorphism, we construct its inverse, that maps $[(z,\varphi(z))]$ to $\varphi(*)$.
     \end{itemize}
 \end{proof}
+
+We conclude this section by giving a precise meaning to the idea that a $\lambda$-calculus is an internal language of a cartesian closed category.
+
+\begin{definition}[Interpretation of a $\lambda$-calculus in a CCC]
+    We call an \emph{interpretation} of a typed $\lambda$-calculus $\mathcal L$ in a cartesian closed category $\mathcal C$ with a chosen WNNO and an iterator, either a translation $\mathcal L \to \mathbf L(\mathcal C)$
+    or a cartesian closed functor that strictly preserves the chosen WNNOs and iterators $\mathbf C(\mathcal L) \to \mathcal C$.
+\end{definition}
+
+\begin{remark}[Internal language of a CCC]
+    It's easy to see that $\mathcal L_0$ is an initial object in $\lambda\text{-}\mathsf{Calc}$, since for each typed $\lambda$-calculus $\mathcal L$, there exists a unique translation $\mathcal L_0 \to \mathcal L$.
+    Therefore, the simple typed $\lambda$-calculus is interpreted in every cartesian closed category with a chosen WNNO and an iterator, hence it is the internal language of every CCC.
+\end{remark}
