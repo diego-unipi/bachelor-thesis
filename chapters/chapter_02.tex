@@ -710,8 +710,8 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
 \end{definition}
 
 \begin{definition}[Equivalence of categories]
-    Given two categories $\mathcal C$ and $\mathcal D$, we say that they are \emph{equivalent} if there exist two functors $F : \mathcal C \to \mathcal D$ and $G : \mathcal D \to \mathcal C$,
-    such that $G \circ F \Rightarrow 1_{\mathcal C}$ and $F \circ G \Rightarrow 1_{\mathcal D}$, where $1_{\mathcal C}$ and $1_{\mathcal D}$ are the identity functors of $\mathcal C$ and $\mathcal D$, are isomorphisms.
+    Given two categories $\mathcal C$ and $\mathcal D$, we say that they are \emph{equivalent}, $\mathcal C \simeq \mathcal D$, if there exist two functors $F : \mathcal C \to \mathcal D$ and $G : \mathcal D \to \mathcal C$,
+    such that we have two \emph{natural isomorphisms} $G \circ F \Rightarrow 1_{\mathcal C}$ and $F \circ G \Rightarrow 1_{\mathcal D}$, where $1_{\mathcal C}$ and $1_{\mathcal D}$ are the identity functors of $\mathcal C$ and $\mathcal D$.
 \end{definition}
 
 \begin{remark}[{\cite[Lemma~9.2.4]{nLabFunctorCategory2026}}]
@@ -719,8 +719,8 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
 \end{remark}
 
 \begin{remark}
-    We recall that, instead of requiring $G \circ F \Rightarrow 1_{\mathcal C}$ and $F \circ G \Rightarrow 1_{\mathcal D}$ to be natural isomorphisms, we can equivalently require $1_{\mathcal D} \Rightarrow F \circ G$ to be a natural isomorphism, instead of the second condition.
-    That follows from the fact that, if $1_{\mathcal C} \Rightarrow G \circ F$ is a natural isomorphism, then has an inverse $G \circ F \Rightarrow 1_{\mathcal C}$, which is also a natural isomorphism.
+    We recall that, instead of requiring $G \circ F \Rightarrow 1_{\mathcal C}$ and $F \circ G \Rightarrow 1_{\mathcal D}$ to be natural isomorphisms, we can equivalently require that
+    $1_{\mathcal C} \Rightarrow G \circ F$ and $1_{\mathcal D} \Rightarrow F \circ G$ are natural isomorphisms, since the inverse of a natural isomorphism is a natural isomorphism.
 \end{remark}
 
 \begin{theorem}[Curry--Howard--Lambek correspondence, {\cite[Part~I, Thm.~11.4]{LambekScott1994}}]
@@ -728,17 +728,19 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
 \end{theorem}
 
 \begin{proof}
-    We need to define two natural transformations $ \mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$ and $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}}$, in order to prove the equivalence of categories.
+    To prove the equivalence we need to find two natural isomorphisms $\mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$ and $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}}$.
+    We proceed separately for each one, and instead of finding a natural isomorphism $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}}$, we equivalently find a natural isomorphism $1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C$.
     \begin{itemize}
         \item[$\boxed{\mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}}$] We want to define $\varepsilon : \mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$, for each $\mathcal C \in \ob(\mathsf{CCC}_N)$, i.e.,
-        we want a cartesian closed functor which strictly preserves WNNOs and iterators $\varepsilon_\mathcal C : \mathbf C \circ \mathbf L(\mathcal C)) \to \mathcal C$, and such that, given a cartesian closed functor $F : \mathcal C \to \mathcal D$ the diagram of naturality commutes.
+        we want a cartesian closed functor which strictly preserves WNNOs and iterators $\varepsilon_\mathcal C : \mathbf C \circ \mathbf L(\mathcal C)) \to \mathcal C$, and such that, given a cartesian closed functor $F : \mathcal C \to \mathcal D$ the diagram of naturality commutes and $\varepsilon_\mathcal C$ is an isomorphism.
         Let's define $\varepsilon_\mathcal C$ as follows:
         \begin{itemize}
             \item on the objects, $\varepsilon_\mathcal C(A) := A$, for all $A \in \ob(\mathcal C)$;
-            \item an arrow $f : B \to C$ in $\mathbf C \circ \mathbf L(\mathcal C)$ is an equivalence class $[(y \in B,\varphi(y) \in C)]$, where $\varphi(y) \in C$ is a term of $\mathbf L(\mathcal C)$. It corresponds to a polynomial arrow $\varphi(y) : 1 \to C$ in $\mathcal C[y]$;
-            therefore, by Lambek's normal form, \Cref{cor:lambeks-normal-form}, there exists a unique arrow $g : B \to C$ such that
+            \item an arrow $f : B \to C$ in $\mathbf C \circ \mathbf L(\mathcal C)$ is an equivalence class $[(y \in B,\varphi(y) \in C)]$, where $\varphi(y) \in C$ is a term of $\mathbf L(\mathcal C)$. $\varphi(y)$ corresponds, via the definition of $\mathbf L$,
+            to a polynomial arrow $\varphi(y) : 1 \to C$ in $\mathcal C[y]$; therefore, by Lambek's normal form, \Cref{cor:lambeks-normal-form}, there exists a unique arrow $g : B \to C$ such that
             \[ g \circ y \underset{y}{=} \varphi(y) \quad \text{in } \mathcal C[y], \]
-            we define $\varepsilon_\mathcal C(f) := g : B \to C$ in $\mathcal C$.
+            we define $\varepsilon_\mathcal C(f) := g : B \to C$ in $\mathcal C$. This is a well-posed definition, since if $[(y,\varphi(y))] = [(z,\psi(z))]$, up to $\alpha$-conversion, we have $\varphi(y) \underset{\{y\}}{=} \psi(y)$ in $\mathbf L(\mathcal C)$,
+            that corresponds, by the definition of $\mathbf L$, to $\varphi(y) \underset{y}{=} \psi(y)$ in $\mathcal C[y]$, and by the uniqueness in Lambek's normal form, we get the same arrow $g : B \to C$.
         \end{itemize}
         From the definition of $\varepsilon_\mathcal C$ it's easy to verify that it is a cartesian closed functor that strictly preserves WNNOs and iterators.
         We need to show that, given a morphism $F : \mathcal C \to \mathcal D$ in $\mathsf{CCC}_N$, the diagram of naturality
@@ -753,26 +755,45 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
         \end{tikzcd}\]
         commutes. Indeed, on the objects, both composites send $A$ to $F(A)$. On the arrows, given $f = [(y,\varphi(y))]$, if $\varepsilon_\mathcal C(f)=g$, then $g \circ y \underset{y}{=} \varphi(y)$ and $F \circ \varepsilon_\mathcal C(f) = F(g)$;
         since $\mathbf L(F)$ preserves equations, applying $F$ to both sides of the equation in $\mathcal C[y]$ gives
-        \[ F(g) \circ y \underset{y}{=} \mathbf L(F)(\varphi(y)) \quad \text{in } \mathcal D[y]. \]
-        If we apply $\mathbf C$ to this equation, we get
-        \[ F(g) \circ y \underset{y}{=} \mathbf C(\mathbf L(F))(\varphi(y)) \quad \text{in } \mathcal D[y], \]
-        therefore, by the uniqueness in Lambek's normal form and the definition of $\varepsilon_\mathcal D$, we get $\varepsilon_\mathcal D(\mathbf C(\mathbf L(F))(f))=F(g)$, and the diagram commutes.
-        Hence, we have $\varepsilon$ is a natural transformation.
+        \[ F(g) \circ y \underset{\{y\}}{=} \mathbf L(F)(\varphi(y)) \quad \text{in } \mathbf L(\mathcal D). \]
+        The equality in $\mathbf L(\mathcal D)$ is defined as the equality of the polynomial arrows in $\mathcal D[y]$
+        \[ F(g) \circ y \underset{y}{=} \mathbf L(F)(\varphi(y)) \quad \text{in } \mathcal D[y], \]
+        Now, since $(\mathbf C \circ \mathbf L(F))(f) = [y,\mathbf L(F)(\varphi(y))]$, by definition of $\varepsilon_\mathcal D$, we have that $\varepsilon_\mathcal D((\mathbf C\circ\mathbf L(F))(f))$ is $g$ because of the equation above.
+        Therefore, the diagram of naturality commutes, and $\varepsilon$ is a natural transformation.
 
         By Lambek's normal form, we know $\Hom_{\mathcal C[y]}(1,C) \cong \Hom_\mathcal C(B,C)$,
         but $\Hom_{\mathbf C \circ \mathbf L(\mathcal C)}(B,C) \cong \Hom_{\mathcal C[y]}(1,C)$, by definition, since we take the equivalence classes of terms $\varphi(y) \in C$, that are said to be equal if they are equal in $\mathcal C[y]$.
         Therefore, $\varepsilon_\mathcal C$ is an isomorphism in $\mathsf{CCC}_N$, hence $\varepsilon$ is a natural isomorphism.
         \item[$\boxed{1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C}$] We want to define $\eta : 1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C$, for each $\mathcal L \in \ob(\lambda\text{-}\mathsf{Calc})$, i.e.,
-        we want a translation $\eta_\mathcal L : \mathcal L \to \mathbf L \circ \mathbf C(\mathcal L)$, and such that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes.\newline
+        we want a translation $\eta_\mathcal L : \mathcal L \to \mathbf L \circ \mathbf C(\mathcal L)$, and such that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes and $\eta_{\mathcal L}$ is an isomorphism.\newline
         Let's define $\eta_\mathcal L$ as follows:
         \begin{itemize}
             \item on the types, $\eta_\mathcal L(A) := A$, for all $A \in \mathsf{Ty}(\mathcal L)$;
-            \item on the terms, given a term $\varphi(x_1,\dots,x_n) \in A$, we define
-            \[ \eta_\mathcal L(\varphi(x_1,\dots,x_n)) := [(z,\varphi(x_1,\dots,x_n))], \]
-            in $\mathbf C(\mathcal L(x_1,\dots,x_n))$, up to isomorphism, where $z \in A$ is a fresh variable.
+            \item on the terms, given a term $\varphi(X) = \varphi(x_1,\dots,x_n) \in A$, we can see it as a closed term in $\mathcal L(X)$;
+            since $\mathbf C(\mathcal L(X)) \cong \mathbf C(\mathcal L)[X]$, by [REFERENCE], we get a polynomial arrow $1 \to A$, and applying $\mathbf C$ we find the arrow $[(* \in 1, \varphi(X))] : 1 \to A$ in $\mathbf C(\mathcal L)[X]$.
+            Now applying $\mathbf L$, a polynomial arrow becomes a term, so find the term $[(* \in 1, \varphi(X))] \in A$ and therefore define
+            \[ \eta_\mathcal L(\varphi(X)) := [(* \in 1, \varphi(X))] \in A, \]
+            i.e., we get again a term of type $A$ with free variables $X = x_1,\dots,x_n$. It's easy to verify that $\eta_\mathcal L$ is a translation and that is well-defined (the equality of terms in $\mathbf L$ is defined as the equality of polynomial arrows, which is the equality defined by $\mathbf C$, etc.).
         \end{itemize}
-        It is easy verified that $\eta_\mathcal L$ is a translation, and that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes.
-        To check that $\eta_\mathcal L$ is an isomorphism, we construct its inverse, that maps $[(z,\varphi(z))]$ to $\varphi(*)$.
+        To check that $\eta_\mathcal L$ is an isomorphism, we construct its inverse, $\eta_\mathcal L^{-1} : \mathbf L \circ \mathbf C(\mathcal L) \to \mathcal L$, that maps $[(* \in 1, \varphi(X))]$ to $\varphi(X)$. It's easy to verify that this map its the inverse of $\eta_\mathcal L$ and it is a well-defined translation.\newline
+        Finally we need to check that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWwgTCJdLFswLDEsIlxcbWF0aGNhbCBMJyJdLFsxLDAsIlxcbWF0aGJmIEwgXFxjaXJjIFxcbWF0aGJmIEMoXFxtYXRoY2FsIEwpIl0sWzEsMSwiXFxtYXRoYmYgTCBcXGNpcmMgXFxtYXRoYmYgQyhcXG1hdGhjYWwgTCcpIl0sWzAsMSwiXFxQaGkiLDJdLFswLDIsIlxcZXRhX3tcXG1hdGhjYWwgTH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwzLCJcXG1hdGhiZiBMIFxcY2lyYyBcXG1hdGhiZiBDKFxcUGhpKSJdLFsxLDMsIlxcZXRhX3tcXG1hdGhjYWwgTCd9IiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+        \[\begin{tikzcd}
+            {\mathcal L} & {\mathbf L \circ \mathbf C(\mathcal L)} \\
+            {\mathcal L'} & {\mathbf L \circ \mathbf C(\mathcal L')}
+            \arrow["{\eta_{\mathcal L}}", dashed, from=1-1, to=1-2]
+            \arrow["\Phi"', from=1-1, to=2-1]
+            \arrow["{\mathbf L \circ \mathbf C(\Phi)}", from=1-2, to=2-2]
+            \arrow["{\eta_{\mathcal L'}}"', dashed, from=2-1, to=2-2]
+        \end{tikzcd}\]
+        As in the previous case, on the types both composites send $A$ to $\Phi(A)$. On the terms, given $\varphi(X) \in A$, we have
+        \[ \eta_{\mathcal L'} \circ \Phi(\varphi(X)) = [(* \in 1, \Phi(\varphi(X)))], \]
+        while
+        \[ (\mathbf L \circ \mathbf C(\Phi)) \circ \eta_\mathcal L(\varphi(X)) = (\mathbf L \circ \mathbf C(\Phi))([(* \in 1, \varphi(X))]), \]
+        now by definition $\mathbf L(\mathbf C(\Phi))$ is a translation that get $\mathbf C(\Phi)$ applied on the second components, giving
+        \[ (\mathbf L \circ \mathbf C(\Phi))([(* \in 1, \varphi(X))]) = [(* \in 1, \mathbf C(\Phi)(\varphi(X)))], \]
+        and by definition of $\mathbf C$, the translation get composed with the term, giving $\mathbf C(\Phi)(\varphi(X)) = \Phi(\varphi(X))$.
+        Therefore, the diagram of naturality commutes, and $\eta$ is a natural transformation.
     \end{itemize}
 \end{proof}
 
