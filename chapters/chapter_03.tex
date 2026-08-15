@@ -2,6 +2,96 @@
 
 \section{Surjections and fixed points in categories}
 
+\begin{definition}[Global element]
+    Let $\mathcal C$ be a category with terminal object $1$. Given an object $A$ of $\mathcal C$, a \emph{global element} of $A$,
+    or just \emph{element} of $A$, is a morphism $1 \to A$.
+\end{definition}
+
+\begin{definition}[Endomorphism]
+    Let $\mathcal C$ be a category and $A$ an object of $\mathcal C$. An \emph{endomorphism} of $A$ is a morphism $f: A \to A$.
+\end{definition}
+
+\begin{definition}[Fixed point]
+    In a category $\mathcal C$ with terminal object $1$, given an endomorphism $f: A \to A$, we say that $f$ has a \emph{fixed point} if there
+    exists a global element $x: 1 \to A$ such that $f \circ x = x$.
+\end{definition}
+
+\begin{definition}[Surjection]
+    In a category $\mathcal C$, given a morphism $f: A \to B$, we say that $f$ is a \emph{surjection} if there exists a morphism $s : B \to A$ such that $f \circ s = 1_B$.
+\end{definition}
+
+\begin{definition}[Point-surjective morphism]
+    In a category $\mathcal C$ with terminal object $1$, given a morphism $f: A \to B$, we say that $f$ is \emph{point-surjective} if for every
+    element $b: 1 \to B$ there exists an element $a: 1 \to A$ such that $f \circ a = b$.
+\end{definition}
+
+\begin{remark}[Surjective implies point-surjective]
+    Obviously, in a category with terminal object, every surjection is point-surjective. This is trivial, since, given $f: A \to B$ a surjection and $b: 1 \to B$, we have
+    \[ f \circ s = 1_B \implies f \circ (s \circ b) = 1_B \circ b = b, \]
+    therefore we can take $s \circ b : 1 \to A$ as an element realizing $b$.
+\end{remark}
+
+\begin{definition}[Weakly point-surjective morphism]
+    In a category $\mathcal C$ with terminal object $1$, given a morphism $f : A \to C^B$, if there exists the evaluation morphism $\ev_{C,B}$,
+    we say that $f$ is \emph{weakly point-surjective} if for every element $g: 1 \to C^B$ there exists an element $a_g : 1 \to A$ such that, for every $b: 1 \to B$, we have
+    \[ (f \circ a_g)^\sharp \circ b = g^\sharp \circ b. \]
+\end{definition}
+
+\begin{notation}
+    We use the notation $(-)^\sharp$ to denote abbreviate the evaluation morphism, i.e.,\ if $h : 1 \to C^B$, then $h^\sharp := \ev_{C,B} \circ \langle h \circ !_B, 1_B \rangle : B \to C$.
+    This way $h^\sharp \circ b = \ev_{C,B} \circ \langle h,b \rangle$ for every $b: 1 \to B$.
+\end{notation}
+
+\begin{remark}[Point-surjective implies weakly point-surjective]
+    Let $\mathcal C$ be a category with terminal object $1$, given $f : A \to C^B$, if $f$ is point-surjective, then it is also weakly point-surjective.
+    Indeed, given $g: 1 \to C^B$, since $f$ is point-surjective, there exists an element $a_g : 1 \to A$ such that $f \circ a_g = g$, therefore,
+    applying $(-)^\sharp$ and precomposing with any $b$, we have the pointwise equality $(f \circ a_g)^\sharp \circ b = g^\sharp \circ b$.
+\end{remark}
+
+\begin{definition}[Diagonal morphism]
+    In a category $\mathcal C$, given an object $A$, we call $\Delta_A : A \to A \times A$ the \emph{diagonal morphism} of $A$,
+    defined as $\Delta_A := \langle 1_A, 1_A \rangle$.
+\end{definition}
+
+[AGGIUNGERE QUALCHE CONTROESEMPIO DI COSE CHE NON SONO ALTRE COSE]
+
 \section{The fixed-point theorem}
 
+\begin{theorem}[Lawvere's fixed-point]
+    Let $\mathcal C$ be a cartesian closed category, if there exists a weakly point-surjective morphism $\phi : A \to B^A$, then every endomorphism $f: B \to B$ has a fixed point.
+\end{theorem}
+
+\begin{proof}
+    Let $f : B \to B$ be an endomorphism.
+    By the equivalence $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$, Theorem~\ref{thm:curry-howard-lambek-without-wnno-and-iterator}, we apply $\mathbf L : \mathsf{CCC} \to \lambda\text{-}\mathsf{Calc}_0$ to $\mathcal C$ and work in its internal language $\mathbf L(\mathcal C)$.
+    By the definition of $\mathbf L$, the objects of $\mathcal C$ become types and its global elements become closed terms, composition becomes substitution, while evaluation and currying become application and abstraction.
+    Using the fact that $\ulcorner f \urcorner : 1 \to B^B$ and $\ulcorner \phi \urcorner : 1 \to (B^A)^A$, and taking the respective closed terms in $\mathbf L(\mathcal C)$, we define the following closed term
+    \[ q := \lambda_{x \in A} \ulcorner f \urcorner^\sharp \mathopen{\scalebox{1}[1.35]{$($}}\underbrace{\mathopen{\scalebox{1}[1.15]{$($}}\underbrace{\ulcorner \phi \urcorner^\sharp(x)}_{\makebox[0pt][c]{$\scriptstyle\text{function coded by }x$}}\mathclose{\scalebox{1}[1.15]{$)$}}^\sharp(x)}_{\text{applied to its own code}}\mathclose{\scalebox{1}[1.35]{$)$}} \in B^A. \]
+    This closed term in $\mathbf L(\mathcal C)$ corresponds to the global element
+    \[ q = \ulcorner f \circ \ev_{B,A} \circ (\phi \times 1_A) \circ \Delta_A \urcorner : 1 \to B^A, \]
+    in $\mathcal C$. The weak point-surjectivity of $\phi$, expressed in $\mathbf L(\mathcal C)$, gives a closed term $p \in A$, equivalently an element $p : 1 \to A$, that can be regarded as a pointwise code of $q$, such that
+    \[ \left(\ulcorner \phi \urcorner^\sharp(p)\right)^\sharp(a) \underset{\varnothing}{=} q^\sharp(a), \]
+    for every closed term $a \in A$. Taking $a=p$, we define the closed term, $q$ applied to its own code
+    \[ s := \left(\ulcorner \phi \urcorner^\sharp(p)\right)^\sharp(p) \underset{\varnothing}{=} q^\sharp(p) \in B. \]
+    At the same time, using the above definition of $q$, we have
+    \begin{align*}
+        q^\sharp(p) &\underset{\varnothing}{=} (\lambda_{x \in A}\ulcorner f \urcorner^\sharp ((\ulcorner \phi \urcorner^\sharp(x))^\sharp(x)))^\sharp(p) \\
+                    &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) &&(\text{$\beta$-reduction}) \\
+                    &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp(s).
+    \end{align*}
+    Thus $\ulcorner f \urcorner^\sharp(s) \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$. We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc}_0 \to \mathsf{CCC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$, closed terms determine arrows as equivalence classes of pairs, equality of terms gives equality of the corresponding classes, and composition is defined by substitution.
+    Therefore we find the following arrow equation in $\mathbf C(\mathbf L(\mathcal C))$:
+    \[ [(x \in B,\ulcorner f \urcorner^\sharp(x))] \circ [(* \in 1,s)] = [(* \in 1,s)] \quad\text{in } \mathbf C(\mathbf L(\mathcal C)). \]
+    Finally, the equivalence of categories $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$ provides us the natural isomorphism $\varepsilon : \mathbf C \circ \mathbf L \overset{\cong}{\Rightarrow }1_{\mathsf{CCC}}$,
+    whose component at $\mathcal C$ is the isomorphism
+    \[ \varepsilon_{\mathcal C} : \mathbf C(\mathbf L(\mathcal C)) \xrightarrow{\cong} \mathcal C. \]
+    By the definition of $\varepsilon_{\mathcal C}$ given in the proof of \Cref{thm:curry-howard-lambek-without-wnno-and-iterator}, we have
+    \[ \varepsilon_{\mathcal C}([(x \in B,\ulcorner f \urcorner^\sharp(x))])=f, \qquad \varepsilon_{\mathcal C}([(* \in 1,s)])=s, \]
+    because $\ulcorner f \urcorner^\sharp(x) \underset{x}{=} \ev_{B,B} \circ \langle \ulcorner f \urcorner, x \rangle \underset{x}{=} \ev_{B,B} \circ \langle \ulcorner f \urcorner \circ !_B, 1_B \rangle \circ x \underset{x}{=} f \circ x$, using the definition of $(-)^\sharp$
+    and the fact that $\mathcal C[x]$ is a CCC, so $\ulcorner f \urcorner^\sharp = f$; and $s \circ * \underset{*}{=} s \circ 1_1 = s$ in $\mathcal C[*]$, since $s$ is a closed term.
+    Therefore, the functoriality of $\varepsilon_{\mathcal C}$ transports the preceding arrow equation to $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
+\end{proof}
+
 \section{Many theorems, one proof}
+\section{Yanofsky's fixed-point theorem}
+\section{Other fixed-point theorems and diagonal arguments}

@@ -797,7 +797,7 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
     \end{itemize}
 \end{proof}
 
-We conclude this section by giving a precise meaning to the idea that a $\lambda$-calculus is an internal language of a cartesian closed category.
+We can now give a precise meaning to the idea that a $\lambda$-calculus is an internal language of a cartesian closed category.
 
 \begin{definition}[Interpretation of a $\lambda$-calculus in a CCC]
     We call an \emph{interpretation} of a typed $\lambda$-calculus $\mathcal L$ in a cartesian closed category $\mathcal C$ with a chosen WNNO and an iterator, either a translation $\mathcal L \to \mathbf L(\mathcal C)$
@@ -808,3 +808,24 @@ We conclude this section by giving a precise meaning to the idea that a $\lambda
     It's easy to see that $\mathcal L_0$ is an initial object in $\lambda\text{-}\mathsf{Calc}$, since for each typed $\lambda$-calculus $\mathcal L$, there exists a unique translation $\mathcal L_0 \to \mathcal L$.
     Therefore, the simple typed $\lambda$-calculus is interpreted in every cartesian closed category with a chosen WNNO and an iterator, hence it is the internal language of every CCC.
 \end{remark}
+
+The above equivalence of categories is the most general in the context of cartesian categories, we can specialize it to the case of cartesian closed categories without a chosen WNNO and iterator.
+Let's first define the following.
+
+\begin{definition}[$\lambda\text{-}\mathsf{Calc}_0$]
+    We denote by $\lambda\text{-}\mathsf{Calc}_0$ the category whose objects are typed $\lambda$-calculi as defined above, but without:
+    \begin{itemize}
+        \item the basic type $N$ in (Ty1);
+        \item the term-forming rules for zero, successor and the iterator, namely (Tm6a), (Tm6b) and (Tm7);
+        \item the iterator equations (Eq7a) and (Eq7b).
+    \end{itemize}
+    Its morphisms are translations, as defined above, without the requirements involving $N$, $0$, $s$ and $I_A$.
+\end{definition}
+
+Using the same functors $\mathbf C$ and $\mathbf L$ defined above, with the same definitions and the same proofs, forgetting
+the chosen WNNO and iterator, we have a proof of the following equivalence of categories.
+
+\begin{theorem}[Curry--Howard--Lambek without WNNO and iterator]\label{thm:curry-howard-lambek-without-wnno-and-iterator}
+    \leavevmode\newline
+    $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$.
+\end{theorem}
