@@ -11,8 +11,6 @@
 *.synctex.gz
 *.toc
 
-# Locally compiled thesis; GitHub Actions publishes the release PDF
 /main.pdf
-
-# Local Codex instructions
+/sources and bibliography/
 /AGENTS.md
