@@ -93,8 +93,62 @@
 \end{proof}
 
 \section{Many fixed-points, one proof}
-\section{Lawvere fixed-point, cartesian form}
-We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category.
+Let's now see how Lawvere's fixed-point theorem can be used to prove many other fixed-point theorems, diagonal arguments and even other useful results in logic and mathematics in general.
+For each result, we will introduce the category needed to apply Lawvere's theorem, and we will show how the hypotheses of the theorem are satisfied in that category.
+
+\subsection*{Cantor's theorem}
+In $\mathsf{Set}$ we can prove Cantor's theorem, on the non-existence of surjections from a set to its power set.
+
+\begin{theorem}[Cantor's theorem]
+    Let $A$ be a set, then there is no surjection $f: A \twoheadrightarrow \mathcal P(A)$.
+\end{theorem}
+
+\begin{proof}
+    Take $A \in \ob(\mathsf{Set})$, given the bijection $|2^A| = |\mathcal P(A)|$, we can equivalently prove that there is no surjection $f: A \twoheadrightarrow 2^A$.
+    Let's assume, by contradiction, that there exists a surjection $f: A \twoheadrightarrow 2^A$. Since $\mathsf{Set}$ is cartesian closed,
+    and surjections are weak point-surjective maps, by Lawvere's fixed-point theorem, every endomorphism $g : 2 \to 2$ has a fixed point.
+    That is a contradiction, since the endomorphism $\neg : 2 \to 2$, defined as $\neg(0) = 1$ and $\neg(1) = 0$, has no fixed points.
+\end{proof}
+
+\subsection*{Cantor's diagonal argument}
+By Cantor's diagonal argument, we mean the fact that $|\NN| < |\RR|$, proved through the Cantor's diagonalization.
+Even though this result can be obtained as a corollary of Cantor's theorem, we can also prove it directly using Lawvere's fixed-point theorem.
+
+\begin{theorem}[Cantor's diagonal argument]
+    $|\NN| < |\RR|$.
+\end{theorem}
+
+\begin{proof}
+    Let's consider the inclusion $\iota : 2^\NN \hookrightarrow \RR$, defined as
+    \[ \iota : (a_i)_{i \in \NN} \mapsto \sum_{i \in \NN} a_i 10^{-(i+1)}. \]
+    This is indeed injective, since if $(a_i)_{i \in \NN} \ne (b_i)_{i \in \NN}$, then there exists the minimum $i_0 \in \NN$ such that, WLOG, $a_{i_0} = 1$ and $b_{i_0} = 0$, therefore
+    it easy to see that $\iota((a_i)_{i \in \NN}) - \iota((b_i)_{i \in \NN}) \geq \frac 89 10^{i_0+1} > 0$.\newline
+    Let $s : \RR \to 2^\NN$ be a left-inverse of $\iota$, defined as
+    \[ s : \RR \twoheadrightarrow 2^\NN : x \mapsto \begin{cases}
+        \iota^{-1}(x) & \text{if $x \in \Img(\iota)$} \\
+        (0)_{i \in \NN} & \text{otherwise}
+    \end{cases}. \]
+    Given an arbitrary map $f : \NN \to \RR$, define $\phi:=s \circ f : \NN \to 2^\NN$.
+    We specialize the construction in the proof of Lawvere's fixed-point theorem to $\mathcal C=\mathsf{Set}$, $A=\NN$, $B=2$, the map $\phi$, and the endomorphism $\neg : 2 \to 2$.
+    We construct the term
+    \[ d:=\lambda_{i \in \NN}\ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(i))^\sharp(i)) \in 2^\NN, \]
+    and, under the identification of the elements of $2^\NN$ with binary sequences, we have, by $\beta$-reduction, that
+    \[ d^\sharp(i) \underset{\{i\}}{=} \ulcorner \neg \urcorner^\sharp((\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(i)))^\sharp(i)). \]
+    Thus $d$ is precisely the diagonal sequence: its $i$-th coordinate is the negation of the $i$-th coordinate of the $i$-th sequence $\ulcorner \phi \urcorner^\sharp(i)$.\newline
+    If $d \in \Img(\phi)$, there would exist $p \in \NN$ such that $\ulcorner \phi \urcorner^\sharp(p) \underset{\varnothing}{=}d$.
+    The calculation obtained by taking $a=p$ in the proof of Lawvere's theorem would then give
+    \[ 2 \ni b:=(\ulcorner \phi \urcorner^\sharp(p))^\sharp(p) \underset{\varnothing}{=}d^\sharp(p) \underset{\varnothing}{=}\ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) \underset{\varnothing}{=}\ulcorner \neg \urcorner^\sharp(b), \]
+    contradicting the fact that negation has no fixed point in $2$, hence $d \notin \Img(\phi)$.
+    Finally, let $x_d:=\ulcorner \iota \urcorner^\sharp(d) \in \RR$ and let's check that $x_d \notin \Img(f)$. If $x_d \underset{\varnothing}{=}\ulcorner f \urcorner^\sharp(k)$ for some $k \in \NN$, then
+    \[ \ulcorner \phi \urcorner^\sharp(k) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(k)) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(x_d) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner \iota \urcorner^\sharp(d)) \underset{\varnothing}{=}d, \]
+    where the last equality holds since, in $\mathsf{Set}$, $s \circ \iota = 1_{2^\NN}$, so we have a contradiction.
+    Therefore $x_d \notin \Img(f)$, and, since $f : \NN \to \RR$ was arbitrary, there is no surjection $\NN \twoheadrightarrow \RR$, because we constructed the diagonal element $x_d \in \RR$.
+\end{proof}
+
+\subsection*{Russell's paradox}
+
+\section{Lawvere's fixed-point, cartesian form}
+We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by [REFERENCE].
 
 \begin{definition}
     Given a category $\mathcal C$ with terminal object $1$, we say that a morphism $f: A \times A \to B$ is \emph{weakly product point-surjective} if, for every morphism $g : A \to B$,
