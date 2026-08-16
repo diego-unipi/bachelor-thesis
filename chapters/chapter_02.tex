@@ -829,3 +829,29 @@ the chosen WNNO and iterator, we have a proof of the following equivalence of ca
     \leavevmode\newline
     $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$.
 \end{theorem}
+
+Before ending this section, we state another, even weaker, version of the Curry--Howard--Lambek correspondence, which is the equivalence of categories between cartesian categories and typed cartesian calculi without WNNOs and iterators.
+
+\begin{definition}[$\lambda\text{-}\mathsf{Calc}_\times$]
+    We denote by $\lambda\text{-}\mathsf{Calc}_\times$ the category whose objects are typed $\lambda$-calculi as defined above, but without:
+    \begin{itemize}
+        \item the type-forming rule for exponentials, namely (Ty3);
+        \item the term-forming rules for evaluation and $\lambda$-abstraction, namely (Tm4) and (Tm5);
+        \item the equation-forming rules involving evaluation and $\lambda$-abstraction, namely (Eq3a) and (Eq3b);
+        \item the $\beta$- and $\eta$-equations, namely (Eq6a) and (Eq6b), and the $\alpha$-conversion equation (Eq8);
+        \item the basic type $N$ in (Ty1);
+        \item the term-forming rules for zero, successor and the iterator, namely (Tm6a), (Tm6b) and (Tm7);
+        \item the iterator equations (Eq7a) and (Eq7b).
+    \end{itemize}
+    Its morphisms are translations, as defined above, without the requirements involving exponentials, $N$, $0$, $s$ and $I_A$, and they are required to commute with simultaneous substitution.
+\end{definition}
+
+\begin{notation}[Category of cartesian categories]
+    We denote by $\mathsf{CC}$ the category of cartesian categories, whose morphisms are cartesian functors.
+\end{notation}
+
+Finally, using the same functors $\mathbf C$ and $\mathbf L$, the same notations and the same proofs we have the following.
+
+\begin{theorem}[Curry--Howard--Lambek for cartesian categories]\label{thm:curry-howard-lambek-cartesian-categories}
+    $\mathsf{CC} \simeq \lambda\text{-}\mathsf{Calc}_\times$.
+\end{theorem}

@@ -80,18 +80,61 @@
                     &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp(s).
     \end{align*}
     Thus $\ulcorner f \urcorner^\sharp(s) \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$. We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc}_0 \to \mathsf{CCC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$, closed terms determine arrows as equivalence classes of pairs, equality of terms gives equality of the corresponding classes, and composition is defined by substitution.
-    Therefore we find the following arrow equation in $\mathbf C(\mathbf L(\mathcal C))$:
-    \[ [(x \in B,\ulcorner f \urcorner^\sharp(x))] \circ [(* \in 1,s)] = [(* \in 1,s)] \quad\text{in } \mathbf C(\mathbf L(\mathcal C)). \]
+    Therefore, if $u \in 1$ is a variable, we find the following arrow equation in $\mathbf C(\mathbf L(\mathcal C))$:
+    \[ [(x \in B,\ulcorner f \urcorner^\sharp(x))] \circ [(u \in 1,s)] = [(u \in 1,s)] \quad\text{in } \mathbf C(\mathbf L(\mathcal C)). \]
     Finally, the equivalence of categories $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$ provides us the natural isomorphism $\varepsilon : \mathbf C \circ \mathbf L \overset{\cong}{\Rightarrow }1_{\mathsf{CCC}}$,
     whose component at $\mathcal C$ is the isomorphism
     \[ \varepsilon_{\mathcal C} : \mathbf C(\mathbf L(\mathcal C)) \xrightarrow{\cong} \mathcal C. \]
     By the definition of $\varepsilon_{\mathcal C}$ given in the proof of \Cref{thm:curry-howard-lambek-without-wnno-and-iterator}, we have
-    \[ \varepsilon_{\mathcal C}([(x \in B,\ulcorner f \urcorner^\sharp(x))])=f, \qquad \varepsilon_{\mathcal C}([(* \in 1,s)])=s, \]
+    \[ \varepsilon_{\mathcal C}([(x \in B,\ulcorner f \urcorner^\sharp(x))])=f, \qquad \varepsilon_{\mathcal C}([(u \in 1,s)])=s, \]
     because $\ulcorner f \urcorner^\sharp(x) \underset{x}{=} \ev_{B,B} \circ \langle \ulcorner f \urcorner, x \rangle \underset{x}{=} \ev_{B,B} \circ \langle \ulcorner f \urcorner \circ !_B, 1_B \rangle \circ x \underset{x}{=} f \circ x$, using the definition of $(-)^\sharp$
-    and the fact that $\mathcal C[x]$ is a CCC, so $\ulcorner f \urcorner^\sharp = f$; and $s \circ * \underset{*}{=} s \circ 1_1 = s$ in $\mathcal C[*]$, since $s$ is a closed term.
+    and the fact that $\mathcal C[x]$ is a CCC, so $\ulcorner f \urcorner^\sharp = f$; and $s \circ u \underset{u}{=} s \circ 1_1 = s$ in $\mathcal C[u]$, since $s$ is a closed term.
     Therefore, the functoriality of $\varepsilon_{\mathcal C}$ transports the preceding arrow equation to $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
 \end{proof}
 
-\section{Many theorems, one proof}
-\section{Yanofsky's fixed-point theorem}
+\section{Many fixed-points, one proof}
+\section{Lawvere fixed-point, cartesian form}
+We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category.
+
+\begin{definition}
+    Given a category $\mathcal C$ with terminal object $1$, we say that a morphism $f: A \times A \to B$ is \emph{weakly product point-surjective} if, for every morphism $g : A \to B$,
+    there exists a morphism $a_g : 1 \to A$ such that $f \circ \langle a_g,a \rangle = g \circ a$ for every $a: 1 \to A$.
+\end{definition}
+
+\begin{theorem}[Lawvere's fixed-point, product form]
+    Let $\mathcal C$ be a cartesian category, if there exists a weakly product point-surjective morphism $\phi : A \times A \to B$,
+    then every endomorphism $f: B \to B$ has a fixed point.
+\end{theorem}
+
+\begin{proof}
+    Let $f : B \to B$ be an endomorphism.
+    By the equivalence $\mathsf{CC} \simeq \lambda\text{-}\mathsf{Calc}_\times$, \Cref{thm:curry-howard-lambek-cartesian-categories}, we apply $\mathbf L : \mathsf{CC} \to \lambda\text{-}\mathsf{Calc}_\times$ to $\mathcal C$ and work in its internal language $\mathbf L(\mathcal C)$.
+    By the definition of $\mathbf L$, the objects of $\mathcal C$ become types, and the terms of type $B$ with free variables among $X$ are polynomial arrows $1 \to B$ in $\mathcal C[X]$; in particular, global elements become closed terms, and composition becomes substitution.
+    Let $x : 1 \to A$ and $y : 1 \to B$ be indeterminates, therefore $x \in A$ and $y \in B$ are variables in $\mathbf L(\mathcal C)$. Let's define the term
+    \[ q(x) := (f \circ y)[(\phi \circ \Delta_A \circ x)/y] \in B, \]
+    with no free variables other than $x$. This term corresponds to the morphism
+    \[ f \circ \phi \circ \Delta_A \circ x : 1 \to B \quad \text{in } \mathcal C[x]. \]
+    Applying the weak product point-surjectivity of $\phi$ to $f \circ \phi \circ \Delta_A : A \to B$, gives a closed term $p \in A$, such that
+    \[ \phi \circ \langle p,a \rangle \underset{\varnothing}{=} q(x)[a/x] \]
+    for every closed term $a \in A$. Taking $a=p$, we define the closed term
+    \[ s := \phi \circ \langle p,p \rangle \underset{\varnothing}{=} q(x)[p/x] \in B. \]
+    Using the definition of $q(x)$ and substitution, we have
+    \begin{align*}
+        q(x)[p/x] &\underset{\varnothing}{=} (f \circ y)[(\phi \circ \Delta_A \circ x)/y][p/x] \\
+                  &\underset{\varnothing}{=} (f \circ y)[(\phi \circ \Delta_A \circ p)/y] &&(\text{by substitution}) \\
+                  &\underset{\varnothing}{=} (f \circ y)[s/y] \underset{\varnothing}{=} f \circ s
+    \end{align*}
+    Therefore, we have $f \circ s \underset{\varnothing}{=} (f \circ y) [s/y] \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$.
+    We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc}_\times \to \mathsf{CC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$,
+    the substitution of terms corresponds to the composition of classes of arrows, as follows, for a variable $u \in 1$:
+    \[ [(y \in B,f \circ y)] \circ [(u \in 1,s)] = [(u \in 1,s)] \quad\text{in } \mathbf C(\mathbf L(\mathcal C)). \]
+    Finally, the equivalence of categories $\mathsf{CC} \simeq \lambda\text{-}\mathsf{Calc}_\times$ provides us the natural isomorphism $\varepsilon : \mathbf C \circ \mathbf L \overset{\cong}{\Rightarrow} 1_{\mathsf{CC}}$,
+    whose component at $\mathcal C$ is the isomorphism
+    \[ \varepsilon_{\mathcal C} : \mathbf C(\mathbf L(\mathcal C)) \xrightarrow{\cong} \mathcal C. \]
+    By the definition of $\varepsilon_{\mathcal C}$, \Cref{thm:curry-howard-lambek-cartesian-categories}, we have
+    \[ \varepsilon_{\mathcal C}([(y \in B,f \circ y)])=f, \qquad \varepsilon_{\mathcal C}([(u \in 1,s)])=s, \]
+    since $f \circ y \underset{y}{=} f \circ y$ and $s \circ u \underset{u}{=} s \circ 1_1=s$ in the respective polynomial categories.
+    Therefore, applying the functor $\varepsilon_{\mathcal C}$ to the preceding arrow equation gives $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
+\end{proof}
+
 \section{Other fixed-point theorems and diagonal arguments}
