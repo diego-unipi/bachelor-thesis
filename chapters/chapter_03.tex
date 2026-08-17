@@ -146,6 +146,70 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
 \end{proof}
 
 \subsection*{Russell's paradox}
+Another instance of Lawvere's argument in $\mathsf{Set}$ is Russell's paradox, which can be, informally, stated as the class of all sets is not a set.
+Let's give some preliminary definitions to formalize this statement.
+
+\begin{definition}[Axiom schema of separation]
+    Let $A$ be a set and let $\varphi(x)$ be a formula in the language of set theory, the \emph{axiom schema of separation} states that
+    \[ B = \{ x \in A : \varphi(x) \}, \]
+    is a set.
+\end{definition}
+
+\begin{definition}[Class of all sets]
+    We call \emph{class of all sets} $V$ the class defined by the formula $x = x$, i.e.
+    \[ V := \{ x : x = x \}. \]
+\end{definition}
+
+\begin{theorem}[Russell's paradox]
+    Axiom schema of separation $\implies \neg(V \in \mathsf{Set})$.
+\end{theorem}
+
+\begin{proof}
+    Let's assume, by contradiction, that $V \in \mathsf{Set}$, so $2^V \in \mathsf{Set}$, by the power set axiom.
+    We define the map
+    \[ \phi : V \to 2^V : a \mapsto \mathbf 1_a(x) = \begin{cases}
+        1 & \text{if $x \in a$} \\
+        0 & \text{if $x \notin a$}
+    \end{cases},\]
+    that sends each set to its indicator function. This map is surjective, since, given $f : V \to 2$, we can define the set $a_f := \{ x \in V : f(x) = 1 \}$, by the axiom schema of separation.
+    Therefore, by Lawvere's fixed-point theorem, every endomorphism $2 \to 2$ has a fixed point, contradiction.
+\end{proof}
+
+\begin{remark}[On the axioms used in the proof of Russell's paradox]
+    Technically, in the previous proof, we used the axioms of: \emph{extensionality}, \emph{pairing}, \emph{union}, \emph{power set}, and \emph{separation}.
+    Working by contradiction, all the other axioms follow form $V \in \mathsf{Set}$ + separation, se the statement of the theorem is technically accurate.
+\end{remark}
+
+\subsection*{Halting problem}
+Let's move to the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are: $\{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
+
+\begin{definition}
+    A \emph{total recursive function} is a function $f : \NN^n \to \NN_\bot^m$ such that $f(\vec x) \ne \bot$ for every $\vec x \in \NN^n$, where $\NN_\bot := \NN \cup \{\bot\}$, and $\bot$ is a special symbol denoting undefinedness.
+\end{definition}
+
+\begin{notation}[Universal function]
+    We denote by $u_1(-,-)$ the universal function, see [REFERENCE], of arity 1.
+\end{notation}
+
+\begin{definition}[Decidable set]
+    We say that a set $A \subseteq \NN^m$ is \emph{decidable} if there exists a total recursive function $f : \NN^m \to \NN_\bot$, such that
+    \[ A = \{\vec x \in \NN^m : f(\vec x) = 0\}. \]
+\end{definition}
+
+\begin{definition}[$H_1$]
+    We call $H_1 := \{(e,x) \in \NN^2 : u_1(e,x) = 0\}$ the \emph{halting set}.
+\end{definition}
+
+\begin{theorem}[Halting problem]
+    The halting set $H_1$ is undecidable.
+\end{theorem}
+
+\begin{proof}
+    Let's assume, by contradiction, that $H_1$ is decidable, so there exists a total recursive function $f : \NN^2 \to \NN_\bot$ such that
+    \[ H_1 = \{(e,x) \in \NN^2 : f(e,x) = 0\}. \]
+    We define the total recursive function $g : \NN \to \NN_\bot$ a
+\end{proof}
+
 
 \section{Lawvere's fixed-point, cartesian form}
 We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by [REFERENCE].
