@@ -177,38 +177,10 @@ Let's give some preliminary definitions to formalize this statement.
 
 \begin{remark}[On the axioms used in the proof of Russell's paradox]
     Technically, in the previous proof, we used the axioms of: \emph{extensionality}, \emph{pairing}, \emph{union}, \emph{power set}, and \emph{separation}.
-    Working by contradiction, all the other axioms follow form $V \in \mathsf{Set}$ + separation, se the statement of the theorem is technically accurate.
+    Working by contradiction, all the other axioms follow form $V \in \mathsf{Set}$ + separation, so the statement of the theorem is technically accurate.
 \end{remark}
 
-\subsection*{Halting problem}
-Let's move to the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are: $\{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
 
-\begin{definition}
-    A \emph{total recursive function} is a function $f : \NN^n \to \NN_\bot^m$ such that $f(\vec x) \ne \bot$ for every $\vec x \in \NN^n$, where $\NN_\bot := \NN \cup \{\bot\}$, and $\bot$ is a special symbol denoting undefinedness.
-\end{definition}
-
-\begin{notation}[Universal function]
-    We denote by $u_1(-,-)$ the universal function, see [REFERENCE], of arity 1.
-\end{notation}
-
-\begin{definition}[Decidable set]
-    We say that a set $A \subseteq \NN^m$ is \emph{decidable} if there exists a total recursive function $f : \NN^m \to \NN_\bot$, such that
-    \[ A = \{\vec x \in \NN^m : f(\vec x) = 0\}. \]
-\end{definition}
-
-\begin{definition}[$H_1$]
-    We call $H_1 := \{(e,x) \in \NN^2 : u_1(e,x) = 0\}$ the \emph{halting set}.
-\end{definition}
-
-\begin{theorem}[Halting problem]
-    The halting set $H_1$ is undecidable.
-\end{theorem}
-
-\begin{proof}
-    Let's assume, by contradiction, that $H_1$ is decidable, so there exists a total recursive function $f : \NN^2 \to \NN_\bot$ such that
-    \[ H_1 = \{(e,x) \in \NN^2 : f(e,x) = 0\}. \]
-    We define the total recursive function $g : \NN \to \NN_\bot$ a
-\end{proof}
 
 
 \section{Lawvere's fixed-point, cartesian form}
@@ -221,7 +193,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
 
 \begin{theorem}[Lawvere's fixed-point, product form]
     Let $\mathcal C$ be a cartesian category, if there exists a weakly product point-surjective morphism $\phi : A \times A \to B$,
-    then every endomorphism $f: B \to B$ has a fixed point.
+    then every endomorphism $f:title B \to B$ has a fixed point.
 \end{theorem}
 
 \begin{proof}
@@ -256,3 +228,379 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
 \end{proof}
 
 \section{Other fixed-point theorems and diagonal arguments}
+Using the stronger version of Lawvere's fixed-point theorem just proved, we can show how to obtain even more classical results.
+In the following we're going to continue the work started in [REFERENZA ALLA SEZIONE].
+
+\subsection*{Halting problem}
+Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are: $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
+
+\begin{definition}
+    A \emph{total recursive function} is a recursive function, [REFERENCE], $f : \NN^n \to \NN_\bot^m$ such that $f(\vec x) \ne \bot$ for every $\vec x \in \NN^n$, where $\NN_\bot := \NN \cup \{\bot\}$, and $\bot$ is a special symbol denoting undefinedness.
+\end{definition}
+
+\begin{remark}[$\mathsf{Rec_{tot}}$ is a cartesian category]
+    One can actually check that $\mathsf{Rec_{tot}}$ is a cartesian category. The identity function is total recursive, the composition of total recursive functions is again total recursive,
+    and the associativity and identity laws follows from the corresponding laws in $\mathsf{Set}$.\newline
+    The terminal object is $1 = \{*\}$, the product of $\NN^n$ and $\NN^m$ is $\NN^{n+m}$, and the usual projections are total recursive functions. The fact that $1$ is terminal and that the product satisfies the universal property follows from the corresponding facts in $\mathsf{Set}$.
+    Formally, we could say that $\mathsf{Rec_{tot}}$ is a \emph{concrete category}, i.e., there exists a \emph{faithful} - injective on morphisms - functor $U : \mathsf{Rec_{tot}} \to \mathsf{Set}$, that is the forgetful functor.
+    Therefore, given a total recursive function $f : \NN^n \to 1$, the associated function $U(f) : \NN^n \to \{*\}$ is unique, since $1$ is terminal in $\mathsf{Set}$, so $f$ is unique. Similarly one can check the universal property of the product.
+\end{remark}
+
+\begin{notation}[Universal function]
+    We denote by $u_1(-,-)$ the universal function, of arity 1, see [REFERENCE].
+\end{notation}
+
+\begin{definition}[Decidable set]
+    We say that a set $A \subseteq \NN^m$ is \emph{decidable} if there exists a total recursive function $f : \NN^m \to \NN_\bot$, such that
+    \[ A = \{\vec x \in \NN^m : f(\vec x) = 0\}. \]
+\end{definition}
+
+\begin{definition}[$H_1$]
+    We call $H_1 := \{(e,x) \in \NN^2 : u_1(e,x) \ne \bot 0\}$ the \emph{halting set}.
+\end{definition}
+
+\begin{theorem}[Halting problem]
+    The halting set $H_1$ is undecidable.
+\end{theorem}
+
+\begin{proof}
+    Let's assume, by contradiction, that $H_1$ is decidable, so the following function
+    \[ f : \NN^2 \to \NN_\bot : (\alpha,x) \mapsto \begin{cases}
+        u_1(\alpha,x) &\text{if $(\alpha,x) \in H_1$} \\
+        0 &\text{otherwise}
+    \end{cases} \]
+    is total recursive - since can be expressed in terms of the function that decides $H_1$ and elementary arithmetic operations.
+    We can see that, given a total recursive function $g : \NN \to \NN_\bot$, we have
+    \[ f(\ulcorner g \urcorner,-) = u_1(\ulcorner g \urcorner,-) = g(-), \]
+    where $\ulcorner g \urcorner$ is an index of $g$.
+    Therefore, by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $\NN \to \NN$ has a fixed point,
+    but this is clearly a contradiction, since $s : \NN \to \NN : n \mapsto n + 1$ has none.
+\end{proof}
+
+\subsection*{Non-uniform enumerability of total recursive functions}
+Following the previous example, we can also prove that the total recursive functions are not uniformly enumerable.
+
+\begin{definition}[Uniformly enumerable sequence of functions]
+    A sequence of of functions $(f_n)_{n \in \NN}$, $f_n : \NN \to \NN$, is \emph{uniformly enumerable} if there exists a total recursive function $F : \NN^2 \to \NN$ such that
+    \[ F(n,-) = f_n(-) \qquad \text{for every $n \in \NN$}. \]
+\end{definition}
+
+\begin{remark}
+    The set of total recursive functions $\NN \to \NN$ is countable, since the set of indices of total recursive functions is a subset of $\NN$.
+\end{remark}
+
+\begin{theorem}[Non-uniform enumerability of total recursive functions]
+    There is no uniformly enumerable sequence $(f_n)_{n \in \NN}$ of total recursive functions $\NN \to \NN$
+    such that every total recursive function $f : \NN \to \NN$ is equal to $f_n$ for some $n \in \NN$.
+\end{theorem}
+
+\begin{proof}
+    Let's assume, by contradiction, that such a sequence $(f_n)_{n \in \NN}$ exists, so there exists a total recursive function $F : \NN^2 \to \NN$ such that $F(n,-) = f_n(-)$ for every $n \in \NN$.
+    Now, we notice that $F$ is a total recursive function, and by its own definition is a weakly product point-surjective morphism, therefore, Lawvere's fixed-point theorem in the cartesian form applies,
+    and just like in the previous proof, we get a contradiction taking the successor function $s : \NN \to \NN$.
+\end{proof}
+
+\subsection*{Existence of a Non-Recursively Enumerable Language}
+Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in the cartesian form. We need to introduce some preliminary definitions.
+
+\begin{definition}[Alphabet, word, Kleene star]
+    We call \emph{alphabet} a nonempty finite set $\Sigma$. We call \emph{word} of \emph{length} $n$ over $\Sigma$ an element of $\Sigma^n$.
+    We denote with $\varepsilon$ the empty word in $\Sigma^0$, and we define the \emph{Kleene star} of $\Sigma$ the sets of all words over $\Sigma$
+    \[ \Sigma^* := \bigcup_{n \in \NN} \Sigma^n. \]
+\end{definition}
+
+\begin{notation}
+    Given $a \in \Sigma$, we denote with $a^n$ the word of length $n$ over $\Sigma$ defined as $a^n := (a,\ldots,a) \in \Sigma^n$, also, usually written as $a^n = a \ldots a$.
+\end{notation}
+
+\begin{example}[Singleton alphabet]
+    If we consider $\Sigma = \{1\}$, then
+    \[ \Sigma^* = \{\varepsilon, 1, 11, 111, \ldots\} = \{1^n | n \in \NN\}. \]
+    Moreover, we have a natural bijection $\iota : \NN \to \Sigma^* : n \mapsto 1^n$, so we can identify $\NN$ with $\Sigma^*$.
+\end{example}
+
+\begin{definition}[Language]
+    A \emph{language} over an alphabet $\Sigma$ is a subset $L \subseteq \Sigma^*$.
+\end{definition}
+
+\begin{example}
+    For $\Sigma = \{1\}$, every language has the form $L = \{1^n | n \in A\}$ for some $A \subseteq \NN$,
+    and, again, we can identify $L$ with the corresponding subset $A \subseteq \NN$.
+    Furthermore, we can define a map $L \mapsto \widehat L := \{n \in \NN | 1^n \in L\}$, that is a bijection between $\ps(\{1\}^*)$
+    and $\ps(\NN)$, so we can identify the set of languages over $\Sigma$ with the power set of $\NN$.
+\end{example}
+
+\begin{definition}[R.e. language over a singleton alphabet]
+    A language $L \subseteq \{1\}^*$ is \emph{recursively enumerable} if the set
+    \[ \widehat L := \{n \in \NN | 1^n \in L\} \subseteq \NN, \]
+    is recursively enumerable (r.e.).
+\end{definition}
+
+\begin{theorem}[Existence of a non-recursively enumerable language]
+    There exists a language $L \subseteq \{1\}^*$ that is not recursively enumerable.
+\end{theorem}
+
+\begin{proof}
+    Suppose, by contradiction, that every language $L \subseteq \{1\}^*$ is recursively enumerable.
+    We know that the set of r.e. functions $\NN \to \NN_\bot$ is countable, so we can enumerate the r.e. languages over $\{1\}^*$ as $(L_n)_{n \in \NN}$.
+    Now, we can define the function
+    \[ F : \NN \times \NN \to 2 : (n,m) \mapsto \mathbf{1}_{L_n}(1^m) = \begin{cases}
+        1 &\text{if $1^m \in L_n$} \\
+        0 &\text{otherwise}
+    \end{cases}, \]
+    that is weakly product point-surjective, since for every $g : \NN \to 2$, we consider the language $L_g := \{1^m | g(m) = 1\}$, that is r.e. by assumption,
+    so there exists $n_g \in \NN$ such that $L_g = L_{n_g}$, and we have $F(n_g,-) = g(-)$. Applying Lawvere's fixed-point theorem in the cartesian form, we get
+    that every endomorphism $f : 2 \to 2$ has a fixed point, but this is a contradiction.
+\end{proof}
+
+\begin{remark}
+    The previous theorem follows using the bijection between $\ps(\{1\}^*)$ and $\ps(\NN)$, assuming that we already know
+    that there exist non-recursively enumerable subsets of $\NN$. Still, we can flip the argument
+    and use the previous theorem to prove that there exist non-recursively enumerable subsets of $\NN$.
+\end{remark}
+
+
+\subsection*{Undefinability of the satisfaction formula}
+
+\begin{definition}[$L_{\textnormal{arit}}$ and free variables]
+    Let $L_{\textnormal{arit}}$ be the \emph{language of arithmetic}, i.e.,\ $L_{\textnormal{arit}} := \{0,+,\cdot,s\}$, and let $\FV$ denote the set of free variables of a $L_{\textnormal{arit}}$-formula,
+    following the usual conventions of first-order logic, see [REFERENCE A QUANDO PARLO PRIMA DELLE VARIABILI LIBERE].
+\end{definition}
+
+\begin{notation}[$\mathsf{Q}$, Gödel numbering and numerals]
+    We denote by $\mathsf{Q}$ the \emph{Robinson arithmetic}, see [REFERENCE]. Furthermore, we will fix a Gödel numbering $\ulcorner - \urcorner$ of the $L_{\textnormal{arit}}$-formulas,
+    and denote with $\overline{n}$ the numeral corresponding to $n \in \NN$ in $L_{\textnormal{arit}}$.[REFERENCE?]
+\end{notation}
+
+\begin{definition}[Definability of the satisfaction]
+    Let $T$ be a $L_{\textnormal{arit}}$-theory, with $\mathsf{Q} \subseteq T$, we say that the \emph{satisfaction relation} is \emph{definable} in $T$ if there exists a $L_{\textnormal{arit}}$-formula $\mathsf{Sat}_T(y,x)$
+    such that, for every $L_{\textnormal{arit}}$-formula $\varphi$, with $\FV(\varphi) \subseteq \{x\}$, and every closed $L_{\textnormal{arit}}$-term $t$, we have
+    \[ T \vdash \varphi[t/x] \leftrightarrow \mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t). \]
+\end{definition}
+
+Intuitively, the formula $\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)$ expresses, internally in $T$, that the formula whose code is $\ulcorner\varphi\urcorner$ is satisfied by the value represented by the closed term $t$.
+So there's a way of expressing the satisfaction of formulas in $T$ in $T$ itself.\newline
+We need to define the category in which we will apply Lawvere's fixed-point theorem, we use the Lindenbaum category of $T$.
+
+\begin{definition}[$\mathsf{Lind}_T$]
+    Given an $L_{\textnormal{arit}}$-theory $T$, we denote by $\mathsf{Lind}_T$ the \emph{Lindenbaum category} of $T$, whose objects are
+    \[ A^n \times 2^m \qquad \text{for $n,m \in \NN$}, \]
+    where $A$ represents the sort of variables, and $2$ represents the sort of propositions, here we define $1 := A^0 \times 2^0$. The morphisms are defined as follows:
+    \begin{itemize}
+        \item $\mathrm{Hom}(A^n,A) := \{t \in L_{\textnormal{arit}}\textnormal{-terms} \mid \FV(t)\subseteq\{x_1,\ldots,x_n\}\}/{=_T}$;
+        \item $\mathrm{Hom}(A^n,2) := \{\varphi \in L_{\textnormal{arit}}\textnormal{-formulas} \mid \FV(\varphi)\subseteq\{x_1,\ldots,x_n\}\}/{\equiv_T}$;
+        \item $\mathrm{Hom}(1,A) = \{\text{closed }L_{\textnormal{arit}}\text{-terms}\}/{=_T}$;
+        \item $\mathrm{Hom}(1,2) = \{\text{closed }L_{\textnormal{arit}}\text{-formulas}\}/{\equiv_T}$;
+        \item $\mathrm{Hom}(2,2) := \{\varphi(p) \in L_{\textnormal{arit}}(p)\textnormal{-formulas} \mid \FV(\varphi)=\varnothing\}/{\equiv_{T(p)}}$, where $p$ is a new 0-ary relation symbol;
+    \end{itemize}
+    Here the equivalence relations are defined by
+    \[ t =_T s \overset{\textnormal{def}}{\iff} T \vdash t=s, \qquad \varphi \equiv_T \psi \overset{\textnormal{def}}{\iff} T \vdash \varphi \leftrightarrow \psi. \]
+    The composition of morphisms is defined by substitution, and the identity morphisms are defined as the equivalence classes of the variables $x_i$ and the 0-ary relation symbol $p$.
+\end{definition}
+
+\begin{remark}
+    To prove the undefinability of the satisfaction formula, we will only need the Hom-sets above, but to give a complete definition of the category $\mathsf{Lind}_T$, we need to define all the other Hom-sets.
+    In order to do this we introduce the notation $L_{\textnormal{arit}}(p_1,\ldots,p_m)$ for the language $L_{\textnormal{arit}} \cup \{p_1,\ldots,p_m\}$, where $p_1,\ldots,p_m$ are new 0-ary relation symbols, and we define the other Hom-sets as follows:
+    \begin{itemize}
+        \item $\mathrm{Hom}(A^n \times 2^m,A) := \{t \in L_{\textnormal{arit}}(p_1,\ldots,p_m)\textnormal{-terms} \mid \FV(t)\subseteq\{x_1,\ldots,x_n\}\}/{=_{T(p_1,\ldots,p_m)}}$;
+        \item $\mathrm{Hom}(A^n \times 2^m,2) := \{\varphi \in L_{\textnormal{arit}}(p_1,\ldots,p_m)\textnormal{-formulas} \mid \FV(\varphi)\subseteq\{x_1,\ldots,x_n\}\}/{\equiv_{T(p_1,\ldots,p_m)}}$;
+        \item $\mathrm{Hom}(A^n \times 2^m,A^r \times 2^s)$ consists of tuples
+        \[ (t_1,\ldots,t_r,\varphi_1,\ldots,\varphi_s), \]
+        where each $[t_i]\in\mathrm{Hom}(A^n\times2^m,A)$ and each $[\varphi_j]\in\mathrm{Hom}(A^n\times2^m,2)$.
+    \end{itemize}
+    We use the notation $T(p_1,\ldots,p_m)$ to denote $T$ regarded as a theory in the extended language $L_{\textnormal{arit}}(p_1,\ldots,p_m)$, with no additional axioms.
+\end{remark}
+
+\begin{remark}[$\mathsf{Lind}_T$ is a CC]
+    In order to check that $\mathsf{Lind}_T$ is a category, one should check that: the composition is well-defined, the composition and identity laws hold,
+    the universal property of the terminal object $1$, and the universal property of the product. All these properties follow from the corresponding properties of the substitution of terms and formulas in first-order logic,
+    and are not hard to verify, and therefore we omit the details.
+\end{remark}
+
+\begin{example}
+    A couple of examples of objects and morphisms in $\mathsf{Lind}_T$ are the followings:
+    \begin{itemize}
+        \item the variable $x_i$ determines the projection $\pi_i=[x_i]:A^n\to A$;
+        \item the term $x_1+x_2$ determines the morphism $[x_1+x_2]:A^2\to A$;
+        \item the formula $x_1=x_2$ determines the morphism $[x_1=x_2]:A^2\to2$;
+        \item the numeral $\overline{n}$ determines a point $[\overline{n}] : 1 \to A$;
+        \item a closed $L_{\textnormal{arit}}$-formula $\sigma$ determines a point $[\sigma] : 1 \to 2$.
+        \item the formula $\neg p$ determines the negation morphism $[\neg p]:2\to2$;
+        \item a formula in two free arithmetic variables determines a morphism $A^2\to2$; in particular, if the satisfaction relation is definable, there exist the morphism
+        \[ [\mathsf{Sat}_T(y,x)] : A\times A \to 2; \]
+        \item $1_A = [x] : A \to A$, $1_2 = [p] : 2 \to 2$ are the identity morphisms, and $!_A = [()] : A \to 1$, $!_2 = [()] : 2 \to 1$, where $()$ is the empty tuple, are the unique morphisms to the terminal object;
+    \end{itemize}
+\end{example}
+
+\begin{theorem}[Undefinability of satisfaction]
+    Let $T$ be a $L_{\textnormal{arit}}$-theory such that
+    \begin{enumerate}[label=(\roman*)]
+        \item $T$ is consistent;
+        \item $\mathsf Q\subseteq T$.
+    \end{enumerate}
+    Then the satisfaction relation is not definable in $T$.
+\end{theorem}
+
+\begin{proof}
+    Suppose by contradiction that satisfaction is definable in $T$, this means that there exists a morphism in $\mathsf{Lind}_T$
+    \[ [\mathsf{Sat}_T(y,x)] : A\times A \to 2. \]
+    Given $g = [\varphi(x)] : A \to 2$, i.e., an equivalence class of a formula with at most one free variable, let
+    \[ a_\varphi := [\overline{\ulcorner\varphi\urcorner}] : 1 \to A, \]
+    be the closed term corresponding to its Gödel number.
+    Given any $a=[t]:1\to A$, where $t$ is a closed $L_{\textnormal{arit}}$-term, we have
+    \[ [\mathsf{Sat}_T(y,x)]\circ\langle a_\varphi,a\rangle = [\mathsf{Sat}_T(y,x)] \circ \langle[\overline{\ulcorner \varphi \urcorner}], [t]\rangle = [\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)]. \]
+    By definability of satisfaction
+    \[ T\vdash\varphi[t/x]\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t), \]
+    therefore
+    \[ [\mathsf{Sat}_T(y,x)]\circ\langle a_\varphi,a\rangle = [\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)] = [\varphi[t/x]] = g\circ a. \]
+    So, the morphism $[\mathsf{Sat}_T(y,x)] : A\times A \to 2$ is weakly product point-surjective, and we can apply Lawvere's fixed-point theorem in the cartesian form to obtain that every endomorphism
+    in $\Hom(2,2)$ has a fixed point. Then, the endomorphism
+    \[ [\neg p] : 2 \to 2 \]
+    has a fixed point $b = [\sigma] : 1 \to 2$, i.e., $[\neg p] \circ [\sigma] = [\sigma]$, so we have
+    \[ [\neg \sigma] = [\sigma] \overset{\textnormal{def of $\equiv_T$}}{\implies} T \vdash \neg \sigma \leftrightarrow \sigma, \]
+    contradicting the consistency of $T$. Therefore, the satisfaction relation is not definable in $T$.
+\end{proof}
+
+\begin{remark}[Uniform satisfaction formula]
+    We could proved, the same way, a stronger version of the undefinability of satisfaction, using the definition
+    \[ T\vdash\forall x\left(\varphi(x)\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},x)\right), \]
+    that is the existence of a uniformly definable satisfaction formula, i.e., the theory understands that the formula $\mathsf{Sat}_T(y,x)$ defines the satisfaction relation for every value of $x$ at once, and not only pointwise, for every closed term $t$.\newline
+    However, the pointwise formulation above is the correct formulation to obtain the next undefinability result, following Lawvere's original proof of Gödel's first incompleteness theorem.
+\end{remark}
+
+\subsection*{Undefinability of truth}
+
+Now that we have proved the undefinability of the satisfaction relation, we can prove the undefinability of truth as a consequence, following Lawvere.
+
+\begin{definition}[Definability of truth]
+    Let $T$ be a $L_{\textnormal{arit}}$-theory, with $\mathsf{Q}\subseteq T$, we say that \emph{truth} is \emph{definable} in $T$ if there exists a $L_{\textnormal{arit}}$-formula $\mathsf{Truth}_T(y)$ such that, for every closed $L_{\textnormal{arit}}$-formula $\sigma$, we have
+    \[ T\vdash \sigma\leftrightarrow\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner}). \]
+\end{definition}
+
+Intuitively, the formula $\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})$ expresses, internally in $T$, that the closed formula whose code is $\ulcorner\sigma\urcorner$ is true.
+So $T$ understands the truth value of every closed formula in $T$ itself.
+
+\begin{remark}[Equivalent formulation of definability of truth]
+    In the Lindenbaum category $\mathsf{Lind}_T$, the formula $\mathsf{Truth}_T(y)$ determines a morphism
+    \[ [\mathsf{Truth}_T(y)]:A\to2. \]
+    Given an $L_{\textnormal{arit}}$-formula $\sigma$, and let
+    \[ c_\sigma:=[\overline{\ulcorner\sigma\urcorner}]:1\to A. \]
+    be the closed term corresponding to the Gödel code of $\sigma$. By composition, we have
+    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma=[\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})], \]
+    hence, truth is definable in $T$ if and only if
+    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma=[\sigma] \]
+    for every closed $L_{\textnormal{arit}}$-formula $\sigma$.
+\end{remark}
+
+Following Lawvere, it is convenient to introduce the following relation $\Gamma$ between closed terms and closed formulas, that expresses the fact that a closed term is the Gödel code of a closed formula.
+\begin{definition}[$\Gamma$]
+    We define
+    \[ \Gamma\subseteq\mathrm{Hom}(1,A)\times\mathrm{Hom}(1,2) \]
+    by declaring that $d\Gamma\sigma$ if there exists a closed $L_{\textnormal{arit}}$-formula $\theta$ such that
+    \[ d=[\overline{\ulcorner\theta\urcorner}] \qquad\text{and}\qquad \sigma=[\theta]. \]
+\end{definition}
+
+\begin{remark}
+    By the previous definition, we have that truth is definable in $T$ if and only if there exists a morphism $[\mathsf{Truth}_T(y)]:A\to2$ such that
+    \[ d\Gamma\sigma\implies[\mathsf{Truth}_T(y)]\circ d=\sigma. \]
+    That means that if $d$ is the Gödel code of a closed formula $\theta$, then $[\mathsf{Truth}_T(y)]\circ d$ is the truth value of $\theta$.
+\end{remark}
+
+\begin{remark}[Substitution]
+    Recall that syntactic substitution on Gödel codes is primitive recursive [REFERENCE]. This primitive recursive function can be represented in $L_{\mathrm{arit}}$ by a formula [REFERENCE].
+    Following Lawvere, we require something weaker, that follows form those facts.
+    We say that substitution is \emph{definable relative to $\Gamma$} if there exists a morphism
+    \[ \textrm{subst} : A \times A \to A \]
+    such that, for every $L_{\mathrm{arit}}$-formula $\varphi$ with $\FV(\varphi)\subseteq\{x\}$ and a closed term $a:1\to A$
+    \[ \left(\textrm{subst}\circ\langle[\overline{\ulcorner\varphi\urcorner}],a\rangle\right)\,\Gamma\, [\varphi[a/x]], \]
+    that is, the Gödel code of the output of the substitution morphism is the Gödel code of the formula obtained by substituting $a$ for $x$ in $\varphi$.
+    This is weaker than requiring that substitution is PR, or that it is representable in $\mathsf{Q}$, but it is enough for our purposes.
+\end{remark}
+
+\begin{theorem}[Undefinability of truth]
+    Let $T$ be a $L_{\textnormal{arit}}$-theory such that
+    \begin{enumerate}[label=(\roman*)]
+        \item $T$ is consistent;
+        \item $\mathsf Q \subseteq T$.
+    \end{enumerate}
+    Then truth is not definable in $T$.
+\end{theorem}
+
+\begin{proof}
+    Suppose by contradiction that truth is definable in $T$, then we can consider the corresponding morphism
+    \[ [\mathsf{Truth}_T(y)] : A \to 2. \]
+    We define
+    \[ [\mathsf{Sat}_T(y,x)] := [\mathsf{Truth}_T(y)] \circ \textrm{subst} : A \times A \to 2. \]
+    Let $\varphi$ be a $L_{\textnormal{arit}}$-formula with $\FV(\varphi)\subseteq\{x\}$, and let $t$ be a closed $L_{\textnormal{arit}}$-term. By the definition of $\textrm{subst}$, we have
+    \[ \left(\textrm{subst} \circ \langle[\overline{\ulcorner\varphi\urcorner}],[t]\rangle\right)\Gamma[\varphi[t/x]]. \]
+    Hence, by definability of $\mathsf{Truth}_T$
+    \[ [\mathsf{Truth}_T(y)] \circ\textrm{subst} \circ \langle[\overline{\ulcorner\varphi\urcorner}],[t]\rangle = [\varphi[t/x]], \]
+    and therefore
+    \[ [\mathsf{Sat}_T(y,x)] \circ\langle[\overline{\ulcorner\varphi\urcorner}],[t]\rangle = [\varphi[t/x]]. \]
+    So, by the definition of $\equiv_T$, we have
+    \[ T\vdash\varphi[t/x]\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t). \]
+    therefore, the satisfaction formula is definable in $T$, contradicting the previous theorem.
+\end{proof}
+
+\begin{remark}
+    We could have proved the undefinability of truth directly, without using the undefinability of satisfaction,
+    repeating the same argument, based on the Lindenbaum category and Lawvere's fixed-point theorem, but this
+    would have basically been a repetition of the previous proof. Therefore, we preferred to follow
+    Lambek's exposition [REFERENCE], and let the undefinability of truth follow from the undefinability of satisfaction.
+\end{remark}
+
+\subsection*{Gödel's first incompleteness theorem}
+Now that we have proved the undefinability of truth, we can prove Gödel's first incompleteness theorem,
+obtaining a proof that directly follows from Lawvere's fixed-point theorem, as Lambek did in [REFERENCE].
+
+\begin{definition}[Representability of provability]
+Following Lawvere, we say that \emph{provability is representable relative to $\Gamma$} if there exists a morphism
+\[ [\mathsf{Pr}_T(y)] : A \to 2 \]
+such that, for every closed term $d : 1 \to A$ and closed formula $\sigma : 1 \to 2$,
+\[ d\Gamma\sigma \implies \left([\mathsf{Pr}_T(y)] \circ d = [\top] \iff \sigma = [\top]\right), \]
+i.e., if $d$ is the Gödel code of $\sigma$, then the provability formula represents the truth value of $\sigma$ in $T$.
+\end{definition}
+
+This is weaker than the definability of truth, since it only requires that the provability formula correctly recognizes the closed formulas that are provable in $T$,
+rather than reproducing the truth value of every closed formula. Under the assumptions that $T$ is complete the two conditions are equivalent.
+
+\begin{remark}[Representability of provability]
+    It is well-known that, if $T$ is a recursively axiomatizable theory such that $\mathsf Q \subseteq T$, then
+    there is a primitive recursive function that expresses the fact that a number encodes a proof of a formula encode by another number.
+    This primitive recursive function can be represented in $\mathsf Q$, and therefore in $T$. This is stronger than
+    requiring that provability is representable relative to $\Gamma$, but, again, it is enough for our purposes.
+\end{remark}
+
+\begin{theorem}[Gödel's first incompleteness theorem]
+    Let $T$ be a $L_{\mathrm{arit}}$-theory such that
+    \begin{enumerate}[label=(\roman*)]
+        \item $T$ is recursively axiomatizable;
+        \item $T\vdash\mathsf Q$;
+        \item $\mathbb N\models T$.
+    \end{enumerate}
+    Then $T$ is incomplete.
+\end{theorem}
+
+\begin{proof}
+    Since $\mathbb N\models T$, the theory $T$ is consistent.
+    Suppose, by contradiction, that $T$ is complete, then every closed formula $T$ is capable of proving it or proving its negation, and therefore
+    \[ \mathrm{Hom}(1, 2) = \{[\bot], [\top]\}. \]
+    Let $\sigma : 1 \to 2$ and $d : 1 \to A$ be chosen arbitrarily. We have two cases:
+    \begin{itemize}
+        \item if $\sigma = [\top]$, then, by definition of representability of provability, we have
+        \[ d\Gamma\sigma \implies [\mathsf{Pr}_T(y)] \circ d = [\top]; \]
+        \item if $\sigma = [\bot]$, then, since $T$ is consistent, $\sigma \ne [\top]$, so by definition of representability
+        \[ d\Gamma\sigma \implies [\mathsf{Pr}_T(y)] \circ d \ne [\top]. \]
+        Since we have only two classes of closed formulas, it follows that
+        \[ [\mathsf{Pr}_T(y)] \circ d = [\bot] = \sigma. \]
+    \end{itemize}
+    Therefore, in both cases $d\Gamma\sigma$ implies $[\mathsf{Pr}_T(y)] \circ d = \sigma$, this $[\mathsf{Pr}_T(y)] : A \to 2$
+    defines truth relative to $\Gamma$, contradicting the previous theorem.
+\end{proof}
+
+\begin{remark}[Diagrams]
+\end{remark}
+
+\subsection*{Gödel's diagonal lemma}
+Just like we did for Cantor's diagonal argument, we can also prove Gödel's diagonal lemma using the
+proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem.
