@@ -182,6 +182,81 @@ Let's give some preliminary definitions to formalize this statement.
 
 
 
+\subsection*{Non-existence of certain continuous surjections}
+Another interesting application of Lawvere's fixed-point theorem is the non-existence of certain continuous surjections, in $k\mathsf{Top}$, the category of compactly generated Hausdorff spaces.
+
+\begin{definition}[Compactly generated space]
+    A topological space $X$ is \emph{compactly generated} if a subset $A \subseteq X$ is open if and only if $A \cap K$ is open in $K$ for every compact subspace $K \subseteq X$.
+\end{definition}
+
+\begin{remark}
+    We recall the following chain of implications, useful to check if a space is compactly generated:
+    \[ \textrm{metrizable} \implies \textrm{I-countable} \implies \textrm{Fréchet--Urysohn}\implies \textrm{sequential} \implies k\mathsf{Top}. \]
+    There's also another useful chain:
+    \[ \textrm{compact} \implies \textrm{locally compact} \implies \textrm{compactly generated}. \]
+\end{remark}
+
+\begin{notation}
+    From now until the end of this subsection, we will denote by $k\mathsf{Top}$ the category of compactly generated Hausdorff spaces, whose objects are compactly generated Hausdorff spaces and whose morphisms are continuous maps.
+\end{notation}
+
+\begin{remark}
+    Checking that $k\mathsf{Top}$ is cartesian closed is not trivial, neither too difficult, but it requires some work. Therefore, we will assume it without proving it, and we refer to \Cite{Rezk2018} for a complete proof.
+\end{remark}
+
+Let's now see some of these results.
+
+\begin{proposition}
+    Given $I, X$ compactly generated Hausdorff spaces, if there is aa continuous endomorphism $f : X \to X$ without fixed points, then there is no continuous surjection
+    \[ g : I \twoheadrightarrow X^I. \]
+\end{proposition}
+
+\begin{proof}
+    It just the contrapositive of Lawvere's fixed-point theorem, applied to $k\mathsf{Top}$.
+\end{proof}
+
+\begin{example}
+    For example, there is no continuous surjection $g : [0,1] \to (S^1)^{[0,1]} = C^0([0,1],S^1)$, since the continuous endomorphism $f : S^1 \to S^1$ defined as $f(v) = -v$, the \emph{antipodal map}, has no fixed points.
+\end{example}
+
+More in general, we can prove the following result.
+
+\begin{proposition}
+    Given $G$ a compactly generated Hausdorff group and $I$ a compactly generated Hausdorff space, if $G$ is nontrivial, then there is no continuous surjection
+    \[ g : I \twoheadrightarrow G^I. \]
+\end{proposition}
+
+\begin{proof}
+    Given a nontrivial element $g \in G$ we can define the translation map
+    \[ L_g : G \to G : x \mapsto g \cdot x, \]
+    that is a continuous, since $G$ is a topological group, and has no fixed points, otherwise $g \cdot x = x \implies g = 1_G$, contradicting the fact that $g$ is nontrivial.
+    Now we can apply the previous proposition to conclude.
+\end{proof}
+
+Other interesting examples include the followings.
+
+\begin{example}
+    Given $(0,1) \subseteq \RR$, $f(x) := \frac{x + 1}{2}$ has no fixed points, so there is no continuous surjection $g : I \twoheadrightarrow (0,1)^I$, for any compactly generated Hausdorff space $I$.
+\end{example}
+
+\begin{example}
+    If $X$ has a continuous endomorphism $f : X \to X$ without fixed points, then for every compactly generated Hausdorff space $Y$, the map
+    \[ f \times 1_Y : X \times Y \to X \times Y : (x,y) \mapsto (f(x),y) \]
+    is a continuous endomorphism without fixed points, so there is no continuous surjection $g : I \twoheadrightarrow (X \times Y)^I$.
+    In particular, there is no continuous surjection $g : I \twoheadrightarrow (S^n \times Y)^I$, for $I, Y \in \ob(k\mathsf{Top})$ and $n \geq 1$.
+\end{example}
+
+\begin{example}
+    Given $X$ a compactly generated Hausdorff space, then the map
+    \[ f : X \sqcup X \to X \sqcup X : (x,0) \mapsto (x,1), (x,1) \mapsto (x,0) \]
+    is a continuous endomorphism without fixed points, so there is no continuous surjection $g : I \twoheadrightarrow (X \sqcup X)^I$.
+\end{example}
+
+\begin{example}
+    The Cantor space $2^\NN$, equipped with the product topology, is a compactly generated Hausdorff space, and the map
+    \[ f(x_0,x_1,x_2,\dots) := (1-x_0,x_1,x_2,\dots) \]
+    is a continuous endomorphism without fixed points, if there was one, we'd have $x_0 = \frac 12 \not\in 2$, so there is no continuous surjection $g : I \twoheadrightarrow (2^\NN)^I$, for any compactly generated Hausdorff space $I$.
+\end{example}
 
 \section{Lawvere's fixed-point, cartesian form}
 We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by [REFERENCE].
@@ -227,7 +302,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
     Therefore, applying the functor $\varepsilon_{\mathcal C}$ to the preceding arrow equation gives $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
 \end{proof}
 
-\section{Other fixed-point theorems and diagonal arguments}
+\section{Gödel's incompleteness and other classical results}
 Using the stronger version of Lawvere's fixed-point theorem just proved, we can show how to obtain even more classical results.
 In the following we're going to continue the work started in [REFERENZA ALLA SEZIONE].
 
@@ -468,8 +543,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
     However, the pointwise formulation above is the correct formulation to obtain the next undefinability result, following Lawvere's original proof of Gödel's first incompleteness theorem.
 \end{remark}
 
-\subsection*{Undefinability of truth}
-
+\subsection*{Tarski's undefinability theorem}
 Now that we have proved the undefinability of the satisfaction relation, we can prove the undefinability of truth as a consequence, following Lawvere.
 
 \begin{definition}[Definability of truth]
@@ -599,8 +673,63 @@ rather than reproducing the truth value of every closed formula. Under the assum
 \end{proof}
 
 \begin{remark}[Diagrams]
+    The proof of Gödel's first incompleteness theorem can be summarized in proving the commutativity of the following diagram in $\mathsf{Lind}_T$:
+    % https://q.uiver.app/#q=WzAsMyxbMCwxLCIxIl0sWzAsMCwiQSJdLFsxLDEsIjIiXSxbMCwxLCJkIl0sWzAsMiwiXFxzaWdtYSIsMl0sWzEsMiwiW1xcbWF0aHNme1ByfV9UKHkpXSJdXQ==
+    \[\begin{tikzcd}
+        A & \\
+        1 & 2
+        \arrow["{[\mathsf{Pr}_T(y)]}", from=1-1, to=2-2]
+        \arrow["d", from=2-1, to=1-1]
+        \arrow["\sigma"', from=2-1, to=2-2]
+    \end{tikzcd}\]
 \end{remark}
 
 \subsection*{Gödel's diagonal lemma}
 Just like we did for Cantor's diagonal argument, we can also prove Gödel's diagonal lemma using the
 proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem.
+
+\begin{theorem}[Gödel's diagonal lemma]
+    Let $\varphi(x)$ be a $L_{\textnormal{arit}}$-formula with at most one free variable $x$, then there exists a closed $L_{\textnormal{arit}}$-formula $\psi$ such that
+    \[ \mathsf Q \vdash \left(\psi \leftrightarrow \varphi[\overline{\ulcorner\psi\urcorner}/x]\right). \]
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{remark}
+    From the diagonal lemma, we can derive Gödel's first incompleteness theorem following the classical argument.
+    Proving the diagonal lemma and Tarski's undefinability theorem, we saw that two of the classical ways of proving Gödel's incompleteness
+    can be both independently derived from Lawvere's fixed-point theorem.
+\end{remark}
+
+
+
+\subsection*{Undecidability of true arithmetic}
+
+\begin{theorem}[Undecidability of true arithmetic]
+    The set $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\}$ is not recursively enumerable.
+\end{theorem}
+
+
+\begin{remark}
+    The theorem follows both by Gödel's first incompleteness theorem and Tarski's undefinability theorem. In fact, $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete, consistent, contains $\mathsf{Q}$, and the theorem states that it is recursively axiomatizable,
+    therefore $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ would contradict the first incompleteness theorem. On the other hand, if $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ were recursively enumerable, then it would be definable with a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula, contradicting Tarski's undefinability theorem.
+\end{remark}
+
+We prove this theorem using Lawvere's fixed-point, since it is interesting by itself to see how it can be derived from the fixed-point theorem in category that is not $\mathsf{Lind}_T$, but $\mathsf{Rec_{tot}}$.
+
+\begin{proof}
+    Let's assume, by contradiction, that the set $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\}$ is recursively enumerable, since $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete,
+    the set is decidable. Let $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\} = \{n : f(n) = 0\}$ for some total recursive function $f : \NN \to \NN$.\newline
+    Let $\mathrm{sub} : \NN^2 \to \NN$ be the primitive recursive function that sends $(n,m)$ to the Gödel code of the formula obtained by substituting the numeral $\overline{m}$ for a fixed free variable $x = x_{i}$ in the unary formula whose Gödel code is $n$.
+    If we define
+    \[ F : \NN^2 \to \NN : (n,m) \mapsto f(\mathrm{sub}(n,m)), \]
+    that is the function that does the substitution and then checks if the resulting formula is true in $\NN$, we have that $F$ is a total recursive function.
+    Moreover, given any total recursive function $g : \NN \to \NN$, we know that $\{n \in \NN : g(n) = 0\}$ is definable by a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula $\varphi_g(x)$, i.e.
+    \[ g(n) = 0 \iff \NN \models \varphi_g(n). \]
+    Therefore
+    \[ F(\ulcorner \varphi_g \urcorner, n) = f(\ulcorner \varphi_g[n/x] \urcorner) = 0 \iff \NN \models \varphi_g(n) \iff g(n) = 0, \]
+    Where the first equivalence follows from the definition of $f$. Therefore $F(\ulcorner \varphi_g \urcorner, -) = g(-)$, since they both define the same decidable set, and $F$ is weakly product point-surjective.
+    Applying Lawvere's fixed-point theorem in the cartesian form, we get that every total recursive function $f : \NN \to \NN$ has a fixed point, but this is a contradiction.
+\end{proof}
