@@ -307,7 +307,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we fix a an injective pairing function $\texttt{cons} : \NN^2 \hookrightarrow \NN$, defined as $\texttt{cons}(n,m) := \frac{(n+m)(n+m+1)}{2} + m + 1$,
         with inverses $\texttt{car} : \NN \to \NN$ and $\texttt{cdr} : \NN \to \NN$, such that
         \[ \texttt{car}(\texttt{cons}(n,m)) = n \quad\text{and}\quad \texttt{cdr}(\texttt{cons}(n,m)) = m\footnote{They can be explicitly defined as $\texttt{car}(z) := \sum_{i < z}\sum_{j < z} i \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$ and $\texttt{cdr}(z) := \sum_{i < z}\sum_{j < z} j \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$,
-        where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive characteristic function, see [REFERENCE].}.\]
+        where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive function, see [REFERENCE].}.\]
         We will denote $\texttt{cons}(n,m)$ as $\langle n,m \rangle$ for brevity. We define
         \[ \langle n,m \rangle \Vdash_{X \times Y} (x,y) \overset{\textnormal{def}}{\iff} n \Vdash_X x \;\text{and}\; m \Vdash_Y y, \]
         and the projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, with trackers $e_X := \texttt{car}$ and $e_Y := \texttt{cdr}$, respectively.\newline
@@ -331,7 +331,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
 
 \begin{theorem}[Lawvere's fixed-point, product form]
     Let $\mathcal C$ be a cartesian category, if there exists a weakly product point-surjective morphism $\phi : A \times A \to B$,
-    then every endomorphism $f:title B \to B$ has a fixed point.
+    then every endomorphism $f: B \to B$ has a fixed point.
 \end{theorem}
 
 \begin{proof}
