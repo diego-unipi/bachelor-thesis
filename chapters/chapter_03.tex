@@ -258,6 +258,69 @@ Other interesting examples include the followings.
     is a continuous endomorphism without fixed points, if there was one, we'd have $x_0 = \frac 12 \not\in 2$, so there is no continuous surjection $g : I \twoheadrightarrow (2^\NN)^I$, for any compactly generated Hausdorff space $I$.
 \end{example}
 
+\subsection*{Rice's theorem}
+Let's now see how to apply Lawvere's fixed-point theorem to obtain some result in computability theory. Specifically, we prove in this subsection Rice's theorem.
+
+\begin{theorem}[Rice's theorem]
+    Let $R \subseteq \NN$ such that, forall $\alpha,\beta \in\NN$
+    \[ \left(\forall x \in \NN \; u_1(\alpha,x) = u_1(\beta,x)\right) \implies (\alpha \in R \iff \beta \in R),\]
+    i.e.,\ $R$ is an \emph{extensional property} of the partial computable functions. If $R$ is decidable, either $R = \varnothing$ or $R = \NN$.
+\end{theorem}
+
+What the theorem says is that, if $R$ is a nontrivial extensional property of the partial computable functions, then $R$ is undecidable.
+
+\begin{remark}
+    Rice's theorem generalizes the Turing's halting problem, i.e. the set $H_1 := \{(\alpha,x) \in \NN^2 | u_1(\alpha,x) \ne \bot\}$, where $\bot$ represents non-termination, is undecidable.
+    Indeed, if $H_1$ was decidable, we'd have
+    \[ H_1 = \{(\alpha,x) \in \NN^2 | f(\alpha,x) = 0\}, \]
+    for some $f : \NN^2 \to 2$ total recursive function. Therefore, the sections of $H_1$ would be decidable too, i.e.\ fixed $x \in \NN$, the set $H_1^x := \{\alpha \in \NN | (\alpha,x) \in H_1\}$ would be decidable,
+    since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial computable functions, because, if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
+    then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$, that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that return the constant 0 on every input.
+\end{remark}
+
+In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathcal K_1)$ of \emph{assemblies} over the first Kleene algebra $\mathcal K_1 = (\NN,\cdot)$, where $e \cdot n := u_1(e,n)$, and $u_1$ is the 1-ary universal calculator.
+
+\begin{definition}[$\mathsf{Asm}(\mathcal K_1)$]
+    The category $\mathsf{Asm}(\mathcal K_1)$ is called the category of \emph{assemblies} over the first Kleene algebra $\mathcal K_1$, and it is defined as follows:
+    \begin{itemize}
+        \item the objects are pairs $X = (|X|,\Vdash_X)$, called \emph{assemblies}, where $|X|$ is a set and $\Vdash_X \subseteq \NN \times |X|$ is a relation, called the \emph{realizability relation}, such that for every $x \in |X|$ there exists $n \in \NN$ for which $n \Vdash_X x$ - we say that $n$ \emph{realizes} $x$;
+        \item a morphism of assemblies $f : X \to Y$ is a set-theoretic function $f : |X| \to |Y|$ such that there exists $e \in \NN$, called \emph{tracker} of $f$, for which
+        \[ n \Vdash_X x \implies e \cdot n \ne \bot \text{ and } e \cdot n \Vdash_Y f(x), \]
+        for every $x \in |X|$ and $n \in \NN$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    We can have two trackers $e_1,e_2 \in \NN$ for the same morphism $f : X \to Y$, therefore it's important to point out that the morphism are the functions $f$ with the property of having at least one tracker, and not the pairs $(f,e)$.
+\end{remark}
+
+\begin{proposition}
+    $\mathsf{Asm}(\mathcal K_1)$ is a cartesian closed category.
+\end{proposition}
+
+\begin{proof}
+    We need to prove three things: the existence of a terminal object, the existence of binary products, and the existence of exponentials.
+    \begin{itemize}
+        \item The terminal object is $1 := (\{*\},\Vdash_1)$, where $n \Vdash_1 *$ for every $n \in \NN$. Indeed, given a morphism $f : X \to 1$,
+        since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, the underlying function $|f| : |X| \to \{*\}$ is uniquely determined, moreover,
+        given any $e \in \NN$ such that $e \cdot n \ne \bot$ for every $n \in \NN$, we have that $\NN \ni e \cdot n \Vdash_1 f(x) = *$, for every $x \in |X|$ and $n \Vdash_X x$, so $e$ is a tracker of $f$.
+        \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we fix a an injective pairing function $\texttt{cons} : \NN^2 \hookrightarrow \NN$, defined as $\texttt{cons}(n,m) := \frac{(n+m)(n+m+1)}{2} + m + 1$,
+        with inverses $\texttt{car} : \NN \to \NN$ and $\texttt{cdr} : \NN \to \NN$, such that
+        \[ \texttt{car}(\texttt{cons}(n,m)) = n \quad\text{and}\quad \texttt{cdr}(\texttt{cons}(n,m)) = m\footnote{They can be explicitly defined as $\texttt{car}(z) := \sum_{i < z}\sum_{j < z} i \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$ and $\texttt{cdr}(z) := \sum_{i < z}\sum_{j < z} j \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$,
+        where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive characteristic function, see [REFERENCE].}.\]
+        We will denote $\texttt{cons}(n,m)$ as $\langle n,m \rangle$ for brevity. We define
+        \[ \langle n,m \rangle \Vdash_{X \times Y} (x,y) \overset{\textnormal{def}}{\iff} n \Vdash_X x \;\text{and}\; m \Vdash_Y y, \]
+        and the projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, with trackers $e_X := \texttt{car}$ and $e_Y := \texttt{cdr}$, respectively.\newline
+        Given $f : Z \to X$ and $g : Z \to Y$, we define the morphism $\langle f,g \rangle : Z \to X \times Y$ as the underlying function $\langle f,g \rangle(z) := (f(z),g(z))$, with tracker $e := \texttt{cons}(e_f,e_g)$, where $e_f$ and $e_g$ are trackers of $f$ and $g$, then it's easy to check that the universal property of the product is satisfied.
+    \end{itemize}
+\end{proof}
+
+Finally we can prove Rice's theorem.
+
+\begin{proof}
+
+\end{proof}
+
 \section{Lawvere's fixed-point, cartesian form}
 We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by [REFERENCE].
 
@@ -704,13 +767,11 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
 \end{remark}
 
 
-
 \subsection*{Undecidability of true arithmetic}
 
 \begin{theorem}[Undecidability of true arithmetic]
     The set $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\}$ is not recursively enumerable.
 \end{theorem}
-
 
 \begin{remark}
     The theorem follows both by Gödel's first incompleteness theorem and Tarski's undefinability theorem. In fact, $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete, consistent, contains $\mathsf{Q}$, and the theorem states that it is recursively axiomatizable,
