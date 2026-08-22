@@ -299,7 +299,15 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
 \end{proposition}
 
 \begin{proof}
-    We need to prove three things: the existence of a terminal object, the existence of binary products, and the existence of exponentials.
+    Let's first check that $\mathsf{Asm}(\mathcal K_1)$ is a category.
+    \begin{itemize}
+        \item The identity map $1_X : |X| \to |X|$ is a morphism of assemblies, since, if $n \Vdash_X x$, then, taking $e := \ulcorner 1\cdot\urcorner \in \NN$, we have that $e \cdot n = n \ne \bot$ and $e \cdot n \Vdash_X 1_X(x) = x$.
+        \item Given $f : X \to Y$ and $g : Y \to Z$ morphisms of assemblies, we fix two trackers $e_f$ and $e_g$ of $f$ and $g$. Now, given $n \Vdash_X x$, we have $e_f \cdot n \Vdash_Y f(x)$, and from this
+        \[ e_g \cdot (e_f \cdot n) \Vdash_Z g \circ f(x). \]
+        By taking $e := \ulcorner u_1(e_g,u_1(e_f,-)) \urcorner \in \NN$, we have that $e \cdot n \Vdash_Z g \circ f(x)$.
+        Moreover, since $e_f \cdot n \ne \bot$ and $e_g \cdot (e_f \cdot n) \ne \bot$, we have $e \cdot n \ne \bot$, so $e$ is a tracker of $g \circ f$, and therefore $g \circ f : X \to Z$ is a morphism of assemblies.
+    \end{itemize}
+    To prove that $\mathsf{Asm}(\mathcal K_1)$ is cartesian closed, we need to prove: the existence of a terminal object, the existence of binary products, and the existence of exponentials.
     \begin{itemize}
         \item The terminal object is $1 := (\{*\},\Vdash_1)$, where $n \Vdash_1 *$ for every $n \in \NN$. Indeed, given a morphism $f : X \to 1$,
         since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, the underlying function $|f| : |X| \to \{*\}$ is uniquely determined, moreover,
@@ -308,17 +316,54 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         with inverses $\texttt{car} : \NN \to \NN$ and $\texttt{cdr} : \NN \to \NN$, such that
         \[ \texttt{car}(\texttt{cons}(n,m)) = n \quad\text{and}\quad \texttt{cdr}(\texttt{cons}(n,m)) = m\footnote{They can be explicitly defined as $\texttt{car}(z) := \sum_{i < z}\sum_{j < z} i \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$ and $\texttt{cdr}(z) := \sum_{i < z}\sum_{j < z} j \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$,
         where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive function, see [REFERENCE].}.\]
-        We will denote $\texttt{cons}(n,m)$ as $\langle n,m \rangle$ for brevity. We define
-        \[ \langle n,m \rangle \Vdash_{X \times Y} (x,y) \overset{\textnormal{def}}{\iff} n \Vdash_X x \;\text{and}\; m \Vdash_Y y, \]
-        and the projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, with trackers $e_X := \texttt{car}$ and $e_Y := \texttt{cdr}$, respectively.\newline
-        Given $f : Z \to X$ and $g : Z \to Y$, we define the morphism $\langle f,g \rangle : Z \to X \times Y$ as the underlying function $\langle f,g \rangle(z) := (f(z),g(z))$, with tracker $e := \texttt{cons}(e_f,e_g)$, where $e_f$ and $e_g$ are trackers of $f$ and $g$, then it's easy to check that the universal property of the product is satisfied.
+        These are all primitive recursive functions, and we will denote $\texttt{cons}(n,m)$ as $\langle n,m \rangle$ for brevity. We define
+        \[ \langle n,m \rangle \Vdash_{X \times Y} (x,y) \overset{\textnormal{def}}{\iff} n \Vdash_X x \;\text{and}\; m \Vdash_Y y. \]
+        The projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, and are morphisms of assemblies, since, for example:
+        \[ \langle n, m \rangle \Vdash_{X \times Y} (x,y) \implies e \cdot \langle n, m \rangle \Vdash_X \pi_{X,Y}(x,y) = x, \]
+        by taking $e := \ulcorner \texttt{car} \urcorner \in \NN$, and similarly for $\pi_{X,Y}'$.
+        Given $f : Z \to X$ and $g : Z \to Y$, we define the morphism $\langle f,g \rangle : Z \to X \times Y$ as the underlying function $\langle f,g \rangle(z) := (f(z),g(z))$, that already is unique and makes the diagram commute.
+        In order to have that $\langle f,g \rangle$ is a morphism of assemblies, we need to find a tracker such that
+        \[ n \Vdash_Z z \implies e \cdot n \Vdash_{X \times Y} (f(z),g(z)), \]
+        where the last condition is equivalent to $\texttt{car}(e \cdot n) \Vdash_X f(z)$ and $\texttt{cdr}(e \cdot n) \Vdash_Y g(z)$. Since $f$ and $g$ are morphisms we can fix two trackers $e_f$ and $e_g$ such that $e_f \cdot n \Vdash_X f(z)$ and $e_g \cdot n \Vdash_Y g(z)$,
+        and we can define $e := \ulcorner \langle u_1(e_f,-),u_1(e_g,-) \rangle \urcorner \in \NN$, and it is easy to check that $e$ respects the two conditions above, and since $e_f \cdot n \ne \bot$ and $e_g \cdot n \ne \bot$, we have that $e \cdot n \ne \bot$ for every $n \in \NN$.
+        \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we define the assembly $Y^X := (|Y|^{|X|},\Vdash_{Y^X})$, where $|Y|^{|X|}$ is the set of functions from $|X|$ to $|Y|$, and
+        \[ e \Vdash_{Y^X} f \overset{\textnormal{def}}{\iff} \forall x \in |X| \; \forall n \in \NN \; (n \Vdash_X x \implies e \cdot n \ne \bot \text{ and } e \cdot n \Vdash_Y f(x)),\]
+        i.e. $e$ realizes $f$ if it a tracker of $f$ as a morphism of assemblies. We want to check that there is a bijection
+        \[ \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) \overset{1:1}{\longleftrightarrow} \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y). \]
+        Let's define the map
+        \[ (-)^* : \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) \to \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y) : f \mapsto f^*, \]
+        where $f^* : X \to Z^Y$ is defined as the underlying function $f^*(x)(y) := f(x,y)$, and we need to check that $f^* : X \to Z^Y$ is a morphism of assemblies.
+        Given $n \Vdash_X x$ we look for a tracker $e \in \NN$ such that $e \cdot n \ne \bot$ and $e \cdot n \Vdash_{Z^Y} f^*(x)$, i.e. for every $y \in |Y|$ and $m \in \NN$, if $m \Vdash_Y y$ then $(e \cdot n) \cdot m \ne \bot$ and $(e \cdot n) \cdot m \Vdash_Z f^*(x)(y) = f(x,y)$.\newline
+        By the hypothesis, $f : X \times Y \to Z$ is a morphism of assemblies, so if $\langle n,m \rangle \Vdash_{X \times Y} (x,y)$, then there exists a tracker $e_f \in \NN$ such that $e_f \cdot \langle n,m \rangle \ne \bot$ and $e_f \cdot \langle n,m \rangle \Vdash_Z f(x,y)$.
+        We define the primitive recursive function $g : \NN^2 \to \NN : (n,m) \mapsto \langle n,m \rangle$, and we take $e := \ulcorner u_1(e_f, s_1^1(\ulcorner g \urcorner,n)) \urcorner \in \NN$, where $s_1^1$ is the 1-ary function given by the $s$-$m$-$n$ theorem [REF].
+        Now
+        \[ m \Vdash_Y y \implies e \cdot m = e_f \cdot u_1(\ulcorner g \urcorner,n,m) = e_f \cdot \langle n,m \rangle \Vdash_Z f(x,y), \]
+        and, since $e_f \cdot \langle n,m \rangle \ne \bot$, we have that $e$ is a tracker of $f^*$.\newline
+        On the other hand, we define the map
+        \[ (-)^\sharp : \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y) \to \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) : g \mapsto \ev_{Y,Z} \circ \langle g \circ \pi_{X,Y},\pi_{Y,X}' \rangle, \]
+        where $\ev_{Y,Z} : Z^Y \times Y \to Z$ is the set-theoretic evaluation map $\ev_{Y,Z}(f,y) := f(y)$, and if we check that is a morphism of assemblies, then $g^\sharp$ is a morphism of assemblies too, via composition and pairing - that we already know preserve morphisms of assemblies.\newline
+        Given $\langle n,m \rangle \Vdash_{X \times Y} (f,y)$, we need to find a tracker $e \in \NN$ such that $e \cdot \langle n,m \rangle \ne \bot$ and $e \cdot \langle n,m \rangle \Vdash_Z \ev_{Y,Z}(f,y) = f(y)$.
+        Since $f \in \Hom_{\mathsf{Asm}(\mathcal K_1)}(Y,Z)$, there exists a tracker $e_f \in \NN$ of $f$, such that $m \Vdash_Y y$ implies $e_f \cdot m \Vdash_Z f(y)$.
+        If we take $e := \ulcorner u_1(e_f, u_1(\ulcorner \texttt{cdr} \urcorner, -)) \urcorner \in \NN$, then
+        \[ e \cdot \langle n,m \rangle = e_f \cdot m \Vdash_Z f(y), \]
+        and since $e_f \cdot m \ne \bot$, we have that $e$ is a tracker of $\ev_{Y,Z}$.\newline
+        Finally, since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, two morphisms of assemblies with the same underlying function are equal. Thus,
+        since we know that the set-theoretic maps $(f^*)^\sharp$ and $f$ are equal, then they are equal as morphisms of assemblies, and similarly for $(g^\sharp)^*$ and $g$, so the two maps $(-)^*$ and $(-)^\sharp$ are inverse to each other.
     \end{itemize}
 \end{proof}
 
 Finally we can prove Rice's theorem.
 
 \begin{proof}
-
+    Let's assume, by contradiction, that $R \subseteq \NN$ is a nontrivial extensional property of the partial recursive functions, i.e. there's an element $r \in R$ and an element $s \notin R$.
+    Let $\mathbf N := (\NN,\Vdash_{\mathbf N})$, where $n \Vdash_{\mathbf N} m$ if and only if $n=m$, and let $P$ be the assembly of unary partial computable functions, where
+    \[ |P|:=\{u_1(e,-)\mid e\in\NN\}, \qquad e\Vdash_P f \iff u_1(e,-)=f. \]
+    Let $h(e,n,x):=u_1(u_1(e,n),x)$ and, using the notation of the $s$-$m$-$n$ theorem, define the total recursive functions
+    \[ S(e,n):=s_1^2(\ulcorner h\urcorner,e,n), \qquad T(e):=s_1^1(\ulcorner S\urcorner,e). \]
+    Then $u_1(S(e,n),x)=h(e,n,x)$ and $u_1(T(e),n)=S(e,n)$, so the map $\phi:\mathbf N\to P^{\mathbf N}$ defined by $\phi(e)(n):=u_1(S(e,n),-)$ is a morphism of assemblies, tracked by $\ulcorner T\urcorner$. Moreover, if $g:\mathbf N\to P$ is a morphism with tracker $a$, then $\phi(a)(n)=u_1(a\cdot n,-)=g(n)$ for every $n\in\NN$; hence $\phi$ is point-surjective.
+    Since $R$ is extensional, the endomorphism
+    \[ F:P\to P:f\mapsto\begin{cases}u_1(s,-)&\text{if some }e\Vdash_P f\text{ belongs to }R,\\u_1(r,-)&\text{otherwise},\end{cases} \]
+    is well-defined, and it is a morphism because it is tracked by the total recursive function that maps $e$ to $s$ if $e\in R$ and to $r$ otherwise. By Lawvere's fixed-point theorem, $F$ has a fixed point, which is impossible: by construction, $F$ sends functions whose indices belong to $R$ to a function whose indices do not belong to $R$, and vice versa.
 \end{proof}
 
 \section{Lawvere's fixed-point, cartesian form}
@@ -749,7 +794,12 @@ rather than reproducing the truth value of every closed formula. Under the assum
 
 \subsection*{Gödel's diagonal lemma}
 Just like we did for Cantor's diagonal argument, we can also prove Gödel's diagonal lemma using the
-proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem.
+proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem, following [REF] noticing that there's an imprecision [REF].
+
+\begin{notation}[Raw formulas]
+    Let $\mathsf{Form}_1$ be the set of $L_{\textnormal{arit}}$-formulas $\theta$ such that $\FV(\theta)\subseteq\{x\}$, and let $\mathsf{Form}_0\subseteq\mathsf{Form}_1$ be the set of closed $L_{\textnormal{arit}}$-formulas.
+    We work below in the cartesian category $\mathsf{Set}$, regarding $\mathsf{Form}_1$ and $\mathsf{Form}_0$ as its objects, without quotienting by provable equivalence. This is necessary because Gödel numbering is defined on formulas, but does not descend to their Lindenbaum classes: provably equivalent formulas need not have the same Gödel code.
+\end{notation}
 
 \begin{theorem}[Gödel's diagonal lemma]
     Let $\varphi(x)$ be a $L_{\textnormal{arit}}$-formula with at most one free variable $x$, then there exists a closed $L_{\textnormal{arit}}$-formula $\psi$ such that
@@ -757,7 +807,36 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
 \end{theorem}
 
 \begin{proof}
-
+    Define the morphism
+    \[ F : \mathsf{Form}_1\times\mathsf{Form}_1\to\mathsf{Form}_0 : (\theta,\chi)\mapsto\theta[\overline{\ulcorner\chi\urcorner}/x], \]
+    that substitutes the Gödel code of $\chi$ for the free variable $x$ in $\theta$. For the given formula $\varphi(x)$, define the endomorphism
+    \[ \Phi_\varphi : \mathsf{Form}_0\to\mathsf{Form}_0 : \sigma\mapsto\varphi[\overline{\ulcorner\sigma\urcorner}/x], \]
+    i.e.,\ $\Phi_\varphi(-) := F(\varphi,-)|_{\mathsf{Form}_0}$.
+    Following the Curry--Howard--Lambek proof of Lawvere's fixed-point theorem in the cartesian form, we have $\mathsf{Form}_1 = A$, $\mathsf{Form}_0 = B$, $F = \phi$ and $\Phi_\varphi = f$. Accordingly, the diagonal morphism corresponding to the term $q(x)$ in that proof is
+    \[ g:=\Phi_\varphi\circ F\circ\Delta_{\mathsf{Form}_1}:\mathsf{Form}_1\to\mathsf{Form}_0. \]
+    Since both the predicate of being the code of an element of $\mathsf{Form}_1$ and substitution on Gödel codes are primitive recursive, there is a total primitive recursive function $D:\NN\to\NN$, with an arbitrary fixed value on numbers that do not encode elements of $\mathsf{Form}_1$, such that
+    \[ D(\ulcorner\chi\urcorner)=\ulcorner F(\chi,\chi)\urcorner \]
+    for every $\chi\in\mathsf{Form}_1$. Let $\delta_D(x,y)$, with $\FV(\delta_D)\subseteq\{x,y\}$, be a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula that strongly represents $D$ in $\mathsf Q$, so that
+    \[ \mathsf Q\vdash\forall y\left(\delta_D(\overline n,y)\leftrightarrow y=\overline{D(n)}\right) \]
+    for every $n\in\NN$. Let
+    \[ \theta(x):=\exists y\left(\delta_D(x,y)\land\varphi[y/x]\right), \]
+    then, for every $\chi\in\mathsf{Form}_1$, we have
+    \begin{align*}
+        F(\theta,\chi) &= \theta[\overline{\ulcorner\chi\urcorner}/x] \\
+                       &= \exists y\left(\delta_D(\overline{\ulcorner\chi\urcorner},y)\land\varphi[y/x]\right) \\
+                       &\overset{\mathsf Q}{\leftrightarrow} \exists y \left(y=\overline{D(\ulcorner\chi\urcorner)}\land\varphi[y/x]\right) \\
+                       &\overset{\mathsf Q}{\leftrightarrow} \varphi[\overline{D(\ulcorner\chi\urcorner)}/x].
+    \end{align*}
+    On the other hand, by the definition of $g$
+    \[ g(\chi)=\Phi_\varphi(F(\chi,\chi)) = \varphi[\overline{\ulcorner F(\chi,\chi)\urcorner}/x] = \varphi[\overline{D(\ulcorner\chi\urcorner)}/x], \]
+    therefore, up to provable equivalence:
+    \[ \mathsf Q\vdash F(\theta,\chi)\leftrightarrow g(\chi) \]
+    for every $\chi\in\mathsf{Form}_1$. Thus $\theta$ plays exactly the role of $p$: the equation $\phi\circ\langle p,a\rangle = q(x)[a/x]$ in the cartesian proof is replaced by the preceding provable equivalence, with $\theta$ in place of $p$ and $\chi$ in place of $a$. Now define the closed formula corresponding to $s:=\phi\circ\langle p,p\rangle$ by
+    \[ \psi:=F(\theta,\theta)=\theta[\overline{\ulcorner\theta\urcorner}/x]. \]
+    Taking $\chi=\theta$ in the preceding equivalence gives $\mathsf Q\vdash\psi\leftrightarrow g(\theta)$, while
+    \[ g(\theta)=\Phi_\varphi(F(\theta,\theta)) = \Phi_\varphi(\psi) = \varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
+    Therefore
+    \[ \mathsf Q\vdash\psi\leftrightarrow\varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
 \end{proof}
 
 \begin{remark}
