@@ -53,6 +53,15 @@
     defined as $\Delta_A := \langle 1_A, 1_A \rangle$.
 \end{definition}
 
+Lastly, we introduce a definition which will be very useful in the examples that will follow form the fixed-point theorem.
+
+\begin{definition}[Concrete category]
+    A category $\mathcal C$ is \emph{concrete} if there exists a \emph{faithful} functor $U : \mathcal C \to \mathsf{Set}$, called a \emph{forgetful functor}.
+    To be faithful means that, given $f,g \in \Hom_{\mathcal C}(A,B)$, if $U(f) = U(g)$, then $f = g$, i.e.,\ if the underlying set-theoretic functions of two morphisms are equal, then the morphisms themselves are equal.
+\end{definition}
+
+Being a concrete category basically means that the objects of the category can be seen as sets, and the morphisms as set-theoretic functions, eventually with some extra structure. In addition, the function structure determines the morphism structure.
+
 [AGGIUNGERE QUALCHE CONTROESEMPIO DI COSE CHE NON SONO ALTRE COSE]
 
 \section{The fixed-point theorem}
@@ -86,7 +95,7 @@
     whose component at $\mathcal C$ is the isomorphism
     \[ \varepsilon_{\mathcal C} : \mathbf C(\mathbf L(\mathcal C)) \xrightarrow{\cong} \mathcal C. \]
     By the definition of $\varepsilon_{\mathcal C}$ given in the proof of \Cref{thm:curry-howard-lambek-without-wnno-and-iterator}, we have
-    \[ \varepsilon_{\mathcal C}([(x \in B,\ulcorner f \urcorner^\sharp(x))])=f, \qquad \varepsilon_{\mathcal C}([(u \in 1,s)])=s, \]
+    \[ \varepsilon_{\mathcal C}([(x \in B,\ulcorner f \urcorner^\sharp(x))]) = f, \qquad \varepsilon_{\mathcal C}([(u \in 1,s)]) = s, \]
     because $\ulcorner f \urcorner^\sharp(x) \underset{x}{=} \ev_{B,B} \circ \langle \ulcorner f \urcorner, x \rangle \underset{x}{=} \ev_{B,B} \circ \langle \ulcorner f \urcorner \circ !_B, 1_B \rangle \circ x \underset{x}{=} f \circ x$, using the definition of $(-)^\sharp$
     and the fact that $\mathcal C[x]$ is a CCC, so $\ulcorner f \urcorner^\sharp = f$; and $s \circ u \underset{u}{=} s \circ 1_1 = s$ in $\mathcal C[u]$, since $s$ is a closed term.
     Therefore, the functoriality of $\varepsilon_{\mathcal C}$ transports the preceding arrow equation to $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
@@ -131,13 +140,13 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
     Given an arbitrary map $f : \NN \to \RR$, define $\phi:=s \circ f : \NN \to 2^\NN$.
     We specialize the construction in the proof of Lawvere's fixed-point theorem to $\mathcal C=\mathsf{Set}$, $A=\NN$, $B=2$, the map $\phi$, and the endomorphism $\neg : 2 \to 2$.
     We construct the term
-    \[ d:=\lambda_{i \in \NN}\ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(i))^\sharp(i)) \in 2^\NN, \]
+    \[ d := \lambda_{i \in \NN}\ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(i))^\sharp(i)) \in 2^\NN, \]
     and, under the identification of the elements of $2^\NN$ with binary sequences, we have, by $\beta$-reduction, that
     \[ d^\sharp(i) \underset{\{i\}}{=} \ulcorner \neg \urcorner^\sharp((\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(i)))^\sharp(i)). \]
     Thus $d$ is precisely the diagonal sequence: its $i$-th coordinate is the negation of the $i$-th coordinate of the $i$-th sequence $\ulcorner \phi \urcorner^\sharp(i)$.\newline
     If $d \in \Img(\phi)$, there would exist $p \in \NN$ such that $\ulcorner \phi \urcorner^\sharp(p) \underset{\varnothing}{=}d$.
     The calculation obtained by taking $a=p$ in the proof of Lawvere's theorem would then give
-    \[ 2 \ni b:=(\ulcorner \phi \urcorner^\sharp(p))^\sharp(p) \underset{\varnothing}{=}d^\sharp(p) \underset{\varnothing}{=}\ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) \underset{\varnothing}{=}\ulcorner \neg \urcorner^\sharp(b), \]
+    \[ 2 \ni b := (\ulcorner \phi \urcorner^\sharp(p))^\sharp(p) \underset{\varnothing}{=} d^\sharp(p) \underset{\varnothing}{=} \ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) \underset{\varnothing}{=} \ulcorner \neg \urcorner^\sharp(b), \]
     contradicting the fact that negation has no fixed point in $2$, hence $d \notin \Img(\phi)$.
     Finally, let $x_d:=\ulcorner \iota \urcorner^\sharp(d) \in \RR$ and let's check that $x_d \notin \Img(f)$. If $x_d \underset{\varnothing}{=}\ulcorner f \urcorner^\sharp(k)$ for some $k \in \NN$, then
     \[ \ulcorner \phi \urcorner^\sharp(k) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(k)) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(x_d) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner \iota \urcorner^\sharp(d)) \underset{\varnothing}{=}d, \]
@@ -264,17 +273,17 @@ Let's now see how to apply Lawvere's fixed-point theorem to obtain some result i
 \begin{theorem}[Rice's theorem]
     Let $R \subseteq \NN$ such that, forall $\alpha,\beta \in\NN$
     \[ \left(\forall x \in \NN \; u_1(\alpha,x) = u_1(\beta,x)\right) \implies (\alpha \in R \iff \beta \in R),\]
-    i.e.,\ $R$ is an \emph{extensional property} of the partial computable functions. If $R$ is decidable, either $R = \varnothing$ or $R = \NN$.
+    i.e.,\ $R$ is an \emph{extensional property} of the partial recursive functions. If $R$ is decidable, either $R = \varnothing$ or $R = \NN$.
 \end{theorem}
 
-What the theorem says is that, if $R$ is a nontrivial extensional property of the partial computable functions, then $R$ is undecidable.
+What the theorem says is that, if $R$ is a nontrivial extensional property of the partial recursive functions, then $R$ is undecidable.
 
 \begin{remark}
     Rice's theorem generalizes the Turing's halting problem, i.e. the set $H_1 := \{(\alpha,x) \in \NN^2 | u_1(\alpha,x) \ne \bot\}$, where $\bot$ represents non-termination, is undecidable.
     Indeed, if $H_1$ was decidable, we'd have
     \[ H_1 = \{(\alpha,x) \in \NN^2 | f(\alpha,x) = 0\}, \]
     for some $f : \NN^2 \to 2$ total recursive function. Therefore, the sections of $H_1$ would be decidable too, i.e.\ fixed $x \in \NN$, the set $H_1^x := \{\alpha \in \NN | (\alpha,x) \in H_1\}$ would be decidable,
-    since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial computable functions, because, if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
+    since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial recursive functions, because, if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
     then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$, that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that return the constant 0 on every input.
 \end{remark}
 
@@ -356,15 +365,73 @@ Finally we can prove Rice's theorem.
 
 \begin{proof}
     Let's assume, by contradiction, that $R \subseteq \NN$ is a nontrivial extensional property of the partial recursive functions, i.e. there's an element $r \in R$ and an element $s \notin R$.
-    Let $\mathbf N := (\NN,\Vdash_{\mathbf N})$, where $n \Vdash_{\mathbf N} m$ if and only if $n=m$, and let $P$ be the assembly of unary partial computable functions, where
-    \[ |P|:=\{u_1(e,-)\mid e\in\NN\}, \qquad e\Vdash_P f \iff u_1(e,-)=f. \]
+    Let $\mathbf N := (\NN,\Vdash_{\mathbf N})$, where $n \Vdash_{\mathbf N} m$ if and only if $n=m$, and let $P$ be the assembly of unary partial recursive functions, where
+    \[ |P| := \{u_1(e,-)\mid e\in\NN\}, \qquad e\Vdash_P f \iff u_1(e,-) = f. \]
     Let $h(e,n,x):=u_1(u_1(e,n),x)$ and, using the notation of the $s$-$m$-$n$ theorem, define the total recursive functions
-    \[ S(e,n):=s_1^2(\ulcorner h\urcorner,e,n), \qquad T(e):=s_1^1(\ulcorner S\urcorner,e). \]
-    Then $u_1(S(e,n),x)=h(e,n,x)$ and $u_1(T(e),n)=S(e,n)$, so the map $\phi:\mathbf N\to P^{\mathbf N}$ defined by $\phi(e)(n):=u_1(S(e,n),-)$ is a morphism of assemblies, tracked by $\ulcorner T\urcorner$. Moreover, if $g:\mathbf N\to P$ is a morphism with tracker $a$, then $\phi(a)(n)=u_1(a\cdot n,-)=g(n)$ for every $n\in\NN$; hence $\phi$ is point-surjective.
-    Since $R$ is extensional, the endomorphism
-    \[ F:P\to P:f\mapsto\begin{cases}u_1(s,-)&\text{if some }e\Vdash_P f\text{ belongs to }R,\\u_1(r,-)&\text{otherwise},\end{cases} \]
-    is well-defined, and it is a morphism because it is tracked by the total recursive function that maps $e$ to $s$ if $e\in R$ and to $r$ otherwise. By Lawvere's fixed-point theorem, $F$ has a fixed point, which is impossible: by construction, $F$ sends functions whose indices belong to $R$ to a function whose indices do not belong to $R$, and vice versa.
+    \[ S(e,n) := s_1^2(\ulcorner h\urcorner,e,n), \qquad T(e) := s_1^1(\ulcorner S\urcorner,e). \]
+    Then $u_1(S(e,n),x)=h(e,n,x)$ and $u_1(T(e),n)=S(e,n)$, so the map $\phi:\mathbf N\to P^{\mathbf N}$ defined by $\phi(e)(n):=u_1(S(e,n),-)$ is a morphism of assemblies, tracked by $\ulcorner T\urcorner$.
+    Moreover, if $g:\mathbf N\to P$ is a morphism with tracker $a$, then
+    \begin{align*}
+        \phi(a)(n) &= u_1(S(a,n),-) \\
+                   &= u_1(s_1^2(\ulcorner h\urcorner,a,n),-) \\
+                   &= h(a,n,-) \\
+                   &= u_1(a \cdot n, -) = g(n)(-)
+    \end{align*}
+    for every $n\in\NN$, hence $\phi$ is point-surjective. Since $R$ is extensional, the endomorphism
+    \[ F:P\to P:f\mapsto\begin{cases} u_1(s,-) & \text{if $f$ has a realizer in $R$}\\
+                                      u_1(r,-) & \text{otherwise}
+    \end{cases}, \]
+    is well-defined, and it is a morphism because it is tracked by the total recursive function that maps $e$ to $s$ if $e\in R$ and to $r$ otherwise,
+    this function is total recursive since $R$ is decidable. By Lawvere's fixed-point theorem, $F$ has a fixed point, which is impossible: by construction, $F$ sends functions whose indices belong to $R$ to a function whose indices do not belong to $R$, and vice versa.
 \end{proof}
+
+\subsection*{Fixed-point for extensional operators}
+We know that recursive enumerable sets are countable, therefore, we can fix an enumeration $(W_n)_{n \in \NN}$, and define $\mathrm{RE}$ as the set of all recursive enumerable subsets of $\NN$.
+In this setting, we can give the following definition.
+
+\begin{definition}[Extensional operator]
+    We say that a function $F : \mathrm{RE} \to \mathrm{RE}$ is an \emph{extensional operator} if there exists a total recursive function $\varphi : \NN \to \NN$ such that, for every $n \in \NN$
+    \[ F(W_n) = W_{\varphi(n)} \qquad \text{and} \qquad W_n = W_m \implies W_{\varphi(n)} = W_{\varphi(m)}. \]
+\end{definition}
+
+\begin{remark}
+    The second condition in the definition above is necessary, since it says that $F$ is well-defined independently of the fixed enumeration of $\mathrm{RE}$'s sets.
+\end{remark}
+
+\begin{theorem}[Fixed-point for extensional operators]
+    Every extensional operator $F : \mathrm{RE} \to \mathrm{RE}$ has a fixed point, i.e. there exists $n \in \NN$ such that $F(W_n) = W_{\varphi(n)} = W_n$.
+\end{theorem}
+
+\begin{remark}[Rogers $\implies$ fixed-point of extensional operators]
+    This theorem follows from Rogers' fixed-point theorem, which we will talk about in the next subsection, but it can also be proved directly from Lawvere's fixed-point theorem, as we will see in a moment.
+\end{remark}
+
+\begin{proof}
+    Equip $\mathrm{RE}$ with the assembly structure $n \Vdash_{\mathrm{RE}} W$ if and only if $W_n=W$.
+    Replacing each partial recursive function in the point-surjective morphism constructed in the proof of Rice's theorem by its domain gives a point-surjective morphism $\mathbf N\to\mathrm{RE}^{\mathbf N}$.
+    Therefore, Lawvere's fixed-point theorem yields and provides a fixed point for every extensional operator $F : \mathrm{RE} \to \mathrm{RE}$.
+\end{proof}
+
+\subsection*{Rogers' fixed-point theorem}
+With the assemblies $\mathbf N$ and $P$ introduced above, Rogers' fixed-point theorem is not a direct instance of Lawvere's fixed-point theorem:
+an arbitrary total recursive function $\varphi:\NN\to\NN$ need not preserve equality of the partial recursive functions represented by its inputs, i.e., $u_1(n,-) = u_1(m,-)$ does not imply $u_1(\varphi(n),-) = u_1(\varphi(m),-)$, and therefore need not induce an endomorphism of $P$.\newline
+Nevertheless, it is still interesting to see how the diagonal construction in the proof of Lawvere's theorem can be repeated at the level of indices, using the point-surjective morphism $\phi:\mathbf N\to P^{\mathbf N}$ constructed in the proof of Rice's theorem.
+More precisely, the morphism $g$ below plays the role of the term $q(x)=f(\phi(x)(x))$, while $\phi(a)(a)=u_1(S(a,a),-)$ is the corresponding self-application.
+
+\begin{theorem}[Rogers' fixed-point theorem]
+    Given a total recursive function $\varphi : \NN \to \NN$, there exists $n \in \NN$ such that
+    \[ u_1(\varphi(n),-) = u_1(n,-). \]
+\end{theorem}
+
+\begin{proof}
+    Define the morphism $g : \mathbf N \to P$ by
+    \[ g(e) := u_1(\varphi(S(e,e)),-) \in P. \]
+    Let $a$ be an index of $e \mapsto \varphi(S(e,e))$, i.e. $u_1(a,e) = \varphi(S(e,e))$, then $a$ tracks $g$, and the point-surjectivity calculation in the proof of Rice's theorem gives $\phi(a)=g$.
+    Setting $n:=S(a,a)$, we obtain
+    \[ u_1(n,-) = \phi(a)(a) = g(a) = u_1(\varphi(S(a,a)),-) = u_1(\varphi(n),-). \]
+\end{proof}
+
+\subsection*{Existence of $Y$-combinator for reflexive objects}
 
 \section{Lawvere's fixed-point, cartesian form}
 We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by [REFERENCE].
@@ -405,7 +472,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
     whose component at $\mathcal C$ is the isomorphism
     \[ \varepsilon_{\mathcal C} : \mathbf C(\mathbf L(\mathcal C)) \xrightarrow{\cong} \mathcal C. \]
     By the definition of $\varepsilon_{\mathcal C}$, \Cref{thm:curry-howard-lambek-cartesian-categories}, we have
-    \[ \varepsilon_{\mathcal C}([(y \in B,f \circ y)])=f, \qquad \varepsilon_{\mathcal C}([(u \in 1,s)])=s, \]
+    \[ \varepsilon_{\mathcal C}([(y \in B,f \circ y)]) = f, \qquad \varepsilon_{\mathcal C}([(u \in 1,s)]) = s, \]
     since $f \circ y \underset{y}{=} f \circ y$ and $s \circ u \underset{u}{=} s \circ 1_1=s$ in the respective polynomial categories.
     Therefore, applying the functor $\varepsilon_{\mathcal C}$ to the preceding arrow equation gives $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
 \end{proof}
@@ -481,6 +548,44 @@ Following the previous example, we can also prove that the total recursive funct
     Let's assume, by contradiction, that such a sequence $(f_n)_{n \in \NN}$ exists, so there exists a total recursive function $F : \NN^2 \to \NN$ such that $F(n,-) = f_n(-)$ for every $n \in \NN$.
     Now, we notice that $F$ is a total recursive function, and by its own definition is a weakly product point-surjective morphism, therefore, Lawvere's fixed-point theorem in the cartesian form applies,
     and just like in the previous proof, we get a contradiction taking the successor function $s : \NN \to \NN$.
+\end{proof}
+
+\subsection*{Non-uniform enumerability of decidable sets}
+Equivalently to the previous theorem, we can prove that the decidable sets are not uniformly enumerable.
+
+\begin{definition}[Uniformly enumerable sequence of sets]
+    A sequence of sets $(A_n)_{n \in \NN}$, $A_n \subseteq \NN$, is \emph{uniformly enumerable} if there exists a total recursive function $G : \NN^2 \to \NN$ such that
+    \[ A_n = \{x \in \NN : G(n,x) = 0\} \qquad \text{for every $n \in \NN$}. \]
+\end{definition}
+
+\begin{remark}
+    We already recalled that the set of decidable functions is countable, and, since a decidable set is the zero locus of a total recursive function [REF?], we know that the set of decidable sets is countable too.
+\end{remark}
+
+\begin{theorem}[Non-uniform enumerability of decidable sets]
+    There is no uniformly enumerable sequence $(A_n)_{n \in \NN}$ of decidable sets $A_n \subseteq \NN$ such that every decidable set $A \subseteq \NN$ is equal to $A_n$ for some $n \in \NN$.
+\end{theorem}
+
+\begin{proof}
+    Assume such a sequence exists, witnessed by $G:\NN^2\to\NN$, and define the total recursive function
+    \[ F : \NN^2 \to 2 : (n,x) \mapsto \mathbf 1_{\{G(n,x)=0\}}(n,x). \]
+    Then, given $f : \NN \to 2$ total recursive, let $A_f := \{x \in \NN : f(x) = 0\}$, this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{G(n_f,x) = 0\}$.
+    Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus, hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point, but this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
+\end{proof}
+
+\subsection*{Semi-decidable sets are not closed under complement}
+Finally, as last application in $\mathsf{Rec_{tot}}$ let's also prove the simple fact stated in the title of this subsection.
+
+\begin{proposition}
+    There exists a semi-decidable set $A \subseteq \NN$ such that its complement $A^{\complement}$ is not semi-decidable.
+\end{proposition}
+
+\begin{proof}
+    Let $A:=\{\langle e,x\rangle\in\NN:u_1(e,x)\ne\bot\}$, which is semi-decidable, since it is the domain of a partial recursive function, and suppose that $A^{\complement}$ is semi-decidable.
+    It is known that in this situation there exists a total recursive function $d:\NN\to 2$ such that $d(\langle e,x\rangle)=0$ if and only if $u_1(e,x)\ne\bot$. Thus the total recursive function
+    \[ F:\NN^2\to\NN:(e,x)\mapsto\begin{cases}u_1(e,x)&\text{if $d(\langle e,x\rangle)=0$},\\0&\text{otherwise}
+    \end{cases} \]
+    is weakly product point-surjective: for every total recursive $g:\NN\to\NN$, if $e$ is an index of $g$, then $F(e,-)=g$. Hence, by Lawvere's fixed-point theorem in the cartesian form, the successor function has a fixed point, contradiction.
 \end{proof}
 
 \subsection*{Existence of a Non-Recursively Enumerable Language}
@@ -577,7 +682,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
         \item $\mathrm{Hom}(2,2) := \{\varphi(p) \in L_{\textnormal{arit}}(p)\textnormal{-formulas} \mid \FV(\varphi)=\varnothing\}/{\equiv_{T(p)}}$, where $p$ is a new 0-ary relation symbol;
     \end{itemize}
     Here the equivalence relations are defined by
-    \[ t =_T s \overset{\textnormal{def}}{\iff} T \vdash t=s, \qquad \varphi \equiv_T \psi \overset{\textnormal{def}}{\iff} T \vdash \varphi \leftrightarrow \psi. \]
+    \[ t =_T s \overset{\textnormal{def}}{\iff} T \vdash t = s, \qquad \varphi \equiv_T \psi \overset{\textnormal{def}}{\iff} T \vdash \varphi \leftrightarrow \psi. \]
     The composition of morphisms is defined by substitution, and the identity morphisms are defined as the equivalence classes of the variables $x_i$ and the 0-ary relation symbol $p$.
 \end{definition}
 
@@ -666,11 +771,11 @@ So $T$ understands the truth value of every closed formula in $T$ itself.
     In the Lindenbaum category $\mathsf{Lind}_T$, the formula $\mathsf{Truth}_T(y)$ determines a morphism
     \[ [\mathsf{Truth}_T(y)]:A\to2. \]
     Given an $L_{\textnormal{arit}}$-formula $\sigma$, and let
-    \[ c_\sigma:=[\overline{\ulcorner\sigma\urcorner}]:1\to A. \]
+    \[ c_\sigma := [\overline{\ulcorner\sigma\urcorner}] : 1\to A. \]
     be the closed term corresponding to the Gödel code of $\sigma$. By composition, we have
-    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma=[\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})], \]
+    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})], \]
     hence, truth is definable in $T$ if and only if
-    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma=[\sigma] \]
+    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\sigma] \]
     for every closed $L_{\textnormal{arit}}$-formula $\sigma$.
 \end{remark}
 
@@ -679,12 +784,12 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
     We define
     \[ \Gamma\subseteq\mathrm{Hom}(1,A)\times\mathrm{Hom}(1,2) \]
     by declaring that $d\Gamma\sigma$ if there exists a closed $L_{\textnormal{arit}}$-formula $\theta$ such that
-    \[ d=[\overline{\ulcorner\theta\urcorner}] \qquad\text{and}\qquad \sigma=[\theta]. \]
+    \[ d = [\overline{\ulcorner\theta\urcorner}] \qquad\text{and}\qquad \sigma = [\theta]. \]
 \end{definition}
 
 \begin{remark}
     By the previous definition, we have that truth is definable in $T$ if and only if there exists a morphism $[\mathsf{Truth}_T(y)]:A\to2$ such that
-    \[ d\Gamma\sigma\implies[\mathsf{Truth}_T(y)]\circ d=\sigma. \]
+    \[ d\Gamma\sigma\implies[\mathsf{Truth}_T(y)]\circ d = \sigma. \]
     That means that if $d$ is the Gödel code of a closed formula $\theta$, then $[\mathsf{Truth}_T(y)]\circ d$ is the truth value of $\theta$.
 \end{remark}
 
@@ -813,28 +918,28 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
     \[ \Phi_\varphi : \mathsf{Form}_0\to\mathsf{Form}_0 : \sigma\mapsto\varphi[\overline{\ulcorner\sigma\urcorner}/x], \]
     i.e.,\ $\Phi_\varphi(-) := F(\varphi,-)|_{\mathsf{Form}_0}$.
     Following the Curry--Howard--Lambek proof of Lawvere's fixed-point theorem in the cartesian form, we have $\mathsf{Form}_1 = A$, $\mathsf{Form}_0 = B$, $F = \phi$ and $\Phi_\varphi = f$. Accordingly, the diagonal morphism corresponding to the term $q(x)$ in that proof is
-    \[ g:=\Phi_\varphi\circ F\circ\Delta_{\mathsf{Form}_1}:\mathsf{Form}_1\to\mathsf{Form}_0. \]
+    \[ g := \Phi_\varphi\circ F\circ\Delta_{\mathsf{Form}_1} : \mathsf{Form}_1\to\mathsf{Form}_0. \]
     Since both the predicate of being the code of an element of $\mathsf{Form}_1$ and substitution on Gödel codes are primitive recursive, there is a total primitive recursive function $D:\NN\to\NN$, with an arbitrary fixed value on numbers that do not encode elements of $\mathsf{Form}_1$, such that
-    \[ D(\ulcorner\chi\urcorner)=\ulcorner F(\chi,\chi)\urcorner \]
+    \[ D(\ulcorner\chi\urcorner) = \ulcorner F(\chi,\chi)\urcorner \]
     for every $\chi\in\mathsf{Form}_1$. Let $\delta_D(x,y)$, with $\FV(\delta_D)\subseteq\{x,y\}$, be a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula that strongly represents $D$ in $\mathsf Q$, so that
-    \[ \mathsf Q\vdash\forall y\left(\delta_D(\overline n,y)\leftrightarrow y=\overline{D(n)}\right) \]
+    \[ \mathsf Q\vdash\forall y\left(\delta_D(\overline n,y)\leftrightarrow y = \overline{D(n)}\right) \]
     for every $n\in\NN$. Let
-    \[ \theta(x):=\exists y\left(\delta_D(x,y)\land\varphi[y/x]\right), \]
+    \[ \theta(x) := \exists y\left(\delta_D(x,y)\land\varphi[y/x]\right), \]
     then, for every $\chi\in\mathsf{Form}_1$, we have
     \begin{align*}
         F(\theta,\chi) &= \theta[\overline{\ulcorner\chi\urcorner}/x] \\
                        &= \exists y\left(\delta_D(\overline{\ulcorner\chi\urcorner},y)\land\varphi[y/x]\right) \\
-                       &\overset{\mathsf Q}{\leftrightarrow} \exists y \left(y=\overline{D(\ulcorner\chi\urcorner)}\land\varphi[y/x]\right) \\
+                       &\overset{\mathsf Q}{\leftrightarrow} \exists y \left(y = \overline{D(\ulcorner\chi\urcorner)}\land\varphi[y/x]\right) \\
                        &\overset{\mathsf Q}{\leftrightarrow} \varphi[\overline{D(\ulcorner\chi\urcorner)}/x].
     \end{align*}
     On the other hand, by the definition of $g$
-    \[ g(\chi)=\Phi_\varphi(F(\chi,\chi)) = \varphi[\overline{\ulcorner F(\chi,\chi)\urcorner}/x] = \varphi[\overline{D(\ulcorner\chi\urcorner)}/x], \]
+    \[ g(\chi) = \Phi_\varphi(F(\chi,\chi)) = \varphi[\overline{\ulcorner F(\chi,\chi)\urcorner}/x] = \varphi[\overline{D(\ulcorner\chi\urcorner)}/x], \]
     therefore, up to provable equivalence:
     \[ \mathsf Q\vdash F(\theta,\chi)\leftrightarrow g(\chi) \]
     for every $\chi\in\mathsf{Form}_1$. Thus $\theta$ plays exactly the role of $p$: the equation $\phi\circ\langle p,a\rangle = q(x)[a/x]$ in the cartesian proof is replaced by the preceding provable equivalence, with $\theta$ in place of $p$ and $\chi$ in place of $a$. Now define the closed formula corresponding to $s:=\phi\circ\langle p,p\rangle$ by
-    \[ \psi:=F(\theta,\theta)=\theta[\overline{\ulcorner\theta\urcorner}/x]. \]
-    Taking $\chi=\theta$ in the preceding equivalence gives $\mathsf Q\vdash\psi\leftrightarrow g(\theta)$, while
-    \[ g(\theta)=\Phi_\varphi(F(\theta,\theta)) = \Phi_\varphi(\psi) = \varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
+    \[ \psi := F(\theta,\theta) = \theta[\overline{\ulcorner\theta\urcorner}/x]. \]
+    Taking $\chi = \theta$ in the preceding equivalence gives $\mathsf Q\vdash\psi\leftrightarrow g(\theta)$, while
+    \[ g(\theta) = \Phi_\varphi(F(\theta,\theta)) = \Phi_\varphi(\psi) = \varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
     Therefore
     \[ \mathsf Q\vdash\psi\leftrightarrow\varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
 \end{proof}
@@ -873,3 +978,49 @@ We prove this theorem using Lawvere's fixed-point, since it is interesting by it
     Where the first equivalence follows from the definition of $f$. Therefore $F(\ulcorner \varphi_g \urcorner, -) = g(-)$, since they both define the same decidable set, and $F$ is weakly product point-surjective.
     Applying Lawvere's fixed-point theorem in the cartesian form, we get that every total recursive function $f : \NN \to \NN$ has a fixed point, but this is a contradiction.
 \end{proof}
+
+\subsection*{Various classical paradoxes}
+The barber, Grelling's, liar, and strong liar paradoxes all use the diagonal step in Lawvere's proof. In $\mathsf{Set}$, let $\phi : A\times A\to Y$ encode the relevant relation:
+\begin{itemize}[label=*]
+    \item $\phi(a,x) = 1$ if the inhabitant $a$ shaves the inhabitant $x$ in the barber paradox;
+    \item $\phi(a,x) = 1$ if the adjective $a$ describes the adjective $x$ in Grelling's paradox;
+    \item $\phi(a,x) = 1$ if the sentence $a$ is true when it refers to the sentence $x$ in the liar paradox, e.g. $a$ = ``This sentence $x$'', and $x$ = ``is false'';
+    \item $\phi(a,x) = T$, $M$, or $F$ according to whether the sentence $a$ is true, meaningless, or false when it refers to the sentence $x$ in the strong liar paradox.
+\end{itemize}
+Let $t : Y\to Y$ have no fixed points. The diagonal map
+\[ d(a) := t(\phi(a,a)) \]
+cannot be represented by $\phi$: if $d = \phi(p,-)$ for some $p\in A$, then $\phi(p,p) = t(\phi(p,p))$. Thus $\phi$ cannot be weakly product point-surjective, and the alleged barber, heterological adjective, or liar sentence is precisely such a representative of $d$,
+that therefore cannot exist. So the paradoxes are resolved by the fact that the auto-referential objects stated in the paradoxes cannot exist, otherwise they would provide fixed points for the respective $t$ in the way just described.
+\begin{center}
+    \small
+    \begin{tabular}{c|c|c|c}
+        \textbf{Paradox} & $A$ & $Y$ & $t : Y\to Y$ \\
+        \hline
+        Barber & inhabitants & $2$ & $\neg$ \\
+        Grelling & adjectives & $2$ & $\neg$ \\
+        Liar & sentences & $2$ & $\neg$ \\
+        Strong liar & sentences & $3=\{T,M,F\}$ & $t(T)=F,\quad t(M)=t(F)=T$
+    \end{tabular}
+\end{center}
+\begin{itemize}[leftmargin=*,nosep]
+    \item \textbf{Barber's paradox:} The barber ($= p$) shaves all and only those inhabitants who do not shave themselves. Does the barber shave himself?
+    \item \textbf{Grelling's paradox:} An adjective is heterological if and only if it does not describe itself. Is the adjective ``heterological'' ($= p$) heterological?
+    \item \textbf{Liar paradox:} ``This sentence ($= p$) is false.''
+    \item \textbf{Strong liar paradox:} ``This sentence ($= p$) is not true.''
+\end{itemize}
+
+\begin{remark}
+    The strong liar is stronger because adding a third value $M$, for ``meaningless'', does not avoid the contradiction: if the sentence is false or meaningless, its assertion that it is not true is true.
+\end{remark}
+
+\subsection*{Richard's paradox}
+Suppose that the finite sentences defining real numbers in $[0,1)$ are enumerated, and write each number using its decimal expansion not eventually equal to $9$. Let $10:=\{0,\ldots,9\}$ and let
+\[ \phi : \NN \times \NN \to 10 \]
+send $(m,n)$ to the $n$-th digit of the number described by the $m$-th sentence.
+If we consider the map $t : 10 \to 10$ defined by $t(1)=2$ and $t(i)=1$ for $i \ne 1$, which has no fixed point, then, following Lawvere's argument, we have the diagonal sequence
+\[ d(n) := t(\phi(n,n)) \]
+that defines a real number different from every number in the list, since it differs from the $m$-th one in its $m$-th digit - this is exactly the same argument as in the proof of Cantor's theorem.\newline
+Richard's paradox is in the fact that it treats this diagonal rule as one of the finite descriptions in the list, producing the apparent paradox.\newline
+The paradox is resolved by the fact that the definition of $d$, in reality, even if it's finite, uses an infinite amount of information, and therefore cannot be one of the finite descriptions in the list.
+
+\section{Brouwer's fixed-point theorem}
