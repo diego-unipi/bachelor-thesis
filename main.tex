@@ -1,6 +1,6 @@
 \documentclass[12pt, a4paper, twoside, openright]{report}
 \input{preamble.tex}
-%\includeonly{chapters/chapter_03}
+
 \begin{document}
     \hypersetup{pageanchor=false}
     \pagenumbering{gobble}
@@ -23,6 +23,9 @@
     \include{chapters/chapter_01}
     \include{chapters/chapter_02}
     \include{chapters/chapter_03}
+
+    \appendix
+    \include{chapters/appendix_nbg}
 
     \cleardoublepage
     \printbibliography[heading=bibintoc]
