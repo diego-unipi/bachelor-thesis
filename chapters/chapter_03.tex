@@ -1,6 +1,11 @@
 \chapter{Lawvere's fixed-point theorem}
+We have developed the necessary tools to prove Lawvere's fixed-point theorem; therefore, we can now state and prove it.
+We will see two versions of this theorem, one for cartesian closed categories, and one for cartesian categories.
+Moreover, we will show, in both cases, all the main applications and examples of the theorems, focusing on how diagonal arguments and fixed-point theorems
+can be retrieved as instances of Lawvere's theorem, choosing the appropriate category to work in.
 
 \section{Surjections and fixed points in categories}
+Let's start by recalling some useful notions in category theory, that are necessary to state Lawvere's theorem.
 
 \begin{definition}[Global element]
     Let $\mathcal C$ be a category with terminal object $1$. Given an object $A$ of $\mathcal C$, a \emph{global element} of $A$,
@@ -20,6 +25,10 @@
     In a category $\mathcal C$, given a morphism $f: A \to B$, we say that $f$ is a \emph{surjection} if there exists a morphism $s : B \to A$ such that $f \circ s = 1_B$.
 \end{definition}
 
+\begin{remark}
+    Often the surjections defined above are called \emph{split epimorphisms}, and the morphism $s$ is called a \emph{section} of $f$.
+\end{remark}
+
 \begin{definition}[Point-surjective morphism]
     In a category $\mathcal C$ with terminal object $1$, given a morphism $f: A \to B$, we say that $f$ is \emph{point-surjective} if for every
     element $b: 1 \to B$ there exists an element $a: 1 \to A$ such that $f \circ a = b$.
@@ -31,6 +40,23 @@
     therefore we can take $s \circ b : 1 \to A$ as an element realizing $b$.
 \end{remark}
 
+The following definition will be very useful for the examples in the next sections. However, we introduce it now for the upcoming example.
+
+\begin{definition}[Concrete category]
+    A category $\mathcal C$ is \emph{concrete} if there exists a \emph{faithful} functor $U : \mathcal C \to \mathsf{Set}$, called a \emph{forgetful functor}.
+    To be faithful means that, given $f,g \in \Hom_{\mathcal C}(A,B)$, if $U(f) = U(g)$, then $f = g$, i.e.,\ if the underlying set-theoretic functions of two morphisms are equal, then the morphisms themselves are equal.
+\end{definition}
+
+Being a concrete category basically means that the objects of the category can be seen as sets, and the morphisms as set-theoretic functions, eventually with some extra structure.
+In addition, the function structure determines the morphism structure.
+
+\begin{example}[Point-surjective but not surjective morphism]
+    In the category $\mathsf{Grp}$, consider the unique homomorphism $i : 1 \to \ZZ$, where $1 = \{e\}$ and $i(e) = 0$. This map is point-surjective, since
+    the only possible homomorphism $1 \to \ZZ$ is the trivial one, therefore the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.\newline
+    However, this map is not surjective, since if there was $s : \ZZ \to 1$ such that $i \circ s = 1_\ZZ$, then $U(i) \circ U(s) = 1_{U(\ZZ)}$, where $U : \mathsf{Grp} \to \mathsf{Set}$ is the forgetful functor.
+    Therefore $U(i) : U(1) \to U(\ZZ)$ would be surjective, but this is impossible since $|U(1)| = 1 < |U(\ZZ)| = \aleph_0$.
+\end{example}
+
 \begin{definition}[Weakly point-surjective morphism]
     In a category $\mathcal C$ with terminal object $1$, given a morphism $f : A \to C^B$, if there exists the evaluation morphism $\ev_{C,B}$,
     we say that $f$ is \emph{weakly point-surjective} if for every element $g: 1 \to C^B$ there exists an element $a_g : 1 \to A$ such that, for every $b: 1 \to B$, we have
@@ -38,7 +64,7 @@
 \end{definition}
 
 \begin{notation}
-    We use the notation $(-)^\sharp$ to denote abbreviate the evaluation morphism, i.e.,\ if $h : 1 \to C^B$, then $h^\sharp := \ev_{C,B} \circ \langle h \circ !_B, 1_B \rangle : B \to C$.
+    We use the notation $(-)^\sharp$ to denote the evaluation morphism, i.e.,\ if $h : 1 \to C^B$, then $h^\sharp := \ev_{C,B} \circ \langle h \circ !_B, 1_B \rangle : B \to C$.
     This way $h^\sharp \circ b = \ev_{C,B} \circ \langle h,b \rangle$ for every $b: 1 \to B$.
 \end{notation}
 
@@ -48,21 +74,16 @@
     applying $(-)^\sharp$ and precomposing with any $b$, we have the pointwise equality $(f \circ a_g)^\sharp \circ b = g^\sharp \circ b$.
 \end{remark}
 
+\begin{example}[Weakly point-surjective but not point-surjective morphism]
+    Consider the cartesian closed category $\mathsf{InvSet}$ of sets with an involution and \emph{equivariant} maps, where a function $f : (X,s_X) \to (Y,s_Y)$ is equivariant if $f \circ s_X = s_Y \circ f$. Let $B = \{0,1\}$ with the involution $s$ that exchanges $0$ and $1$, and let $i : 1 \to B^B$ be the global element corresponding to $1_B : B \to B$.
+    The map $i$ is weakly point-surjective, since $B$ has no global elements, so the condition in the definition is vacuously satisfied.
+    However, $s : B \to B$ is equivariant and determines a global element $k : 1 \to B^B$ distinct from $i$. Since $1_1$ is the only global element of $1$, there is no $a : 1 \to 1$ such that $i \circ a = k$, so $i$ is not point-surjective.
+\end{example}
+
 \begin{definition}[Diagonal morphism]
     In a category $\mathcal C$, given an object $A$, we call $\Delta_A : A \to A \times A$ the \emph{diagonal morphism} of $A$,
     defined as $\Delta_A := \langle 1_A, 1_A \rangle$.
 \end{definition}
-
-Lastly, we introduce a definition which will be very useful in the examples that will follow form the fixed-point theorem.
-
-\begin{definition}[Concrete category]
-    A category $\mathcal C$ is \emph{concrete} if there exists a \emph{faithful} functor $U : \mathcal C \to \mathsf{Set}$, called a \emph{forgetful functor}.
-    To be faithful means that, given $f,g \in \Hom_{\mathcal C}(A,B)$, if $U(f) = U(g)$, then $f = g$, i.e.,\ if the underlying set-theoretic functions of two morphisms are equal, then the morphisms themselves are equal.
-\end{definition}
-
-Being a concrete category basically means that the objects of the category can be seen as sets, and the morphisms as set-theoretic functions, eventually with some extra structure. In addition, the function structure determines the morphism structure.
-
-[AGGIUNGERE QUALCHE CONTROESEMPIO DI COSE CHE NON SONO ALTRE COSE]
 
 \section{The fixed-point theorem}
 
@@ -105,12 +126,12 @@ Being a concrete category basically means that the objects of the category can b
 Let's now see how Lawvere's fixed-point theorem can be used to prove many other fixed-point theorems, diagonal arguments and even other useful results in logic and mathematics in general.
 For each result, we will introduce the category needed to apply Lawvere's theorem, and we will show how the hypotheses of the theorem are satisfied in that category.
 
-Before we start, we recall a couple of useful notion in computability theory, which will be used multiple times in the following sections.
+Before we start, we recall a couple of useful notions in computability theory, which will be used multiple times in the following sections.
 
 \begin{notation}[Recursive functions]
     We denote by $\NN_\bot := \NN \cup \{\bot\}$ the set of natural numbers with a bottom element $\bot$,
     which denotes the non-termination of a computation. We assume the notions of \emph{partial recursive function} (or just \emph{recursive function}),
-    \emph{total recursive function} and \emph{primitive recursive function}, we won't define them here, but we refer the reader to [REF] for the detailed definitions.
+    \emph{total recursive function} and \emph{primitive recursive function}; we won't define them here, but we refer the reader to \Cite[Definition~2.1, pp.~5--6]{Streicher2002} for the detailed definitions.
 \end{notation}
 
 \begin{definition}[Decidable and semidecidable sets]
@@ -122,18 +143,18 @@ Before we start, we recall a couple of useful notion in computability theory, wh
 
 We assume the following result.
 
-\begin{proposition}[Characterization of semidecidable sets, REFERENCE]
+\begin{proposition}[{\cite[Definition~5.1 and Lemma~5.1, pp.~17--18]{Streicher2002}}]
     Given a subset $A \subseteq \NN^k$, TFAE:
     \begin{itemize}
         \item $A$ is semidecidable;
-        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., there exists a total recursive function $f : \NN^h \to \NN^k$ such that $A = \Img(f)$;
+        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., either $A = \varnothing$ or there exists a total recursive function $f : \NN^h \to \NN^k$ such that $A = \Img(f)$;
         \item $A$ is the domain of a partial recursive function, i.e.
         \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
     \end{itemize}
 \end{proposition}
 
 \begin{notation}[Universal partial recursive function]
-    We denote by $u_k : \NN^2 \to \NN_\bot$ the $k$-th universal partial recursive function, see [REFERENCE] for the definition.
+    We denote by $u_k : \NN^{k+1} \to \NN_\bot$ the universal partial recursive function for $k$-ary partial recursive functions, see \Cite[Definition~4.1, p.~13]{Streicher2002} for the definition.
 \end{notation}
 
 \subsection*{Cantor's theorem}
@@ -151,7 +172,7 @@ In $\mathsf{Set}$ we can prove Cantor's theorem, on the non-existence of surject
 \end{proof}
 
 \subsection*{Cantor's diagonal argument}
-By Cantor's diagonal argument, we mean the fact that $|\NN| < |\RR|$, proved through the Cantor's diagonalization.
+By Cantor's diagonal argument, we mean the fact that $|\NN| < |\RR|$, proved through Cantor's diagonalization.
 Even though this result can be obtained as a corollary of Cantor's theorem, we can also prove it directly using Lawvere's fixed-point theorem.
 
 \begin{theorem}[Cantor's diagonal argument]
@@ -161,8 +182,8 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
 \begin{proof}
     Let's consider the inclusion $\iota : 2^\NN \hookrightarrow \RR$, defined as
     \[ \iota : (a_i)_{i \in \NN} \mapsto \sum_{i \in \NN} a_i 10^{-(i+1)}. \]
-    This is indeed injective, since if $(a_i)_{i \in \NN} \ne (b_i)_{i \in \NN}$, then there exists the minimum $i_0 \in \NN$ such that, WLOG, $a_{i_0} = 1$ and $b_{i_0} = 0$, therefore
-    it easy to see that $\iota((a_i)_{i \in \NN}) - \iota((b_i)_{i \in \NN}) \geq \frac 89 10^{i_0+1} > 0$.\newline
+    This is indeed injective, since if $(a_i)_{i \in \NN} \ne (b_i)_{i \in \NN}$, then there exists a minimum $i_0 \in \NN$ such that, WLOG, $a_{i_0} = 1$ and $b_{i_0} = 0$, therefore
+    it is easy to see that $\iota((a_i)_{i \in \NN}) - \iota((b_i)_{i \in \NN}) \geq \frac 89 10^{i_0+1} > 0$.\newline
     Let $s : \RR \to 2^\NN$ be a left-inverse of $\iota$, defined as
     \[ s : \RR \twoheadrightarrow 2^\NN : x \mapsto \begin{cases}
         \iota^{-1}(x) & \text{if $x \in \Img(\iota)$} \\
@@ -190,13 +211,13 @@ Another instance of Lawvere's argument in $\mathsf{Set}$ is Russell's paradox, w
 Let's give some preliminary definitions to formalize this statement.
 
 \begin{definition}[Axiom schema of separation]
-    Let $A$ be a set and let $\varphi(x)$ be a formula in the language of set theory, the \emph{axiom schema of separation} states that
+    Let $A$ be a set and let $\varphi(x)$ be a formula in the language of set theory. The \emph{axiom schema of separation} states that
     \[ B = \{ x \in A : \varphi(x) \}, \]
     is a set.
 \end{definition}
 
 \begin{definition}[Class of all sets]
-    We call \emph{class of all sets} $V$ the class defined by the formula $x = x$, i.e.
+    We call $V$ the \emph{class of all sets} defined by the formula $x = x$, i.e.
     \[ V := \{ x : x = x \}. \]
 \end{definition}
 
@@ -212,12 +233,12 @@ Let's give some preliminary definitions to formalize this statement.
         0 & \text{if $x \notin a$}
     \end{cases},\]
     that sends each set to its indicator function. This map is surjective, since, given $f : V \to 2$, we can define the set $a_f := \{ x \in V : f(x) = 1 \}$, by the axiom schema of separation.
-    Therefore, by Lawvere's fixed-point theorem, every endomorphism $2 \to 2$ has a fixed point, contradiction.
+    Therefore, by Lawvere's fixed-point theorem, every endomorphism $2 \to 2$ has a fixed point, which is a contradiction.
 \end{proof}
 
 \begin{remark}[On the axioms used in the proof of Russell's paradox]
     Technically, in the previous proof, we used the axioms of: \emph{extensionality}, \emph{pairing}, \emph{union}, \emph{power set}, and \emph{separation}.
-    Working by contradiction, all the other axioms follow form $V \in \mathsf{Set}$ + separation, so the statement of the theorem is technically accurate.
+    Working by contradiction, all the other axioms follow from $V \in \mathsf{Set}$ + separation, so the statement of the theorem is technically accurate.
 \end{remark}
 
 \subsection*{Non-existence of certain continuous surjections}
@@ -239,25 +260,25 @@ Another interesting application of Lawvere's fixed-point theorem is the non-exis
 \end{notation}
 
 \begin{remark}
-    Checking that $k\mathsf{Top}$ is cartesian closed is not trivial, neither too difficult, but it requires some work. Therefore, we will assume it without proving it, and we refer to \Cite{Rezk2018} for a complete proof.
+    Checking that $k\mathsf{Top}$ is neither trivial nor too difficult, but it requires some work. Therefore, we will assume it without proving it, and we refer to \Cite{Rezk2018} for a complete proof.
 \end{remark}
 
 Let's now see some of these results.
 
 \begin{proposition}
-    Given $I, X$ compactly generated Hausdorff spaces, if there is aa continuous endomorphism $f : X \to X$ without fixed points, then there is no continuous surjection
+    Given $I, X$ compactly generated Hausdorff spaces, if there is a continuous endomorphism $f : X \to X$ without fixed points, then there is no continuous surjection
     \[ g : I \twoheadrightarrow X^I. \]
 \end{proposition}
 
 \begin{proof}
-    It just the contrapositive of Lawvere's fixed-point theorem, applied to $k\mathsf{Top}$.
+    It is just the contrapositive of Lawvere's fixed-point theorem, applied to $k\mathsf{Top}$.
 \end{proof}
 
 \begin{example}
     For example, there is no continuous surjection $g : [0,1] \to (S^1)^{[0,1]} = C^0([0,1],S^1)$, since the continuous endomorphism $f : S^1 \to S^1$ defined as $f(v) = -v$, the \emph{antipodal map}, has no fixed points.
 \end{example}
 
-More in general, we can prove the following result.
+More generally, we can prove the following result.
 
 \begin{proposition}
     Given $G$ a compactly generated Hausdorff group and $I$ a compactly generated Hausdorff space, if $G$ is nontrivial, then there is no continuous surjection
@@ -267,11 +288,11 @@ More in general, we can prove the following result.
 \begin{proof}
     Given a nontrivial element $g \in G$ we can define the translation map
     \[ L_g : G \to G : x \mapsto g \cdot x, \]
-    that is a continuous, since $G$ is a topological group, and has no fixed points, otherwise $g \cdot x = x \implies g = 1_G$, contradicting the fact that $g$ is nontrivial.
+    which is continuous, since $G$ is a topological group, and has no fixed points; otherwise, $g \cdot x = x \implies g = 1_G$, contradicting the fact that $g$ is nontrivial.
     Now we can apply the previous proposition to conclude.
 \end{proof}
 
-Other interesting examples include the followings.
+Other interesting examples include the following.
 
 \begin{example}
     Given $(0,1) \subseteq \RR$, $f(x) := \frac{x + 1}{2}$ has no fixed points, so there is no continuous surjection $g : I \twoheadrightarrow (0,1)^I$, for any compactly generated Hausdorff space $I$.
@@ -308,28 +329,28 @@ Let's now see how to apply Lawvere's fixed-point theorem to obtain some result i
 What the theorem says is that, if $R$ is a nontrivial extensional property of the partial recursive functions, then $R$ is undecidable.
 
 \begin{remark}
-    Rice's theorem generalizes the Turing's halting problem, i.e. the set $H_1 := \{(\alpha,x) \in \NN^2 | u_1(\alpha,x) \ne \bot\}$, where $\bot$ represents non-termination, is undecidable.
+    Rice's theorem generalizes Turing's halting problem, i.e. the set $H_1 := \{(\alpha,x) \in \NN^2 | u_1(\alpha,x) \ne \bot\}$ is undecidable.
     Indeed, if $H_1$ was decidable, we'd have
     \[ H_1 = \{(\alpha,x) \in \NN^2 | f(\alpha,x) = 0\}, \]
     for some $f : \NN^2 \to 2$ total recursive function. Therefore, the sections of $H_1$ would be decidable too, i.e.\ fixed $x \in \NN$, the set $H_1^x := \{\alpha \in \NN | (\alpha,x) \in H_1\}$ would be decidable,
-    since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial recursive functions, because, if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
-    then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$, that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that return the constant 0 on every input.
+    since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial recursive functions, because if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
+    then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$, that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that returns the constant 0 on every input.
 \end{remark}
 
-In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathcal K_1)$ of \emph{assemblies} over the first Kleene algebra $\mathcal K_1 = (\NN,\cdot)$, where $e \cdot n := u_1(e,n)$, and $u_1$ is the 1-ary universal calculator.
+In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathcal K_1)$ of \emph{assemblies} over the first Kleene algebra $\mathcal K_1 = (\NN,\cdot)$, where $e \cdot n := u_1(e,n)$.
 
 \begin{definition}[$\mathsf{Asm}(\mathcal K_1)$]
     The category $\mathsf{Asm}(\mathcal K_1)$ is called the category of \emph{assemblies} over the first Kleene algebra $\mathcal K_1$, and it is defined as follows:
     \begin{itemize}
         \item the objects are pairs $X = (|X|,\Vdash_X)$, called \emph{assemblies}, where $|X|$ is a set and $\Vdash_X \subseteq \NN \times |X|$ is a relation, called the \emph{realizability relation}, such that for every $x \in |X|$ there exists $n \in \NN$ for which $n \Vdash_X x$ - we say that $n$ \emph{realizes} $x$;
-        \item a morphism of assemblies $f : X \to Y$ is a set-theoretic function $f : |X| \to |Y|$ such that there exists $e \in \NN$, called \emph{tracker} of $f$, for which
+        \item a morphism of assemblies $f : X \to Y$ is a set-theoretic function $f : |X| \to |Y|$ such that there exists $e \in \NN$, called a \emph{tracker} of $f$, for which
         \[ n \Vdash_X x \implies e \cdot n \ne \bot \text{ and } e \cdot n \Vdash_Y f(x), \]
         for every $x \in |X|$ and $n \in \NN$.
     \end{itemize}
 \end{definition}
 
 \begin{remark}
-    We can have two trackers $e_1,e_2 \in \NN$ for the same morphism $f : X \to Y$, therefore it's important to point out that the morphism are the functions $f$ with the property of having at least one tracker, and not the pairs $(f,e)$.
+    We can have two trackers $e_1,e_2 \in \NN$ for the same morphism $f : X \to Y$; therefore, it's important to point out that the morphisms are the functions $f$ with the property of having at least one tracker, and not the pairs $(f,e)$.
 \end{remark}
 
 \begin{proposition}
@@ -348,9 +369,9 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
     To prove that $\mathsf{Asm}(\mathcal K_1)$ is cartesian closed, we need to prove: the existence of a terminal object, the existence of binary products, and the existence of exponentials.
     \begin{itemize}
         \item The terminal object is $1 := (\{*\},\Vdash_1)$, where $n \Vdash_1 *$ for every $n \in \NN$. Indeed, given a morphism $f : X \to 1$,
-        since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, the underlying function $|f| : |X| \to \{*\}$ is uniquely determined, moreover,
+        since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, the underlying function $|f| : |X| \to \{*\}$ is uniquely determined; moreover,
         given any $e \in \NN$ such that $e \cdot n \ne \bot$ for every $n \in \NN$, we have that $\NN \ni e \cdot n \Vdash_1 f(x) = *$, for every $x \in |X|$ and $n \Vdash_X x$, so $e$ is a tracker of $f$.
-        \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we fix a an injective pairing function $\texttt{cons} : \NN^2 \hookrightarrow \NN$, defined as $\texttt{cons}(n,m) := \frac{(n+m)(n+m+1)}{2} + m + 1$,
+        \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we fix an injective pairing function $\texttt{cons} : \NN^2 \hookrightarrow \NN$, defined as $\texttt{cons}(n,m) := \frac{(n+m)(n+m+1)}{2} + m + 1$,
         with inverses $\texttt{car} : \NN \to \NN$ and $\texttt{cdr} : \NN \to \NN$, such that
         \[ \texttt{car}(\texttt{cons}(n,m)) = n \quad\text{and}\quad \texttt{cdr}(\texttt{cons}(n,m)) = m\footnote{They can be explicitly defined as $\texttt{car}(z) := \sum_{i < z}\sum_{j < z} i \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$ and $\texttt{cdr}(z) := \sum_{i < z}\sum_{j < z} j \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$,
         where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive function, see [REFERENCE].}.\]
@@ -366,7 +387,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         and we can define $e := \ulcorner \langle u_1(e_f,-),u_1(e_g,-) \rangle \urcorner \in \NN$, and it is easy to check that $e$ respects the two conditions above, and since $e_f \cdot n \ne \bot$ and $e_g \cdot n \ne \bot$, we have that $e \cdot n \ne \bot$ for every $n \in \NN$.
         \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we define the assembly $Y^X := (|Y|^{|X|},\Vdash_{Y^X})$, where $|Y|^{|X|}$ is the set of functions from $|X|$ to $|Y|$, and
         \[ e \Vdash_{Y^X} f \overset{\textnormal{def}}{\iff} \forall x \in |X| \; \forall n \in \NN \; (n \Vdash_X x \implies e \cdot n \ne \bot \text{ and } e \cdot n \Vdash_Y f(x)),\]
-        i.e. $e$ realizes $f$ if it a tracker of $f$ as a morphism of assemblies. We want to check that there is a bijection
+        i.e. $e$ realizes $f$ if it is a tracker of $f$ as a morphism of assemblies. We want to check that there is a bijection
         \[ \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) \overset{1:1}{\longleftrightarrow} \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y). \]
         Let's define the map
         \[ (-)^* : \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) \to \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y) : f \mapsto f^*, \]
@@ -379,7 +400,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         and, since $e_f \cdot \langle n,m \rangle \ne \bot$, we have that $e$ is a tracker of $f^*$.\newline
         On the other hand, we define the map
         \[ (-)^\sharp : \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y) \to \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) : g \mapsto \ev_{Y,Z} \circ \langle g \circ \pi_{X,Y},\pi_{Y,X}' \rangle, \]
-        where $\ev_{Y,Z} : Z^Y \times Y \to Z$ is the set-theoretic evaluation map $\ev_{Y,Z}(f,y) := f(y)$, and if we check that is a morphism of assemblies, then $g^\sharp$ is a morphism of assemblies too, via composition and pairing - that we already know preserve morphisms of assemblies.\newline
+        where $\ev_{Y,Z} : Z^Y \times Y \to Z$ is the set-theoretic evaluation map $\ev_{Y,Z}(f,y) := f(y)$, and if we check that it is a morphism of assemblies, then $g^\sharp$ is a morphism of assemblies too, via composition and pairing - that we already know preserve morphisms of assemblies.\newline
         Given $\langle n,m \rangle \Vdash_{X \times Y} (f,y)$, we need to find a tracker $e \in \NN$ such that $e \cdot \langle n,m \rangle \ne \bot$ and $e \cdot \langle n,m \rangle \Vdash_Z \ev_{Y,Z}(f,y) = f(y)$.
         Since $f \in \Hom_{\mathsf{Asm}(\mathcal K_1)}(Y,Z)$, there exists a tracker $e_f \in \NN$ of $f$, such that $m \Vdash_Y y$ implies $e_f \cdot m \Vdash_Z f(y)$.
         If we take $e := \ulcorner u_1(e_f, u_1(\ulcorner \texttt{cdr} \urcorner, -)) \urcorner \in \NN$, then
@@ -415,7 +436,7 @@ Finally we can prove Rice's theorem.
 \end{proof}
 
 \subsection*{Fixed-point for extensional operators}
-We know that recursive enumerable sets are countable, therefore, we can fix an enumeration $(W_n)_{n \in \NN}$, and define $\mathrm{RE}$ as the set of all recursive enumerable subsets of $\NN$.
+We know that recursively enumerable sets are countable; therefore, we can fix an enumeration $(W_n)_{n \in \NN}$, and define $\mathrm{RE}$ as the set of all recursively enumerable subsets of $\NN$.
 In this setting, we can give the following definition.
 
 \begin{definition}[Extensional operator]
@@ -463,7 +484,7 @@ More precisely, the morphism $g$ below plays the role of the term $q(x)=f(\phi(x
 \subsection*{Existence of $Y$-combinator for reflexive objects}
 We conclude this section by showing that Lawvere's fixed-point theorem can be used to prove the existence of a $Y$-combinator for reflexive objects in cartesian closed categories.
 The $Y$-combinator is a morphism $Y : U^U \to U$ that sends every endomorphism $f : U \to U$ to one of its fixed points, i.e. $Y \circ \ulcorner f \urcorner : 1 \to U$ is a fixed point of $f$.
-Therefore can be seen as a uniform fixed-point operator, and it is the categorical counterpart of the $Y$-combinator in $\lambda$-calculus.
+It can therefore be seen as a uniform fixed-point operator, and it is the categorical counterpart of the $Y$-combinator in $\lambda$-calculus.
 
 
 \begin{definition}[Reflexive object]
@@ -491,7 +512,7 @@ Therefore can be seen as a uniform fixed-point operator, and it is the categoric
         &\underset{x}{=} x^\sharp \circ p(x) \underset{x}{=} p(x).
     \end{align*}
     Therefore, by the uniqueness in \Cref{cor:lambeks-normal-form}, we must have
-    \[ ev_{U,U} \circ \langle 1_{U^U}, Y \rangle = Y. \]
+    \[ \ev_{U,U} \circ \langle 1_{U^U}, Y \rangle = Y. \]
 \end{proof}
 
 \begin{corollary}[Uniform fixed-point for reflexive objects]
@@ -528,7 +549,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
     Let $f : B \to B$ be an endomorphism.
     By the equivalence $\mathsf{CC} \simeq \lambda\text{-}\mathsf{Calc}_\times$, \Cref{thm:curry-howard-lambek-cartesian-categories}, we apply $\mathbf L : \mathsf{CC} \to \lambda\text{-}\mathsf{Calc}_\times$ to $\mathcal C$ and work in its internal language $\mathbf L(\mathcal C)$.
     By the definition of $\mathbf L$, the objects of $\mathcal C$ become types, and the terms of type $B$ with free variables among $X$ are polynomial arrows $1 \to B$ in $\mathcal C[X]$; in particular, global elements become closed terms, and composition becomes substitution.
-    Let $x : 1 \to A$ and $y : 1 \to B$ be indeterminates, therefore $x \in A$ and $y \in B$ are variables in $\mathbf L(\mathcal C)$. Let's define the term
+    Let $x : 1 \to A$ and $y : 1 \to B$ be indeterminates; therefore, $x \in A$ and $y \in B$ are variables in $\mathbf L(\mathcal C)$. Let's define the term
     \[ q(x) := (f \circ y)[(\phi \circ \Delta_A \circ x)/y] \in B, \]
     with no free variables other than $x$. This term corresponds to the morphism
     \[ f \circ \phi \circ \Delta_A \circ x : 1 \to B \quad \text{in } \mathcal C[x]. \]
@@ -562,26 +583,13 @@ In the following we're going to continue the work started in [REFERENZA ALLA SEZ
 \subsection*{Halting problem}
 Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are: $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
 
-\begin{definition}
-    A \emph{total recursive function} is a recursive function, [REFERENCE], $f : \NN^n \to \NN_\bot^m$ such that $f(\vec x) \ne \bot$ for every $\vec x \in \NN^n$, where $\NN_\bot := \NN \cup \{\bot\}$, and $\bot$ is a special symbol denoting undefinedness.
-\end{definition}
-
 \begin{remark}[$\mathsf{Rec_{tot}}$ is a cartesian category]
-    One can actually check that $\mathsf{Rec_{tot}}$ is a cartesian category. The identity function is total recursive, the composition of total recursive functions is again total recursive,
-    and the associativity and identity laws follows from the corresponding laws in $\mathsf{Set}$.\newline
-    The terminal object is $1 = \{*\}$, the product of $\NN^n$ and $\NN^m$ is $\NN^{n+m}$, and the usual projections are total recursive functions. The fact that $1$ is terminal and that the product satisfies the universal property follows from the corresponding facts in $\mathsf{Set}$.
+    One can actually check that $\mathsf{Rec_{tot}}$ is a cartesian category. The identity function is total recursive. The composition of total recursive functions is again total recursive,
+    and the associativity and identity laws follow from the corresponding laws in $\mathsf{Set}$.\newline
+    The terminal object is $1 = \{*\}$. The product of $\NN^n$ and $\NN^m$ is $\NN^{n+m}$, and the usual projections are total recursive functions. The fact that $1$ is terminal and that the product satisfies the universal property follows from the corresponding facts in $\mathsf{Set}$.
     Formally, we could say that $\mathsf{Rec_{tot}}$ is a \emph{concrete category}, i.e., there exists a \emph{faithful} - injective on morphisms - functor $U : \mathsf{Rec_{tot}} \to \mathsf{Set}$, that is the forgetful functor.
     Therefore, given a total recursive function $f : \NN^n \to 1$, the associated function $U(f) : \NN^n \to \{*\}$ is unique, since $1$ is terminal in $\mathsf{Set}$, so $f$ is unique. Similarly one can check the universal property of the product.
 \end{remark}
-
-\begin{notation}[Universal function]
-    We denote by $u_1(-,-)$ the universal function, of arity 1, see [REFERENCE].
-\end{notation}
-
-\begin{definition}[Decidable set]
-    We say that a set $A \subseteq \NN^m$ is \emph{decidable} if there exists a total recursive function $f : \NN^m \to \NN_\bot$, such that
-    \[ A = \{\vec x \in \NN^m : f(\vec x) = 0\}. \]
-\end{definition}
 
 \begin{definition}[$H_1$]
     We call $H_1 := \{(e,x) \in \NN^2 : u_1(e,x) \ne \bot 0\}$ the \emph{halting set}.
@@ -597,7 +605,7 @@ Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, 
         u_1(\alpha,x) &\text{if $(\alpha,x) \in H_1$} \\
         0 &\text{otherwise}
     \end{cases} \]
-    is total recursive - since can be expressed in terms of the function that decides $H_1$ and elementary arithmetic operations.
+    is total recursive - since it can be expressed in terms of the function that decides $H_1$ and elementary arithmetic operations.
     We can see that, given a total recursive function $g : \NN \to \NN_\bot$, we have
     \[ f(\ulcorner g \urcorner,-) = u_1(\ulcorner g \urcorner,-) = g(-), \]
     where $\ulcorner g \urcorner$ is an index of $g$.
@@ -609,7 +617,7 @@ Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, 
 Following the previous example, we can also prove that the total recursive functions are not uniformly enumerable.
 
 \begin{definition}[Uniformly enumerable sequence of functions]
-    A sequence of of functions $(f_n)_{n \in \NN}$, $f_n : \NN \to \NN$, is \emph{uniformly enumerable} if there exists a total recursive function $F : \NN^2 \to \NN$ such that
+    A sequence of functions $(f_n)_{n \in \NN}$, $f_n : \NN \to \NN$, is \emph{uniformly enumerable} if there exists a total recursive function $F : \NN^2 \to \NN$ such that
     \[ F(n,-) = f_n(-) \qquad \text{for every $n \in \NN$}. \]
 \end{definition}
 
@@ -624,12 +632,12 @@ Following the previous example, we can also prove that the total recursive funct
 
 \begin{proof}
     Let's assume, by contradiction, that such a sequence $(f_n)_{n \in \NN}$ exists, so there exists a total recursive function $F : \NN^2 \to \NN$ such that $F(n,-) = f_n(-)$ for every $n \in \NN$.
-    Now, we notice that $F$ is a total recursive function, and by its own definition is a weakly product point-surjective morphism, therefore, Lawvere's fixed-point theorem in the cartesian form applies,
+    Now, we notice that $F$ is a total recursive function, and by its own definition is a weakly product point-surjective morphism; therefore, Lawvere's fixed-point theorem in the cartesian form applies,
     and just like in the previous proof, we get a contradiction taking the successor function $s : \NN \to \NN$.
 \end{proof}
 
 \subsection*{Non-uniform enumerability of decidable sets}
-Equivalently to the previous theorem, we can prove that the decidable sets are not uniformly enumerable.
+Equivalently, we can prove that the decidable sets are not uniformly enumerable.
 
 \begin{definition}[Uniformly enumerable sequence of sets]
     A sequence of sets $(A_n)_{n \in \NN}$, $A_n \subseteq \NN$, is \emph{uniformly enumerable} if there exists a total recursive function $G : \NN^2 \to \NN$ such that
@@ -637,7 +645,7 @@ Equivalently to the previous theorem, we can prove that the decidable sets are n
 \end{definition}
 
 \begin{remark}
-    We already recalled that the set of decidable functions is countable, and, since a decidable set is the zero locus of a total recursive function [REF?], we know that the set of decidable sets is countable too.
+    We already recalled that the set of decidable functions is countable, and we know that the set of decidable sets is countable too.
 \end{remark}
 
 \begin{theorem}[Non-uniform enumerability of decidable sets]
@@ -647,12 +655,12 @@ Equivalently to the previous theorem, we can prove that the decidable sets are n
 \begin{proof}
     Assume such a sequence exists, witnessed by $G:\NN^2\to\NN$, and define the total recursive function
     \[ F : \NN^2 \to 2 : (n,x) \mapsto \mathbf 1_{\{G(n,x)=0\}}(n,x). \]
-    Then, given $f : \NN \to 2$ total recursive, let $A_f := \{x \in \NN : f(x) = 0\}$, this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{G(n_f,x) = 0\}$.
+    Then, given $f : \NN \to 2$ total recursive, let $A_f := \{x \in \NN : f(x) = 0\}$; this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{G(n_f,x) = 0\}$.
     Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus, hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point, but this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
 \end{proof}
 
 \subsection*{semidecidable sets are not closed under complement}
-Finally, as last application in $\mathsf{Rec_{tot}}$ let's also prove the simple fact stated in the title of this subsection.
+Finally, as the last application in $\mathsf{Rec_{tot}}$ let's also prove the simple fact stated in the title of this subsection.
 
 \begin{proposition}
     There exists a semidecidable set $A \subseteq \NN$ such that its complement $A^{\complement}$ is not semidecidable.
@@ -663,20 +671,20 @@ Finally, as last application in $\mathsf{Rec_{tot}}$ let's also prove the simple
     It is known that in this situation there exists a total recursive function $d:\NN\to 2$ such that $d(\langle e,x\rangle)=0$ if and only if $u_1(e,x)\ne\bot$. Thus the total recursive function
     \[ F:\NN^2\to\NN:(e,x)\mapsto\begin{cases}u_1(e,x)&\text{if $d(\langle e,x\rangle)=0$},\\0&\text{otherwise}
     \end{cases} \]
-    is weakly product point-surjective: for every total recursive $g:\NN\to\NN$, if $e$ is an index of $g$, then $F(e,-)=g$. Hence, by Lawvere's fixed-point theorem in the cartesian form, the successor function has a fixed point, contradiction.
+    is weakly product point-surjective: for every total recursive $g:\NN\to\NN$, if $e$ is an index of $g$, then $F(e,-)=g$. Hence, by Lawvere's fixed-point theorem in the cartesian form, the successor function has a fixed point, a contradiction.
 \end{proof}
 
 \subsection*{Existence of a non-recursively enumerable language}
 Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in the cartesian form. We need to introduce some preliminary definitions.
 
 \begin{definition}[Alphabet, word, Kleene star]
-    We call \emph{alphabet} a nonempty finite set $\Sigma$. We call \emph{word} of \emph{length} $n$ over $\Sigma$ an element of $\Sigma^n$.
-    We denote with $\varepsilon$ the empty word in $\Sigma^0$, and we define the \emph{Kleene star} of $\Sigma$ the sets of all words over $\Sigma$
+    We call an \emph{alphabet} a nonempty finite set $\Sigma$. We call a \emph{word} of \emph{length} $n$ over $\Sigma$ an element of $\Sigma^n$.
+    We denote by $\varepsilon$ the empty word in $\Sigma^0$, and we define the \emph{Kleene star} of $\Sigma$ to be the set of all words over $\Sigma$
     \[ \Sigma^* := \bigcup_{n \in \NN} \Sigma^n. \]
 \end{definition}
 
 \begin{notation}
-    Given $a \in \Sigma$, we denote with $a^n$ the word of length $n$ over $\Sigma$ defined as $a^n := (a,\ldots,a) \in \Sigma^n$, also, usually written as $a^n = a \ldots a$.
+    Given $a \in \Sigma$, we denote by $a^n$ the word of length $n$ over $\Sigma$ defined as $a^n := (a,\ldots,a) \in \Sigma^n$, which is also usually written as $a^n = a \ldots a$.
 \end{notation}
 
 \begin{example}[Singleton alphabet]
@@ -735,7 +743,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 
 \begin{notation}[$\mathsf{Q}$, Gödel numbering and numerals]
     We denote by $\mathsf{Q}$ the \emph{Robinson arithmetic}, see [REFERENCE]. Furthermore, we will fix a Gödel numbering $\ulcorner - \urcorner$ of the $L_{\textnormal{arit}}$-formulas,
-    and denote with $\overline{n}$ the numeral corresponding to $n \in \NN$ in $L_{\textnormal{arit}}$.[REFERENCE?]
+    and denote by $\overline{n}$ the numeral corresponding to $n \in \NN$ in $L_{\textnormal{arit}}$.[REFERENCE?]
 \end{notation}
 
 \begin{definition}[Definability of the satisfaction]
@@ -746,7 +754,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 
 Intuitively, the formula $\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)$ expresses, internally in $T$, that the formula whose code is $\ulcorner\varphi\urcorner$ is satisfied by the value represented by the closed term $t$.
 So there's a way of expressing the satisfaction of formulas in $T$ in $T$ itself.\newline
-We need to define the category in which we will apply Lawvere's fixed-point theorem, we use the Lindenbaum category of $T$.
+We need to define the category in which we will apply Lawvere's fixed-point theorem. We use the Lindenbaum category of $T$.
 
 \begin{definition}[$\mathsf{Lind}_T$]
     Given an $L_{\textnormal{arit}}$-theory $T$, we denote by $\mathsf{Lind}_T$ the \emph{Lindenbaum category} of $T$, whose objects are
@@ -784,7 +792,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 \end{remark}
 
 \begin{example}
-    A couple of examples of objects and morphisms in $\mathsf{Lind}_T$ are the followings:
+    A couple of examples of objects and morphisms in $\mathsf{Lind}_T$ are the following:
     \begin{itemize}
         \item the variable $x_i$ determines the projection $\pi_i=[x_i]:A^n\to A$;
         \item the term $x_1+x_2$ determines the morphism $[x_1+x_2]:A^2\to A$;
@@ -792,7 +800,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
         \item the numeral $\overline{n}$ determines a point $[\overline{n}] : 1 \to A$;
         \item a closed $L_{\textnormal{arit}}$-formula $\sigma$ determines a point $[\sigma] : 1 \to 2$.
         \item the formula $\neg p$ determines the negation morphism $[\neg p]:2\to2$;
-        \item a formula in two free arithmetic variables determines a morphism $A^2\to2$; in particular, if the satisfaction relation is definable, there exist the morphism
+        \item a formula in two free arithmetic variables determines a morphism $A^2\to2$; in particular, if the satisfaction relation is definable, there exists a morphism
         \[ [\mathsf{Sat}_T(y,x)] : A\times A \to 2; \]
         \item $1_A = [x] : A \to A$, $1_2 = [p] : 2 \to 2$ are the identity morphisms, and $!_A = [()] : A \to 1$, $!_2 = [()] : 2 \to 1$, where $()$ is the empty tuple, are the unique morphisms to the terminal object;
     \end{itemize}
@@ -808,16 +816,16 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 \end{theorem}
 
 \begin{proof}
-    Suppose by contradiction that satisfaction is definable in $T$, this means that there exists a morphism in $\mathsf{Lind}_T$
+    Suppose, by contradiction, that satisfaction is definable in $T$. This means that there exists a morphism in $\mathsf{Lind}_T$
     \[ [\mathsf{Sat}_T(y,x)] : A\times A \to 2. \]
     Given $g = [\varphi(x)] : A \to 2$, i.e., an equivalence class of a formula with at most one free variable, let
     \[ a_\varphi := [\overline{\ulcorner\varphi\urcorner}] : 1 \to A, \]
     be the closed term corresponding to its Gödel number.
     Given any $a=[t]:1\to A$, where $t$ is a closed $L_{\textnormal{arit}}$-term, we have
     \[ [\mathsf{Sat}_T(y,x)]\circ\langle a_\varphi,a\rangle = [\mathsf{Sat}_T(y,x)] \circ \langle[\overline{\ulcorner \varphi \urcorner}], [t]\rangle = [\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)]. \]
-    By definability of satisfaction
+    By definability of satisfaction, we have
     \[ T\vdash\varphi[t/x]\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t), \]
-    therefore
+    Therefore,
     \[ [\mathsf{Sat}_T(y,x)]\circ\langle a_\varphi,a\rangle = [\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)] = [\varphi[t/x]] = g\circ a. \]
     So, the morphism $[\mathsf{Sat}_T(y,x)] : A\times A \to 2$ is weakly product point-surjective, and we can apply Lawvere's fixed-point theorem in the cartesian form to obtain that every endomorphism
     in $\Hom(2,2)$ has a fixed point. Then, the endomorphism
@@ -828,7 +836,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 \end{proof}
 
 \begin{remark}[Uniform satisfaction formula]
-    We could proved, the same way, a stronger version of the undefinability of satisfaction, using the definition
+    We could prove, in the same way, a stronger version of the undefinability of satisfaction, using the definition
     \[ T\vdash\forall x\left(\varphi(x)\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},x)\right), \]
     that is the existence of a uniformly definable satisfaction formula, i.e., the theory understands that the formula $\mathsf{Sat}_T(y,x)$ defines the satisfaction relation for every value of $x$ at once, and not only pointwise, for every closed term $t$.\newline
     However, the pointwise formulation above is the correct formulation to obtain the next undefinability result, following Lawvere's original proof of Gödel's first incompleteness theorem.
@@ -848,8 +856,8 @@ So $T$ understands the truth value of every closed formula in $T$ itself.
 \begin{remark}[Equivalent formulation of definability of truth]
     In the Lindenbaum category $\mathsf{Lind}_T$, the formula $\mathsf{Truth}_T(y)$ determines a morphism
     \[ [\mathsf{Truth}_T(y)]:A\to2. \]
-    Given an $L_{\textnormal{arit}}$-formula $\sigma$, and let
-    \[ c_\sigma := [\overline{\ulcorner\sigma\urcorner}] : 1\to A. \]
+    Given an $L_{\textnormal{arit}}$-formula $\sigma$, let
+    \[ c_\sigma := [\overline{\ulcorner\sigma\urcorner}] : 1\to A \]
     be the closed term corresponding to the Gödel code of $\sigma$. By composition, we have
     \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})], \]
     hence, truth is definable in $T$ if and only if
@@ -873,7 +881,7 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
 
 \begin{remark}[Substitution]
     Recall that syntactic substitution on Gödel codes is primitive recursive [REFERENCE]. This primitive recursive function can be represented in $L_{\mathrm{arit}}$ by a formula [REFERENCE].
-    Following Lawvere, we require something weaker, that follows form those facts.
+    Following Lawvere, we require something weaker, that follows from those facts.
     We say that substitution is \emph{definable relative to $\Gamma$} if there exists a morphism
     \[ \textrm{subst} : A \times A \to A \]
     such that, for every $L_{\mathrm{arit}}$-formula $\varphi$ with $\FV(\varphi)\subseteq\{x\}$ and a closed term $a:1\to A$
@@ -904,7 +912,7 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
     \[ [\mathsf{Sat}_T(y,x)] \circ\langle[\overline{\ulcorner\varphi\urcorner}],[t]\rangle = [\varphi[t/x]]. \]
     So, by the definition of $\equiv_T$, we have
     \[ T\vdash\varphi[t/x]\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t). \]
-    therefore, the satisfaction formula is definable in $T$, contradicting the previous theorem.
+    Therefore, the satisfaction formula is definable in $T$, contradicting the previous theorem.
 \end{proof}
 
 \begin{remark}
@@ -931,7 +939,7 @@ rather than reproducing the truth value of every closed formula. Under the assum
 
 \begin{remark}[Representability of provability]
     It is well-known that, if $T$ is a recursively axiomatizable theory such that $\mathsf Q \subseteq T$, then
-    there is a primitive recursive function that expresses the fact that a number encodes a proof of a formula encode by another number.
+    there is a primitive recursive function that expresses the fact that a number encodes a proof of a formula encoded by another number.
     This primitive recursive function can be represented in $\mathsf Q$, and therefore in $T$. This is stronger than
     requiring that provability is representable relative to $\Gamma$, but, again, it is enough for our purposes.
 \end{remark}
@@ -948,7 +956,7 @@ rather than reproducing the truth value of every closed formula. Under the assum
 
 \begin{proof}
     Since $\mathbb N\models T$, the theory $T$ is consistent.
-    Suppose, by contradiction, that $T$ is complete, then every closed formula $T$ is capable of proving it or proving its negation, and therefore
+    Suppose, by contradiction, that $T$ is complete. Then, for every closed formula, $T$ is capable of proving it or proving its negation, and therefore
     \[ \mathrm{Hom}(1, 2) = \{[\bot], [\top]\}. \]
     Let $\sigma : 1 \to 2$ and $d : 1 \to A$ be chosen arbitrarily. We have two cases:
     \begin{itemize}
@@ -959,7 +967,7 @@ rather than reproducing the truth value of every closed formula. Under the assum
         Since we have only two classes of closed formulas, it follows that
         \[ [\mathsf{Pr}_T(y)] \circ d = [\bot] = \sigma. \]
     \end{itemize}
-    Therefore, in both cases $d\Gamma\sigma$ implies $[\mathsf{Pr}_T(y)] \circ d = \sigma$, this $[\mathsf{Pr}_T(y)] : A \to 2$
+    Therefore, in both cases $d\Gamma\sigma$ implies $[\mathsf{Pr}_T(y)] \circ d = \sigma$; this $[\mathsf{Pr}_T(y)] : A \to 2$
     defines truth relative to $\Gamma$, contradicting the previous theorem.
 \end{proof}
 
@@ -977,7 +985,7 @@ rather than reproducing the truth value of every closed formula. Under the assum
 
 \subsection*{Gödel's diagonal lemma}
 Just like we did for Cantor's diagonal argument, we can also prove Gödel's diagonal lemma using the
-proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem, following [REF] noticing that there's an imprecision [REF].
+proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem, following [REF] and noting that there's an imprecision [REF].
 
 \begin{notation}[Raw formulas]
     Let $\mathsf{Form}_1$ be the set of $L_{\textnormal{arit}}$-formulas $\theta$ such that $\FV(\theta)\subseteq\{x\}$, and let $\mathsf{Form}_0\subseteq\mathsf{Form}_1$ be the set of closed $L_{\textnormal{arit}}$-formulas.
@@ -1011,8 +1019,8 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
                        &\overset{\mathsf Q}{\leftrightarrow} \varphi[\overline{D(\ulcorner\chi\urcorner)}/x].
     \end{align*}
     On the other hand, by the definition of $g$
-    \[ g(\chi) = \Phi_\varphi(F(\chi,\chi)) = \varphi[\overline{\ulcorner F(\chi,\chi)\urcorner}/x] = \varphi[\overline{D(\ulcorner\chi\urcorner)}/x], \]
-    therefore, up to provable equivalence:
+    \[ g(\chi) = \Phi_\varphi(F(\chi,\chi)) = \varphi[\overline{\ulcorner F(\chi,\chi)\urcorner}/x] = \varphi[\overline{D(\ulcorner\chi\urcorner)}/x]. \]
+    Therefore, up to provable equivalence:
     \[ \mathsf Q\vdash F(\theta,\chi)\leftrightarrow g(\chi) \]
     for every $\chi\in\mathsf{Form}_1$. Thus $\theta$ plays exactly the role of $p$: the equation $\phi\circ\langle p,a\rangle = q(x)[a/x]$ in the cartesian proof is replaced by the preceding provable equivalence, with $\theta$ in place of $p$ and $\chi$ in place of $a$. Now define the closed formula corresponding to $s:=\phi\circ\langle p,p\rangle$ by
     \[ \psi := F(\theta,\theta) = \theta[\overline{\ulcorner\theta\urcorner}/x]. \]
@@ -1036,14 +1044,14 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
 \end{theorem}
 
 \begin{remark}
-    The theorem follows both by Gödel's first incompleteness theorem and Tarski's undefinability theorem. In fact, $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete, consistent, contains $\mathsf{Q}$, and the theorem states that it is recursively axiomatizable,
-    therefore $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ would contradict the first incompleteness theorem. On the other hand, if $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ were recursively enumerable, then it would be definable with a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula, contradicting Tarski's undefinability theorem.
+    The theorem follows both by Gödel's first incompleteness theorem and Tarski's undefinability theorem. In fact, $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete, consistent, contains $\mathsf{Q}$, and the theorem states that it is recursively axiomatizable;
+    therefore, $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ would contradict the first incompleteness theorem. On the other hand, if $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ were recursively enumerable, then it would be definable with a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula, contradicting Tarski's undefinability theorem.
 \end{remark}
 
-We prove this theorem using Lawvere's fixed-point, since it is interesting by itself to see how it can be derived from the fixed-point theorem in category that is not $\mathsf{Lind}_T$, but $\mathsf{Rec_{tot}}$.
+We prove this theorem using Lawvere's fixed-point theorem, since it is interesting by itself to see how it can be derived from the fixed-point theorem in a category that is not $\mathsf{Lind}_T$, but $\mathsf{Rec_{tot}}$.
 
 \begin{proof}
-    Let's assume, by contradiction, that the set $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\}$ is recursively enumerable, since $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete,
+    Let's assume, by contradiction, that the set $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\}$ is recursively enumerable. Since $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete,
     the set is decidable. Let $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\} = \{n : f(n) = 0\}$ for some total recursive function $f : \NN \to \NN$.\newline
     Let $\mathrm{sub} : \NN^2 \to \NN$ be the primitive recursive function that sends $(n,m)$ to the Gödel code of the formula obtained by substituting the numeral $\overline{m}$ for a fixed free variable $x = x_{i}$ in the unary formula whose Gödel code is $n$.
     If we define
@@ -1053,7 +1061,7 @@ We prove this theorem using Lawvere's fixed-point, since it is interesting by it
     \[ g(n) = 0 \iff \NN \models \varphi_g(n). \]
     Therefore
     \[ F(\ulcorner \varphi_g \urcorner, n) = f(\ulcorner \varphi_g[n/x] \urcorner) = 0 \iff \NN \models \varphi_g(n) \iff g(n) = 0, \]
-    Where the first equivalence follows from the definition of $f$. Therefore $F(\ulcorner \varphi_g \urcorner, -) = g(-)$, since they both define the same decidable set, and $F$ is weakly product point-surjective.
+    where the first equivalence follows from the definition of $f$. Therefore $F(\ulcorner \varphi_g \urcorner, -) = g(-)$, since they both define the same decidable set, and $F$ is weakly product point-surjective.
     Applying Lawvere's fixed-point theorem in the cartesian form, we get that every total recursive function $f : \NN \to \NN$ has a fixed point, but this is a contradiction.
 \end{proof}
 
@@ -1103,8 +1111,8 @@ The paradox is resolved by the fact that the definition of $d$, in reality, even
 
 \section{Brouwer's fixed-point theorem}
 Last but not least, one may wonder if Lawvere's theorem could be used to prove Brouwer's fixed-point theorem, following the idea
-that Lawvere's result abstracts the general idea behind fixed-point and diagonal arguments. The answer to this question it's not simple
-and it has by given by Rupert McCallum \Cite{McCallum2020}.
+that Lawvere's result abstracts the general idea behind fixed-point and diagonal arguments. The answer to this question is not simple,
+and it has been given by Rupert McCallum \Cite{McCallum2020}.
 
 Since McCallum's paper is very technical, we will only give, in this section, a brief overview of the main results and ideas, and we refer the reader to the original paper for the details.
 Therefore, we will not give a complete proof of Brouwer's theorem using the techniques explained in the paper. We will rather summarize the ideas, the results, and we will give some sketches of the proofs, to give the reader a general idea of
@@ -1112,9 +1120,9 @@ what the answer to the question is, and how it can be obtained.
 
 McCallum proves, not in this order, essentially two things in the article:
 \begin{itemize}
-    \item in $\mathsf{ZFC}$, the hypothesis of the classical Lawvere's fixed-point theorem do not hold, in general, in the category of topological spaces, already in the case of the unit interval $[0,1]$, i.e.,\ there's no topological space $A$ for which
+    \item in $\mathsf{ZFC}$, the hypothesis of Lawvere's classical fixed-point theorem does not hold, in general, in the category of topological spaces, already in the case of the unit interval $[0,1]$, i.e.,\ there's no topological space $A$ for which
     there exists a continuous surjection $A \twoheadrightarrow [0,1]^A$;
-    \item slightly modifying the hypotheses of Lawvere's theorem, de facto using the same set $|A|$ with two different topologies, gives a slightly general version of Lawvere's theorem that is always valid for
+    \item slightly modifying the hypotheses of Lawvere's theorem, de facto using the same set $|A|$ with two different topologies, gives a slightly more general version of Lawvere's theorem that is always valid for
     a particular class of topological spaces, that contains the closed balls, hence Brouwer's fixed-point follows as a corollary.
 \end{itemize}
 
@@ -1131,13 +1139,13 @@ a class existed, then one could recover Brouwer's fixed-point theorem as a corol
     Assume that such $A$ and $g$ exist, and set $B:=(A,g)$. McCallum constructs a pair $B'=(A',g') \in L_\alpha(\RR)$ with the same properties for some countable limit ordinal $\alpha$, where $L_\alpha(\RR)$ is the $\alpha$-th level of Gödel's constructible universe over the reals, \cite{WikipediaConstructibleUniverse2026}.\newline
     For a suitable choice of a real $r$, McCallum ensures that every continuous $f:[0,1] \to [0,1]$ obtained from the preceding construction lies in $L_\alpha[r]$, and then constructs a model $S$ of second-order arithmetic, with the standard natural numbers, containing numerical codes for the elements and membership relation of $L_\alpha[r]$, and satisfying $\mathsf{RCA}_0$ and $\neg\mathsf{WKL}_0$, the Recursive Comprehension Axiom and the negation of Weak König's Lemma, respectively \cite{WikipediaReverseMathematics2026}.\newline
     Using the equivalence of Brouwer's fixed-point theorem with $\mathsf{WKL}_0$ over $\mathsf{RCA}_0$ \cite{WikipediaReverseMathematics2026}, McCallum claims that, by following the construction used to prove this equivalence, one obtains in $S$ a continuous map $f:[0,1] \to [0,1]$ with no fixed point in $L_\alpha[r]$.\newline
-    Since $B'$ is fully encoded in $S$, Lawvere's constructive proof can be carried out inside $S$: applied to $g'$ and $f$, it would produce a fixed point of $f$, contradicting McCallum's construction of $f$ as map with no fixed points.
+    Since $B'$ is fully encoded in $S$, Lawvere's constructive proof can be carried out inside $S$: applied to $g'$ and $f$, it would produce a fixed point of $f$, contradicting McCallum's construction of $f$ as a map with no fixed points.
 \end{proof}
 
-Established that the classical Lawvere's fixed-point theorem does not hold in the category of topological spaces, McCallum proves a slightly modified version of Lawvere's theorem that is the following.
+Having established that Lawvere's classical fixed-point theorem does not hold in the category of topological spaces, McCallum proves a slightly modified version of Lawvere's theorem as follows.
 
 \begin{definition}[Point-bijective morphism]
-    Let $\mathcal C$ be a category with terminal object $1$, a morphism $h:A\to B$ is \emph{point-bijective} if the function
+    Let $\mathcal C$ be a category with terminal object $1$. A morphism $h:A\to B$ is \emph{point-bijective} if the function
     \[ h_*:\Hom_{\mathcal C}(1,A)\to\Hom_{\mathcal C}(1,B) : a\mapsto h\circ a, \]
     is bijective. Equivalently, there's a bijection between the global elements of $A$ and those of $B$.
 \end{definition}
@@ -1153,12 +1161,12 @@ Established that the classical Lawvere's fixed-point theorem does not hold in th
 \end{example}
 
 \begin{definition}[Subcategory]
-    Let $\mathcal C$ be a category, a \emph{subcategory} of $\mathcal C$ is a category $\mathcal D$ such that $\ob(\mathcal D)\subseteq\ob(\mathcal C)$ and $\mor(\mathcal D)\subseteq\mor(\mathcal C)$.
+    Let $\mathcal C$ be a category. A \emph{subcategory} of $\mathcal C$ is a category $\mathcal D$ such that $\ob(\mathcal D)\subseteq\ob(\mathcal C)$ and $\mor(\mathcal D)\subseteq\mor(\mathcal C)$.
     Moreover, the identities are the same and composition is compatible.
 \end{definition}
 
 \begin{definition}[Full subcategory]
-    Let $\mathcal C$ be a category, a \emph{full subcategory} of $\mathcal C$ is a subcategory $\mathcal D$ such that
+    Let $\mathcal C$ be a category. A \emph{full subcategory} of $\mathcal C$ is a subcategory $\mathcal D$ such that
     \[ \Hom_{\mathcal C}(A,B) = \Hom_{\mathcal D}(A,B) \]
     for every $A,B\in\ob(\mathcal D)$.
 \end{definition}
@@ -1166,7 +1174,7 @@ Established that the classical Lawvere's fixed-point theorem does not hold in th
 \begin{theorem}[Generalized Lawvere fixed-point theorem, {\cite[Theorem~1.1]{McCallum2020}}]
     \label{thm:mccallum-generalized-lawvere}
     Let $\mathcal C$ be a cartesian category, and let $\mathcal S$ be a class of objects of $\mathcal C$. Let $A'$ and $A''$ be objects of $\mathcal C$ and let $h:A'\to A''$ be point-bijective.
-    Suppose that, given a subclass of objects $\mathcal S$, for every $X\in\mathcal S$, the exponential $X^{A''}$ exists in a fixed full cartesian closed subcategory of $\mathcal C$ and there is a point-surjective morphism
+    Suppose that, for every $X\in\mathcal S$, the exponential $X^{A''}$ exists in a fixed full cartesian closed subcategory of $\mathcal C$ and there is a point-surjective morphism
     \[ g_X:A'\to X^{A''}. \]
     Assume moreover that every morphism $q:A'\to X$ which factors through
     \[ \langle g_X,h\rangle:A'\to X^{A''}\times A'', \]
@@ -1181,9 +1189,9 @@ Established that the classical Lawvere's fixed-point theorem does not hold in th
     Fix $X\in\mathcal S$, let $t:X\to X$ be an endomorphism, and define
     \[ q:=t\circ\ev_{X,A''}\circ\langle g_X,h\rangle:A'\to X. \]
     This is essentially the same diagonal construction used in the classical proof of Lawvere's fixed-point theorem: whereas there one uses $(\phi\times 1_A)\circ\Delta_A=\langle\phi,1_A\rangle$, here one uses $(g_X\times h)\circ\Delta_{A'}=\langle g_X,h\rangle$, so the second copy of $A'$ is sent to $A''$ through $h$.\newline
-    Using the the factorization hypothesis on $q$, since it factors through $\langle g_X,h\rangle$ by definition, there is a morphism $\bar p : A''\to X$ such that $q=\bar p\circ h$.
+    Using the factorization hypothesis on $q$, since it factors through $\langle g_X,h\rangle$ by definition, there is a morphism $\bar p : A''\to X$ such that $q=\bar p\circ h$.
     Since $g_X$ is point-surjective, there is a global element $a:1\to A'$ such that $g_X\circ a=\ulcorner\bar p\urcorner$.
-    Thus defining $x:=q\circ a:1\to X$ we have
+    Thus, defining $x:=q\circ a:1\to X$, we have
     \begin{align*}
         t \circ x &= t \circ (q \circ a) \\
                   &= t \circ (\bar p \circ h \circ a) &&(\text{by the factorization}) \\
