@@ -52,7 +52,7 @@ In addition, the function structure determines the morphism structure.
 
 \begin{example}[Point-surjective but not surjective morphism]
     In the category $\mathsf{Grp}$, consider the unique homomorphism $i : 1 \to \ZZ$, where $1 = \{e\}$ and $i(e) = 0$. This map is point-surjective, since
-    the only possible homomorphism $1 \to \ZZ$ is the trivial one, therefore the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.\newline
+    the only possible homomorphism $1 \to \ZZ$ is the trivial one; therefore, the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.\newline
     However, this map is not surjective, since if there was $s : \ZZ \to 1$ such that $i \circ s = 1_\ZZ$, then $U(i) \circ U(s) = 1_{U(\ZZ)}$, where $U : \mathsf{Grp} \to \mathsf{Set}$ is the forgetful functor.
     Therefore $U(i) : U(1) \to U(\ZZ)$ would be surjective, but this is impossible since $|U(1)| = 1 < |U(\ZZ)| = \aleph_0$.
 \end{example}
@@ -69,8 +69,8 @@ In addition, the function structure determines the morphism structure.
 \end{notation}
 
 \begin{remark}[Point-surjective implies weakly point-surjective]
-    Let $\mathcal C$ be a category with terminal object $1$, given $f : A \to C^B$, if $f$ is point-surjective, then it is also weakly point-surjective.
-    Indeed, given $g: 1 \to C^B$, since $f$ is point-surjective, there exists an element $a_g : 1 \to A$ such that $f \circ a_g = g$, therefore,
+    Let $\mathcal C$ be a category with terminal object $1$; given $f : A \to C^B$, if $f$ is point-surjective, then it is also weakly point-surjective.
+    Indeed, given $g: 1 \to C^B$, since $f$ is point-surjective, there exists an element $a_g : 1 \to A$ such that $f \circ a_g = g$; therefore,
     applying $(-)^\sharp$ and precomposing with any $b$, we have the pointwise equality $(f \circ a_g)^\sharp \circ b = g^\sharp \circ b$.
 \end{remark}
 
@@ -88,13 +88,13 @@ In addition, the function structure determines the morphism structure.
 \section{The fixed-point theorem}
 
 \begin{theorem}[Lawvere's fixed-point]
-    Let $\mathcal C$ be a cartesian closed category, if there exists a weakly point-surjective morphism $\phi : A \to B^A$, then every endomorphism $f: B \to B$ has a fixed point.
+    Let $\mathcal C$ be a cartesian closed category; if there exists a weakly point-surjective morphism $\phi : A \to B^A$, then every endomorphism $f: B \to B$ has a fixed point.
 \end{theorem}
 
 \begin{proof}
     Let $f : B \to B$ be an endomorphism.
     By the equivalence $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$, Theorem~\ref{thm:curry-howard-lambek-without-wnno-and-iterator}, we apply $\mathbf L : \mathsf{CCC} \to \lambda\text{-}\mathsf{Calc}_0$ to $\mathcal C$ and work in its internal language $\mathbf L(\mathcal C)$.
-    By the definition of $\mathbf L$, the objects of $\mathcal C$ become types and its global elements become closed terms, composition becomes substitution, while evaluation and currying become application and abstraction.
+    By the definition of $\mathbf L$, the objects of $\mathcal C$ become types and its global elements become closed terms; composition becomes substitution, while evaluation and currying become application and abstraction.
     Using the fact that $\ulcorner f \urcorner : 1 \to B^B$ and $\ulcorner \phi \urcorner : 1 \to (B^A)^A$, and taking the respective closed terms in $\mathbf L(\mathcal C)$, we define the following closed term
     \[ q := \lambda_{x \in A} \ulcorner f \urcorner^\sharp \mathopen{\scalebox{1}[1.35]{$($}}\underbrace{\mathopen{\scalebox{1}[1.15]{$($}}\underbrace{\ulcorner \phi \urcorner^\sharp(x)}_{\makebox[0pt][c]{$\scriptstyle\text{function coded by }x$}}\mathclose{\scalebox{1}[1.15]{$)$}}^\sharp(x)}_{\text{applied to its own code}}\mathclose{\scalebox{1}[1.35]{$)$}} \in B^A. \]
     This closed term in $\mathbf L(\mathcal C)$ corresponds to the global element
@@ -109,7 +109,7 @@ In addition, the function structure determines the morphism structure.
                     &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) &&(\text{$\beta$-reduction}) \\
                     &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp(s).
     \end{align*}
-    Thus $\ulcorner f \urcorner^\sharp(s) \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$. We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc}_0 \to \mathsf{CCC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$, closed terms determine arrows as equivalence classes of pairs, equality of terms gives equality of the corresponding classes, and composition is defined by substitution.
+    Thus $\ulcorner f \urcorner^\sharp(s) \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$. We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc}_0 \to \mathsf{CCC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$, closed terms determine arrows as equivalence classes of pairs; equality of terms gives equality of the corresponding classes, and composition is defined by substitution.
     Therefore, if $u \in 1$ is a variable, we find the following arrow equation in $\mathbf C(\mathbf L(\mathcal C))$:
     \[ [(x \in B,\ulcorner f \urcorner^\sharp(x))] \circ [(u \in 1,s)] = [(u \in 1,s)] \quad\text{in } \mathbf C(\mathbf L(\mathcal C)). \]
     Finally, the equivalence of categories $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$ provides us the natural isomorphism $\varepsilon : \mathbf C \circ \mathbf L \overset{\cong}{\Rightarrow }1_{\mathsf{CCC}}$,
@@ -122,7 +122,7 @@ In addition, the function structure determines the morphism structure.
     Therefore, the functoriality of $\varepsilon_{\mathcal C}$ transports the preceding arrow equation to $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
 \end{proof}
 
-\section{Many fixed-points, one proof}
+\section{Many fixed-points, one proof}\label{sec:many-fixed-points-one-proof}
 Let's now see how Lawvere's fixed-point theorem can be used to prove many other fixed-point theorems, diagonal arguments and even other useful results in logic and mathematics in general.
 For each result, we will introduce the category needed to apply Lawvere's theorem, and we will show how the hypotheses of the theorem are satisfied in that category.
 
@@ -161,11 +161,11 @@ We assume the following result.
 In $\mathsf{Set}$ we can prove Cantor's theorem, on the non-existence of surjections from a set to its power set.
 
 \begin{theorem}[Cantor's theorem]
-    Let $A$ be a set, then there is no surjection $f: A \twoheadrightarrow \mathcal P(A)$.
+    Let $A$ be a set; then there is no surjection $f: A \twoheadrightarrow \mathcal P(A)$.
 \end{theorem}
 
 \begin{proof}
-    Take $A \in \ob(\mathsf{Set})$, given the bijection $|2^A| = |\mathcal P(A)|$, we can equivalently prove that there is no surjection $f: A \twoheadrightarrow 2^A$.
+    Take $A \in \ob(\mathsf{Set})$; given the bijection $|2^A| = |\mathcal P(A)|$, we can equivalently prove that there is no surjection $f: A \twoheadrightarrow 2^A$.
     Let's assume, by contradiction, that there exists a surjection $f: A \twoheadrightarrow 2^A$. Since $\mathsf{Set}$ is cartesian closed,
     and surjections are weak point-surjective maps, by Lawvere's fixed-point theorem, every endomorphism $g : 2 \to 2$ has a fixed point.
     That is a contradiction, since the endomorphism $\neg : 2 \to 2$, defined as $\neg(0) = 1$ and $\neg(1) = 0$, has no fixed points.
@@ -182,7 +182,7 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
 \begin{proof}
     Let's consider the inclusion $\iota : 2^\NN \hookrightarrow \RR$, defined as
     \[ \iota : (a_i)_{i \in \NN} \mapsto \sum_{i \in \NN} a_i 10^{-(i+1)}. \]
-    This is indeed injective, since if $(a_i)_{i \in \NN} \ne (b_i)_{i \in \NN}$, then there exists a minimum $i_0 \in \NN$ such that, WLOG, $a_{i_0} = 1$ and $b_{i_0} = 0$, therefore
+    This is indeed injective, since if $(a_i)_{i \in \NN} \ne (b_i)_{i \in \NN}$, then there exists a minimum $i_0 \in \NN$ such that, WLOG, $a_{i_0} = 1$ and $b_{i_0} = 0$; therefore,
     it is easy to see that $\iota((a_i)_{i \in \NN}) - \iota((b_i)_{i \in \NN}) \geq \frac 89 10^{i_0+1} > 0$.\newline
     Let $s : \RR \to 2^\NN$ be a left-inverse of $\iota$, defined as
     \[ s : \RR \twoheadrightarrow 2^\NN : x \mapsto \begin{cases}
@@ -199,7 +199,7 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
     If $d \in \Img(\phi)$, there would exist $p \in \NN$ such that $\ulcorner \phi \urcorner^\sharp(p) \underset{\varnothing}{=}d$.
     The calculation obtained by taking $a=p$ in the proof of Lawvere's theorem would then give
     \[ 2 \ni b := (\ulcorner \phi \urcorner^\sharp(p))^\sharp(p) \underset{\varnothing}{=} d^\sharp(p) \underset{\varnothing}{=} \ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) \underset{\varnothing}{=} \ulcorner \neg \urcorner^\sharp(b), \]
-    contradicting the fact that negation has no fixed point in $2$, hence $d \notin \Img(\phi)$.
+    contradicting the fact that negation has no fixed point in $2$. Hence, $d \notin \Img(\phi)$.
     Finally, let $x_d:=\ulcorner \iota \urcorner^\sharp(d) \in \RR$ and let's check that $x_d \notin \Img(f)$. If $x_d \underset{\varnothing}{=}\ulcorner f \urcorner^\sharp(k)$ for some $k \in \NN$, then
     \[ \ulcorner \phi \urcorner^\sharp(k) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(k)) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(x_d) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner \iota \urcorner^\sharp(d)) \underset{\varnothing}{=}d, \]
     where the last equality holds since, in $\mathsf{Set}$, $s \circ \iota = 1_{2^\NN}$, so we have a contradiction.
@@ -212,7 +212,7 @@ Let's give some preliminary definitions to formalize this statement.
 
 \begin{definition}[Axiom schema of separation]
     Let $A$ be a set and let $\varphi(x)$ be a formula in the language of set theory. The \emph{axiom schema of separation} states that
-    \[ B = \{ x \in A : \varphi(x) \}, \]
+    \[ B = \{ x \in A : \varphi(x) \} \]
     is a set.
 \end{definition}
 
@@ -314,7 +314,7 @@ Other interesting examples include the following.
 \begin{example}
     The Cantor space $2^\NN$, equipped with the product topology, is a compactly generated Hausdorff space, and the map
     \[ f(x_0,x_1,x_2,\dots) := (1-x_0,x_1,x_2,\dots) \]
-    is a continuous endomorphism without fixed points, if there was one, we'd have $x_0 = \frac 12 \not\in 2$, so there is no continuous surjection $g : I \twoheadrightarrow (2^\NN)^I$, for any compactly generated Hausdorff space $I$.
+    is a continuous endomorphism without fixed points: if there was one, we'd have $x_0 = \frac 12 \not\in 2$, so there is no continuous surjection $g : I \twoheadrightarrow (2^\NN)^I$, for any compactly generated Hausdorff space $I$.
 \end{example}
 
 \subsection*{Rice's theorem}
@@ -374,7 +374,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we fix an injective pairing function $\texttt{cons} : \NN^2 \hookrightarrow \NN$, defined as $\texttt{cons}(n,m) := \frac{(n+m)(n+m+1)}{2} + m + 1$,
         with inverses $\texttt{car} : \NN \to \NN$ and $\texttt{cdr} : \NN \to \NN$, such that
         \[ \texttt{car}(\texttt{cons}(n,m)) = n \quad\text{and}\quad \texttt{cdr}(\texttt{cons}(n,m)) = m\footnote{They can be explicitly defined as $\texttt{car}(z) := \sum_{i < z}\sum_{j < z} i \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$ and $\texttt{cdr}(z) := \sum_{i < z}\sum_{j < z} j \cdot (1 \mathbin{\dot{-}} \{z = \texttt{cons}(i,j)\})$,
-        where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive function, see [REFERENCE].}.\]
+        where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive function, see \cite[\S\S~1.4.1--1.4.5, pp.~17--18]{KomaraRecursiveFunctions2011}.}.\]
         These are all primitive recursive functions, and we will denote $\texttt{cons}(n,m)$ as $\langle n,m \rangle$ for brevity. We define
         \[ \langle n,m \rangle \Vdash_{X \times Y} (x,y) \overset{\textnormal{def}}{\iff} n \Vdash_X x \;\text{and}\; m \Vdash_Y y. \]
         The projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, and are morphisms of assemblies, since, for example:
@@ -394,7 +394,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         where $f^* : X \to Z^Y$ is defined as the underlying function $f^*(x)(y) := f(x,y)$, and we need to check that $f^* : X \to Z^Y$ is a morphism of assemblies.
         Given $n \Vdash_X x$ we look for a tracker $e \in \NN$ such that $e \cdot n \ne \bot$ and $e \cdot n \Vdash_{Z^Y} f^*(x)$, i.e. for every $y \in |Y|$ and $m \in \NN$, if $m \Vdash_Y y$ then $(e \cdot n) \cdot m \ne \bot$ and $(e \cdot n) \cdot m \Vdash_Z f^*(x)(y) = f(x,y)$.\newline
         By the hypothesis, $f : X \times Y \to Z$ is a morphism of assemblies, so if $\langle n,m \rangle \Vdash_{X \times Y} (x,y)$, then there exists a tracker $e_f \in \NN$ such that $e_f \cdot \langle n,m \rangle \ne \bot$ and $e_f \cdot \langle n,m \rangle \Vdash_Z f(x,y)$.
-        We define the primitive recursive function $g : \NN^2 \to \NN : (n,m) \mapsto \langle n,m \rangle$, and we take $e := \ulcorner u_1(e_f, s_1^1(\ulcorner g \urcorner,n)) \urcorner \in \NN$, where $s_1^1$ is the 1-ary function given by the $s$-$m$-$n$ theorem [REF].
+        We define the primitive recursive function $g : \NN^2 \to \NN : (n,m) \mapsto \langle n,m \rangle$, and we take $e := \ulcorner u_1(e_f, s_1^1(\ulcorner g \urcorner,n)) \urcorner \in \NN$, where $s_1^1$ is the 1-ary function given by the $s$-$m$-$n$ theorem \cite[\S~\enquote{Details}]{WikipediaSmnTheorem2026}.
         Now
         \[ m \Vdash_Y y \implies e \cdot m = e_f \cdot u_1(\ulcorner g \urcorner,n,m) = e_f \cdot \langle n,m \rangle \Vdash_Z f(x,y), \]
         and, since $e_f \cdot \langle n,m \rangle \ne \bot$, we have that $e$ is a tracker of $f^*$.\newline
@@ -430,8 +430,8 @@ Finally we can prove Rice's theorem.
     for every $n\in\NN$, hence $\phi$ is point-surjective. Since $R$ is extensional, the endomorphism
     \[ F:P\to P:f\mapsto\begin{cases} u_1(s,-) & \text{if $f$ has a realizer in $R$}\\
                                       u_1(r,-) & \text{otherwise}
-    \end{cases}, \]
-    is well-defined, and it is a morphism because it is tracked by the total recursive function that maps $e$ to $s$ if $e\in R$ and to $r$ otherwise,
+    \end{cases} \]
+    is well-defined, and it is a morphism because it is tracked by the total recursive function that maps $e$ to $s$ if $e\in R$ and to $r$ otherwise;
     this function is total recursive since $R$ is decidable. By Lawvere's fixed-point theorem, $F$ has a fixed point, which is impossible: by construction, $F$ sends functions whose indices belong to $R$ to a function whose indices do not belong to $R$, and vice versa.
 \end{proof}
 
@@ -476,7 +476,7 @@ More precisely, the morphism $g$ below plays the role of the term $q(x)=f(\phi(x
 \begin{proof}
     Define the morphism $g : \mathbf N \to P$ by
     \[ g(e) := u_1(\varphi(S(e,e)),-) \in P. \]
-    Let $a$ be an index of $e \mapsto \varphi(S(e,e))$, i.e. $u_1(a,e) = \varphi(S(e,e))$, then $a$ tracks $g$, and the point-surjectivity calculation in the proof of Rice's theorem gives $\phi(a)=g$.
+    Let $a$ be an index of $e \mapsto \varphi(S(e,e))$, i.e. $u_1(a,e) = \varphi(S(e,e));$ then $a$ tracks $g$, and the point-surjectivity calculation in the proof of Rice's theorem gives $\phi(a)=g$.
     Setting $n:=S(a,a)$, we obtain
     \[ u_1(n,-) = \phi(a)(a) = g(a) = u_1(\varphi(S(a,a)),-) = u_1(\varphi(n),-). \]
 \end{proof}
@@ -488,7 +488,7 @@ It can therefore be seen as a uniform fixed-point operator, and it is the catego
 
 
 \begin{definition}[Reflexive object]
-    Let $\mathcal C$ be a cartesian closed category, given $U$ an object of $\mathcal C$, we say that $U$ is \emph{reflexive} if there exists a pair of morphisms
+    Let $\mathcal C$ be a cartesian closed category; given $U$ an object of $\mathcal C$, we say that $U$ is \emph{reflexive} if there exists a pair of morphisms
     \[ r : U \to U^U \qquad\text{and}\qquad s : U^U \to U, \]
     such that $r \circ s = 1_{U^U}$, i.e. $s$ is a retraction of $r$, which means that $r$ is surjective.
 \end{definition}
@@ -533,7 +533,7 @@ It can therefore be seen as a uniform fixed-point operator, and it is the catego
 
 
 \section{Lawvere's fixed-point, cartesian form}
-We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by [REFERENCE].
+We can also prove a generalization of Lawvere's fixed-point theorem, that holds in a cartesian category, and it is equivalent to the original one in a cartesian closed category, because of the bijection given by Proposition~\ref{prop:morphisms-as-global-elements}.
 
 \begin{definition}[Weakly product point-surjective]
     Given a category $\mathcal C$ with terminal object $1$, we say that a morphism $f: A \times A \to B$ is \emph{weakly product point-surjective} if, for every morphism $g : A \to B$,
@@ -541,7 +541,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
 \end{definition}
 
 \begin{theorem}[Lawvere's fixed-point, product form]
-    Let $\mathcal C$ be a cartesian category, if there exists a weakly product point-surjective morphism $\phi : A \times A \to B$,
+    Let $\mathcal C$ be a cartesian category; if there exists a weakly product point-surjective morphism $\phi : A \times A \to B$,
     then every endomorphism $f: B \to B$ has a fixed point.
 \end{theorem}
 
@@ -578,7 +578,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
 
 \section{Gödel's incompleteness and other classical results}
 Using the stronger version of Lawvere's fixed-point theorem just proved, we can show how to obtain even more classical results.
-In the following we're going to continue the work started in [REFERENZA ALLA SEZIONE].
+In the following we're going to continue the work started in \Cref{sec:many-fixed-points-one-proof}.
 
 \subsection*{Halting problem}
 Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are: $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
@@ -656,10 +656,10 @@ Equivalently, we can prove that the decidable sets are not uniformly enumerable.
     Assume such a sequence exists, witnessed by $G:\NN^2\to\NN$, and define the total recursive function
     \[ F : \NN^2 \to 2 : (n,x) \mapsto \mathbf 1_{\{G(n,x)=0\}}(n,x). \]
     Then, given $f : \NN \to 2$ total recursive, let $A_f := \{x \in \NN : f(x) = 0\}$; this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{G(n_f,x) = 0\}$.
-    Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus, hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point, but this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
+    Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus; hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point. But this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
 \end{proof}
 
-\subsection*{semidecidable sets are not closed under complement}
+\subsection*{Semidecidable sets are not closed under complement}
 Finally, as the last application in $\mathsf{Rec_{tot}}$ let's also prove the simple fact stated in the title of this subsection.
 
 \begin{proposition}
@@ -706,7 +706,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 
 \begin{definition}[R.e. language over a singleton alphabet]
     A language $L \subseteq \{1\}^*$ is \emph{recursively enumerable} if the set
-    \[ \widehat L := \{n \in \NN | 1^n \in L\} \subseteq \NN, \]
+    \[ \widehat L := \{n \in \NN | 1^n \in L\} \subseteq \NN \]
     is recursively enumerable (r.e.).
 \end{definition}
 
@@ -738,7 +738,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 
 \begin{definition}[$L_{\textnormal{arit}}$ and free variables]
     Let $L_{\textnormal{arit}}$ be the \emph{language of arithmetic}, i.e.,\ $L_{\textnormal{arit}} := \{0,+,\cdot,s\}$, and let $\FV$ denote the set of free variables of a $L_{\textnormal{arit}}$-formula,
-    following the usual conventions of first-order logic, see [REFERENCE A QUANDO PARLO PRIMA DELLE VARIABILI LIBERE].
+    following the usual conventions of first-order logic, see Notation~\ref{not:free-variables-and-closed-terms}.
 \end{definition}
 
 \begin{notation}[$\mathsf{Q}$, Gödel numbering and numerals]
@@ -747,7 +747,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 \end{notation}
 
 \begin{definition}[Definability of the satisfaction]
-    Let $T$ be a $L_{\textnormal{arit}}$-theory, with $\mathsf{Q} \subseteq T$, we say that the \emph{satisfaction relation} is \emph{definable} in $T$ if there exists a $L_{\textnormal{arit}}$-formula $\mathsf{Sat}_T(y,x)$
+    Let $T$ be a $L_{\textnormal{arit}}$-theory, with $\mathsf{Q} \subseteq T$; we say that the \emph{satisfaction relation} is \emph{definable} in $T$ if there exists a $L_{\textnormal{arit}}$-formula $\mathsf{Sat}_T(y,x)$
     such that, for every $L_{\textnormal{arit}}$-formula $\varphi$, with $\FV(\varphi) \subseteq \{x\}$, and every closed $L_{\textnormal{arit}}$-term $t$, we have
     \[ T \vdash \varphi[t/x] \leftrightarrow \mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t). \]
 \end{definition}
@@ -759,7 +759,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 \begin{definition}[$\mathsf{Lind}_T$]
     Given an $L_{\textnormal{arit}}$-theory $T$, we denote by $\mathsf{Lind}_T$ the \emph{Lindenbaum category} of $T$, whose objects are
     \[ A^n \times 2^m \qquad \text{for $n,m \in \NN$}, \]
-    where $A$ represents the sort of variables, and $2$ represents the sort of propositions, here we define $1 := A^0 \times 2^0$. The morphisms are defined as follows:
+    where $A$ represents the sort of variables, and $2$ represents the sort of propositions; here we define $1 := A^0 \times 2^0$. The morphisms are defined as follows:
     \begin{itemize}
         \item $\mathrm{Hom}(A^n,A) := \{t \in L_{\textnormal{arit}}\textnormal{-terms} \mid \FV(t)\subseteq\{x_1,\ldots,x_n\}\}/{=_T}$;
         \item $\mathrm{Hom}(A^n,2) := \{\varphi \in L_{\textnormal{arit}}\textnormal{-formulas} \mid \FV(\varphi)\subseteq\{x_1,\ldots,x_n\}\}/{\equiv_T}$;
@@ -846,7 +846,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 Now that we have proved the undefinability of the satisfaction relation, we can prove the undefinability of truth as a consequence, following Lawvere.
 
 \begin{definition}[Definability of truth]
-    Let $T$ be a $L_{\textnormal{arit}}$-theory, with $\mathsf{Q}\subseteq T$, we say that \emph{truth} is \emph{definable} in $T$ if there exists a $L_{\textnormal{arit}}$-formula $\mathsf{Truth}_T(y)$ such that, for every closed $L_{\textnormal{arit}}$-formula $\sigma$, we have
+    Let $T$ be a $L_{\textnormal{arit}}$-theory, with $\mathsf{Q}\subseteq T$; we say that \emph{truth} is \emph{definable} in $T$ if there exists a $L_{\textnormal{arit}}$-formula $\mathsf{Truth}_T(y)$ such that, for every closed $L_{\textnormal{arit}}$-formula $\sigma$, we have
     \[ T\vdash \sigma\leftrightarrow\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner}). \]
 \end{definition}
 
@@ -900,7 +900,7 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
 \end{theorem}
 
 \begin{proof}
-    Suppose by contradiction that truth is definable in $T$, then we can consider the corresponding morphism
+    Suppose by contradiction that truth is definable in $T$; then we can consider the corresponding morphism
     \[ [\mathsf{Truth}_T(y)] : A \to 2. \]
     We define
     \[ [\mathsf{Sat}_T(y,x)] := [\mathsf{Truth}_T(y)] \circ \textrm{subst} : A \times A \to 2. \]
@@ -919,12 +919,12 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
     We could have proved the undefinability of truth directly, without using the undefinability of satisfaction,
     repeating the same argument, based on the Lindenbaum category and Lawvere's fixed-point theorem, but this
     would have basically been a repetition of the previous proof. Therefore, we preferred to follow
-    Lambek's exposition [REFERENCE], and let the undefinability of truth follow from the undefinability of satisfaction.
+    Lambek's exposition \cite[pp.~143--144]{Lawvere1969}, and let the undefinability of truth follow from the undefinability of satisfaction.
 \end{remark}
 
 \subsection*{Gödel's first incompleteness theorem}
 Now that we have proved the undefinability of truth, we can prove Gödel's first incompleteness theorem,
-obtaining a proof that directly follows from Lawvere's fixed-point theorem, as Lambek did in [REFERENCE].
+obtaining a proof that directly follows from Lawvere's fixed-point theorem, as Lambek did in \cite[pp.~144--145]{Lawvere1969}.
 
 \begin{definition}[Representability of provability]
 Following Lawvere, we say that \emph{provability is representable relative to $\Gamma$} if there exists a morphism
@@ -993,7 +993,7 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
 \end{notation}
 
 \begin{theorem}[Gödel's diagonal lemma]
-    Let $\varphi(x)$ be a $L_{\textnormal{arit}}$-formula with at most one free variable $x$, then there exists a closed $L_{\textnormal{arit}}$-formula $\psi$ such that
+    Let $\varphi(x)$ be a $L_{\textnormal{arit}}$-formula with at most one free variable $x$; then there exists a closed $L_{\textnormal{arit}}$-formula $\psi$ such that
     \[ \mathsf Q \vdash \left(\psi \leftrightarrow \varphi[\overline{\ulcorner\psi\urcorner}/x]\right). \]
 \end{theorem}
 
@@ -1056,7 +1056,7 @@ We prove this theorem using Lawvere's fixed-point theorem, since it is interesti
     Let $\mathrm{sub} : \NN^2 \to \NN$ be the primitive recursive function that sends $(n,m)$ to the Gödel code of the formula obtained by substituting the numeral $\overline{m}$ for a fixed free variable $x = x_{i}$ in the unary formula whose Gödel code is $n$.
     If we define
     \[ F : \NN^2 \to \NN : (n,m) \mapsto f(\mathrm{sub}(n,m)), \]
-    that is the function that does the substitution and then checks if the resulting formula is true in $\NN$, we have that $F$ is a total recursive function.
+    that is, the function that does the substitution and then checks if the resulting formula is true in $\NN$, we have that $F$ is a total recursive function.
     Moreover, given any total recursive function $g : \NN \to \NN$, we know that $\{n \in \NN : g(n) = 0\}$ is definable by a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula $\varphi_g(x)$, i.e.
     \[ g(n) = 0 \iff \NN \models \varphi_g(n). \]
     Therefore
@@ -1123,7 +1123,7 @@ McCallum proves, not in this order, essentially two things in the article:
     \item in $\mathsf{ZFC}$, the hypothesis of Lawvere's classical fixed-point theorem does not hold, in general, in the category of topological spaces, already in the case of the unit interval $[0,1]$, i.e.,\ there's no topological space $A$ for which
     there exists a continuous surjection $A \twoheadrightarrow [0,1]^A$;
     \item slightly modifying the hypotheses of Lawvere's theorem, de facto using the same set $|A|$ with two different topologies, gives a slightly more general version of Lawvere's theorem that is always valid for
-    a particular class of topological spaces, that contains the closed balls, hence Brouwer's fixed-point follows as a corollary.
+    a particular class of topological spaces, that contains the closed balls; hence Brouwer's fixed-point follows as a corollary.
 \end{itemize}
 
 Let's see the first result. One would like to find a class of topological spaces that contains the closed balls in a finite-dimensional Euclidean space\footnote{By this, we precisely mean: finite-dimensional $\RR$ vector spaces, with a scalar product that makes them into a Hilbert space.},
@@ -1229,7 +1229,7 @@ We now introduce the particular spaces and the class $\mathcal S$ of topological
     \end{enumerate}
 \end{definition}
 
-McCallum observes that every closed ball in a finite-dimensional Euclidean space belongs to $\mathcal S$: it is compact and contractible, one may take $U$ to be its interior and $V$ its boundary, and the metric conditions follow from Euclidean symmetries.
+McCallum observes that every closed ball in a finite-dimensional Euclidean space belongs to $\mathcal S$: it is compact and contractible; one may take $U$ to be its interior and $V$ its boundary, and the metric conditions follow from Euclidean symmetries.
 Moreover, every compact metric space is a continuous image of the Cantor space $2^\NN$ \cite[Theorem~3.3.]{nLabCantorSpace2026}, while the restriction to the first $\omega$ coordinates gives the required continuous surjection $A'\twoheadrightarrow 2^\NN$.\par
 
 Furthermore, since all the spaces in $\mathcal S$ are compact and have a compatible metric, they are Hausdorff, and therefore $\mathcal S$ is a subclass of $k\mathsf{Top}$, that we know is cartesian closed, so the exponential topology on $X^{A''}$ exists for every $X\in\mathcal S$.

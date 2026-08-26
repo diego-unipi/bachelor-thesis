@@ -433,7 +433,7 @@ This will be the first step towards establishing Lambek's equivalence of categor
     (Eq8), the $\alpha$-conversion rule, may be omitted if we are willing to identify terms that differ only by the names of their bound variables.
 \end{remark}
 
-\begin{notation}[Free variables and closed terms]
+\begin{notation}[Free variables and closed terms]\label{not:free-variables-and-closed-terms}
     We denote the free variables of a term $t$, with $\FV(t)$. The definition of free variables is the standard one; see for example \cite{Carpenter1997}.
     We also say that a term $t$ is \emph{closed} if $\FV(t) = \varnothing$, and that a term $t$ is \emph{substitutable} for a variable $x$ in another term $\varphi(x)$,
     if no free occurrence of a variable in $t$ becomes bound in $\varphi(t)$.
@@ -651,7 +651,7 @@ are the terms $\varphi(x)$ of $\mathcal L$, which contain no free variables othe
 
 It won't surprise us that $\mathbf C(\mathcal L)[x]$ and $\mathbf C(\mathcal L(x))$ are isomorphic categories.
 
-\begin{proposition}
+\begin{proposition}\label{prop:lambda-calculus-with-parameter}
     $\mathbf C(\mathcal L)[x] \cong \mathbf C(\mathcal L(x))$.
 \end{proposition}
 
@@ -770,7 +770,7 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
         \begin{itemize}
             \item on the types, $\eta_\mathcal L(A) := A$, for all $A \in \mathsf{Ty}(\mathcal L)$;
             \item on the terms, given a term $\varphi(X) = \varphi(x_1,\dots,x_n) \in A$, we can see it as a closed term in $\mathcal L(X)$;
-            since $\mathbf C(\mathcal L(X)) \cong \mathbf C(\mathcal L)[X]$, by [REFERENCE], we get a polynomial arrow $1 \to A$, and applying $\mathbf C$ we find the arrow $[(* \in 1, \varphi(X))] : 1 \to A$ in $\mathbf C(\mathcal L)[X]$.
+            since $\mathbf C(\mathcal L(X)) \cong \mathbf C(\mathcal L)[X]$, by \Cref{prop:lambda-calculus-with-parameter}, we get a polynomial arrow $1 \to A$, and applying $\mathbf C$ we find the arrow $[(* \in 1, \varphi(X))] : 1 \to A$ in $\mathbf C(\mathcal L)[X]$.
             Now applying $\mathbf L$, a polynomial arrow becomes a term, so find the term $[(* \in 1, \varphi(X))] \in A$ and therefore define
             \[ \eta_\mathcal L(\varphi(X)) := [(* \in 1, \varphi(X))] \in A, \]
             i.e., we get again a term of type $A$ with free variables $X = x_1,\dots,x_n$. It's easy to verify that $\eta_\mathcal L$ is a translation and that is well-defined (the equality of terms in $\mathbf L$ is defined as the equality of polynomial arrows, which is the equality defined by $\mathbf C$, etc.).

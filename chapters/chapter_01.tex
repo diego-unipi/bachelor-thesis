@@ -104,7 +104,7 @@ We are still far from having a complete intuitionistic deductive system: for exa
 Before moving on, let's also define two more rules of inference which follow from the previous ones and will be very useful in the next sections.
 
 \begin{example}
-    Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ as
+    Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ (often called \emph{Lawvere's name} of $f$) as
     \[ \frac{A \xrightarrow{f} B}{\top \xrightarrow{\ulcorner f \urcorner} B \Leftarrow A}, \]
     that is just $\ulcorner f \urcorner := (f \circ \pi_{\top,A}')^*$. Similarly, given $g : \top \to B \Leftarrow A$, we can define
     \[ \frac{\top \xrightarrow{g} B \Leftarrow A}{A \xrightarrow{g^\sharp} B} \]
