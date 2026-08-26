@@ -105,6 +105,37 @@ Being a concrete category basically means that the objects of the category can b
 Let's now see how Lawvere's fixed-point theorem can be used to prove many other fixed-point theorems, diagonal arguments and even other useful results in logic and mathematics in general.
 For each result, we will introduce the category needed to apply Lawvere's theorem, and we will show how the hypotheses of the theorem are satisfied in that category.
 
+Before we start, we recall a couple of useful notion in computability theory, which will be used multiple times in the following sections.
+
+\begin{notation}[Recursive functions]
+    We denote by $\NN_\bot := \NN \cup \{\bot\}$ the set of natural numbers with a bottom element $\bot$,
+    which denotes the non-termination of a computation. We assume the notions of \emph{partial recursive function} (or just \emph{recursive function}),
+    \emph{total recursive function} and \emph{primitive recursive function}, we won't define them here, but we refer the reader to [REF] for the detailed definitions.
+\end{notation}
+
+\begin{definition}[Decidable and semidecidable sets]
+    We say that a subset of $A \subseteq \NN^k$ is \emph{decidable} if there exists a total recursive function $f : \NN^k \to \NN$ such that
+    \[ A = \{\vec x \in \NN^k : f(\vec x) = 0\}. \]
+    Similarly, we say that a subset $A \subseteq \NN^k$ is \emph{semidecidable} if there exists a partial recursive function $f : \NN^k \to \NN_\bot$ such that
+    \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
+\end{definition}
+
+We assume the following result.
+
+\begin{proposition}[Characterization of semidecidable sets, REFERENCE]
+    Given a subset $A \subseteq \NN^k$, TFAE:
+    \begin{itemize}
+        \item $A$ is semidecidable;
+        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., there exists a total recursive function $f : \NN^h \to \NN^k$ such that $A = \Img(f)$;
+        \item $A$ is the domain of a partial recursive function, i.e.
+        \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
+    \end{itemize}
+\end{proposition}
+
+\begin{notation}[Universal partial recursive function]
+    We denote by $u_k : \NN^2 \to \NN_\bot$ the $k$-th universal partial recursive function, see [REFERENCE] for the definition.
+\end{notation}
+
 \subsection*{Cantor's theorem}
 In $\mathsf{Set}$ we can prove Cantor's theorem, on the non-existence of surjections from a set to its power set.
 
@@ -188,8 +219,6 @@ Let's give some preliminary definitions to formalize this statement.
     Technically, in the previous proof, we used the axioms of: \emph{extensionality}, \emph{pairing}, \emph{union}, \emph{power set}, and \emph{separation}.
     Working by contradiction, all the other axioms follow form $V \in \mathsf{Set}$ + separation, so the statement of the theorem is technically accurate.
 \end{remark}
-
-
 
 \subsection*{Non-existence of certain continuous surjections}
 Another interesting application of Lawvere's fixed-point theorem is the non-existence of certain continuous surjections, in $k\mathsf{Top}$, the category of compactly generated Hausdorff spaces.
@@ -622,22 +651,22 @@ Equivalently to the previous theorem, we can prove that the decidable sets are n
     Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus, hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point, but this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
 \end{proof}
 
-\subsection*{Semi-decidable sets are not closed under complement}
+\subsection*{semidecidable sets are not closed under complement}
 Finally, as last application in $\mathsf{Rec_{tot}}$ let's also prove the simple fact stated in the title of this subsection.
 
 \begin{proposition}
-    There exists a semi-decidable set $A \subseteq \NN$ such that its complement $A^{\complement}$ is not semi-decidable.
+    There exists a semidecidable set $A \subseteq \NN$ such that its complement $A^{\complement}$ is not semidecidable.
 \end{proposition}
 
 \begin{proof}
-    Let $A:=\{\langle e,x\rangle\in\NN:u_1(e,x)\ne\bot\}$, which is semi-decidable, since it is the domain of a partial recursive function, and suppose that $A^{\complement}$ is semi-decidable.
+    Let $A:=\{\langle e,x\rangle\in\NN:u_1(e,x)\ne\bot\}$, which is semidecidable, since it is the domain of a partial recursive function, and suppose that $A^{\complement}$ is semidecidable.
     It is known that in this situation there exists a total recursive function $d:\NN\to 2$ such that $d(\langle e,x\rangle)=0$ if and only if $u_1(e,x)\ne\bot$. Thus the total recursive function
     \[ F:\NN^2\to\NN:(e,x)\mapsto\begin{cases}u_1(e,x)&\text{if $d(\langle e,x\rangle)=0$},\\0&\text{otherwise}
     \end{cases} \]
     is weakly product point-surjective: for every total recursive $g:\NN\to\NN$, if $e$ is an index of $g$, then $F(e,-)=g$. Hence, by Lawvere's fixed-point theorem in the cartesian form, the successor function has a fixed point, contradiction.
 \end{proof}
 
-\subsection*{Existence of a Non-Recursively Enumerable Language}
+\subsection*{Existence of a non-recursively enumerable language}
 Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in the cartesian form. We need to introduce some preliminary definitions.
 
 \begin{definition}[Alphabet, word, Kleene star]
@@ -1124,8 +1153,12 @@ Established that the classical Lawvere's fixed-point theorem does not hold in th
 \end{example}
 
 \begin{definition}[Subcategory]
-    Let $\mathcal C$ be a category, a \emph{subcategory} of $\mathcal C$ is a category $\mathcal D$ such that $\ob(\mathcal D)\subseteq\ob(\mathcal C)$ and
-    $\mathcal D$ it is closed under source and target of morphisms, equivalently
+    Let $\mathcal C$ be a category, a \emph{subcategory} of $\mathcal C$ is a category $\mathcal D$ such that $\ob(\mathcal D)\subseteq\ob(\mathcal C)$ and $\mor(\mathcal D)\subseteq\mor(\mathcal C)$.
+    Moreover, the identities are the same and composition is compatible.
+\end{definition}
+
+\begin{definition}[Full subcategory]
+    Let $\mathcal C$ be a category, a \emph{full subcategory} of $\mathcal C$ is a subcategory $\mathcal D$ such that
     \[ \Hom_{\mathcal C}(A,B) = \Hom_{\mathcal D}(A,B) \]
     for every $A,B\in\ob(\mathcal D)$.
 \end{definition}
@@ -1169,7 +1202,7 @@ We now introduce the particular spaces and the class $\mathcal S$ of topological
     Let $\omega_1$ be the first uncountable ordinal and let $2:=\{0,1\}$ have the discrete topology.
     Both $A'$ and $A''$ have underlying set $2^{\omega_1}$, the set of binary strings of length $\omega_1$.
     For every $\alpha<\omega_1$ and $s\in 2^\alpha$, set
-    \[ N_s:=\{x\in 2^{\omega_1}\mid x|_\alpha=s\}. \]
+    \[ N_s:=\{x\in 2^{\omega_1} : x|_\alpha=s\}. \]
     The sets $N_s$ form a basis for the topology of $A'$, whereas $A''$ carries the product topology on $2^{\omega_1}$.
     Hence the topology of $A'$ is finer than that of $A''$, and the identity on the underlying set defines a continuous point-bijective map
     \[ h:A'\to A''. \]

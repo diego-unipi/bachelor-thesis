@@ -1,10 +1,10 @@
-\chapter{NBG set theory}
-During the whole exposition, we have been working in the Neumann--Bernays--Gödel ($\mathsf{NBG}$) set theory, just like \cite{LambekScott1994} does in Part I.
+\chapter{Von Neumann--Bernays--Gödel set theory}
+Throughout the exposition, we have been working in the Von Neumann--Bernays--Gödel ($\mathsf{NBG}$) set theory, just like \cite{LambekScott1994} does in Part I.
 
-Let's us recall the main characteristics of the $\mathsf{NBG}$ set theory and its conservativity result over $\mathsf{ZFC}$.
+Let us recall the main characteristics of the $\mathsf{NBG}$ set theory and its conservativity result over $\mathsf{ZFC}$.
 
 \section{Sets and classes}
-The language of $\mathsf{NBG}$ has two sorts of variables: lower-case letters $x,y,z,\ldots$ symbolizing sets, while upper-case letters $X,Y,Z,\ldots$ denotes the classes; and a binary relation symbol $\in$ for membership.
+The language of $\mathsf{NBG}$ has two sorts of variables: lower-case letters $x,y,z,\ldots$ symbolize sets, while upper-case letters $X,Y,Z,\ldots$ denote classes; and there's a binary relation symbol $\in$ for membership.
 Only sets can be members of classes. Every set $a$ determines the class $\{x:x\in a\}$, and we identify the set with this class. A class which cannot be identified with a set in this way is called a \emph{proper class}.
 We denote by
 \[ V := \{x : x = x\} \]
@@ -13,10 +13,10 @@ the class of all sets.
 A \emph{class function} is a class $F$ of ordered pairs such that every set in its domain has a unique image; if $(x,y)\in F$, we write $F(x)=y$.
 
 We use $\mathsf{NBG}$ with global choice. In particular, ordinary set-theoretic choice holds. Nevertheless we list it separately below in order to keep the familiar $\mathsf{ZFC}$ axioms visible.
-Global choice necessity will be discussed below in the section that regards the sizes of the categories we used.
+The need for global choice will be discussed below in the section concerning the sizes of the categories we use.
 
-\section{The axioms}
-We use the following convenient schematic presentation of $\mathsf{NBG}$. It keeps the $\mathsf{ZFC}$ axioms explicit and add the specifics of $\mathsf{NBG}$.
+\section{Axioms}
+We use the following convenient schematic presentation of $\mathsf{NBG}$. It keeps the $\mathsf{ZFC}$ axioms explicit and adds the specifics of $\mathsf{NBG}$.
 The list is not minimal, in the sense that some axioms can be derived from others.
 
 \begin{itemize}
@@ -24,17 +24,17 @@ The list is not minimal, in the sense that some axioms can be derived from other
     There exists an empty set:
     \[\exists x\;\forall y\;y\notin x.\]
     \item[(\textnormal{NBG2})] \textbf{Axiom of extensionality for sets.}
-    A set is determined by the collection of its elements, i.e. sets coincide if and only if they have the same elements:
+    A set is determined by the collection of its elements, i.e., sets coincide if and only if they have the same elements:
     \[\forall a\;\forall b\;\left(a=b\leftrightarrow\forall x\,(x\in a\leftrightarrow x\in b)\right).\]
     \item[(\textnormal{NBG3})] \textbf{Axiom schema of separation.}
-    If $a$ is a set and $\varphi(x)$ is a formula, then $\{x\in a:\varphi(x)\}$ is a set:
+    If $a$ is a set and $\varphi(x)$ is a formula in the language of set theory, then $\{x\in a:\varphi(x)\}$ is a set:
     \[\forall a\;\exists b\;\forall x\;\left(x\in b\leftrightarrow(x\in a\land\varphi(x))\right).\]
     Here $b$ does not occur freely in $\varphi$.
     \item[(\textnormal{NBG4})] \textbf{Axiom of pairing.}
     Given sets $a$ and $b$, there exists the set $\{a,b\}$:
     \[\forall a\;\forall b\;\exists p\;\forall x\;\left(x\in p\leftrightarrow(x=a\lor x=b)\right).\]
     \item[(\textnormal{NBG5})] \textbf{Axiom of union.}
-    Given a set $a$, there exists a set whose elements are the elements of the elements of $a$:
+    Given a set $a$, there exists a set whose elements are precisely the elements of the elements of $a$:
     \[\forall a\;\exists b\;\forall x\;\left(x\in b\leftrightarrow\exists y\in a\;x\in y\right).\]
     \item[(\textnormal{NBG6})] \textbf{Power set axiom.}
     Given a set $a$, there exists the set $\ps(a)$ whose elements are the subsets of $a$:
@@ -54,18 +54,18 @@ The list is not minimal, in the sense that some axioms can be derived from other
     Every nonempty set has an $\in$-minimal element:
     \[\forall a\;\left(a\neq\emptyset\rightarrow\exists x\in a\;(x\cap a=\emptyset)\right).\]
     \item[(\textnormal{NBG11})] \textbf{Axiom of extensionality for classes.}
-    A class is determined by the collection of its members, i.e.,\ two classes coincide if and only if they have the same members:
+    A class is determined by the collection of its members, i.e., two classes coincide if and only if they have the same members:
     \[\forall X\;\forall Y\;\left(X=Y\leftrightarrow\forall x\;(x\in X\leftrightarrow x\in Y)\right).\]
     \item[(\textnormal{NBG12})] \textbf{Axiom schema of elementary class comprehension.}\par
-    If $\varphi(x,a_1,\ldots,a_n,A_1,\ldots,A_m)$ is formula with one free variable $x$, then there exists the class of all sets which satisfy $\varphi$:
-    \[\exists X\;\forall x\;\left(x\in X\leftrightarrow\varphi(x,a_1,\ldots,a_n,A_1,\ldots,A_m)\right).\]
+    If $\varphi(x)$ is a formula in the language of $\mathsf{NBG}$, with free variable $x$, and which does not contain quantifiers over classes, then there exists the class of all sets which satisfy $\varphi$:
+    \[\exists X\;\forall x\;\left(x\in X\leftrightarrow\varphi(x)\right).\]
     Here $X$ does not occur freely in $\varphi$.
     \item[(\textnormal{NBG13})] \textbf{Axiom of global choice.}
     There exists a class function which chooses an element from every nonempty set:
     \[\exists F\;\left(F:V\to V\land\forall x\;(x\neq\emptyset\rightarrow F(x)\in x)\right).\]
 \end{itemize}
 
-These axioms follow the exposition given in [REFERENCE].
+The list of axioms roughly follows the exposition given in \cite[\S\S~2.1--2.2, pp.~9--19]{Schindler2014}.
 
 \section{Conservativity over \texorpdfstring{$\mathsf{ZFC}$}{ZFC}}
 
@@ -75,21 +75,20 @@ These axioms follow the exposition given in [REFERENCE].
     In other words, every theorem about sets which can be proved using classes can already be proved in $\mathsf{ZFC}$.
 \end{theorem}
 
-See [REFERENCE] for a proof of this theorem.
+See \cite[Thm.~1, pp.~44--59]{Felgner1971} for a proof of this theorem.
 
 \section{Sizes of the categories used}
 
 \begin{definition}[Small category]
-    A category $\mathcal C$ is \emph{small} if both $\ob(\mathcal C)$ and $\mor(\mathcal C)$ are sets.
+    A category $\mathcal C$ is \emph{small} if both $\ob(\mathcal C)$ and $\mor(\mathcal C)$ are sets in the sense of $\mathsf{NBG}$.
 \end{definition}
 
 \begin{definition}[Locally small category]
-    \leavevmode\newline
-    A category $\mathcal C$ is \emph{locally small} if $\Hom_{\mathcal C}(A,B)$ is a set for every pair of objects $A,B$.
+    We say that a category $\mathcal C$ is \emph{locally small} if $\Hom_{\mathcal C}(A,B)$ is a set, in the sense of $\mathsf{NBG}$, for every pair of objects $A,B$.
 \end{definition}
 
-\begin{remark}
-    Every small category is locally small, but the converse need not hold.
+\begin{remark}[Smallness implies local smallness]
+    Every small category is locally small, but the converse is not necessarily true.
 \end{remark}
 
 \begin{example}
@@ -97,11 +96,15 @@ See [REFERENCE] for a proof of this theorem.
 \end{example}
 
 \begin{definition}[Small calculus]
-    A calculus $\mathcal L$ is \emph{small} if both $\ob(\mathcal L)$ and $\mor(\mathcal L)$ are sets.
+    A typed $\lambda$-calculus $\mathcal L$ is \emph{small} if both $\mathsf{Ty}(\mathcal L)$ and $\mathsf{Term}(\mathcal L)$ are sets in the sense of $\mathsf{NBG}$.
 \end{definition}
 
 For all three versions of the Curry--Howard--Lambek correspondence, we take the objects on the categorical side to be small categories and those on the syntactic side to be small calculi.
-The resulting categories of structures are large but locally small. Under this convention, polynomial categories, $\mathbf L(\mathcal C)$ and $\mathbf C(\mathcal L)$ preserve smallness, so the three correspondences are ordinary equivalences in $\mathsf{NBG}$.
-Local smallness alone would not suffice: a category with a proper class of objects cannot itself be an object of another category at the same foundational level.
+The resulting categories of structures are large but locally small. Under this convention, the constructions of polynomial categories, $\mathbf L(\mathcal C)$ and $\mathbf C(\mathcal L)$ preserve smallness, so the three correspondences are ordinary equivalences in $\mathsf{NBG}$.
+Local smallness alone would not suffice: a category with a proper class of objects cannot itself be an object of another category in $\mathsf{NBG}$.
 
-The ambient categories in the fixed-point applications need not be small. If such a category is large but locally small, the CHL argument can be carried out in the small full subcategory generated by the objects involved and closed under the terminal object, products and, when required, exponentials and the chosen WNNO. Local smallness makes its collection of arrows a set. Lawvere's theorem itself has no size assumption. Finally, ordinary choice suffices for non-unique iterator choices in a small category; global choice is needed only to make them uniformly over a proper class of objects, while for an NNO uniqueness removes the need for choice.
+The ambient categories in the fixed-point applications need not be small. If such a category is large but locally small, the Curry--Howard--Lambek argument can be carried out in the small full subcategory generated by the objects involved and closed under the terminal object,
+products and, when required, exponentials and the chosen WNNO. Local smallness makes its collection of arrows a set. Lawvere's theorem itself has no size assumption.
+
+Finally, the ordinary axiom of choice suffices for non-unique iterator choices in a small category; global choice, instead, suffices to make such choices uniformly over a proper class of objects,
+when all the iterators have to be fixed simultaneously. In the NNO case, the uniqueness removes the need for choice.
