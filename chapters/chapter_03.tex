@@ -36,8 +36,8 @@ Let's start by recalling some useful notions in category theory, that are necess
 
 \begin{remark}[Surjective implies point-surjective]
     Obviously, in a category with terminal object, every surjection is point-surjective. This is trivial, since, given $f: A \to B$ a surjection and $b: 1 \to B$, we have
-    \[ f \circ s = 1_B \implies f \circ (s \circ b) = 1_B \circ b = b, \]
-    therefore we can take $s \circ b : 1 \to A$ as an element realizing $b$.
+    \[ f \circ s = 1_B \implies f \circ (s \circ b) = 1_B \circ b = b; \]
+    therefore, we can take $s \circ b : 1 \to A$ as an element realizing $b$.
 \end{remark}
 
 The following definition will be very useful for the examples in the next sections. However, we introduce it now for the upcoming example.
@@ -47,12 +47,12 @@ The following definition will be very useful for the examples in the next sectio
     To be faithful means that, given $f,g \in \Hom_{\mathcal C}(A,B)$, if $U(f) = U(g)$, then $f = g$, i.e.,\ if the underlying set-theoretic functions of two morphisms are equal, then the morphisms themselves are equal.
 \end{definition}
 
-Being a concrete category basically means that the objects of the category can be seen as sets, and the morphisms as set-theoretic functions, eventually with some extra structure.
+Being a concrete category basically means that the objects of the category can be seen as sets, and the morphisms as set-theoretic functions, possibly with some extra structure.
 In addition, the function structure determines the morphism structure.
 
-\begin{example}[Point-surjective but not surjective morphism]
+\begin{example}[Point-surjective that is not surjective morphism]
     In the category $\mathsf{Grp}$, consider the unique homomorphism $i : 1 \to \ZZ$, where $1 = \{e\}$ and $i(e) = 0$. This map is point-surjective, since
-    the only possible homomorphism $1 \to \ZZ$ is the trivial one; therefore, the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.\newline
+    the only possible homomorphism $1 \to \ZZ$ is the trivial one; therefore, the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.
     However, this map is not surjective, since if there was $s : \ZZ \to 1$ such that $i \circ s = 1_\ZZ$, then $U(i) \circ U(s) = 1_{U(\ZZ)}$, where $U : \mathsf{Grp} \to \mathsf{Set}$ is the forgetful functor.
     Therefore $U(i) : U(1) \to U(\ZZ)$ would be surjective, but this is impossible since $|U(1)| = 1 < |U(\ZZ)| = \aleph_0$.
 \end{example}
@@ -427,7 +427,7 @@ Finally we can prove Rice's theorem.
                    &= h(a,n,-) \\
                    &= u_1(a \cdot n, -) = g(n)(-)
     \end{align*}
-    for every $n\in\NN$, hence $\phi$ is point-surjective. Since $R$ is extensional, the endomorphism
+    for every $n\in\NN$; hence, $\phi$ is point-surjective. Since $R$ is extensional, the endomorphism
     \[ F:P\to P:f\mapsto\begin{cases} u_1(s,-) & \text{if $f$ has a realizer in $R$}\\
                                       u_1(r,-) & \text{otherwise}
     \end{cases} \]
@@ -742,8 +742,8 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 \end{definition}
 
 \begin{notation}[$\mathsf{Q}$, Gödel numbering and numerals]
-    We denote by $\mathsf{Q}$ the \emph{Robinson arithmetic}, see [REFERENCE]. Furthermore, we will fix a Gödel numbering $\ulcorner - \urcorner$ of the $L_{\textnormal{arit}}$-formulas,
-    and denote by $\overline{n}$ the numeral corresponding to $n \in \NN$ in $L_{\textnormal{arit}}$.[REFERENCE?]
+    We denote by $\mathsf{Q}$ the \emph{Robinson arithmetic}, see \Cite[\S~10.3, p.~67]{Smith2013}. Furthermore, we will fix a Gödel numbering $\ulcorner - \urcorner$ of the $L_{\textnormal{arit}}$-formulas,
+    and denote by $\overline{n}$ the numeral corresponding to $n \in \NN$ in $L_{\textnormal{arit}}$.~\cite[\S~5.2, p.~37, and \S~19.1, pp.~136--137]{Smith2013}
 \end{notation}
 
 \begin{definition}[Definability of the satisfaction]
@@ -859,7 +859,7 @@ So $T$ understands the truth value of every closed formula in $T$ itself.
     Given an $L_{\textnormal{arit}}$-formula $\sigma$, let
     \[ c_\sigma := [\overline{\ulcorner\sigma\urcorner}] : 1\to A \]
     be the closed term corresponding to the Gödel code of $\sigma$. By composition, we have
-    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})], \]
+    \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})]; \]
     hence, truth is definable in $T$ if and only if
     \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\sigma] \]
     for every closed $L_{\textnormal{arit}}$-formula $\sigma$.
@@ -880,14 +880,13 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
 \end{remark}
 
 \begin{remark}[Substitution]
-    Recall that syntactic substitution on Gödel codes is primitive recursive [REFERENCE]. This primitive recursive function can be represented in $L_{\mathrm{arit}}$ by a formula [REFERENCE].
-    Following Lawvere, we require something weaker, that follows from those facts.
-    We say that substitution is \emph{definable relative to $\Gamma$} if there exists a morphism
-    \[ \textrm{subst} : A \times A \to A \]
-    such that, for every $L_{\mathrm{arit}}$-formula $\varphi$ with $\FV(\varphi)\subseteq\{x\}$ and a closed term $a:1\to A$
-    \[ \left(\textrm{subst}\circ\langle[\overline{\ulcorner\varphi\urcorner}],a\rangle\right)\,\Gamma\, [\varphi[a/x]], \]
-    that is, the Gödel code of the output of the substitution morphism is the Gödel code of the formula obtained by substituting $a$ for $x$ in $\varphi$.
-    This is weaker than requiring that substitution is PR, or that it is representable in $\mathsf{Q}$, but it is enough for our purposes.
+    Let $s:\NN^2\to\NN$ send $(\ulcorner\varphi\urcorner,n)$ to $\ulcorner\varphi[\overline{n}/x]\urcorner$. This function is primitive recursive \cite[Propositions~3.6 and~3.11, pp.~65, 67]{ZachIncompletenessComputability2026} and is represented by an $L_{\textnormal{arit}}$-formula \cite[Definition~4.1, p.~78, and Theorem~4.27, pp.~96--97]{ZachIncompletenessComputability2026}.
+    The representing formula can moreover be chosen to be total in $\mathsf Q$, so that the corresponding function symbol may be added to the language, see \cite[\S~16.3, pp.~122--123, especially Theorem~16.4]{Smith2013} for the details. Following Lawvere \cite[pp.~143--144]{Lawvere1969}, we shall therefore assume that $\mathsf{Lind}_T$ is equipped with a morphism
+    \[ \textrm{subst}:A\times A\to A \]
+    such that, for every $L_{\textnormal{arit}}$-formula $\varphi$ with $\FV(\varphi)\subseteq\{x\}$ and every closed term $a:1\to A$,
+    \[ \left(\textrm{subst}\circ\langle[\overline{\ulcorner\varphi\urcorner}],a\rangle\right)\,\Gamma\,[\varphi[a/x]]. \]
+    So we're taking the Lindenbaum category of the corresponding extension of $T$, obtained by adding $\textrm{subst}$ as a function symbol defined by the representing formula; this does not change what $T$ proves in the original language, and we keep the fixed Gödel numbering of $L_{\textnormal{arit}}$-formulas.
+    Lastly, passage from numerals to arbitrary closed terms follows from the fact that every closed $L_{\textnormal{arit}}$-term is provably equal in $\mathsf Q$ to a numeral \cite[Lemma~4.34, pp.~100--101]{ZachIncompletenessComputability2026}.
 \end{remark}
 
 \begin{theorem}[Undefinability of truth]
@@ -985,7 +984,7 @@ rather than reproducing the truth value of every closed formula. Under the assum
 
 \subsection*{Gödel's diagonal lemma}
 Just like we did for Cantor's diagonal argument, we can also prove Gödel's diagonal lemma using the
-proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem, following [REF] and noting that there's an imprecision [REF].
+proof of Lawvere's fixed-point theorem in the cartesian form. This is another way of deriving Gödel's first incompleteness theorem from Lawvere's fixed-point theorem, following \cite[Theorem~4, pp.~376--377]{Yanofsky2003} and noticing that there's an imprecision \cite[\S\S~2--3.1]{Vestrucci2026}.
 
 \begin{notation}[Raw formulas]
     Let $\mathsf{Form}_1$ be the set of $L_{\textnormal{arit}}$-formulas $\theta$ such that $\FV(\theta)\subseteq\{x\}$, and let $\mathsf{Form}_0\subseteq\mathsf{Form}_1$ be the set of closed $L_{\textnormal{arit}}$-formulas.
