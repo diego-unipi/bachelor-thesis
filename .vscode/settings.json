@@ -13,13 +13,18 @@
         "heterological",
         "intuitionistic",
         "Lambek",
+        "LITP",
         "MBNF",
         "pdfdisplaydoctitle",
         "pdftitle",
+        "prerecursive",
+        "Sanchis",
         "Schauder",
         "Schöonfinkel",
         "Seely",
-        "Stubbe"
+        "Stubbe",
+        "Thibault",
+        "Troelstra"
     ],
     "[latex]": {
         "files.eol": "\n",

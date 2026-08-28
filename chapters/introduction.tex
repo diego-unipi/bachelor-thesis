@@ -3,7 +3,7 @@
 \addcontentsline{toc}{chapter}{Introduction}
 
 Fixed-point theorems are an evergreen in mathematics, from analysis and topology to logic and computation.
-Early examples include Brouwer's theorem in 1911 \parencite[p.~115]{Brouwer1911}, Banach's contraction theorem in 1922
+Early examples include Brouwer's theorem in 1911 \parencite{Brouwer1911}, Banach's contraction theorem in 1922
 \parencite{Banach1922}, Schauder's generalization for infinite-dimensional spaces in 1930 \parencite{Schauder1930}, and Tarski's lattice-theoretic theorem in 1955 \parencite{Tarski1955}.
 A particular family of these results is the diagonal family, in which self-reference turns representability into a fixed point or, contrapositively, into an impossibility theorem.
 
@@ -70,8 +70,8 @@ expression into a represented map, and then substitution feeds the resulting rep
 For example, if we suppose, in the product form of the argument, that $\phi : A\times A \to B$ pointwise represents every map $A \to B$ and let
 $f : B \to B$, the internal calculus forms the term $q(x) := f(\phi(x,x))$, whose
 categorical shape is
-\[ A \xrightarrow{\Delta_A} A\times A \xrightarrow{\phi} B \xrightarrow{f} B,\]
-if $a$ represents $q$, so that $\phi(a,x) = q(x)$ for every element $x$, then the substitution of $a$ for $x$ gives
+    \[ A \xrightarrow{\Delta_A} A\times A \xrightarrow{\phi} B \xrightarrow{f} B.\]
+    If $a$ represents $q$, so that $\phi(a,x) = q(x)$ for every element $x$, then the substitution of $a$ for $x$ gives
 \[b := \phi(a,a), \qquad f(b) = f(\phi(a,a)) = q(a) = \phi(a,a) = b. \]
 This falls precisely into the scheme
 \[\begin{array}{c@{\;\rightarrow\;}c@{\;\rightarrow\;}c} \text{diagonalize} & \text{represent or encode} & \text{apply to its own representative} \\
@@ -84,5 +84,5 @@ We will see plenty of concrete examples of this scheme later in the exposition, 
 is essentially the one above, even in the case of Brouwer's theorem, with the appropriate technicalities.
 
 Finally, it's worth mentioning, even though we won't say anything else about it in this thesis, that in
-a distinct and more rich categorical setting is it possible to obtain also Banach's contraction theorem from a generalized form of Lawvere's theorem.
-This is a very recent result of Benkhadra and Stubbe in 2023, see \parencite{BenkhadraStubbe2023}.
+a distinct and more rich categorical setting it is possible to obtain also Banach's contraction theorem from a generalized form of Lawvere's theorem.
+This is a very recent result of Benkhadra and Stubbe in 2023; see \parencite{BenkhadraStubbe2023}.

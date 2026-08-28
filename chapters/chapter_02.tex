@@ -1,13 +1,17 @@
 \chapter{The Curry--Howard--Lambek correspondence}
 
-From this chapter onward, we will only consider cartesian closed categories, for which we will use the abbreviations CCC and CCCs.
+From this chapter onward, we only consider cartesian and cartesian closed categories, for which we will use the abbreviations CC/CCC and CCs/CCCs. In particular,
+we talk here about a way through which CCCs can implement a notion of natural numbers, the (weak) natural number object, the internal language of a CCC,
+which allows us to interpret a simple $\lambda$-calculus with iterator in a CCC, and finally the Curry--Howard--Lambek correspondence that is the main result of this chapter.
 
 \section{Natural number objects in CCCs}
-The aim of this section is to provide cartesian closed categories with a notion of recursion,
+The aim of this section is to provide cartesian closed categories with a way to do the usual recursion,
 which is fundamental if we want to interpret a simple $\lambda$-calculus with iterator in a CCC.
 Even though this notion won't be necessary for the correspondence used to prove Lawvere's fixed-point theorem,
 it is still necessary to prove the Curry--Howard--Lambek correspondence in its general version, and nevertheless
 interesting in its own right. One notable application of this notion is, for example, the interpretation of all primitive recursive functions in a CCC with a natural number object; see \cite[Part~III, \S\S~1--2]{LambekScott1994}.
+
+Historically, CCCs equipped with a WNNO were first studied formally by Marie-France Thibault, who called them \emph{prerecursive categories} \parencite{Thibault1977,Thibault1982}. Lambek and Scott relate this weak notion to most iterators appearing in the logical literature, citing Troelstra and, as a contrasting case, Sanchis \parencite[Part~I, p.~47]{LambekScott1994}\parencite{Troelstra1973,Sanchis1967}.
 
 \begin{definition}[Natural number object]
     Given a cartesian closed category $\mathcal{C}$, a \emph{natural number object} (NNO) is an initial object
@@ -60,7 +64,7 @@ If we require only the existence of an arrow that makes the diagram above commut
 \end{example}
 
 \begin{example}[WNNO which is not an NNO]
-    Let $\textsf{Pos}$ be the category of partially ordered sets with monotone maps. Its terminal object, up to isomorphism, is the one-element poset; its products are cartesian products equipped with the lexicographic order,
+    Let $\textsf{Pos}$ be the category of partially ordered sets with monotone maps. Its terminal object, up to isomorphism, is the one-element poset; its products are cartesian products equipped with the componentwise order,
     and its exponential objects are sets of monotone maps equipped with the pointwise order:
     \[  f \leq_{B^A} g \quad\overset{\textnormal{def}}{\Longleftrightarrow}\quad f(a) \leq_B g(a) \quad\text{for every } a \in A. \]
     The usual evaluation map is monotone, as is the currying map, and (CCC1) + (CCC2) are easily verified. Thus $\textsf{Pos}$ is cartesian closed.
@@ -116,8 +120,8 @@ If we require only the existence of an arrow that makes the diagram above commut
     commute, i.e.,\ $J_A(a,f) \circ 0 = a$ and $J_A(a,f) \circ s = f \circ J_A(a,f)$. For each object $A$, given $(a,f) \in \Hom(1,A) \times \Hom(A,A)$, we know
         by the definition of WNNO that $\Hom(N,A)$ is nonempty; therefore, we can pick an element and define $J_A(\cdot,\cdot)$ as a function.
     In order to define $J_A(\cdot,\cdot)$ as a function, we need to choose simultaneously an element for each pair $(a,f)$, i.e.,\ to choose a function in $\prod_{(a,f)} \Hom(N,A)$.
-    If $\mathcal C$ is \emph{locally small}, i.e.,\ all the $\Hom$ are sets, this can be done using simply the classical axiom of choice. If $\mathcal C$ is not locally small,
-    then $\{(a,f)\}$ is a proper class; therefore, we need to use a stronger version of $\mathsf{AC}$, so some form of global choice.\newline
+    If $\mathcal C$ is \emph{locally small}, i.e.,\ all the $\Hom$ are sets, this can be done using simply the classical axiom of choice. Without local smallness,
+    the relevant collections need not be sets, and making such choices may require some form of global choice.\newline
     Lastly, the $J_A(\cdot,\cdot)$ that we've defined is an “external” function used to describe a WNNO/NNO; shortly, we will see that we can define an “internal function”,
     in the category itself, instead of its $\Hom$-sets, which is more useful for our purposes.
 \end{notation}
@@ -376,7 +380,7 @@ Before ending this section, we give the following definitions, which will be use
 \section{Typed \texorpdfstring{$\lambda$}{lambda}-calculi}
 Now that we have seen cartesian closed categories with WNNOs, we know categories that are models of positive intuitionistic propositional
 logic, and have a notion of recursion. We also want to see how this kind of category can interpret typed $\lambda$-calculus,
-and to see the latter as a sort of “internal language” of cartesian closed categories.
+and to see the latter as a sort of “internal language” of cartesian closed categories.\footnote{Lambek and Scott suggest that Lawvere may have anticipated this language when he called the correspondence from $\mathcal C(1,B^A)$ to $\mathcal C(A,B)$ “$\lambda$-conversion” in \cite[p.~139]{Lawvere1969}; see \cite[\S~10, p.~116]{LambekScott1994}.}
 
 The specific kind of typed $\lambda$-calculus we will consider is a \emph{typed $\lambda\beta\eta$-calculus}, with \emph{terminal type}, \emph{product types}, \emph{surjective pairing} and \emph{iterator}.
 This will be the first step towards establishing Lambek's equivalence of categories.
@@ -712,7 +716,7 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
     such that we have two \emph{natural isomorphisms} $G \circ F \Rightarrow 1_{\mathcal C}$ and $F \circ G \Rightarrow 1_{\mathcal D}$, where $1_{\mathcal C}$ and $1_{\mathcal D}$ are the identity functors of $\mathcal C$ and $\mathcal D$.
 \end{definition}
 
-\begin{remark}[{\cite[Lemma~9.2.4]{nLabFunctorCategory2026}}]
+\begin{remark}[{\cite{nLabFunctorCategory2026}}]
     We recall that a natural transformation $\eta : F \Rightarrow G$ is an isomorphism if and only if $\eta_A : F(A) \to G(A)$ is an isomorphism in $\mathcal D$, for every $A \in \ob(\mathcal C)$.
 \end{remark}
 
@@ -721,7 +725,11 @@ Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and 
     $1_{\mathcal C} \Rightarrow G \circ F$ and $1_{\mathcal D} \Rightarrow F \circ G$ are natural isomorphisms, since the inverse of a natural isomorphism is a natural isomorphism.
 \end{remark}
 
-\begin{theorem}[Curry--Howard--Lambek correspondence, {\cite[Part~I, Thm.~11.4]{LambekScott1994}}]
+Finally, we are ready for the main result. Historically, the equivalence was prepared by Lambek's categorical treatment of deductive systems and functional completeness \parencite{Lambek1968,Lambek1969,Lambek1972,Lambek1974}, and the connection from typed $\lambda$-calculus to cartesian closed categories was given a direct exposition in \cite{Lambek1980}.
+The precise categorical equivalence used here, with chosen WNNOs and iterators, first received a detailed proof in the 1986 first edition of Lambek and Scott's monograph, as the authors themselves record \parencite[Part~I, Historical comments, \S~11, p.~117]{LambekScott1994}.
+A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix]{LambekScott1994}. Lambek also presented this formulation at the 1985 LITP Spring School, whose proceedings appeared the following year \parencite{Lambek1986}.
+
+\begin{theorem}[Curry--Howard--Lambek correspondence, {\cite[Part~I, Thm.~11.3]{LambekScott1994}}]
     $\mathsf{CCC}_N \simeq \lambda\text{-}\mathsf{Calc}$.
 \end{theorem}
 
@@ -804,7 +812,7 @@ We can now give a precise meaning to the idea that a $\lambda$-calculus is an in
 
 \begin{remark}[Internal language of a CCC]
     It's easy to see that $\mathcal L_0$ is an initial object in $\lambda\text{-}\mathsf{Calc}$, since for each typed $\lambda$-calculus $\mathcal L$, there exists a unique translation $\mathcal L_0 \to \mathcal L$.
-    Therefore, the simply typed $\lambda$-calculus is interpreted in every cartesian closed category with a chosen WNNO and an iterator; hence, it is the internal language of every CCC.
+    Therefore, the simply typed $\lambda$-calculus is interpreted in every cartesian closed category with a chosen WNNO and an iterator; hence, it is the internal language of every CCC with a chosen WNNO and an iterator.
 \end{remark}
 
 The above equivalence of categories is the most general in the context of cartesian categories; we can specialize it to the case of cartesian closed categories without a chosen WNNO and iterator.
