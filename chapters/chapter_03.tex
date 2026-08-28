@@ -183,7 +183,7 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
     Let's consider the inclusion $\iota : 2^\NN \hookrightarrow \RR$, defined as
     \[ \iota : (a_i)_{i \in \NN} \mapsto \sum_{i \in \NN} a_i 10^{-(i+1)}. \]
     This is indeed injective, since if $(a_i)_{i \in \NN} \ne (b_i)_{i \in \NN}$, then there exists a minimum $i_0 \in \NN$ such that, WLOG, $a_{i_0} = 1$ and $b_{i_0} = 0$; therefore,
-    it is easy to see that $\iota((a_i)_{i \in \NN}) - \iota((b_i)_{i \in \NN}) \geq \frac 89 10^{i_0+1} > 0$.\newline
+    it is easy to see that $\iota((a_i)_{i \in \NN}) - \iota((b_i)_{i \in \NN}) \geq \frac 89 10^{-(i_0+1)} > 0$.\newline
     Let $s : \RR \to 2^\NN$ be a left-inverse of $\iota$, defined as
     \[ s : \RR \twoheadrightarrow 2^\NN : x \mapsto \begin{cases}
         \iota^{-1}(x) & \text{if $x \in \Img(\iota)$} \\
@@ -250,7 +250,7 @@ Another interesting application of Lawvere's fixed-point theorem is the non-exis
 
 \begin{remark}
     We recall the following chain of implications, useful to check if a space is compactly generated:
-    \[ \textrm{metrizable} \implies \textrm{I-countable} \implies \textrm{Fréchet--Urysohn}\implies \textrm{sequential} \implies k\mathsf{Top}. \]
+    \[ \textrm{metrizable} \implies \textrm{first-countable} \implies \textrm{Fréchet--Urysohn}\implies \textrm{sequential} \implies k\mathsf{Top}. \]
     There's also another useful chain:
     \[ \textrm{compact} \implies \textrm{locally compact} \implies \textrm{compactly generated}. \]
 \end{remark}
@@ -321,7 +321,7 @@ Other interesting examples include the following.
 Let's now see how to apply Lawvere's fixed-point theorem to obtain some result in computability theory. Specifically, we prove in this subsection Rice's theorem.
 
 \begin{theorem}[Rice's theorem]
-    Let $R \subseteq \NN$ such that, forall $\alpha,\beta \in\NN$
+    Let $R \subseteq \NN$ such that for all $\alpha,\beta \in\NN$
     \[ \left(\forall x \in \NN \; u_1(\alpha,x) = u_1(\beta,x)\right) \implies (\alpha \in R \iff \beta \in R),\]
     i.e.,\ $R$ is an \emph{extensional property} of the partial recursive functions. If $R$ is decidable, either $R = \varnothing$ or $R = \NN$.
 \end{theorem}
@@ -334,7 +334,7 @@ What the theorem says is that, if $R$ is a nontrivial extensional property of th
     \[ H_1 = \{(\alpha,x) \in \NN^2 | f(\alpha,x) = 0\}, \]
     for some $f : \NN^2 \to 2$ total recursive function. Therefore, the sections of $H_1$ would be decidable too, i.e.\ fixed $x \in \NN$, the set $H_1^x := \{\alpha \in \NN | (\alpha,x) \in H_1\}$ would be decidable,
     since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial recursive functions, because if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
-    then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$, that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that returns the constant 0 on every input.
+    then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$; that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that returns the constant 0 on every input.
 \end{remark}
 
 In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathcal K_1)$ of \emph{assemblies} over the first Kleene algebra $\mathcal K_1 = (\NN,\cdot)$, where $e \cdot n := u_1(e,n)$.
@@ -362,11 +362,11 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
     \begin{itemize}
         \item The identity map $1_X : |X| \to |X|$ is a morphism of assemblies, since, if $n \Vdash_X x$, then, taking $e := \ulcorner 1\cdot\urcorner \in \NN$, we have that $e \cdot n = n \ne \bot$ and $e \cdot n \Vdash_X 1_X(x) = x$.
         \item Given $f : X \to Y$ and $g : Y \to Z$ morphisms of assemblies, we fix two trackers $e_f$ and $e_g$ of $f$ and $g$. Now, given $n \Vdash_X x$, we have $e_f \cdot n \Vdash_Y f(x)$, and from this
-        \[ e_g \cdot (e_f \cdot n) \Vdash_Z g \circ f(x). \]
-        By taking $e := \ulcorner u_1(e_g,u_1(e_f,-)) \urcorner \in \NN$, we have that $e \cdot n \Vdash_Z g \circ f(x)$.
+        \[ e_g \cdot (e_f \cdot n) \Vdash_Z (g \circ f)(x). \]
+        By taking $e := \ulcorner u_1(e_g,u_1(e_f,-)) \urcorner \in \NN$, we have that $e \cdot n \Vdash_Z (g \circ f)(x)$.
         Moreover, since $e_f \cdot n \ne \bot$ and $e_g \cdot (e_f \cdot n) \ne \bot$, we have $e \cdot n \ne \bot$, so $e$ is a tracker of $g \circ f$, and therefore $g \circ f : X \to Z$ is a morphism of assemblies.
     \end{itemize}
-    To prove that $\mathsf{Asm}(\mathcal K_1)$ is cartesian closed, we need to prove: the existence of a terminal object, the existence of binary products, and the existence of exponentials.
+    To prove that $\mathsf{Asm}(\mathcal K_1)$ is cartesian closed, we need to prove the existence of a terminal object, the existence of binary products, and the existence of exponentials.
     \begin{itemize}
         \item The terminal object is $1 := (\{*\},\Vdash_1)$, where $n \Vdash_1 *$ for every $n \in \NN$. Indeed, given a morphism $f : X \to 1$,
         since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, the underlying function $|f| : |X| \to \{*\}$ is uniquely determined; moreover,
@@ -377,7 +377,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         where $\mathbin{\dot{-}}$ is the dot-minus operation, and $\{z = \texttt{cons}(i,j)\}$ represents the corresponding truth value of the equality inside, which can be written via a primitive recursive function, see \cite[\S\S~1.4.1--1.4.5, pp.~17--18]{KomaraRecursiveFunctions2011}.}.\]
         These are all primitive recursive functions, and we will denote $\texttt{cons}(n,m)$ as $\langle n,m \rangle$ for brevity. We define
         \[ \langle n,m \rangle \Vdash_{X \times Y} (x,y) \overset{\textnormal{def}}{\iff} n \Vdash_X x \;\text{and}\; m \Vdash_Y y. \]
-        The projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, and are morphisms of assemblies, since, for example:
+        The projections $\pi_X : X \times Y \to X$ and $\pi_Y : X \times Y \to Y$ are defined as the underlying functions $\pi_X(x,y) := x$ and $\pi_Y(x,y) := y$, and are morphisms of assemblies, since, for example,
         \[ \langle n, m \rangle \Vdash_{X \times Y} (x,y) \implies e \cdot \langle n, m \rangle \Vdash_X \pi_{X,Y}(x,y) = x, \]
         by taking $e := \ulcorner \texttt{car} \urcorner \in \NN$, and similarly for $\pi_{X,Y}'$.
         Given $f : Z \to X$ and $g : Z \to Y$, we define the morphism $\langle f,g \rangle : Z \to X \times Y$ as the underlying function $\langle f,g \rangle(z) := (f(z),g(z))$, that already is unique and makes the diagram commute.
@@ -399,13 +399,13 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         \[ m \Vdash_Y y \implies e \cdot m = e_f \cdot u_1(\ulcorner g \urcorner,n,m) = e_f \cdot \langle n,m \rangle \Vdash_Z f(x,y), \]
         and, since $e_f \cdot \langle n,m \rangle \ne \bot$, we have that $e$ is a tracker of $f^*$.\newline
         On the other hand, we define the map
-        \[ (-)^\sharp : \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y) \to \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) : g \mapsto \ev_{Y,Z} \circ \langle g \circ \pi_{X,Y},\pi_{Y,X}' \rangle, \]
-        where $\ev_{Y,Z} : Z^Y \times Y \to Z$ is the set-theoretic evaluation map $\ev_{Y,Z}(f,y) := f(y)$, and if we check that it is a morphism of assemblies, then $g^\sharp$ is a morphism of assemblies too, via composition and pairing - that we already know preserve morphisms of assemblies.\newline
-        Given $\langle n,m \rangle \Vdash_{X \times Y} (f,y)$, we need to find a tracker $e \in \NN$ such that $e \cdot \langle n,m \rangle \ne \bot$ and $e \cdot \langle n,m \rangle \Vdash_Z \ev_{Y,Z}(f,y) = f(y)$.
+        \[ (-)^\sharp : \Hom_{\mathsf{Asm}(\mathcal K_1)}(X,Z^Y) \to \Hom_{\mathsf{Asm}(\mathcal K_1)}(X \times Y,Z) : g \mapsto \ev_{Z,Y} \circ \langle g \circ \pi_{X,Y},\pi_{X,Y}' \rangle, \]
+        where $\ev_{Z,Y} : Z^Y \times Y \to Z$ is the set-theoretic evaluation map $\ev_{Z,Y}(f,y) := f(y)$, and if we check that it is a morphism of assemblies, then $g^\sharp$ is a morphism of assemblies too, via composition and pairing - that we already know preserve morphisms of assemblies.\newline
+        Given $\langle n,m \rangle \Vdash_{Z^Y \times Y} (f,y)$, we need to find a tracker $e \in \NN$ such that $e \cdot \langle n,m \rangle \ne \bot$ and $e \cdot \langle n,m \rangle \Vdash_Z \ev_{Z,Y}(f,y) = f(y)$.
         Since $f \in \Hom_{\mathsf{Asm}(\mathcal K_1)}(Y,Z)$, there exists a tracker $e_f \in \NN$ of $f$, such that $m \Vdash_Y y$ implies $e_f \cdot m \Vdash_Z f(y)$.
         If we take $e := \ulcorner u_1(e_f, u_1(\ulcorner \texttt{cdr} \urcorner, -)) \urcorner \in \NN$, then
         \[ e \cdot \langle n,m \rangle = e_f \cdot m \Vdash_Z f(y), \]
-        and since $e_f \cdot m \ne \bot$, we have that $e$ is a tracker of $\ev_{Y,Z}$.\newline
+        and since $e_f \cdot m \ne \bot$, we have that $e$ is a tracker of $\ev_{Z,Y}$.\newline
         Finally, since $\mathsf{Asm}(\mathcal K_1)$ is a concrete category, two morphisms of assemblies with the same underlying function are equal. Thus,
         since we know that the set-theoretic maps $(f^*)^\sharp$ and $f$ are equal, then they are equal as morphisms of assemblies, and similarly for $(g^\sharp)^*$ and $g$, so the two maps $(-)^*$ and $(-)^\sharp$ are inverse to each other.
     \end{itemize}
@@ -553,7 +553,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
     \[ q(x) := (f \circ y)[(\phi \circ \Delta_A \circ x)/y] \in B, \]
     with no free variables other than $x$. This term corresponds to the morphism
     \[ f \circ \phi \circ \Delta_A \circ x : 1 \to B \quad \text{in } \mathcal C[x]. \]
-    Applying the weak product point-surjectivity of $\phi$ to $f \circ \phi \circ \Delta_A : A \to B$, gives a closed term $p \in A$, such that
+    Applying the weak product point-surjectivity of $\phi$ to $f \circ \phi \circ \Delta_A : A \to B$ gives a closed term $p \in A$ such that
     \[ \phi \circ \langle p,a \rangle \underset{\varnothing}{=} q(x)[a/x] \]
     for every closed term $a \in A$. Taking $a=p$, we define the closed term
     \[ s := \phi \circ \langle p,p \rangle \underset{\varnothing}{=} q(x)[p/x] \in B. \]
@@ -576,12 +576,12 @@ We can also prove a generalization of Lawvere's fixed-point theorem, that holds 
     Therefore, applying the functor $\varepsilon_{\mathcal C}$ to the preceding arrow equation gives $f \circ s=s$ in $\mathcal C$, so $s$ is a fixed point of $f$.
 \end{proof}
 
-\section{Gödel's incompleteness and other classical results}
+\section{Gödel's incompleteness and other classical results}\label{sec:godel-incompleteness-and-other-classical-results}
 Using the stronger version of Lawvere's fixed-point theorem just proved, we can show how to obtain even more classical results.
 In the following we're going to continue the work started in \Cref{sec:many-fixed-points-one-proof}.
 
 \subsection*{Halting problem}
-Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are: $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
+Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
 
 \begin{remark}[$\mathsf{Rec_{tot}}$ is a cartesian category]
     One can actually check that $\mathsf{Rec_{tot}}$ is a cartesian category. The identity function is total recursive. The composition of total recursive functions is again total recursive,
@@ -592,7 +592,7 @@ Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, 
 \end{remark}
 
 \begin{definition}[$H_1$]
-    We call $H_1 := \{(e,x) \in \NN^2 : u_1(e,x) \ne \bot 0\}$ the \emph{halting set}.
+    We call $H_1 := \{(e,x) \in \NN^2 : u_1(e,x) \ne \bot\}$ the \emph{halting set}.
 \end{definition}
 
 \begin{theorem}[Halting problem]
@@ -601,12 +601,12 @@ Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, 
 
 \begin{proof}
     Let's assume, by contradiction, that $H_1$ is decidable, so the following function
-    \[ f : \NN^2 \to \NN_\bot : (\alpha,x) \mapsto \begin{cases}
+    \[ f : \NN^2 \to \NN : (\alpha,x) \mapsto \begin{cases}
         u_1(\alpha,x) &\text{if $(\alpha,x) \in H_1$} \\
         0 &\text{otherwise}
     \end{cases} \]
     is total recursive - since it can be expressed in terms of the function that decides $H_1$ and elementary arithmetic operations.
-    We can see that, given a total recursive function $g : \NN \to \NN_\bot$, we have
+    We can see that, given a total recursive function $g : \NN \to \NN$, we have
     \[ f(\ulcorner g \urcorner,-) = u_1(\ulcorner g \urcorner,-) = g(-), \]
     where $\ulcorner g \urcorner$ is an index of $g$.
     Therefore, by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $\NN \to \NN$ has a fixed point,
@@ -654,7 +654,7 @@ Equivalently, we can prove that the decidable sets are not uniformly enumerable.
 
 \begin{proof}
     Assume such a sequence exists, witnessed by $G:\NN^2\to\NN$, and define the total recursive function
-    \[ F : \NN^2 \to 2 : (n,x) \mapsto \mathbf 1_{\{G(n,x)=0\}}(n,x). \]
+    \[ F : \NN^2 \to 2 : (n,x) \mapsto \mathbf 1_{\{G(n,x)\ne 0\}}(n,x). \]
     Then, given $f : \NN \to 2$ total recursive, let $A_f := \{x \in \NN : f(x) = 0\}$; this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{G(n_f,x) = 0\}$.
     Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus; hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point. But this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
 \end{proof}
@@ -824,7 +824,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
     Given any $a=[t]:1\to A$, where $t$ is a closed $L_{\textnormal{arit}}$-term, we have
     \[ [\mathsf{Sat}_T(y,x)]\circ\langle a_\varphi,a\rangle = [\mathsf{Sat}_T(y,x)] \circ \langle[\overline{\ulcorner \varphi \urcorner}], [t]\rangle = [\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)]. \]
     By definability of satisfaction, we have
-    \[ T\vdash\varphi[t/x]\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t), \]
+    \[ T\vdash\varphi[t/x]\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t). \]
     Therefore,
     \[ [\mathsf{Sat}_T(y,x)]\circ\langle a_\varphi,a\rangle = [\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)] = [\varphi[t/x]] = g\circ a. \]
     So, the morphism $[\mathsf{Sat}_T(y,x)] : A\times A \to 2$ is weakly product point-surjective, and we can apply Lawvere's fixed-point theorem in the cartesian form to obtain that every endomorphism
@@ -1075,7 +1075,7 @@ The barber, Grelling's, liar, and strong liar paradoxes all use the diagonal ste
 Let $t : Y\to Y$ have no fixed points. The diagonal map
 \[ d(a) := t(\phi(a,a)) \]
 cannot be represented by $\phi$: if $d = \phi(p,-)$ for some $p\in A$, then $\phi(p,p) = t(\phi(p,p))$. Thus $\phi$ cannot be weakly product point-surjective, and the alleged barber, heterological adjective, or liar sentence is precisely such a representative of $d$,
-that therefore cannot exist. So the paradoxes are resolved by the fact that the auto-referential objects stated in the paradoxes cannot exist, otherwise they would provide fixed points for the respective $t$ in the way just described.
+that therefore cannot exist. So the paradoxes are resolved by the fact that the auto-referential objects stated in the paradoxes cannot exist; otherwise, they would provide fixed points for the respective $t$ in the way just described.
 \begin{center}
     \small
     \begin{tabular}{c|c|c|c}

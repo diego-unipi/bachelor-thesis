@@ -1,5 +1,11 @@
 \chapter{Preliminaries}
+In this chapter we see how categories, and more broadly speaking graphs, can be used to represent deductive systems, where the objects represent propositions and the arrows represent proofs, at various levels (conjunction calculi, positive intuitionistic propositional calculi, etc.).
+We define the notion of polynomial category, which we use to depict the idea of a proof under an assumption. Finally, we show that every arrow
+in a polynomial category can be represented by a unique arrow in the original category, which is the categorical counterpart of the classical deduction theorem in logic.
+
 \section{Categories as deductive systems}
+The view that deductive systems can be seen as graphs with additional structure, or categories with additional equations, has been proposed by Lambek in \cite{Lambek1968,Lambek1969,Lambek1972} and Fred Szabo in \cite{Szabo1974b,Szabo1978}.
+
 Following \cite{LambekScott1994}, we will define a category as a particular kind of graph, but first we'll construct a series of structures that will provide us
 with a working intuitionistic deductive system made entirely of objects and arrows.
 
@@ -24,7 +30,7 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{definition}
 
 \begin{notation}
-    For brevity, we will often write the composition $g \circ f$ of two arrows $f$ and $g$ as $gf$. Following a familiar logical notation, we will also denote the composition as:
+    For brevity, we will often write the composition $g \circ f$ of two arrows $f$ and $g$ as $gf$. Following a familiar logical notation, we will also denote the composition as
     \[ \frac{A \xrightarrow{f} B \quad B \xrightarrow{g} C}{A \xrightarrow{gf} C}. \]
 \end{notation}
 
@@ -38,7 +44,7 @@ The objects of a deductive system can be thought of as \emph{propositions}, the 
         \item[(\textnormal{Conj 1})] for each object $A$ there exists an arrow $!_A : A \to \top$;
         \item[(\textnormal{Conj 2a})] for each pair of objects $A,B$ there exists an arrow $\pi_{A,B} : A \wedge B \to A$;
         \item[(\textnormal{Conj 2b})] for each pair of objects $A,B$ there exists an arrow $\pi_{A,B}' : A \wedge B \to B$;
-        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f, g \rangle : A \to B \wedge C$, the \emph{pairing arrow}, which can also be written as:
+        \item[(\textnormal{Conj 2c})] for each pair of arrows $f : A \to B$ and $g : A \to C$ there exists an arrow $\langle f, g \rangle : A \to B \wedge C$, the \emph{pairing arrow}, which can also be written as
         \[ \frac{A \xrightarrow{f} B \quad A \xrightarrow{g} C}{A \xrightarrow{\langle f, g \rangle} B \wedge C}.
         \]
     \end{itemize}
@@ -62,7 +68,7 @@ Continuing this analogy, one could think of (Conj 2a) and (Conj 2b) as the \emph
 
 \begin{remark}
     Using the rules of a conjunction calculus, we can also define new rules of inference, or rather new operations on arrows, using the existing ones (for now only the composition and the pairing).
-    For instance, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ by:
+    For instance, given two arrows $f : A \to B$ and $g : C \to D$, we can define the arrow $f \wedge g : A \wedge C \to B \wedge D$ by
     \[ \frac{\frac{A \wedge C \xrightarrow{\pi_{A,C}} A \quad A \xrightarrow{f} B}{A \wedge C \xrightarrow{f\pi_{A,C}} B} \quad \frac{A \wedge C \xrightarrow{\pi_{A,C}'} C \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{g\pi_{A,C}'} D}}{A \wedge C \xrightarrow{\langle f\pi_{A,C},g\pi_{A,C}'\rangle} B \wedge D}, \]
     and then we put $f \wedge g := \langle f\pi_{A,C},g\pi_{A,C}'\rangle$. Thus, from now on, we will simply write:
     \[ \frac{A \xrightarrow{f} B \quad C \xrightarrow{g} D}{A \wedge C \xrightarrow{f \wedge g} B \wedge D}. \]
@@ -154,6 +160,10 @@ can be used to represent a complete deductive system for classical and intuition
 
 \section{Cartesian closed categories}
 Now that we have defined enough structure to represent a complete deductive system, we want to impose some rules on the arrows of a category to obtain a structure that is more suitable for our purposes, that is a cartesian closed structure.
+
+Cartesian closed categories, presented equationally, first appeared in \cite{Lambek1968,Lambek1969,Lambek1972}, who regarded them as certain deductive systems, with an equivalence relation between proofs.
+Independently, Prawitz \cite{Prawitz1971} also introduced an equivalent relation between proofs, which was later shown, Mann \cite{Mann1975} and Seely \cite{Seely1977}, to be equivalent to Lambek's.
+
 
 \begin{definition}[Category]
     A \emph{category} is a deductive system $\mathcal C$ where the following equations hold:
@@ -325,15 +335,17 @@ Let's now state two results that will be useful in the next sections.
                                      &= (\ev_{B,A} \circ \langle g \circ !_A \circ \pi_{1,A}', 1_A \circ \pi_{1,A}'\rangle)^* &&(\textnormal{by distributivity law}) \\
                                      &= (\ev_{B,A} \circ \langle g \circ \pi_{1,A}, 1_A \circ \pi_{1,A}'\rangle)^* &&(\textnormal{by $\spadesuit$}) \\
                                      &= (\ev_{B,A} \circ (g \times 1_A))^* &&(\textnormal{by the definition of $\times$}) \\
-                                     &= g &&(\textnormal{by CCC2}),
+                                     &= g &&(\textnormal{by CCC2}).
     \end{align*}
     In the step marked by $\spadesuit$, we used the fact that $!_A \circ \pi_{1,A}' : 1 \times A \to 1$. Since $1$ is the terminal object, (CC1) gives $!_A \circ \pi_{1,A}' = !_{1 \times A} = \pi_{1,A}$.
 \end{proof}
 
 
 \section{Polynomial categories}
-Now that we have defined the structure of a cartesian closed category, we want a way to construct a new category, from an existing one, adding a new arrow.
-In order to do this, we first need to give a precise definition of a cartesian closed category generated by a graph.
+We want a way to construct a new category, from an existing one, adding a new arrow, that is to construct a polynomial category over a given category.
+The usual construction of polynomial algebras in an indeterminate $x$ will be our inspiration here. The construction we will see was first formulated by Lambek in \cite{Lambek1972,Lambek1974,Lambek1980a,Lambek1980}.
+
+In order to obtain polynomial categories, we first need to give a precise definition of a cartesian closed category generated by a graph.
 
 We proceed in two steps: first, we define the positive intuitionistic propositional calculus generated by a graph; then, we define the cartesian closed category generated by a positive intuitionistic propositional calculus.
 
@@ -443,13 +455,13 @@ We can now state the universal property of the cartesian closed category freely 
     We need to define uniquely a cartesian closed functor $\overline F : \mathcal F(\mathcal G) \to \mathcal C$. The objects of $\mathcal F(\mathcal G)$ coincide with the objects of the positive intuitionistic calculus $\mathcal P(\mathcal G)$ and, using categorical notation, are generated by the objects of $\mathcal G$ through the grammar:
     \[ A,B ::= 1 \mid X \mid A \times B \mid A^B, \]
     where $X \in \ob(\mathcal G)$. Since we want $\mathcal U(\overline F) \circ H_\mathcal G = F$, for every $X \in \ob(\mathcal G)$, we must have
-    \[ F(X) = \mathcal U(\overline F)\circ (H_\mathcal G)(X) = \mathcal U(\overline F)(X)  \qquad (\textnormal{by definition of $H_{\mathcal G}$}).\]
+    \[ F(X) = (\mathcal U(\overline F)\circ H_\mathcal G)(X) = \mathcal U(\overline F)(X)  \qquad (\textnormal{by definition of $H_{\mathcal G}$}).\]
     Since $\mathcal U(\overline F)$ coincides with $\overline F$ on objects, we have $\overline F(X) = F(X)$ for every $X \in \ob(\mathcal G)$.
     This definition of $\overline F$ can be recursively extended to the objects of $\mathcal P(\mathcal G)$ by imposing the cartesian closed structure; therefore, $\overline F$ is uniquely defined on the objects of $\mathcal F(\mathcal G)$\footnote{To be completely rigorous, we should invoke the principles of recursion on the grammar, to define $\overline F$, and induction on the grammar, to prove its uniqueness.}.\par
     By the same reasoning, since the arrows of $\mathcal P(\mathcal G)$ are generated by the following grammar, we can recursively define $\overline F$ on them so that it preserves the cartesian closed structure:
     \[ f,g ::= h \mid 1_A \mid !_A \mid f \circ g \mid \pi_{A,B} \mid \pi_{A,B}' \mid \langle f, g \rangle \mid f^* \mid \ev_{A,B},\]
-    where $h \in \mor(\mathcal G)$, $A$ and $B$ are objects of $\mathcal F(\mathcal G)$, and $f, g \in \mor(\mathcal F(\mathcal G))$.\par
-    We can then extend, by checking its compatibility with the equivalence relation, the definition of $\mathcal F(\mathcal G)$ to the arrows of $\mathcal P(\mathcal G)$. Doing this, we get a uniquely well-defined map on the arrows too.\\
+    where $h \in \mor(\mathcal G)$, $A$ and $B$ are objects of $\mathcal F(\mathcal G)$, and $f, g \in \mor(\mathcal P(\mathcal G))$.\par
+    We can then extend, by checking its compatibility with the equivalence relation, the definition of $\overline F$ to the arrows of $\mathcal F(\mathcal G)$. Doing this, we get a uniquely well-defined map on the arrows too.\\
     We can prove that the relation of having the same image under $\overline F$ is an equivalence relation compatible with all the mentioned operations and containing the axioms. Hence, it contains the equivalence relation used to define $\mathcal F(\mathcal G)$. It follows that $[f] = [g]$ implies $\overline F(f) = \overline F(g)$.\\
     We just need to prove that $\sim_{\overline F}$, where $f \sim_{\overline F} g$ if and only if $\overline F(f) = \overline F(g)$ and $f,g \in \Hom(A,B)$ for some $A$ and $B$, has all the properties listed above:
     \begin{itemize}
@@ -627,7 +639,7 @@ Let's see an important consequence of this universal property.
 \end{proof}
 
 \begin{notation}
-    $S[a/x]$ can regarded as the process of \emph{substituting} the arrow $a$ for the indeterminate arrow $x$; therefore, we will use the notation:
+    $S[a/x]$ can be regarded as the process of \emph{substituting} the arrow $a$ for the indeterminate arrow $x$; therefore, we will use the notation:
     \[ S(a/x)(\varphi(x)) = \varphi(a). \]
 \end{notation}
 
@@ -639,8 +651,10 @@ Let's see an important consequence of this universal property.
 The aim of this section is to provide a normal form for the arrows of the polynomial category $\mathcal C[x]$ of a cartesian closed category $\mathcal C$.
 Such a normal form should be unique and is based on the same idea as the normal form of polynomials in $R[x]$, that is, for a commutative unital ring $R$,
 every polynomial can be uniquely expressed in the form $a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$, with $a_i \in R$, $n \in \NN$.\par
-We'll try to do something similar for the arrows of $\mathcal C[x]$ and obtain \emph{Lambek's normal form}. In order to do this, we first need to introduce a couple
-of results, each a stronger version of the previous one. These results go under the name of \emph{deduction theorems} or, more broadly, \emph{functional completeness} theorems.
+We'll try to do something similar for the arrows of $\mathcal C[x]$ and obtain \emph{Lambek's normal form}.
+The functional completeness of cartesian closed categories was proved by Lambek in \cite{Lambek1972}, with extra assumptions w.r.t. to the ones we have here, and then without them in \cite{Lambek1974}.
+
+In order to prove the functional completeness, we first need to introduce a couple of results, each a stronger version of the previous one. These results go under the name of \emph{deduction theorems} or, more broadly, \emph{functional completeness} theorems.
 
 \begin{theorem}[Deduction theorem for positive intuitionistic calculi]
     Given a positive intuitionistic propositional calculus $\mathcal P$, an object $A$ of $\mathcal P$ and an indeterminate arrow $x : \top \to A$,
@@ -655,7 +669,7 @@ By $\mathcal P\langle x\rangle$ we mean the formal polynomial positive intuition
     $\mathcal P\langle x\rangle$ the \emph{formal polynomial positive intuitionistic calculus over $\mathcal P$}. Its objects, tautological object, conjunction and implication are those of
     $\mathcal P$, while its arrows are generated by the grammar
     \[ \varphi,\psi ::= h \mid x \mid \psi \circ \varphi \mid \langle \varphi,\psi\rangle \mid \varphi^*, \]
-    where $h \in \mor(\mathcal P)$ and $A \in \ob(\mathcal P)$. In particular, the identity, terminal, projection and evaluation arrows $1_B$, $!_B$, $\pi_{B,C}$, $\pi_{B,C}'$ and $\textnormal{ev}_{B,C}$ of $\mathcal P$ are the same as those of $\mathcal P\langle x \rangle$, since they are included in the $h$ above.
+    where $h \in \mor(\mathcal P)$ and $A \in \ob(\mathcal P)$. In particular, the identity, terminal, projection and evaluation arrows $1_B$, $!_B$, $\pi_{B,C}$, $\pi_{B,C}'$ and $\ev_{B,C}$ of $\mathcal P$ are the same as those of $\mathcal P\langle x \rangle$, since they are included in the $h$ above.
     We do not impose any equivalence relation, so, for example, if $g \circ f = h$ in $\mathcal P$, then the term $h$ and the formal composition $g \circ f$ are distinct arrows of $\mathcal P\langle x\rangle$.
 \end{definition}
 
@@ -703,13 +717,9 @@ We now give a constructive proof of the deduction theorem stated above.
     The subscript $x \in A$ indicates that $x$ is of \emph{type} $A$, i.e.,\ $x : \top \to A$.
 \end{notation}
 
-\begin{remark}[Classical deduction theorem]
-    [PLACEHOLDER]
-\end{remark}
-
 \begin{theorem}[Functional completeness]\label{thm:functional-completeness}
     Given a cartesian closed category $\mathcal C$, an object $A$ of $\mathcal C$ and an indeterminate arrow $x : 1 \to A$, for every arrow $\varphi(x) : B \to C$ of $\mathcal C[x]$
-    there is a unique arrow $f : A \times B \to C$ in $\mathcal C$ such that:
+    there is a unique arrow $f : A \times B \to C$ in $\mathcal C$ such that
     \[ f \circ \langle x \circ !_B, 1_B\rangle \underset{x}{=} \varphi(x). \]
 \end{theorem}
 
@@ -721,12 +731,12 @@ We now give a constructive proof of the deduction theorem stated above.
         and we check that it is compatible with composition, pairing and currying, contains the category, cartesian and cartesian closed axioms, and satisfies the extension properties listed in the definition of $\underset{x}{=}$. We omit the details.
         \item[$\boxed{\begin{array}{c}\kappa_{x \in A}\varphi(x)\\\textnormal{works}\end{array}}$] Let's check by induction on the length of $\varphi(x)$ that $f = \kappa_{x \in A}\varphi(x)$ satisfies the equality:
         \begin{itemize}
-            \item if $\varphi(x) = g$, where $g : B \to C$, then $\kappa_{x \in A}g = g \circ \pi_{A,B}'$ and:
+            \item if $\varphi(x) = g$, where $g : B \to C$, then $\kappa_{x \in A}g = g \circ \pi_{A,B}'$ and
             \begin{align*}
                 \kappa_{x \in A}g \circ \langle x \circ !_B, 1_B\rangle &\underset{x}{=} (g \circ \pi_{A,B}') \circ \langle x \circ !_B, 1_B\rangle \\
                                                                         &\underset{x}{=} g \circ 1_B \underset{x}{=} g;
             \end{align*}
-            \item if $\varphi(x) = x$, then $\kappa_{x \in A}x = \pi_{A,1}$ and:
+            \item if $\varphi(x) = x$, then $\kappa_{x \in A}x = \pi_{A,1}$ and
             \begin{align*}
                 \kappa_{x \in A}x \circ \langle x \circ !_1, 1_1\rangle &\underset{x}{=} \pi_{A,1} \circ \langle x \circ !_1, 1_1\rangle \\
                                                                         &\underset{x}{=} x \circ !_1 \underset{x}{=} x;
@@ -782,8 +792,7 @@ We now give a constructive proof of the deduction theorem stated above.
         f &\underset{x}{=} f \circ 1_B \\
           &\underset{x}{=} (f \circ \pi_{\varnothing,B}') \circ s \\
           &\underset{x}{=} (g \circ \pi_{\varnothing,B}') \circ s \\
-          &\underset{x}{=} g \circ 1_B \\
-          &\underset{x}{=} g.
+          &\underset{x}{=} g \circ 1_B \underset{x}{=} g.
     \end{align*}
     Hence the canonical functor $\iota_x : \mathsf{Set} \to \mathsf{Set}[x]$ identifies all parallel arrows of $\mathsf{Set}$ and is not faithful.
     [DA RIVEDERE, MAGARI SPLITTARE IN DUE ESEMPI]
@@ -792,11 +801,11 @@ We now give a constructive proof of the deduction theorem stated above.
     The last set has exactly one element, so there is exactly one arrow between any two objects of $\mathsf{Set}[x]$. Thus all its objects are isomorphic and $\mathsf{Set}[x]$ is equivalent to the terminal category. Logically, adjoining $x : 1 \to \varnothing$ amounts to assuming a proof of falsehood, so this collapse is the categorical counterpart of the principle of explosion.
 \end{example}
 
-\begin{corollary}[Lambek's normal form]\label{cor:lambeks-normal-form}
-    Given a cartesian closed category $\mathcal C$ and an indeterminate arrow $x : 1 \to A$, for every polynomial arrow $\varphi(x) : 1 \to C$ there is a unique arrow $f : A \to C$ in $\mathcal C$ such that:
+\begin{corollary}[Lambek's normal form, {\cite[Part~I, Corollary~6.2]{LambekScott1994}}]\label{cor:lambeks-normal-form}
+    Given a cartesian closed category $\mathcal C$ and an indeterminate arrow $x : 1 \to A$, for every polynomial arrow $\varphi(x) : 1 \to C$ there is a unique arrow $f : A \to C$ in $\mathcal C$ such that
     \[ f \circ x \underset{x}{=} \varphi(x). \]
     Equivalently, $\Hom_{\mathcal C[x]}(1,C) \cong \Hom_{\mathcal C}(A,C)$.
-    Moreover, there's a unique $h : 1 \to C^A$ such that $\textnormal{ev}_{C,A} \circ \langle h,x \rangle \underset{x}{=} \varphi(x)$. Equivalently, $\Hom_{\mathcal C[x]}(1,C) \cong \Hom_{\mathcal C}(1,C^A)$.
+    Moreover, there's a unique $h : 1 \to C^A$ such that $\ev_{C,A} \circ \langle h,x \rangle \underset{x}{=} \varphi(x)$. Equivalently, $\Hom_{\mathcal C[x]}(1,C) \cong \Hom_{\mathcal C}(1,C^A)$.
 \end{corollary}
 
 The idea behind the corollary is that, ultimately, in both $\mathcal C$ and $\mathcal C[x]$, every arrow can be identified with an arrow from $1$.
