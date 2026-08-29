@@ -112,7 +112,7 @@ Before moving on, let's also define two more rules of inference which follow fro
 \begin{example}
     Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ (often called \emph{Lawvere's name} of $f$) as
     \[ \frac{A \xrightarrow{f} B}{\top \xrightarrow{\ulcorner f \urcorner} B \Leftarrow A}, \]
-    that is just $\ulcorner f \urcorner := (f \circ \pi_{\top,A}')^*$. Similarly, given $g : \top \to B \Leftarrow A$, we can define
+    which is just $\ulcorner f \urcorner := (f \circ \pi_{\top,A}')^*$. Similarly, given $g : \top \to B \Leftarrow A$, we can define
     \[ \frac{\top \xrightarrow{g} B \Leftarrow A}{A \xrightarrow{g^\sharp} B} \]
     with $g^\sharp := \ev_{B,A} \circ \langle g \circ !_A,1_A\rangle$.
 \end{example}
@@ -161,8 +161,8 @@ can be used to represent a complete deductive system for classical and intuition
 \section{Cartesian closed categories}
 Now that we have defined enough structure to represent a complete deductive system, we want to impose some rules on the arrows of a category to obtain a structure that is more suitable for our purposes, that is a cartesian closed structure.
 
-Cartesian closed categories, presented equationally, first appeared in \cite{Lambek1968,Lambek1969,Lambek1972}, who regarded them as certain deductive systems, with an equivalence relation between proofs.
-Independently, Prawitz \cite{Prawitz1971} also introduced an equivalent relation between proofs, which was later shown, Mann \cite{Mann1975} and Seely \cite{Seely1977}, to be equivalent to Lambek's.
+Cartesian closed categories, presented equationally, first appeared in work by Lambek \cite{Lambek1968,Lambek1969,Lambek1972}, who regarded them as certain deductive systems, with an equivalence relation between proofs.
+Independently, Prawitz \cite{Prawitz1971} also introduced an equivalence relation between proofs, which was later shown by Mann \cite{Mann1975} and Seely \cite{Seely1977} to be equivalent to Lambek's.
 
 
 \begin{definition}[Category]
@@ -639,12 +639,12 @@ Let's see an important consequence of this universal property.
 \end{corollary}
 
 \begin{proof}
-    This follows applying the universal property with $F = 1_\mathcal C$.
+    This follows by applying the universal property with $F = 1_\mathcal C$.
 \end{proof}
 
 \begin{notation}
     $S[a/x]$ can be regarded as the process of \emph{substituting} the arrow $a$ for the indeterminate arrow $x$; therefore, we will use the notation:
-    \[ S(a/x)(\varphi(x)) = \varphi(a). \]
+    \[ S[a/x](\varphi(x)) = \varphi(a). \]
 \end{notation}
 
 \begin{remark}[Faithfulness of the canonical functor]
@@ -656,7 +656,7 @@ The aim of this section is to provide a normal form for the arrows of the polyno
 Such a normal form should be unique and is based on the same idea as the normal form of polynomials in $R[x]$, that is, for a commutative unital ring $R$,
 every polynomial can be uniquely expressed in the form $a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0$, with $a_i \in R$, $n \in \NN$.\par
 We'll try to do something similar for the arrows of $\mathcal C[x]$ and obtain \emph{Lambek's normal form}.
-The functional completeness of cartesian closed categories was proved by Lambek in \cite{Lambek1972}, with extra assumptions w.r.t. to the ones we have here, and then without them in \cite{Lambek1974}.
+The functional completeness of cartesian closed categories was proved by Lambek in \cite{Lambek1972}, with extra assumptions w.r.t. the ones we have here, and then without them in \cite{Lambek1974}.
 
 In order to prove the functional completeness, we first need to introduce a couple of results, each a stronger version of the previous one. These results go under the name of \emph{deduction theorems} or, more broadly, \emph{functional completeness} theorems.
 

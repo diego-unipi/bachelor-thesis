@@ -13,10 +13,10 @@ In 1903, Russell published his contradiction concerning classes and described it
 In 1931, Gödel proved his first incompleteness theorem and explicitly compared its construction with Richard's 1905 antinomy and the liar paradox \parencite{Godel1931}. In 1933, Tarski published his analysis of truth in formalized languages \parencite{Tarski1933}.
 Finally, in 1936, Turing submitted the paper, published in 1937, whose eighth section was entitled ``Application of the diagonal process'' and established the relevant undecidability results \parencite{Turing1937}.
 
-By 1937, these results displayed a clear family resemblance, so there was only natural that some mathematicians would try to isolate the common structure
+By 1937, these results displayed a clear family resemblance, so it was only natural that some mathematicians would try to isolate the common structure
 both in the general cases of fixed-point theorems and in the specific diagonal arguments. Early examples include
 Tarski's 1955 lattice-theoretical theorem that tries to unify fixed-point results for monotone maps on complete lattices,\parencite{Tarski1955},
-and Carnap's generalized Gödel's construction to arbitrary formulas, in 1934, anticipating the fixed-point formulation of syntactic diagonalization \parencite{Carnap1934}.
+and Carnap's generalization of Gödel's construction to arbitrary formulas, in 1934, anticipating the fixed-point formulation of syntactic diagonalization \parencite{Carnap1934}.
 
 \subsection*{Lawvere's idea}
 
@@ -33,12 +33,12 @@ as a substitute for science. Now, one hundred years after Gödel's birth, the or
 \end{flushright}
 
 The breakthrough came from Lawvere. Following the ideas developed from lectures delivered in Chicago in May 1967 and the resulting paper, Lawvere presented his theorem at the 1968 Battelle conference in Seattle, later published in 1969 \parencite[Author Commentary, p.~1]{Lawvere2006}.
-In this article he traced back similarities into a precise fixed-point theorem in cartesian closed categories, treating Cantor's theorem and Russell's paradox and deriving
+In this article he distilled these similarities into a precise fixed-point theorem in cartesian closed categories, treating Cantor's theorem and Russell's paradox and deriving
 Tarski's undefinability theorem and Gödel incompleteness under some representability assumptions \parencite[\S\S~1--3]{Lawvere1969}.
 Finally Yanofsky broadened this unifying presentation to self-reference and computability in 2003, \parencite{Yanofsky2003}.
 
 In this exposition, we are going to prove the original version of Lawvere's theorem, a variant, and a generalization of it. After that, we will make a survey of the diagonal results and fixed-point theorems that can be derived from it,
-culminating with Gödel's incompleteness theorem and to Brouwer's fixed-point theorem, due to McCallum \parencite{McCallum2020}.
+culminating in Gödel's incompleteness theorem and in McCallum's derivation of Brouwer's fixed-point theorem \parencite{McCallum2020}.
 
 The proof of Lawvere's theorem and its variant will be carried out using the internal language of cartesian closed categories and the Curry--Howard--Lambek correspondence.
 Such categories will be constructed in the first chapter of this thesis; their internal language, as typed $\lambda$-calculus, and the Curry--Howard--Lambek correspondence will be
@@ -48,7 +48,7 @@ There's also a technical appendix at the end, where we discuss the metatheory \t
 
 \subsection*{Why Curry--Howard--Lambek?}
 By Curry--Howard--Lambek, we refer to the equivalence of categories between the category of cartesian closed categories and the category of typed $\lambda$-calculi, proved by Joachim Lambek.
-The history of this correspondence is itself a convergence of different lines. The syntactic line began with Schöonfinkel's combinatory logic in 1924 and Curry's work from 1930 onward.
+The history of this correspondence is itself a convergence of different lines. The syntactic line began with Schönfinkel's combinatory logic in 1924 and Curry's work from 1930 onward.
 In 1934, Curry observed the formal parallel between the \enquote{functionalities} of combinators and implicational axiom schemes \parencite{Curry1934}.
 In 1958, Curry and Feys made the correspondence explicit for typed combinatory logic and intuitionistic implicational logic \parencite[Part~I, pp.~41--45]{LambekScott1994}.
 In notes privately circulated in 1969 and published in 1980, Howard formalized the correspondence between natural-deduction proofs and typed $\lambda$-terms, giving the modern correspondence, often referred to as \enquote{propositions-as-types and proofs-as-terms}, \parencite{Howard1980}\parencite[Part~I, p.~45]{LambekScott1994}.
@@ -56,14 +56,14 @@ In notes privately circulated in 1969 and published in 1980, Howard formalized t
 The categorical line developed in parallel. Lambek's papers of 1968, 1969, and 1972 treated deductive systems categorically. His 1974 functional-completeness result and his 1980 essay made the passage from typed $\lambda$-calculi to cartesian closed categories systematic \parencite[Part~I, pp.~114--117]{LambekScott1994} \parencite{Lambek1980}.
 The resulting equivalence between appropriate categories of typed calculi and cartesian closed categories was stated with Scott in the 1986 first edition of their monograph, \parencite[Part~I, Thm.~11.3, pp.~79--80]{LambekScott1994}.
 
-These two lines add up in what Robert Harper popularized, in 2011, under the name \emph{computational trinitarianism}. That is the view that the same compositional structure has three readings \parencite{Harper2011}:
+These two lines come together in what Robert Harper popularized, in 2011, under the name \emph{computational trinitarianism}. That is the view that the same compositional structure has three readings \parencite{Harper2011}:
 \[\begin{array}{c@{\;\longleftrightarrow\;}c@{\;\longleftrightarrow\;}c}  \text{intuitionistic logic} & \text{typed }\lambda\text{-calculus} & \text{cartesian closed categories} \\
                                                                           \text{propositions} & \text{types} & \text{objects} \\
                                                                           \text{proofs} & \text{terms or programs} & \text{morphisms} \end{array}.\]
-This slogan has no definitive formalization, but opens a perspective that has been developed from Lambek himself, \parencite[Part II]{LambekScott1994}, and later evolved into more general correspondences. See \parencite{nLabComputationalTrilogy2026}\parencite{Shulman2018}.
+This slogan has no definitive formalization, but opens a perspective that has been developed by Lambek himself, \parencite[Part II]{LambekScott1994}, and later evolved into more general correspondences. See \parencite{nLabComputationalTrilogy2026}\parencite{Shulman2018}.
 
-We write the proof of the two versions of Lawvere's theorem using the right-hand side of the correspondence above.
-Even though both proofs could be written entirely in the arrow language of cartesian or cartesian closed categories, instead, we pass to the internal typed calculus, perform the diagonal step as substitution, and translate the resulting equality back to the category.\newline
+We write the proof of the two versions of Lawvere's theorem using the middle part of the correspondence above.
+Although both proofs could be written entirely in the arrow language of cartesian or cartesian closed categories, we instead pass to the internal typed calculus, perform the diagonal step as substitution, and translate the resulting equality back to the category.\newline
 This adds no new hypothesis, but makes the source of the fixed point visible. In the internal language, a typed $\lambda$-calculus, the three steps are ordinary term-forming operations: a variable can be duplicated to form the diagonal expression, $\lambda$-abstraction turns that
 expression into a represented map, and then substitution feeds the resulting representative back into the same expression.
 
@@ -84,5 +84,5 @@ We will see plenty of concrete examples of this scheme later in the exposition, 
 is essentially the one above, even in the case of Brouwer's theorem, with the appropriate technicalities.
 
 Finally, it's worth mentioning, even though we won't say anything else about it in this thesis, that in
-a distinct and more rich categorical setting it is possible to obtain also Banach's contraction theorem from a generalized form of Lawvere's theorem.
+a distinct and richer categorical setting it is possible to obtain also Banach's contraction theorem from a generalized form of Lawvere's theorem.
 This is a very recent result of Benkhadra and Stubbe in 2023; see \parencite{BenkhadraStubbe2023}.

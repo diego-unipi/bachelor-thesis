@@ -181,7 +181,7 @@ Let's see that if a cartesian closed category has a NNO/WNNO, then a polynomial 
                                 &= f \circ \langle \pi_{N,A}', h \circ \sigma_{N,A} \rangle \\
                                 &= f \circ \langle \pi_{A,N}, h \rangle \circ \sigma_{N,A};
     \end{align*}
-    therefore, by taking $f' := \Phi(q)$, uniquely determined by $f$, we finally have that the second equation in the form $h' \circ s = f' \circ h'$. We now want the following equations to hold in $\mathcal{C}$:
+    therefore, by taking $f' := \Phi(q)$, uniquely determined by $f$, we finally obtain the second equation in the form $h' \circ s = f' \circ h'$. We now want the following equations to hold in $\mathcal{C}$:
     \[ h' \circ 0 = b' \qquad\text{and}\qquad h' \circ s = f' \circ h'. \]
     These equations correspond to the commutativity of the diagram:
     % https://q.uiver.app/#q=WzAsNixbMCwwLCIxIl0sWzEsMCwiTiJdLFsyLDAsIk4iXSxbMSwxLCJCXkEiXSxbMiwxLCJCXkEiXSxbMCwxLCIxIl0sWzAsMSwiMCJdLFsxLDIsInMiXSxbNSwzLCJiJyIsMl0sWzAsNSwiIiwxLHsib2Zmc2V0IjoxLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsNSwiIiwxLHsib2Zmc2V0IjotMSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFszLDQsImYnIiwyXSxbMSwzLCJoJyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDQsImgnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
@@ -217,7 +217,7 @@ Now that we have the proposition above, we can define, for each object, an arrow
     Let $(N,0,s)$ be a WNNO in $\mathcal{C}$, $B$ an object of $\mathcal{C}$ and $x : 1 \to B \times B^B$ an indeterminate arrow.
     By the preceding proposition, $(N,0,s)$ is also a WNNO in $\mathcal{C}[x]$. In this category, let
     \[ y(x) := \pi_{B,B^B} \circ x : 1 \to B \qquad\text{and}\qquad v(x) := \pi_{B,B^B}' \circ x : 1 \to B^B. \]
-    Since $v(x)^\sharp : B \to B$, we can choose an arrow $\chi_B(x) : N \to B$ in $\mathcal{C}[x]$ such the following diagram commutes
+    Since $v(x)^\sharp : B \to B$, we can choose an arrow $\chi_B(x) : N \to B$ in $\mathcal{C}[x]$ such that the following diagram commutes
     % https://q.uiver.app/#q=WzAsNixbMCwwLCIxIl0sWzEsMCwiTiJdLFsyLDAsIk4iXSxbMSwxLCJCIl0sWzIsMSwiQiJdLFswLDEsIjEiXSxbMCwxLCIwIl0sWzEsMiwicyJdLFszLDQsInYoeCleXFxzaGFycCIsMl0sWzAsNSwiIiwyLHsib2Zmc2V0IjoxLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzAsNSwiIiwyLHsib2Zmc2V0IjotMSwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs1LDMsInkoeCkiLDJdLFsxLDMsIlxcY2hpX0IoeCkiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiw0LCJcXGNoaV9CKHgpIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d    % shift left and right to the arrows from 1 to 1
     \[\begin{tikzcd}
         1 & N & N \\
@@ -380,7 +380,7 @@ Before ending this section, we give the following definitions, which will be use
 \section{Typed \texorpdfstring{$\lambda$}{lambda}-calculi}
 Now that we have seen cartesian closed categories with WNNOs, we know categories that are models of positive intuitionistic propositional
 logic, and have a notion of recursion. We also want to see how this kind of category can interpret typed $\lambda$-calculus,
-and to see the latter as a sort of “internal language” of cartesian closed categories.\footnote{Lambek and Scott suggest that Lawvere may have anticipated this language when he called the correspondence from $\mathcal C(1,B^A)$ to $\mathcal C(A,B)$ “$\lambda$-conversion” in \cite[p.~139]{Lawvere1969}; see \cite[\S~10, p.~116]{LambekScott1994}.}
+and to see the latter as a sort of “internal language” of cartesian closed categories.\footnote{Lambek and Scott suggest that Lawvere may have anticipated this language when he called the correspondence from $\Hom_{\mathcal C}(1,B^A)$ to $\Hom_{\mathcal C}(A,B)$ “$\lambda$-conversion” in \cite[p.~139]{Lawvere1969}; see \cite[\S~10, p.~116]{LambekScott1994}.}
 
 The specific kind of typed $\lambda$-calculus we will consider is a \emph{typed $\lambda\beta\eta$-calculus}, with \emph{terminal type}, \emph{product types}, \emph{surjective pairing} and \emph{iterator}.
 This will be the first step towards establishing Lambek's equivalence of categories.
@@ -438,20 +438,16 @@ This will be the first step towards establishing Lambek's equivalence of categor
 \end{remark}
 
 \begin{notation}[Free variables and closed terms]\label{not:free-variables-and-closed-terms}
-    We denote the free variables of a term $t$, with $\FV(t)$. The definition of free variables is the standard one; see for example \cite{Carpenter1997}.
+    We denote by $\FV(t)$ the set of free variables of a term $t$. The definition of free variables is the standard one; see for example \cite{Carpenter1997}.
     We also say that a term $t$ is \emph{closed} if $\FV(t) = \varnothing$, and that a term $t$ is \emph{substitutable} for a variable $x$ in another term $\varphi(x)$,
     if no free occurrence of a variable in $t$ becomes bound in $\varphi(t)$.
 \end{notation}
 
-The rule (Eq2) already allows us to pass from $a \underset{X}{=} b$ to $b \underset{X \cup \{x\}}{=} a$.
+The rules (Eq1) and (Eq2) allow us to pass from $a \underset{X}{=} b$ to $b \underset{X \cup \{x\}}{=} a$.
 Under certain assumptions, we can go the opposite way, as we see in the following propositions.
 
 \begin{proposition}[Equality implies pointwise equality]
-    In any typed $\lambda$-calculus, if $\varphi(x) \underset{X \cup \{x\}}{=} \psi(x)$, for $x \in A$, then $\varphi(a) \underset{X}{=} \psi(a)$, for all $a \in A$, assuming that:
-    \begin{enumerate}[label=(\roman*)]
-        \item $x \not \in X$;
-        \item $\FV(a) \subseteq X$, for all $a \in A$; otherwise, the thesis does not make sense.
-    \end{enumerate}
+    In any typed $\lambda$-calculus, if $\varphi(x) \underset{X \cup \{x\}}{=} \psi(x)$, for a variable $x \in A$ with $x \notin X$, then $\varphi(a) \underset{X}{=} \psi(a)$, for every term $a \in A$ that is substitutable for $x$ in both $\varphi(x)$ and $\psi(x)$ and satisfies $\FV(a) \subseteq X$.
 \end{proposition}
 
 \begin{proof}
@@ -480,7 +476,7 @@ If we know that $f$ and $g$ are of type $B^A$, then we prove the corollary above
 
 \begin{proof}
     We'd like to use $\eta$-reduction, but we first need to go from the hypothesis to $f^\sharp(x) \underset{X \cup \{x\}}{=} g^\sharp(x)$.
-    In order to do that, let's first define a new term. Let $h \in B^A$ and $x \in A$ a variable; then $h^\sharp(x) \in B$, and we can define the term:
+    In order to do that, let's first define a new term. Let $h \in B^A$, and let $x \in A$ be a variable; then $h^\sharp(x) \in B$, and we can define the term:
     \[ \varphi(x) = \lambda_{h \in B^A} h^\sharp(x) \in B^{B^A}. \]
     Since $f \underset{X \cup \{x\}}{=} g$, we can apply (Eq3a) to get
     \[ (\varphi(x))^\sharp(f) \underset{X \cup \{x\}}{=} (\varphi(x))^\sharp(g), \]
@@ -494,7 +490,7 @@ If we know that $f$ and $g$ are of type $B^A$, then we prove the corollary above
 Let's see some examples of typed $\lambda$-calculi.
 
 \begin{example}[Simply typed $\lambda$-calculus]
-    As we already mentioned, if there are not types, terms, equations, type-forming rules and term-forming rules other than those in the definition above,
+    As we already mentioned, if there are no types, terms, equations, type-forming rules and term-forming rules other than those in the definition above,
     we have what is called a \emph{simply typed $\lambda\beta\eta$-calculus} with terminal type, product types, surjective pairing and iterator,
     also called \emph{pure typed $\lambda$-calculus} with \emph{weak natural number object} and all the other features above. We denote this calculus by $\mathcal L_0$.
 \end{example}
@@ -518,7 +514,7 @@ But before we can see it, we need to introduce the notion of morphisms between $
          if $a \in A$, then $\Phi(a) \in \Phi(A)$;
         \item $\Phi(x_i^A) = x_i^{\Phi(A)}$, for all $i \in \NN$;
     \end{enumerate}
-    moreover, $\Phi$ preserves the type-forming rules and the term-forming rules:
+    moreover, $\Phi$ preserves the specified type-forming rules and the specified term-forming rules up to equality holding in $\mathcal L'$:
     \begin{enumerate}[label=(\roman*),resume]
         \item $\Phi(1) = 1$ and $\Phi(N) = N$;
         \item $\Phi(A \times B) = \Phi(A) \times \Phi(B)$ and $\Phi(B^A) = \Phi(B)^{\Phi(A)}$;
@@ -559,7 +555,7 @@ There may be other things that a translation preserves, depending on the specifi
 \end{definition}
 
 \begin{definition}[$\lambda\text{-}\mathsf{Calc}$]
-    We define by $\lambda\text{-}\mathsf{Calc}$ the category of \emph{typed $\lambda$-calculi}, whose objects are typed $\lambda$-calculi that respect the definition above, possibly with additional basic types, terms, type-forming rules, term-forming rules and equations, and whose morphisms are translations between them.
+    We denote by $\lambda\text{-}\mathsf{Calc}$ the category of \emph{typed $\lambda$-calculi}, whose objects are typed $\lambda$-calculi that respect the definition above, possibly with additional basic types, terms, type-forming rules, term-forming rules and equations, and whose morphisms are translations between them.
     Thus, a morphism is only required to satisfy conditions (i)--(xi) above, even when its source and target have additional structure.
 \end{definition}
 
@@ -571,14 +567,14 @@ There may be other things that a translation preserves, depending on the specifi
         \item the types are the objects of $\mathcal C$, with the basic types $1$ and $N$, and the type-forming rules are the standard ones; they are defined by the cartesian closed structure of $\mathcal C$;
         \item the terms of type $A$ are the polynomial arrows $\varphi(x_1,\dots,x_n) : 1 \to A$ in $\mathcal C[x_1,\dots,x_n]$, with indeterminate $x_i : 1 \to A_i$, that are obtained from variables $x_i$ and
         basic constants---or closed terms, namely $1 \to A$, through the term-forming rules that, again, are defined by the cartesian closed structure and the chosen WNNO, for example:
-        \[ \frac{a : 1 \to A \quad b : 1 \to B}{\langle a,b\rangle : 1 \to A \times B}, \qquad \frac{a : 1 \to A}{f^\sharp(a) : 1 \to B}, \qquad \frac{\varphi(x) : 1 \to B}{\lambda_{x \in A} \varphi(x) : 1 \to B^A}, \quad \ldots \]
-        where $\langle a, b \rangle$ is the pairing arrow, $f^\sharp(a) := \ev_{B,A}\circ \langle \ulcorner f \urcorner,a \rangle$ is the evaluation arrow, and $\lambda_{x \in A} \varphi(x) := \ulcorner \kappa_{x \in A}(\varphi(x)) \circ \langle 1_A, !_A \rangle \urcorner$,
+        \[ \frac{a : 1 \to A \quad b : 1 \to B}{\langle a,b\rangle : 1 \to A \times B}, \qquad \frac{f : 1 \to B^A \quad a : 1 \to A}{f^\sharp(a) : 1 \to B}, \qquad \frac{\varphi(x) : 1 \to B}{\lambda_{x \in A} \varphi(x) : 1 \to B^A}, \quad \ldots \]
+        where $\langle a, b \rangle$ is the pairing arrow, $f^\sharp(a) := \ev_{B,A}\circ \langle f,a \rangle$ is the evaluation arrow, and $\lambda_{x \in A} \varphi(x) := \ulcorner \kappa_{x \in A}(\varphi(x)) \circ \langle 1_A, !_A \rangle \urcorner$,
         just like we did in the proof of Lambek's normal form, \Cref{cor:lambeks-normal-form}. We define $* = !_1$.
         \item if $\varphi(X)$ and $\psi(Y)$ are terms of type $A$, whose free variables belong to $Z$, we define the equivalence relation
         \[ \varphi(X) \underset{Z}{=} \psi(Y) \quad \overset{\textnormal{def}}{\iff} \quad \varphi(X) \underset{Z}{=} \psi(Y) \text{ in } \mathcal C[Z]. \]
         The equations are the standard ones, and one can verify that they hold in $\mathbf L(\mathcal C)$, since they hold in the underlying cartesian closed structure.
     \end{itemize}
-    Given a cartesian closed functor that strictly preserves the chosen WNNOs, $F : \mathcal C \to \mathcal D$, we define a translation $\mathbf L(F) : \mathbf L(\mathcal C) \to \mathbf L(\mathcal D)$ as follows:
+    Given a cartesian closed functor that strictly preserves the chosen WNNOs and parameterized iterators, $F : \mathcal C \to \mathcal D$, we define a translation $\mathbf L(F) : \mathbf L(\mathcal C) \to \mathbf L(\mathcal D)$ as follows:
     \begin{itemize}
         \item on the types, $\mathbf L(F)$ sends an object $A$ of $\mathcal C$ to the object $F(A)$ of $\mathcal D$, and it preserves the type-forming rules, since $F$ is cartesian closed;
         \item on the terms, by the first point, $\mathbf L(F)(x_i^A) = x_i^{F(A)}$, and, for a term $\varphi(x_1,\dots,x_n) : 1 \to A$ we consider the functor given by the universal property of the polynomial category
@@ -606,13 +602,13 @@ We want to show that the functor $\mathbf L : \mathsf{CCC}_N \to \lambda\text{-}
 \begin{definition}[CCC defined by a $\lambda$-calculus]
     Given a typed $\lambda$-calculus $\mathcal L$, we define a cartesian closed category $\mathbf C(\mathcal L)$ as follows:
     \begin{itemize}
-        \item the objects of such category are the types of $\mathcal L$;
+        \item the objects of this category are the types of $\mathcal L$;
         \item given two objects $A$ and $B$ of this category, the arrows from $A$ to $B$ are the equivalence classes of pairs $(x, \varphi(x))$, where $x \in A$ and  $\varphi(x) \in B$ is a term with no free variables other than $x$.
         Equivalently, $\Hom_{\mathbf C(\mathcal L)}(A,B) = \{[(x,\varphi(x))]_\sim : x \in A, \varphi(x) \in B\}$, where $[(x,\varphi(x))]_\sim$ is the equivalence class of $(x,\varphi(x))$ with respect to the relation
         \[ (x,\varphi(x)) \sim (y,\psi(y)) \quad\overset{\textnormal{def}}{\iff}\quad \varphi(z) \underset{\{z\}}{=} \psi(z), \]
-        for $x,y \in A$, $\varphi(x),\psi(y) \in B$ and $z \in A$ (basically, up to $\alpha$-conversion, they are the same term). The categorical structure of $\mathbf C(\mathcal L)$ can be retrieved from the type-forming rules, as follows:
+        for $x,y \in A$, $\varphi(x),\psi(y) \in B$ and $z \in A$ (that is, they are equal according to all the equations of $\mathcal L$). The categorical structure of $\mathbf C(\mathcal L)$ can be retrieved from the type-forming rules, as follows:
         \begin{itemize}[label=$*$]
-            \item $(x,x)$ is the identity arrow of $A$;
+            \item $[(x,x)]$ is the identity arrow of $A$;
             \item given $[(x,\varphi(x))] : A \to B$ and $[(y,\psi(y))] : B \to C$, the composition is defined as
             \[ [(y,\psi(y))] \circ [(x,\varphi(x))]  := [(x,\psi(\varphi(x)))], \]
             where $\psi(\varphi(x))$ is the term obtained by substituting $\varphi(x)$ for $y$ in $\psi(y)$;
@@ -660,7 +656,7 @@ It won't surprise us that $\mathbf C(\mathcal L)[x]$ and $\mathbf C(\mathcal L(x
 \begin{proof}
     The universal property of the polynomial category characterizes $\mathbf C(\mathcal L)[x]$ up to isomorphism; therefore, if we check that $\mathbf C(\mathcal L(x))$ satisfies the same universal property, we can conclude that they are isomorphic categories.\newline
     First, we need to define a natural map $\jmath_x : \mathcal L \to \mathcal L(x)$. We define $\jmath_x$ as the identity both on the types and on the terms of $\mathcal L$, and it is trivial to verify that it is a translation. Now, we consider a cartesian closed category $\mathcal D$ with a chosen WNNO, an iterator,
-    and a functor $F : \mathbf C(\mathcal L) \to \mathcal D$. We're looking for a unique functor $\widehat F : \mathbf C(\mathcal L(x)) \to \mathcal D$ such that the following diagram commutes:
+    a functor $F : \mathbf C(\mathcal L) \to \mathcal D$, and an arrow $b : 1 \to F(A)$ in $\mathcal D$. We're looking for a unique functor $\widehat F : \mathbf C(\mathcal L(x)) \to \mathcal D$ such that the following diagram commutes and $\widehat F(x) = b$:
     % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXG1hdGhiZiBDKFxcbWF0aGNhbCBMKSJdLFswLDEsIlxcbWF0aGJmIEMoXFxtYXRoY2FsIEwoeCkpIl0sWzEsMCwiXFxtYXRoY2FsIEQiXSxbMCwxLCJcXG1hdGhiZiBDKFxcam1hdGhfeCkiLDJdLFswLDIsIkYiXSxbMSwyLCJcXHdpZGVoYXQgRiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
     \[\begin{tikzcd}
         {\mathbf C(\mathcal L)} & {\mathcal D} \\
@@ -668,8 +664,7 @@ It won't surprise us that $\mathbf C(\mathcal L)[x]$ and $\mathbf C(\mathcal L(x
         \arrow["F", from=1-1, to=1-2]
         \arrow["{\mathbf C(\jmath_x)}"', from=1-1, to=2-1]
         \arrow["{\widehat F}"', dashed, from=2-1, to=1-2]
-    \end{tikzcd},\]
-    and such that, given an arrow $b : 1 \to F(A)$ in $\mathcal D$, for which $\widehat F(x) = b$.\newline
+    \end{tikzcd}.\]
     Since the objects of $\mathbf C(\mathcal L(x))$ and $\mathbf C(\mathcal L)$ are the same, that are the types of $\mathcal L$, and since
     \[ F(A) = \widehat F \circ \mathbf C(\jmath_x)(A) = \widehat F(\jmath_x(A)) = \widehat F(A), \]
     for all $A \in \mathsf{Ty}(\mathcal L)$, $\widehat{F}$ is uniquely determined on the objects.\newline
@@ -738,7 +733,7 @@ A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix
     We proceed separately for each one, and instead of finding a natural isomorphism $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}}$, we equivalently find a natural isomorphism $1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C$.
     \begin{itemize}
         \item[$\boxed{\mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}}$] We want to define $\varepsilon : \mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$, for each $\mathcal C \in \ob(\mathsf{CCC}_N)$, i.e.,
-        we want a cartesian closed functor which strictly preserves WNNOs and iterators $\varepsilon_\mathcal C : \mathbf C \circ \mathbf L(\mathcal C) \to \mathcal C$, and such that, given a cartesian closed functor $F : \mathcal C \to \mathcal D$, the diagram of naturality commutes and $\varepsilon_\mathcal C$ is an isomorphism.
+        we want a cartesian closed functor which strictly preserves WNNOs and iterators $\varepsilon_\mathcal C : \mathbf C \circ \mathbf L(\mathcal C) \to \mathcal C$ such that, given a cartesian closed functor $F : \mathcal C \to \mathcal D$, the diagram of naturality commutes and $\varepsilon_\mathcal C$ is an isomorphism.
         Let's define $\varepsilon_\mathcal C$ as follows:
         \begin{itemize}
             \item on the objects, $\varepsilon_\mathcal C(A) := A$, for all $A \in \ob(\mathcal C)$;
@@ -771,15 +766,15 @@ A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix
         but $\Hom_{\mathbf C \circ \mathbf L(\mathcal C)}(B,C) \cong \Hom_{\mathcal C[y]}(1,C)$, by definition, since we take the equivalence classes of terms $\varphi(y) \in C$ that are said to be equal if they are equal in $\mathcal C[y]$.
         Therefore, $\varepsilon_\mathcal C$ is an isomorphism in $\mathsf{CCC}_N$; hence, $\varepsilon$ is a natural isomorphism.
         \item[$\boxed{1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C}$] We want to define $\eta : 1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C$, for each $\mathcal L \in \ob(\lambda\text{-}\mathsf{Calc})$, i.e.,
-        we want a translation $\eta_\mathcal L : \mathcal L \to \mathbf L \circ \mathbf C(\mathcal L)$, and such that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes and $\eta_{\mathcal L}$ is an isomorphism.\newline
+        we want a translation $\eta_\mathcal L : \mathcal L \to \mathbf L \circ \mathbf C(\mathcal L)$ such that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes and $\eta_{\mathcal L}$ is an isomorphism.\newline
         Let's define $\eta_\mathcal L$ as follows:
         \begin{itemize}
             \item on the types, $\eta_\mathcal L(A) := A$, for all $A \in \mathsf{Ty}(\mathcal L)$;
             \item on the terms, given a term $\varphi(X) = \varphi(x_1,\dots,x_n) \in A$, we can see it as a closed term in $\mathcal L(X)$;
             since $\mathbf C(\mathcal L(X)) \cong \mathbf C(\mathcal L)[X]$, by \Cref{prop:lambda-calculus-with-parameter}, we get a polynomial arrow $1 \to A$, and applying $\mathbf C$ we find the arrow $[(* \in 1, \varphi(X))] : 1 \to A$ in $\mathbf C(\mathcal L)[X]$.
-            Now applying $\mathbf L$, a polynomial arrow becomes a term, so find the term $[(* \in 1, \varphi(X))] \in A$ and therefore define
+            Applying $\mathbf L$, we obtain the term $[(* \in 1, \varphi(X))] \in A$ and therefore define
             \[ \eta_\mathcal L(\varphi(X)) := [(* \in 1, \varphi(X))] \in A, \]
-            i.e., we get again a term of type $A$ with free variables $X = x_1,\dots,x_n$. It's easy to verify that $\eta_\mathcal L$ is a translation and that is well-defined (the equality of terms in $\mathbf L$ is defined as the equality of polynomial arrows, which is the equality defined by $\mathbf C$, etc.).
+            i.e., we get again a term of type $A$ with free variables $X = x_1,\dots,x_n$. It's easy to verify that $\eta_\mathcal L$ is a translation and that it is well-defined (the equality of terms in $\mathbf L$ is defined as the equality of polynomial arrows, which is the equality defined by $\mathbf C$, etc.).
         \end{itemize}
         To check that $\eta_\mathcal L$ is an isomorphism, we construct its inverse, $\eta_\mathcal L^{-1} : \mathbf L \circ \mathbf C(\mathcal L) \to \mathcal L$, that maps $[(* \in 1, \varphi(X))]$ to $\varphi(X)$. It's easy to verify that this map is the inverse of $\eta_\mathcal L$ and it is a well-defined translation.\newline
         Finally we need to check that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality
@@ -796,9 +791,8 @@ A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix
         \[ \eta_{\mathcal L'} \circ \Phi(\varphi(X)) = [(* \in 1, \Phi(\varphi(X)))], \]
         while
         \[ (\mathbf L \circ \mathbf C(\Phi)) \circ \eta_\mathcal L(\varphi(X)) = (\mathbf L \circ \mathbf C(\Phi))([(* \in 1, \varphi(X))]). \]
-        Now by definition $\mathbf L(\mathbf C(\Phi))$ is a translation that gets $\mathbf C(\Phi)$ applied on the second components, giving
-        \[ (\mathbf L \circ \mathbf C(\Phi))([(* \in 1, \varphi(X))]) = [(* \in 1, \mathbf C(\Phi)(\varphi(X)))], \]
-        and by definition of $\mathbf C$, the translation gets composed with the term, giving $\mathbf C(\Phi)(\varphi(X)) = \Phi(\varphi(X))$.
+        Now, by definition, $\mathbf L(\mathbf C(\Phi))$ is the translation induced by the functor $\mathbf C(\Phi)$, so
+        \[ (\mathbf L \circ \mathbf C(\Phi))([(* \in 1, \varphi(X))]) = \mathbf C(\Phi)([(* \in 1,\varphi(X))]) = [(* \in 1,\Phi(\varphi(X)))]. \]
         Therefore, the diagram of naturality commutes, and $\eta$ is a natural transformation.
     \end{itemize}
 \end{proof}
@@ -849,6 +843,7 @@ Before ending this section, we state another, even weaker, version of the Curry-
         \item the term-forming rules for zero, successor and the iterator, namely (Tm6a), (Tm6b) and (Tm7);
         \item the iterator equations (Eq7a) and (Eq7b).
     \end{itemize}
+    We also require the equations of every object to be closed under simultaneous substitution.
     Its morphisms are translations, as defined above, without the requirements involving exponentials, $N$, $0$, $s$ and $I_A$, and they are required to commute with simultaneous substitution.
 \end{definition}
 

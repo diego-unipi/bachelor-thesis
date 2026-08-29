@@ -50,7 +50,7 @@ The following definition will be very useful for the examples in the next sectio
 Being a concrete category basically means that the objects of the category can be seen as sets, and the morphisms as set-theoretic functions, possibly with some extra structure.
 In addition, the function structure determines the morphism structure.
 
-\begin{example}[Point-surjective that is not surjective morphism]
+\begin{example}[Point-surjective morphism that is not surjective]
     In the category $\mathsf{Grp}$, consider the unique homomorphism $i : 1 \to \ZZ$, where $1 = \{e\}$ and $i(e) = 0$. This map is point-surjective, since
     the only possible homomorphism $1 \to \ZZ$ is the trivial one; therefore, the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.
     However, this map is not surjective, since if there was $s : \ZZ \to 1$ such that $i \circ s = 1_\ZZ$, then $U(i) \circ U(s) = 1_{U(\ZZ)}$, where $U : \mathsf{Grp} \to \mathsf{Set}$ is the forgetful functor.
@@ -135,7 +135,7 @@ Before we start, we recall a couple of useful notions in computability theory, w
 \end{notation}
 
 \begin{definition}[Decidable and semidecidable sets]
-    We say that a subset of $A \subseteq \NN^k$ is \emph{decidable} if there exists a total recursive function $f : \NN^k \to \NN$ such that
+    We say that a subset $A \subseteq \NN^k$ is \emph{decidable} if there exists a total recursive function $f : \NN^k \to \NN$ such that
     \[ A = \{\vec x \in \NN^k : f(\vec x) = 0\}. \]
     Similarly, we say that a subset $A \subseteq \NN^k$ is \emph{semidecidable} if there exists a partial recursive function $f : \NN^k \to \NN_\bot$ such that
     \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
@@ -147,7 +147,7 @@ We assume the following result.
     Given a subset $A \subseteq \NN^k$, TFAE:
     \begin{itemize}
         \item $A$ is semidecidable;
-        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., either $A = \varnothing$ or there exists a total recursive function $f : \NN^h \to \NN^k$ such that $A = \Img(f)$;
+        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., either $A = \varnothing$ or there exists a total recursive function $f : \NN \to \NN^k$ such that $A = \Img(f)$;
         \item $A$ is the domain of a partial recursive function, i.e.
         \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
     \end{itemize}
@@ -260,7 +260,7 @@ Another interesting application of Lawvere's fixed-point theorem is the non-exis
 \end{notation}
 
 \begin{remark}
-    Checking that $k\mathsf{Top}$ is neither trivial nor too difficult, but it requires some work. Therefore, we will assume it without proving it, and we refer to \Cite{Rezk2018} for a complete proof.
+    Checking that $k\mathsf{Top}$ is cartesian closed is neither trivial nor too difficult, but it requires some work. Therefore, we will assume it without proving it, and we refer to \Cite{Rezk2018} for a complete proof.
 \end{remark}
 
 Let's now see some of these results.
@@ -384,7 +384,7 @@ In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathc
         In order to have that $\langle f,g \rangle$ is a morphism of assemblies, we need to find a tracker such that
         \[ n \Vdash_Z z \implies e \cdot n \Vdash_{X \times Y} (f(z),g(z)), \]
         where the last condition is equivalent to $\texttt{car}(e \cdot n) \Vdash_X f(z)$ and $\texttt{cdr}(e \cdot n) \Vdash_Y g(z)$. Since $f$ and $g$ are morphisms we can fix two trackers $e_f$ and $e_g$ such that $e_f \cdot n \Vdash_X f(z)$ and $e_g \cdot n \Vdash_Y g(z)$,
-        and we can define $e := \ulcorner \langle u_1(e_f,-),u_1(e_g,-) \rangle \urcorner \in \NN$, and it is easy to check that $e$ respects the two conditions above, and since $e_f \cdot n \ne \bot$ and $e_g \cdot n \ne \bot$, we have that $e \cdot n \ne \bot$ for every $n \in \NN$.
+        and we can define $e := \ulcorner \langle u_1(e_f,-),u_1(e_g,-) \rangle \urcorner \in \NN$, and it is easy to check that $e$ respects the two conditions above and that $e \cdot n \ne \bot$ whenever $n \Vdash_Z z$.
         \item Given two assemblies $X = (|X|,\Vdash_X)$ and $Y = (|Y|,\Vdash_Y)$, we define the assembly $Y^X := (|Y^X|,\Vdash_{Y^X})$, where $|Y^X| \subseteq |Y|^{|X|}$ is the subset of functions $f : |X| \to |Y|$ for which there exists an $e \in \NN$ satisfying the condition below, and
         \[ e \Vdash_{Y^X} f \overset{\textnormal{def}}{\iff} \forall x \in |X| \; \forall n \in \NN \; (n \Vdash_X x \implies e \cdot n \ne \bot \text{ and } e \cdot n \Vdash_Y f(x)),\]
         i.e. $e$ realizes $f$ if it is a tracker of $f$ as a morphism of assemblies. We want to check that there is a bijection
@@ -437,7 +437,13 @@ Finally we can prove Rice's theorem.
 \end{proof}
 
 \subsection*{Fixed-point for extensional operators}
-We know that recursively enumerable sets are countable; therefore, we can fix an enumeration $(W_n)_{n \in \NN}$, and define $\mathrm{RE}$ as the set of all recursively enumerable subsets of $\NN$.
+\begin{definition}[Acceptable enumeration]
+    An enumeration $(W_n)_{n\in\NN}$ of the recursively enumerable subsets of $\NN$ is \emph{acceptable} if there exist total recursive functions $p,q:\NN\to\NN$ such that, for every $n\in\NN$,
+    \[ W_n=\mathrm{dom}(u_1(p(n),-)) \qquad\text{and}\qquad \mathrm{dom}(u_1(n,-))=W_{q(n)}, \]
+    where $\mathrm{dom}(u_1(n,-)) := \{x \in \NN : u_1(n,x) \ne \bot\}$.
+\end{definition}
+
+Fix an acceptable enumeration $(W_n)_{n\in\NN}$ of the recursively enumerable subsets of $\NN$, and let $\mathrm{RE}:=\{W_n\mid n\in\NN\}$.
 In this setting, we can give the following definition.
 
 \begin{definition}[Extensional operator]
@@ -460,7 +466,7 @@ In this setting, we can give the following definition.
 \begin{proof}
     Equip $\mathrm{RE}$ with the assembly structure $n \Vdash_{\mathrm{RE}} W$ if and only if $W_n=W$.
     Replacing each partial recursive function in the point-surjective morphism constructed in the proof of Rice's theorem by its domain gives a point-surjective morphism $\mathbf N\to\mathrm{RE}^{\mathbf N}$.
-    Therefore, Lawvere's fixed-point theorem yields and provides a fixed point for every extensional operator $F : \mathrm{RE} \to \mathrm{RE}$.
+    Therefore, Lawvere's fixed-point theorem provides a fixed point for every extensional operator $F : \mathrm{RE} \to \mathrm{RE}$.
 \end{proof}
 
 \subsection*{Rogers' fixed-point theorem}
@@ -491,7 +497,7 @@ It can therefore be seen as a uniform fixed-point operator, and it is the catego
 \begin{definition}[Reflexive object]
     Let $\mathcal C$ be a cartesian closed category; given $U$ an object of $\mathcal C$, we say that $U$ is \emph{reflexive} if there exists a pair of morphisms
     \[ r : U \to U^U \qquad\text{and}\qquad s : U^U \to U, \]
-    such that $r \circ s = 1_{U^U}$, i.e. $s$ is a retraction of $r$, which means that $r$ is surjective.
+    such that $r \circ s = 1_{U^U}$, i.e. $s$ is a section of $r$, which means that $r$ is surjective.
 \end{definition}
 
 \begin{theorem}[Existence of $Y$-combinator]
@@ -646,7 +652,7 @@ Equivalently, we can prove that the decidable sets are not uniformly enumerable.
 \end{definition}
 
 \begin{remark}
-    We already recalled that the set of decidable functions is countable, and we know that the set of decidable sets is countable too.
+    We already recalled that the set of total recursive functions is countable, and we know that the set of decidable sets is countable too.
 \end{remark}
 
 \begin{theorem}[Non-uniform enumerability of decidable sets]
@@ -655,9 +661,11 @@ Equivalently, we can prove that the decidable sets are not uniformly enumerable.
 
 \begin{proof}
     Assume such a sequence exists, witnessed by $G:\NN^2\to\NN$, and define the total recursive function
-    \[ F : \NN^2 \to 2 : (n,x) \mapsto \mathbf 1_{\{G(n,x)\ne 0\}}(n,x). \]
-    Then, given $f : \NN \to 2$ total recursive, let $A_f := \{x \in \NN : f(x) = 0\}$; this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{x \in \NN : G(n_f,x) = 0\}$.
-    Therefore, $F(n_f,-) = f(-)$, since they define the same zero locus; hence $F$ is weakly product point-surjective, and by Lawvere's fixed-point theorem in the cartesian form, every total recursive function $h : \NN \to 2$ has a fixed point. But this is a contradiction, since $h : \NN \to 2 : n \mapsto 1 \mathbin{\dot{-}} n$ has none.
+    \[ F : \NN^2 \to \NN : (n,x) \mapsto \mathbf 1_{\{G(n,x)\ne 0\}}(n,x). \]
+    Then, given a total recursive $f : \NN \to \NN$ with $\Img(f)\subseteq\{0,1\}$, let $A_f := \{x \in \NN : f(x) = 0\}$; this is a decidable set, so there exists $n_f \in \NN$ such that $A_f = \{x \in \NN : G(n_f,x) = 0\}$, and therefore $F(n_f,-)=f$.
+    Now $h:\NN\to\NN:n\mapsto1\mathbin{\dot{-}}n$ is a total recursive endomorphism without fixed points, while $q:\NN\to\NN:n\mapsto h(F(n,n))$ is total recursive and $\Img(q)\subseteq\{0,1\}$. Hence $F(k,-)=q$ for some $k\in\NN$, so
+    \[ F(k,k)=q(k)=h(F(k,k)), \]
+    a contradiction.
 \end{proof}
 
 \subsection*{Semidecidable sets are not closed under complement}
@@ -919,12 +927,12 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
     We could have proved the undefinability of truth directly, without using the undefinability of satisfaction,
     repeating the same argument, based on the Lindenbaum category and Lawvere's fixed-point theorem, but this
     would have basically been a repetition of the previous proof. Therefore, we preferred to follow
-    Lambek's exposition \cite[pp.~143--144]{Lawvere1969}, and let the undefinability of truth follow from the undefinability of satisfaction.
+    Lawvere's exposition \cite[pp.~143--144]{Lawvere1969}, and let the undefinability of truth follow from the undefinability of satisfaction.
 \end{remark}
 
 \subsection*{Gödel's first incompleteness theorem}
 Now that we have proved the undefinability of truth, we can prove Gödel's first incompleteness theorem,
-obtaining a proof that directly follows from Lawvere's fixed-point theorem, as Lambek did in \cite[pp.~144--145]{Lawvere1969}.
+obtaining a proof that directly follows from Lawvere's fixed-point theorem, as Lawvere did in \cite[pp.~144--145]{Lawvere1969}.
 
 \begin{definition}[Representability of provability]
 Following Lawvere, we say that \emph{provability is representable relative to $\Gamma$} if there exists a morphism
@@ -940,22 +948,21 @@ rather than reproducing the truth value of every closed formula. Under the assum
 \begin{remark}[Representability of provability]
     It is well-known that, if $T$ is a recursively axiomatizable theory such that $\mathsf Q \subseteq T$, then
     there is a primitive recursive function that expresses the fact that a number encodes a proof of a formula encoded by another number.
-    This primitive recursive function can be represented in $\mathsf Q$, and therefore in $T$. This is stronger than
-    requiring that provability is representable relative to $\Gamma$, but, again, it is enough for our purposes.
+    This primitive recursive function can be represented in $\mathsf Q$, and therefore in $T$. Under the soundness assumption $\mathbb N\models T$ used below, this is enough to ensure that provability is representable relative to $\Gamma$.
 \end{remark}
 
 \begin{theorem}[Gödel's first incompleteness theorem]
     Let $T$ be a $L_{\mathrm{arit}}$-theory such that
     \begin{enumerate}[label=(\roman*)]
         \item $T$ is recursively axiomatizable;
-        \item $T\vdash\mathsf Q$;
+        \item $\mathsf Q\subseteq T$;
         \item $\mathbb N\models T$.
     \end{enumerate}
     Then $T$ is incomplete.
 \end{theorem}
 
 \begin{proof}
-    Since $\mathbb N\models T$, the theory $T$ is consistent.
+    Since $\mathbb N\models T$, the theory $T$ is consistent and provability is representable relative to $\Gamma$.
     Suppose, by contradiction, that $T$ is complete. Then, for every closed formula, $T$ is capable of proving it or proving its negation, and therefore
     \[ \mathrm{Hom}(1, 2) = \{[\bot], [\top]\}. \]
     Let $\sigma : 1 \to 2$ and $d : 1 \to A$ be chosen arbitrarily. We have two cases:
@@ -1033,9 +1040,8 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
 \begin{remark}
     From the diagonal lemma, we can derive Gödel's first incompleteness theorem following the classical argument.
     Proving the diagonal lemma and Tarski's undefinability theorem, we saw that two of the classical ways of proving Gödel's incompleteness
-    can be both independently derived from Lawvere's fixed-point theorem.
+    can both be derived independently from Lawvere's fixed-point theorem.
 \end{remark}
-
 
 \subsection*{Undecidability of true arithmetic}
 
@@ -1053,7 +1059,7 @@ We prove this theorem using Lawvere's fixed-point theorem, since it is interesti
 \begin{proof}
     Let's assume, by contradiction, that the set $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\}$ is recursively enumerable. Since $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ is complete,
     the set is decidable. Let $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\} = \{n : f(n) = 0\}$ for some total recursive function $f : \NN \to \NN$.\newline
-    Let $\mathrm{sub} : \NN^3 \to \NN$ send $(e,n,m)$ to the Gödel code of the formula obtained by substituting $\overline n$ and $\overline m$ for the free variables $x$ and $y$ in the formula whose Gödel code is $e$, and let $\mathrm{ex} : \NN^2 \to \NN$ send $(e,n)$ to the code of $\exists y\,\varphi(\overline n,y)$, taking arbitrary fixed values on invalid codes; both functions are primitive recursive.
+    Let $\mathrm{sub} : \NN^3 \to \NN$ send $(e,n,m)$ to the Gödel code of the formula obtained by substituting $\overline n$ and $\overline m$ for the free variables $x$ and $y$ in the formula whose Gödel code is $e$, and let $\mathrm{ex} : \NN^2 \to \NN$ send $(e,n)$ to the code of $\exists y\,\varphi(\overline n,y)$; on invalid codes, let $\mathrm{ex}$ return the code of a false sentence. Both functions are primitive recursive.
     Define the total recursive function
     \[ F(e,n) := \begin{cases}\mu m\,[f(\mathrm{sub}(e,n,m))=0]&\text{if $f(\mathrm{ex}(e,n))=0$},\\0&\text{otherwise}.\end{cases} \]
     Given any total recursive function $g : \NN \to \NN$, its graph is definable by a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula $\varphi_g(x,y)$, and therefore
@@ -1132,10 +1138,10 @@ a class existed, then one could recover Brouwer's fixed-point theorem as a corol
 \end{theorem}
 
 \begin{proof}[Proof sketch.]
-    Assume that such $A$ and $g$ exist, and set $B:=(A,g)$. McCallum constructs a pair $B'=(A',g') \in L_\alpha(\RR)$ with the same properties for some countable limit ordinal $\alpha$, where $L_\alpha(\RR)$ is the $\alpha$-th level of Gödel's constructible universe over the reals, \cite{WikipediaConstructibleUniverse2026}.\newline
-    For a suitable choice of a real $r$, McCallum ensures that every continuous $f:[0,1] \to [0,1]$ obtained from the preceding construction lies in $L_\alpha[r]$, and then constructs a model $S$ of second-order arithmetic, with the standard natural numbers, containing numerical codes for the elements and membership relation of $L_\alpha[r]$, and satisfying $\mathsf{RCA}_0$ and $\neg\mathsf{WKL}_0$, the Recursive Comprehension Axiom and the negation of Weak König's Lemma, respectively \cite{WikipediaReverseMathematics2026}.\newline
+    Assume that such $A$ and $g$ exist, and set $B:=(A,g)$. McCallum constructs a pair $B'=(A',g') \in L_\alpha(\RR)$ with the same properties relative to $L(\RR)$ for some countable limit ordinal $\alpha$, where $L_\alpha(\RR)$ is the $\alpha$-th level of Gödel's constructible universe over the reals, \cite{WikipediaConstructibleUniverse2026}.\newline
+    For a suitable choice of a real $r$, McCallum ensures that every continuous $f:[0,1] \to [0,1]$ belonging to $L[B',\rho]$, where $\rho$, which assigns to every countable ordinal $\beta$ that is a limit of limit ordinals an $\omega$-sequence of limit ordinals cofinal in $\beta$, is restricted to $\alpha$, lies in $L_\alpha[r]$, and then constructs a model $S$ of second-order arithmetic, with the standard natural numbers, containing numerical codes for the elements and membership relation of $L_\alpha[r]$, and satisfying $\mathsf{RCA}_0$ and $\neg\mathsf{WKL}_0$, the Recursive Comprehension Axiom and the negation of Weak König's Lemma, respectively \cite{WikipediaReverseMathematics2026}.\newline
     Using the equivalence of Brouwer's fixed-point theorem with $\mathsf{WKL}_0$ over $\mathsf{RCA}_0$ \cite{WikipediaReverseMathematics2026}, McCallum claims that, by following the construction used to prove this equivalence, one obtains in $S$ a continuous map $f:[0,1] \to [0,1]$ with no fixed point in $L_\alpha[r]$.\newline
-    Since $B'$ is fully encoded in $S$, Lawvere's constructive proof can be carried out inside $S$: applied to $g'$ and $f$, it would produce a fixed point of $f$, contradicting McCallum's construction of $f$ as a map with no fixed points.
+    If $B'$ occurs in $L_\alpha[r]$, and hence has its transitive closure fully encoded in $S$, then Lawvere's constructive proof can be carried out inside $S$: applied to $g'$ and $f$, it would produce a fixed point of $f$, contradicting McCallum's construction of $f$ as a map with no fixed points.
 \end{proof}
 
 Having established that Lawvere's classical fixed-point theorem does not hold in the category of topological spaces, McCallum proves a slightly modified version of Lawvere's theorem as follows.
@@ -1143,7 +1149,7 @@ Having established that Lawvere's classical fixed-point theorem does not hold in
 \begin{definition}[Point-bijective morphism]
     Let $\mathcal C$ be a category with terminal object $1$. A morphism $h:A\to B$ is \emph{point-bijective} if the function
     \[ h_*:\Hom_{\mathcal C}(1,A)\to\Hom_{\mathcal C}(1,B) : a\mapsto h\circ a, \]
-    is bijective. Equivalently, there's a bijection between the global elements of $A$ and those of $B$.
+    is bijective. Equivalently, $h$ induces a bijection between the global elements of $A$ and those of $B$.
 \end{definition}
 
 \begin{remark}
