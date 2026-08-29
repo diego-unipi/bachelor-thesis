@@ -322,7 +322,7 @@ Other interesting examples include the following.
 Let's now see how to apply Lawvere's fixed-point theorem to obtain some result in computability theory. Specifically, we prove in this subsection Rice's theorem.
 
 \begin{theorem}[Rice's theorem]
-    Let $R \subseteq \NN$ such that for all $\alpha,\beta \in\NN$
+    Let $R \subseteq \NN$ be such that for all $\alpha,\beta \in\NN$
     \[ \left(\forall x \in \NN \; u_1(\alpha,x) = u_1(\beta,x)\right) \implies (\alpha \in R \iff \beta \in R),\]
     i.e.,\ $R$ is an \emph{extensional property} of the partial recursive functions. If $R$ is decidable, either $R = \varnothing$ or $R = \NN$.
 \end{theorem}
@@ -333,7 +333,7 @@ What the theorem says is that, if $R$ is a nontrivial extensional property of th
     Rice's theorem generalizes Turing's halting problem, i.e. the set $H_1 := \{(\alpha,x) \in \NN^2 | u_1(\alpha,x) \ne \bot\}$ is undecidable.
     Indeed, if $H_1$ was decidable, we'd have
     \[ H_1 = \{(\alpha,x) \in \NN^2 | f(\alpha,x) = 0\}, \]
-    for some $f : \NN^2 \to 2$ total recursive function. Therefore, the sections of $H_1$ would be decidable too, i.e.\ fixed $x \in \NN$, the set $H_1^x := \{\alpha \in \NN | (\alpha,x) \in H_1\}$ would be decidable,
+    for some $f : \NN^2 \to 2$ total recursive function. Therefore, the sections of $H_1$ would be decidable too, i.e.\ for a fixed $x \in \NN$, the set $H_1^x := \{\alpha \in \NN | (\alpha,x) \in H_1\}$ would be decidable,
     since $\alpha \in H_1^x \iff f(\alpha,x) = 0$. Now $H_1^x$ is an extensional property of the partial recursive functions, because if $\alpha,\beta \in \NN$ are such that $u_1(\alpha,y) = u_1(\beta,y)$ for every $y \in \NN$,
     then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$; that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that loops forever on every input.
 \end{remark}
@@ -1140,7 +1140,7 @@ a class existed, then one could recover Brouwer's fixed-point theorem as a corol
 
 \begin{proof}[Proof sketch.]
     Assume that such $A$ and $g$ exist, and set $B:=(A,g)$. McCallum constructs a pair $B'=(A',g') \in L_\alpha(\RR)$ with the same properties relative to $L(\RR)$ for some countable limit ordinal $\alpha$, where $L_\alpha(\RR)$ is the $\alpha$-th level of Gödel's constructible universe over the reals, \cite{WikipediaConstructibleUniverse2026}.\newline
-    For a suitable choice of a real $r$, McCallum ensures that every continuous $f:[0,1] \to [0,1]$ belonging to $L[B',\rho]$, where $\rho$, which assigns to every countable ordinal $\beta$ that is a limit of limit ordinals an $\omega$-sequence of limit ordinals cofinal in $\beta$, is restricted to $\alpha$, lies in $L_\alpha[r]$, and then constructs a model $S$ of second-order arithmetic, with the standard natural numbers, containing numerical codes for the elements and membership relation of $L_\alpha[r]$, and satisfying $\mathsf{RCA}_0$ and $\neg\mathsf{WKL}_0$, the Recursive Comprehension Axiom and the negation of Weak König's Lemma, respectively \cite{WikipediaReverseMathematics2026}.\newline
+    For a suitable choice of a real $r$, McCallum ensures that every continuous $f:[0,1] \to [0,1]$ belonging to $L[B',\rho]$, where $\rho$ assigns to every countable ordinal $\beta$ that is a limit of limit ordinals an $\omega$-sequence of limit ordinals cofinal in $\beta$ and is restricted to $\alpha$, lies in $L_\alpha[r]$. He then constructs a model $S$ of second-order arithmetic, with the standard natural numbers, containing numerical codes for the elements and membership relation of $L_\alpha[r]$, and satisfying $\mathsf{RCA}_0$ and $\neg\mathsf{WKL}_0$, the Recursive Comprehension Axiom and the negation of Weak König's Lemma, respectively \cite{WikipediaReverseMathematics2026}.\newline
     Using the equivalence of Brouwer's fixed-point theorem with $\mathsf{WKL}_0$ over $\mathsf{RCA}_0$ \cite{WikipediaReverseMathematics2026}, McCallum claims that, by following the construction used to prove this equivalence, one obtains in $S$ a continuous map $f:[0,1] \to [0,1]$ with no fixed point in $L_\alpha[r]$.\newline
     If $B'$ occurs in $L_\alpha[r]$, and hence has its transitive closure fully encoded in $S$, then Lawvere's constructive proof can be carried out inside $S$: applied to $g'$ and $f$, it would produce a fixed point of $f$, contradicting McCallum's construction of $f$ as a map with no fixed points.
 \end{proof}
