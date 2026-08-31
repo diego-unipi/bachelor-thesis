@@ -1,2 +1,0 @@
-Lambek
-Lambek-Curry-Howard
