@@ -6,8 +6,8 @@ Download the compiled PDF [here](https://github.com/diego-unipi/bachelor-thesis/
 
 Download the slides (in Italian) [here](https://github.com/diego-unipi/bachelor-thesis/releases/download/latest-slides/slides_Diego_Monaco.pdf).
 
-The slides are based on Fabio Durastante's [dmunipi-slide template](https://github.com/Cirdans-Home/dmunipi-slide).
-The template is Fabio Durastante's work.
+The slides are based on prof. Fabio Durastante's [dmunipi-slide template](https://github.com/Cirdans-Home/dmunipi-slide).
+The template is prof. Fabio Durastante's work.
 
 
 ## License
