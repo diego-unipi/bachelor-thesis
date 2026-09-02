@@ -384,36 +384,38 @@
 \begin{frame}{Applicazioni di Lawvere}
   \framesubtitle{Ancora calcolabilità: enumerazioni uniformi e linguaggi}
   \scriptsize
-  \renewcommand{\arraystretch}{1.05}
-  \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.13\textwidth} >{\bfseries}L{.18\textwidth} Y L{.215\textwidth}@{}}
+  \renewcommand{\arraystretch}{.85}
+  \setlength{\tabcolsep}{3pt}
+  \makebox[\textwidth][c]{\begin{tabularx}{\dimexpr\textwidth+12mm\relax}{@{}>{\centering\arraybackslash}p{.10\textwidth} >{\bfseries}L{.19\textwidth} Y L{.27\textwidth}@{}}
     \toprule
     \textcolor{maincolor}{\bfseries Categoria}
       & Risultato & Enunciato & Significato \\
     \midrule
     \multirow{5}{*}[-15mm]{\textcolor{maincolor}{$\RecTot$}}
       & Halting problem
-      & L'haling set $H_1 = \{ (\alpha, x) \in \NN^2 | u_1(\alpha, x) \ne \bot \}$ non è decidibile.
+      & L'halting set $H_1 = \{ (\alpha, x) \in \NN^2 | u_1(\alpha, x) \ne \bot \}$ non è decidibile.
       & Non esiste un algoritmo che decide se un programma termina. \\
-    & Funzioni ricorsive totali
-      & Non esiste un'enumerazione uniforme di tutte le funzioni ricorsive totali $\NN\to\NN$.
-      & Sono numerabili, ma non elencabili da un unico algoritmo totale. \\
-    & Insiemi decidibili
-      & Non esiste un'enumerazione uniforme di tutti gli insiemi decidibili $A\subseteq\NN$.
-      & Sono numerabili, ma non elencabili uniformemente. \\
+    & Enumerazione funzioni ricorsive totali
+      & Detta $(f_n)_{n\in\NN}$ un'enumerazione delle funzioni ricorsive totali, non esiste $F(-,-)$ ricorsiva totale
+      tale che $F(n,-)=f_n$ per ogni $n\in\NN$.
+      & Non esiste un algoritmo che elenchi tutti e soli i programmi che terminano su ogni input. \\
+    & Enumerazione insiemi decidibili
+      & Detta $(A_n)_{n\in\NN}$ un'enumerazione degli insiemi decidibili, non esiste $G(-,-)$ ricorsiva totale
+      tale che $A_n = \{G(n,-) = 0\}$.
+      & Non esiste un algoritmo che elenchi tutti gli insiemi decidibili. \\
     & Insiemi semidecidibili
-      & Esiste un insieme semidecidibile $A\subseteq\NN$ con $A^{\complement}$ non semidecidibile.
-      & Non sono chiusi per complemento. \\
-    & Aritmetica vera
+      & Esiste un insieme semidecidibile $A\subseteq\NN$ con complementare $A^{\complement}$ non semidecidibile.
+      & Saper decidere un insieme non significa saper decidere il suo complementare. \\
+    & Insieme delle verità aritmetiche
       & $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ non è ricorsivamente enumerabile.
-      & Le verità aritmetiche non sono enumerabili da un algoritmo. \\
-    \addlinespace[.7mm]
+      & Non c'è un algoritmo che riconosce tutte le proposizioni aritmetiche vere in $\NN$. \\
+    \addlinespace[.2mm]
     \textcolor{maincolor}{$\mathsf{Set}$}
-      & Linguaggi su $\{1\}$
+      & Esistenza di un linguaggio non r.e.
       & Esiste un linguaggio $L\subseteq\{1\}^*$ non r.e.
-      & Anche un alfabeto unario ammette linguaggi non r.e. \\
+      & Esiste un linguaggio le cui stringhe non possono essere riconosciute da un algoritmo. \\
     \bottomrule
-  \end{tabularx}
+  \end{tabularx}}
 \end{frame}
 
 \begin{frame}{Primo teorema di incompletezza di Gödel}
