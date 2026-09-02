@@ -1,0 +1,45 @@
+name: build-slides
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile slides
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: slides.tex
+          working_directory: "slides (in italian)"
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode -jobname=slides_Diego_Monaco
+
+      - name: Upload slides
+        uses: actions/upload-artifact@v4
+        with:
+          name: slides_Diego_Monaco
+          path: "slides (in italian)/slides_Diego_Monaco.pdf"
+
+      - name: Publish latest slides release
+        if: github.event_name != 'pull_request'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest-slides
+          commit: ${{ github.sha }}
+          name: Latest compiled slides
+          body: Release aggiornata automaticamente da GitHub Actions.
+          prerelease: true
+          allowUpdates: true
+          replacesArtifacts: true
+          artifacts: "slides (in italian)/slides_Diego_Monaco.pdf"
+          token: ${{ secrets.GITHUB_TOKEN }}

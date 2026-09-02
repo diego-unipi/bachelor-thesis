@@ -6,14 +6,19 @@
 *.fdb_latexmk
 *.fls
 *.log
+*.nav
 *.out
 *.run.xml
+*.snm
 *.synctex.gz
 *.toc
+*.vrb
 
 /main.pdf
 /sources and bibliography/
 /AGENTS.md
 /tmp/
 /.vscode/
-/slides (in italian)
+/slides (in italian)/.vscode/
+/slides (in italian)/slides.pdf
+/slides (in italian)/slides_Diego_Monaco.pdf

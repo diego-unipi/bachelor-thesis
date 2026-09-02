@@ -1,0 +1,521 @@
+\documentclass[italian,usepdftitle=false]{beamer}
+\usetheme{dmpisa}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{mathpazo}
+\usepackage{array,booktabs,multirow,tabularx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+
+\usefonttheme[onlymath]{serif}
+\titlebackground*{assets/background}
+
+\AtBeginSection[]{}
+\makeatletter
+\patchcmd{\beamer@checkframetitle}
+  {\framesubtitle{\thesection \, \secname}}{}{}{}
+\makeatother
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\RE}{\mathrm{RE}}
+\newcommand{\RecTot}{\mathsf{Rec}_{\mathrm{tot}}}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\Hom}{Hom}
+\definecolor{lawverered}{RGB}{225,78,72}
+\definecolor{lawveregreen}{RGB}{45,205,140}
+
+\setbeamertemplate{theorem begin}{%
+  \begin{\inserttheoremblockenv}{%
+    \rmfamily\bfseries\inserttheoremname%
+    \ifblank{\inserttheoremaddition}{}{ (\inserttheoremaddition)}%
+  }%
+  \rmfamily
+}
+\setbeamertemplate{theorem end}{\end{\inserttheoremblockenv}}
+
+\setbeamertemplate{proof begin}{%
+  \begin{block}{\rmfamily\bfseries\insertproofname}%
+  \rmfamily
+}
+\setbeamertemplate{proof end}{\end{block}}
+
+\setbeamertemplate{itemize item}{\color{maincolor}\small$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{maincolor}\scriptsize$\bullet$}
+\setlength{\tabcolsep}{5pt}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\tikzset{
+  flow/.style={-{Latex[length=2.2mm]},line width=1.1pt,draw=maincolor},
+  flowgray/.style={-{Latex[length=2.2mm]},line width=1pt,draw=darkgray},
+  concept/.style={rounded corners=3pt,draw=maincolor,line width=.9pt,
+    fill=sintefgrey,align=center,inner sep=6pt},
+  accent/.style={rounded corners=3pt,draw=sintefgreen,line width=1pt,
+    fill=sinteflightgreen,align=center,inner sep=6pt},
+  logicaccent/.style={rounded corners=3pt,draw=sinteflilla,line width=1pt,
+    fill=sinteflilla!8,align=center,inner sep=6pt},
+  categoryaccent/.style={rounded corners=3pt,draw=maincolor,line width=1pt,
+    fill=maincolor!8,align=center,inner sep=6pt},
+  flowaccent/.style={-{Latex[length=2.2mm]},line width=1.1pt,draw=sintefgreen},
+  warning/.style={rounded corners=3pt,draw=sintefred,line width=1pt,
+    fill=sintefred!8,align=center,inner sep=6pt}
+}
+
+\title{Lawvere's Fixed-Point Theorem through the Curry--Howard--Lambek Correspondence}
+\subtitle{Relatore: Prof.\ Marcello Mamino}
+\course{Corso di Laurea Triennale in Matematica\\Università di Pisa}
+\author{Diego Monaco}
+\date{25 settembre 2026}
+
+\begin{document}
+\maketitle
+
+\section{Punti fissi e diagonalizzazione}
+
+\begin{frame}{Teoremi di punto fisso}
+  \small
+  \centering
+  \begin{tikzpicture}[node distance=5mm and 5mm]
+    \node[concept,text width=30mm,font=\bfseries] (fixed) {Teoremi di punto fisso};
+    \node[warning,below left=of fixed,text width=40mm] (general)
+      {Geometrici, topologici\\e di ordinamenti};
+    \node[accent,below right=of fixed,text width=40mm] (diagonal)
+      {Diagonali: formalizzano\\l'autoreferenzialità};
+    \draw[flow] (fixed) -- (general);
+    \draw[flow] (fixed) -- (diagonal);
+    \node[below=4mm of general,align=center,font=\footnotesize] (examples_left)
+      {Brouwer \quad Banach \quad Tarski\\ punti fissi di operatori normali\\ \ldots};
+    \draw[flow] (general) -- (examples_left);
+    \node[below=4mm of diagonal,align=center,font=\footnotesize] (examples)
+      {Cantor \quad Russell \quad Gödel\\Turing \quad Rogers \\ \ldots};
+    \draw[flow] (diagonal) -- (examples);
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Punto fisso nel caso diagonale}
+  \centering
+  \vspace*{2mm}
+  \begin{tikzpicture}
+    \node[rounded corners=3pt,draw=maincolor,line width=1pt,fill=white,
+          text width=108mm,align=left,inner sep=7pt,font=\small]
+      {\textcolor{maincolor}{\textbf{Idea}}:
+       Nei casi diagonali il punto fisso emerge duplicando un oggetto,
+       codificando la mappa ottenuta e applicandola al proprio codice.};
+  \end{tikzpicture}
+
+  \vspace{7mm}
+  \begin{tikzpicture}[node distance=7mm]
+    \only<2->{
+    \node[accent,text width=32mm,minimum height=21mm] (diag)
+      {\textbf{1. Diagonalizzazare}\\[3pt]
+       $d(x):=f\bigl(\phi(x,x)\bigr)$};}
+    \only<3->{
+    \node[accent,right=of diag,text width=32mm,minimum height=21mm] (code)
+      {\textbf{2. \mbox{Prenderne} il codice}\\[3pt]
+       $\phi(p,-)=d(-)$};}
+    \only<4->{
+    \node[accent,right=of code,text width=32mm,minimum height=21mm] (self)
+      {\textbf{3. Applicare la funzione al codice}\\[3pt]
+       $s:=\phi(p,p)$};}
+    \only<3->{\draw[flowaccent] (diag) -- (code);}
+    \only<4->{\draw[flowaccent] (code) -- (self);}
+  \end{tikzpicture}
+
+  \vspace{-2mm}
+  \only<5>{
+  \[
+    s=\phi(p,p)=d(p)=f\bigl(\phi(p,p)\bigr)=f(s)
+  \]
+  }
+\end{frame}
+
+\section{Il teorema di Lawvere}
+
+\begin{frame}{Lawvere formalizza il principio diagonale}
+  \small
+  Lawvere generalizza il principio precedente: una codifica universale forza
+  punti fissi.
+
+  \vspace{0mm}
+  \begin{block}{Teorema di Lawvere (1969)}
+    \vspace{1mm}
+    \begin{columns}[T,onlytextwidth]
+      \begin{column}{.47\textwidth}
+        \centering
+        \textcolor{maincolor}{\textbf{Forma esponenziale}}\par\smallskip
+        In una categoria cartesiana chiusa, se\par\smallskip
+        $\phi:A\longrightarrow B^A$\par\smallskip
+        è debolmente suriettiva sui punti,
+      \end{column}
+      \begin{column}{.47\textwidth}
+        \centering
+        \textcolor{maincolor}{\textbf{Forma diagonale}}\par\smallskip
+        In una categoria cartesiana, se\par\smallskip
+        $\Phi:A\times A\longrightarrow B$\par\smallskip
+        è debolmente suriettiva sui punti,
+      \end{column}
+    \end{columns}
+
+  \vspace{2mm}
+    \centering
+    {\color{darkgray}\rule{.82\linewidth}{.4pt}}\par\smallskip
+    \textbf{allora}:
+    ogni endomorfismo $f:B\to B$ ammette un punto fisso
+    $s:1\to B$, cioè $f\circ s=s$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Lawvere formalizza il principio diagonale}
+  \small
+  Lawvere generalizza il principio precedente: una codifica universale forza
+  punti fissi.
+
+  \vspace{0mm}
+  \begin{block}{Teorema di Lawvere (1969)}
+    \vspace{1mm}
+    \begin{columns}[T,onlytextwidth]
+      \begin{column}{.47\textwidth}
+        \centering
+        \textcolor{maincolor}{\textbf{Forma esponenziale}}\par\smallskip
+        In una categoria cartesiana chiusa, se\par\smallskip
+        $\phi:A\longrightarrow B^A$\par\smallskip
+        è debolmente suriettiva sui punti,
+      \end{column}
+      \begin{column}{.47\textwidth}
+        \centering
+        \textcolor{maincolor}{\textbf{Forma diagonale}}\par\smallskip
+        In una categoria cartesiana, se\par\smallskip
+        $\Phi:A\times A\longrightarrow B$\par\smallskip
+        è debolmente suriettiva sui punti,
+      \end{column}
+    \end{columns}
+
+    \vspace{2mm}
+    \centering
+    {\color{darkgray}\rule{.82\linewidth}{.4pt}}\par\smallskip
+    \textbf{allora}:
+    ogni endomorfismo $f:B\to B$ ammette un punto fisso
+    $s:1\to B$, cioè $f\circ s=s$.
+  \end{block}
+
+  \vspace{1mm}
+  \centering
+  In una categoria cartesiana chiusa le due forme sono equivalenti per currying:
+  \[
+    \phi=\Phi^*
+    \quad\Longleftrightarrow\quad
+    \Phi=\phi^\sharp,
+  \]
+  \vspace{-3mm}
+  dove\;
+  \((-)^*\colon\!\Hom(A\times A,B)
+    \overset{\cong}{\to}\Hom(A,B^A), \quad
+    (-)^\sharp\colon\!\Hom(A,B^A)
+    \overset{\cong}{\to}\Hom(A\times A,B).\)
+\end{frame}
+
+\section{Curry--Howard--Lambek}
+\vspace{1mm}
+\begin{frame}{Curry--Howard--Lambek}
+  \framesubtitle{Il trinitarismo computazionale}
+  \centering
+  \vspace{3mm}
+  \begin{tikzpicture}[node distance=15mm]
+    \node[logicaccent,text width=32mm,minimum height=18mm] (logic)
+      {\textbf{Logica intuizionista}\\proposizioni\\dimostrazioni};
+    \node[accent,right=of logic,text width=32mm,minimum height=18mm] (lambda)
+      {\textbf{$\lambda$-calcolo tipato}\\tipi\\termini};
+    \node[categoryaccent,right=of lambda,text width=32mm,minimum height=18mm] (cat)
+      {\textbf{Categorie}\\\textbf{cartesiane chiuse}\\oggetti / morfismi};
+    \draw[flowgray] ([yshift=2mm]logic.east)
+      -- node[midway,above=1mm,font=\tiny,fill=white,inner sep=.5pt]
+         {Curry--Howard}
+      ([yshift=2mm]lambda.west);
+    \draw[flowgray] ([yshift=-2mm]lambda.west) -- ([yshift=-2mm]logic.east);
+    \draw[flowgray] ([yshift=2mm]lambda.east)
+      -- node[midway,above=1mm,font=\tiny,fill=white,inner sep=.5pt]
+         {Lambek}
+      ([yshift=2mm]cat.west);
+    \draw[flowgray] ([yshift=-2mm]cat.west) -- ([yshift=-2mm]lambda.east);
+  \end{tikzpicture}
+
+  \vspace{3mm}
+  \begin{block}{Equivalenza categoriale}
+    \centering
+    $\mathsf{CCC}_N \simeq \lambda\text{-}\mathsf{Calc}$
+
+    \vspace{-1mm}
+    \footnotesize
+    \renewcommand{\arraystretch}{.9}
+    \begin{tabularx}{.97\textwidth}{@{}p{15mm} >{\raggedright\arraybackslash}X c p{15mm} >{\raggedright\arraybackslash}X@{}}
+      \multicolumn{2}{c}{\color{maincolor}\bfseries $\mathsf{CCC}_N$}
+        & &
+      \multicolumn{2}{c}{\color{sintefgreen}\bfseries $\lambda\text{-}\mathsf{Calc}$} \\[-1.4mm]
+      \multicolumn{2}{c}{\color{maincolor}\rule{42mm}{.7pt}}
+        & &
+      \multicolumn{2}{c}{\color{sintefgreen}\rule{42mm}{.7pt}} \\[-.2mm]
+      \smash{{\color{maincolor}\bfseries oggetti}}
+        & CCC con WNNO e iteratore
+        & {\color{darkgray}\normalsize $\longleftrightarrow$}
+        & \smash{{\color{sintefgreen}\bfseries oggetti}}
+        & $\lambda$-calcoli tipati \\[.6mm]
+      \smash{{\color{maincolor}\bfseries morfismi}}
+        & funtori che preservano la \mbox{struttura} cartesiana chiusa
+        & {\color{darkgray}\normalsize $\longleftrightarrow$}
+        & \smash{{\color{sintefgreen}\bfseries morfismi}}
+        & traduzioni tra calcoli tipati
+    \end{tabularx}
+  \end{block}
+  \hfill{\scriptsize Lambek--Scott, 1986}
+\end{frame}
+
+\section{Applicazioni di Lawvere}
+
+\begin{frame}{Applicazioni di Lawvere}
+  \centering
+  Il teorema di Lawvere ci permette di ottenere due famiglie di risultati.\par
+  \vspace{2mm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.47\textwidth}
+      {\setbeamercolor{block title}{fg=black,bg=lawverered}
+      \setbeamercolor{block body}{fg=black,bg=lawverered!25}
+      \begin{block}{Teoremi di impossibilità}
+        Se un oggetto $B$ ammette un endomorfismo senza punti fissi, allora non esiste una mappa "surgettiva" del tipo:
+        \[
+          \phi : A \times A \to B \quad\text{ o }\quad \phi : A \to B^A.
+        \]
+      \end{block}
+      }
+    \end{column}
+    \begin{column}{.47\textwidth}
+      {\setbeamercolor{block title}{fg=black,bg=lawveregreen}
+      \setbeamercolor{block body}{fg=black,bg=lawveregreen!25}
+      \begin{block}{Teoremi di esistenza}
+        Se esiste un morfismo "surgettivo" $\phi$ dello stesso tipo,
+        allora ogni endomorfismo $f:B\to B$ ammette un punto fisso:
+        \[
+          \exists s : 1 \to s \qquad f \circ s = s.
+        \]
+      \end{block}
+      }
+    \end{column}
+  \end{columns}
+
+  \vspace{3mm}
+  \begin{center}
+    \begin{minipage}{\textwidth}
+      \centering\normalsize\color{darkgray}
+      Vediamo alcuni esempi concreti in
+      \textbf{teoria degli insiemi, topologia, calcolabilità e logica}.
+    \end{minipage}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Applicazioni di Lawvere}
+  \framesubtitle{Teoria degli insiemi e topologia}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.30}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.09\textwidth} >{\bfseries}L{.14\textwidth} L{.24\textwidth} Y@{}}
+    \toprule
+    \textcolor{maincolor}{\bfseries Categoria}
+      & Risultato & Mappa senza punti fissi & Cosa non può essere universale \\
+    \midrule
+    \multirow{3}{*}[-6mm]{\textcolor{maincolor}{$\mathsf{Set}$}}
+      & Cantor
+      & $\neg:2\to2$
+      & Nessuna suriezione $A\twoheadrightarrow2^A$; in particolare, adattando la dimostrazione di Lawvere nel caso di $\NN$ e $\RR$,
+      si ottiene l'argomento diagonale di Cantor, per cui $|\NN|<|\RR|$.\\
+    & Russell
+      & ancora $\neg:2\to2$
+      & Se la classe $V$ fosse un insieme, $a\mapsto\mathbf1_a$ darebbe
+        $V\twoheadrightarrow2^V$: impossibile. \\
+    & Paradossi classici
+      & negazione su $2$ o permutazione su $3$
+      & Barbiere, Grelling e mentitore (forte) si basano tutte sul fatto che non esiste una mappa $\phi : A \times A \twoheadrightarrow \{0,1\}$,
+      perché altrimenti codificherebbe la mappa $a \mapsto \neg\phi(a,a)$. \\
+    \addlinespace[.7mm]
+    \textcolor{maincolor}{$k\mathsf{Top}$}
+      & Suriezioni continue
+      & un $t:X\to X$ continuo senza punti fissi
+      & Nessuna suriezione continua $I\twoheadrightarrow X^I$;
+        ad esempio: $S^1$ con la mappa antipodale, gruppi topologici non banali, lo spazio di Cantor $2^{\NN}$. \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
+\begin{frame}{Applicazioni di Lawvere}
+  \framesubtitle{Teoria della calcolabilità}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.30}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.13\textwidth} >{\bfseries}L{.18\textwidth} Y L{.215\textwidth}@{}}
+    \toprule
+    \textcolor{maincolor}{\bfseries Categoria}
+      & Risultato & Punto fisso ottenuto & Lettura \\
+    \midrule
+    \multirow{3}{*}[-6mm]{\textcolor{maincolor}{$\mathsf{Asm}(\mathcal K_1)$}}
+      & Teorema di Rice
+      & La mappa che scambia le due classi dovrebbe possedere un punto fisso:
+        assurdo.
+      & Nessuna proprietà estensionale non banale è decidibile. \\
+    & Operatori estensionali
+      & $F:\RE\to\RE$ ammette $W_n$ con $F(W_n)=W_n$.
+      & Istanza diretta di Lawvere nelle assemblies. \\
+    & Teorema di Rogers
+      & $u_1(\varphi(n),-)=u_1(n,-)$ per qualche indice $n$.
+      & Stessa diagonale sugli indici; non è un'istanza diretta. \\
+    \addlinespace[.7mm]
+    \textcolor{maincolor}{$\mathcal C$ (CCC)}
+      & Oggetti riflessivi
+      & $Y:U^U\to U$ sceglie uniformemente un punto fisso.
+      & Il combinatore $Y$ è Lawvere reso parametrico. \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
+\begin{frame}{Applicazioni di Lawvere}
+  \framesubtitle{Ancora calcolabilità: enumerazioni e linguaggi}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.30}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.12\textwidth} >{\bfseries}L{.18\textwidth} L{.20\textwidth} Y@{}}
+    \toprule
+    \textcolor{maincolor}{\bfseries Categoria}
+      & Risultato & Mappa senza punti fissi & Lettura \\
+    \midrule
+    \multirow{5}{*}[-4mm]{\textcolor{maincolor}{$\RecTot$}}
+      & Problema dell'arresto
+      & $s(n)=n+1$
+      & $H_1$ è indecidibile. \\
+    & Funzioni ricorsive totali
+      & $s(n)=n+1$
+      & Nessuna enumerazione uniforme di tutte le funzioni ricorsive totali. \\
+    & Insiemi decidibili
+      & $h(n)=1\mathbin{\dot{-}}n$
+      & Nessuna enumerazione uniforme di tutti gli insiemi decidibili. \\
+    & Insiemi semidecidibili
+      & $s(n)=n+1$
+      & Non sono chiusi per complemento. \\
+    & Aritmetica vera
+      & $s(n)=n+1$
+      & $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ non è r.e. \\
+    \addlinespace[.7mm]
+    \textcolor{maincolor}{$\mathsf{Set}$}
+      & Linguaggi su $\{1\}$
+      & $\neg:2\to2$
+      & Esiste un linguaggio non r.e. \\
+    \bottomrule
+  \end{tabularx}
+
+  \vspace{2mm}
+  \begin{colorblock}[white]{maincolor}{Il test è sempre lo stesso}
+    Una presunta enumerazione costruisce una mappa
+    $F:\NN\times\NN\to B$ universalmente rappresentativa; applicando la
+    diagonale a un endomorfismo senza punti fissi si ottiene la contraddizione.
+  \end{colorblock}
+\end{frame}
+
+\begin{frame}{Primo teorema di incompletezza di Gödel}
+  \centering
+  \begin{tikzpicture}[node distance=4mm and 7mm,scale=.86,transform shape]
+    \node[concept,text width=25mm,font=\bfseries] (lawvere)
+      {Lawvere\\forma prodotto};
+    \node[concept,above right=of lawvere,text width=31mm] (sat)
+      {\scriptsize codici di formule\\\textbf{soddisfazione non definibile}};
+    \node[concept,right=of sat,text width=27mm] (truth)
+      {\textbf{verità}\\\textbf{non definibile}};
+    \node[accent,right=of lawvere,text width=29mm] (direct)
+      {\scriptsize provabilità\\\textbf{Gödel I}\\\scriptsize via diretta};
+    \node[concept,below right=of lawvere,text width=31mm] (diag)
+      {\scriptsize sostituzione\\\textbf{lemma diagonale}};
+    \node[accent,right=of diag,text width=27mm] (godel)
+      {\textbf{Gödel I}\\\scriptsize via classica};
+    \draw[flow] (lawvere) -- (sat);
+    \draw[flow] (sat) -- (truth);
+    \draw[flow,dashed] (lawvere) -- (direct);
+    \draw[flow] (lawvere) -- (diag);
+    \draw[flow] (diag) -- (godel);
+  \end{tikzpicture}
+
+  \vspace{2mm}
+  \begin{block}{La struttura sintattica comune}
+    \small
+    \centering
+    una formula con una variabile $\longrightarrow$ il suo codice
+    $\longrightarrow$ sostituzione del codice in se stessa.
+  \end{block}
+\end{frame}
+
+\section{McCallum e Brouwer}
+
+\begin{frame}{Per Brouwer, Lawvere classico non basta}
+  \small
+  \raggedright
+  L'applicazione diretta di Lawvere richiede una suriezione continua, che non esiste nemmeno in un caso molto semplice come:
+  \[
+    A\twoheadrightarrow[0,1]^A.
+  \]
+  \vspace{2mm}
+  \begin{colorblock}[white]{sintefred}{Ostacolo (McCallum, 2020)}
+    In $\mathsf{ZFC}$ non esiste alcuno spazio topologico $A$ per cui sia
+    definita la topologia esponenziale su $[0,1]^A$ ed esista una suriezione continua $A\twoheadrightarrow[0,1]^A$.
+  \end{colorblock}
+
+  \vspace{2mm}
+  \begin{center}
+    \begin{tikzpicture}[node distance=8mm]
+      \node[concept] (law) {Lawvere classico};
+      \node[warning,dashed,right=of law] (missing) {ipotesi topologica\\non realizzabile};
+      \node[concept,right=of missing] (brouwer) {Brouwer};
+      \draw[flow] (law) -- (missing);
+      \draw[flow] (missing) --
+        node[midway,inner sep=0pt,text=sintefred,font=\LARGE] {$\boldsymbol{\times}$}
+        (brouwer);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Idea: usare due topologie diverse}
+  \small
+  \raggedright
+  Equipaggiando lo stesso insieme $|A|$ con una topologia più fine $\tau'$ e una
+  meno fine $\tau''$, allora possono esistere mappa continue e surgettive:
+  \[
+    A' := (|A|,\tau') \twoheadrightarrow X^{(|A|,\tau'')} =: X^{A''}.
+  \]
+
+  \vspace{-2.1mm}
+  \begin{block}{Lawvere generalizzato (McCallum, 2020)}
+    \footnotesize
+    Siano $\mathcal C$ una categoria cartesiana, $\mathcal S$ una sua sottoclasse, $A',A'' \in \mathcal S$ e $h:A'\to A''$ puntualmente bigettiva.
+    Se per ogni $X\in\mathcal S$ esiste $g_X:A'\to X^{A''}$ puntualmente surgettiva e se ogni $q:A'\to X$, che fattorizza
+    attraverso $\langle g_X,h\rangle$, fattorizza anche attraverso $h$, allora
+    ogni endomorfismo degli oggetti di $\mathcal S$ ha un punto fisso.
+  \end{block}
+
+  \vspace{-2.1mm}
+  {\setbeamercolor{block title}{fg=white,bg=sintefgreen}
+  \setbeamercolor{block body}{fg=darkgray,bg=sintefgrey}
+  \begin{block}{Proposizione (McCallum, 2020)}
+    \footnotesize
+    Esiste una opportuna sottoclasse di spazi $\mathcal S\subseteq k\mathsf{Top}$, contenente tutte le
+    palle chiuse degli spazi euclidei di dimensione finita, tale che per ogni $X\in\mathcal S$ le ipotesi del teorema precedente sono soddisfatte.
+  \end{block}
+  }
+\end{frame}
+
+\begingroup
+  \themecolor{main}
+  \begin{frame}[c]
+    \centering
+    \usebeamercolor[fg]{normal text}
+    {\Huge\textsl{Grazie per l'attenzione!}}
+  \end{frame}
+\endgroup
+
+\end{document}

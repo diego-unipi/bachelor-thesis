@@ -1062,18 +1062,18 @@ We prove this theorem using Lawvere's fixed-point theorem, since it is interesti
     the set is decidable. Let $\{\ulcorner \sigma \urcorner \in \NN : \NN \models \sigma\} = \{n : f(n) = 0\}$ for some total recursive function $f : \NN \to \NN$.\newline
     Let $\mathrm{sub} : \NN^3 \to \NN$ send $(e,n,m)$ to the Gödel code of the formula obtained by substituting $\overline n$ and $\overline m$ for the free variables $x$ and $y$ in the formula whose Gödel code is $e$, and let $\mathrm{ex} : \NN^2 \to \NN$ send $(e,n)$ to the code of $\exists y\,\varphi(\overline n,y)$; on invalid codes, let $\mathrm{ex}$ return the code of a false sentence. Both functions are primitive recursive.
     Define the total recursive function
-    \[ F(e,n) := \begin{cases}\mu m\,[f(\mathrm{sub}(e,n,m))=0]&\text{if $f(\mathrm{ex}(e,n))=0$},\\0&\text{otherwise}.\end{cases} \]
+    \[ F(e,n) := \begin{cases}\mu_m(f(\mathrm{sub}(e,n,m))=0)&\text{if $f(\mathrm{ex}(e,n))=0$},\\0&\text{otherwise}.\end{cases} \]
     Given any total recursive function $g : \NN \to \NN$, its graph is definable by a $\Sigma_1^0$ $L_{\textnormal{arit}}$-formula $\varphi_g(x,y)$, and therefore
     \[ F(\ulcorner\varphi_g\urcorner,n)=g(n). \]
     Hence $F : \NN^2\to\NN$ is weakly product point-surjective. Applying Lawvere's fixed-point theorem in the cartesian form, every total recursive endomorphism of $\NN$ has a fixed point, contradicting the fact that the successor function has none.
 \end{proof}
 
 \subsection*{Various classical paradoxes}
-The barber, Grelling's, liar, and strong liar paradoxes all use the diagonal step in Lawvere's proof. In $\mathsf{Set}$, let $\phi : A\times A\to Y$ encode the relevant relation:
+The barber, Grelling's, liar, and strong liar paradoxes all use the diagonal step in Lawvere's proof. In $\mathsf{Set}$, let $\phi : A\times A\to Y$, for $Y = 2 = \{0,1\}$ or $Y = \{T,M,F\} = 3$, encode the relevant relation:
 \begin{itemize}[label=*]
     \item $\phi(a,x) = 1$ if the inhabitant $a$ shaves the inhabitant $x$ in the barber paradox;
     \item $\phi(a,x) = 1$ if the adjective $a$ describes the adjective $x$ in Grelling's paradox;
-    \item $\phi(a,x) = 1$ if the sentence $a$ is true when it refers to the sentence $x$ in the liar paradox, e.g. $a$ = ``This sentence $x$'', and $x$ = ``is false'';
+    \item $\phi(a,x) = 1$ if the sentence $a$ is true when it refers to the sentence $x$ ("$a(x)$" is true if and only if $\phi(a,x) = 1$);
     \item $\phi(a,x) = T$, $M$, or $F$ according to whether the sentence $a$ is true, meaningless, or false when it refers to the sentence $x$ in the strong liar paradox.
 \end{itemize}
 Let $t : Y\to Y$ have no fixed points. The diagonal map
