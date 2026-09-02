@@ -492,7 +492,7 @@ More precisely, the morphism $g$ below plays the role of the term $q(x)=f(\phi(x
 \subsection*{Existence of $Y$-combinator for reflexive objects}
 We conclude this section by showing that Lawvere's fixed-point theorem can be used to prove the existence of a $Y$-combinator for reflexive objects in cartesian closed categories.
 The $Y$-combinator is a morphism $Y : U^U \to U$ that sends every endomorphism $f : U \to U$ to one of its fixed points, i.e. $Y \circ \ulcorner f \urcorner : 1 \to U$ is a fixed point of $f$.
-It can therefore be seen as a uniform fixed-point operator, and it is the categorical counterpart of the $Y$-combinator in $\lambda$-calculus.
+Therefore, it can be seen as a uniform fixed-point operator, and it is the categorical counterpart of the $Y$-combinator in $\lambda$-calculus.
 
 
 \begin{definition}[Reflexive object]
@@ -533,9 +533,9 @@ It can therefore be seen as a uniform fixed-point operator, and it is the catego
     Since $\ulcorner f\urcorner^\sharp=f = \ev_{U,U} \circ \langle \ulcorner f \urcorner \circ !_U, 1_U \rangle$, we have
     \begin{align*}
         f\circ p_f &= (\ev_{U,U} \circ \langle \ulcorner f \urcorner \circ !_U, 1_U \rangle) \circ (Y\circ\ulcorner f\urcorner) \\
-                   &= (\ev_{U,U} \circ \langle \ulcorner f \urcorner \circ !_U \circ Y, Y \rangle) \circ \ulcorner f\urcorner \\
-                   &= (\ev_{U,U} \circ \langle 1_{U^U}, Y \rangle) \circ \ulcorner f\urcorner \\
-                   &= Y \circ \ulcorner f\urcorner = p_f.
+                   &= \ev_{U,U} \circ \langle \ulcorner f \urcorner \circ !_U \circ Y \circ \ulcorner f\urcorner, Y \circ \ulcorner f\urcorner \rangle \\
+                   &= \ev_{U,U} \circ \langle\ulcorner f \urcorner, Y \circ \ulcorner f\urcorner\rangle \\
+                   &= (\ev_{U,U} \circ \langle 1_{U^U}, Y \rangle) \circ \ulcorner f\urcorner = Y \circ \ulcorner f\urcorner = p_f.
     \end{align*}
 \end{proof}
 

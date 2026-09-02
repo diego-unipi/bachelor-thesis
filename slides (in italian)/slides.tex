@@ -356,30 +356,33 @@
   \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.13\textwidth} >{\bfseries}L{.18\textwidth} Y L{.215\textwidth}@{}}
     \toprule
     \textcolor{maincolor}{\bfseries Categoria}
-      & Risultato & Punto fisso ottenuto & Lettura \\
+      & Risultato & Enunciato & Significato \\
     \midrule
-    \multirow{3}{*}[-6mm]{\textcolor{maincolor}{$\mathsf{Asm}(\mathcal K_1)$}}
+    \multirow{3}{*}[-15mm]{\textcolor{maincolor}{$\mathsf{Asm}(\mathcal K_1)$}}
       & Teorema di Rice
-      & La mappa che scambia le due classi dovrebbe possedere un punto fisso:
-        assurdo.
-      & Nessuna proprietà estensionale non banale è decidibile. \\
-    & Operatori estensionali
-      & $F:\RE\to\RE$ ammette $W_n$ con $F(W_n)=W_n$.
-      & Istanza diretta di Lawvere nelle assemblies. \\
+      & Se $R\subseteq\NN$ è estensionale e decidibile, allora
+        $R=\varnothing$ oppure $R=\NN$.
+      & Una proprietà estensionale non banale non è decidibile. \\
+    & Teorema di punto fisso per operatori estensionali
+      & Se $F:\RE\to\RE$ è estensionale, allora esiste $n\in\NN$ tale che
+        $F(W_n)=W_n$.
+      & Ogni operatore estensionale sugli insiemi ricorsivi ammette un punto fisso. \\
     & Teorema di Rogers
-      & $u_1(\varphi(n),-)=u_1(n,-)$ per qualche indice $n$.
-      & Stessa diagonale sugli indici; non è un'istanza diretta. \\
+      & Se $\varphi:\NN\to\NN$ è ricorsiva totale, allora esiste $n\in\NN$
+        con $u_1(\varphi(n),-)=u_1(n,-)$.
+      & Ogni funzione ricorsiva totale manda il codice di almeno un programma in un altro codice di un programma equivalente. \\
     \addlinespace[.7mm]
     \textcolor{maincolor}{$\mathcal C$ (CCC)}
       & Oggetti riflessivi
-      & $Y:U^U\to U$ sceglie uniformemente un punto fisso.
-      & Il combinatore $Y$ è Lawvere reso parametrico. \\
+      & Se $U$ è riflessivo, esiste $Y:U^U\to U$ con
+        $\ev_{U,U}\circ\langle 1_{U^U},Y\rangle=Y$.
+      & $Y$ sceglie uniformemente un punto fisso per ogni endomorfismo di $U$. \\
     \bottomrule
   \end{tabularx}
 \end{frame}
 
 \begin{frame}{Applicazioni di Lawvere}
-  \framesubtitle{Ancora calcolabilità: enumerazioni e linguaggi}
+  \framesubtitle{Ancora calcolabilità: enumerazioni uniformi e linguaggi}
   \scriptsize
   \renewcommand{\arraystretch}{1.30}
   \setlength{\tabcolsep}{4pt}
