@@ -384,43 +384,36 @@
 \begin{frame}{Applicazioni di Lawvere}
   \framesubtitle{Ancora calcolabilità: enumerazioni uniformi e linguaggi}
   \scriptsize
-  \renewcommand{\arraystretch}{1.30}
+  \renewcommand{\arraystretch}{1.05}
   \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.12\textwidth} >{\bfseries}L{.18\textwidth} L{.20\textwidth} Y@{}}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.13\textwidth} >{\bfseries}L{.18\textwidth} Y L{.215\textwidth}@{}}
     \toprule
     \textcolor{maincolor}{\bfseries Categoria}
-      & Risultato & Mappa senza punti fissi & Lettura \\
+      & Risultato & Enunciato & Significato \\
     \midrule
-    \multirow{5}{*}[-4mm]{\textcolor{maincolor}{$\RecTot$}}
-      & Problema dell'arresto
-      & $s(n)=n+1$
-      & $H_1$ è indecidibile. \\
+    \multirow{5}{*}[-15mm]{\textcolor{maincolor}{$\RecTot$}}
+      & Halting problem
+      & L'haling set $H_1 = \{ (\alpha, x) \in \NN^2 | u_1(\alpha, x) \ne \bot \}$ non è decidibile.
+      & Non esiste un algoritmo che decide se un programma termina. \\
     & Funzioni ricorsive totali
-      & $s(n)=n+1$
-      & Nessuna enumerazione uniforme di tutte le funzioni ricorsive totali. \\
+      & Non esiste un'enumerazione uniforme di tutte le funzioni ricorsive totali $\NN\to\NN$.
+      & Sono numerabili, ma non elencabili da un unico algoritmo totale. \\
     & Insiemi decidibili
-      & $h(n)=1\mathbin{\dot{-}}n$
-      & Nessuna enumerazione uniforme di tutti gli insiemi decidibili. \\
+      & Non esiste un'enumerazione uniforme di tutti gli insiemi decidibili $A\subseteq\NN$.
+      & Sono numerabili, ma non elencabili uniformemente. \\
     & Insiemi semidecidibili
-      & $s(n)=n+1$
+      & Esiste un insieme semidecidibile $A\subseteq\NN$ con $A^{\complement}$ non semidecidibile.
       & Non sono chiusi per complemento. \\
     & Aritmetica vera
-      & $s(n)=n+1$
-      & $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ non è r.e. \\
+      & $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ non è ricorsivamente enumerabile.
+      & Le verità aritmetiche non sono enumerabili da un algoritmo. \\
     \addlinespace[.7mm]
     \textcolor{maincolor}{$\mathsf{Set}$}
       & Linguaggi su $\{1\}$
-      & $\neg:2\to2$
-      & Esiste un linguaggio non r.e. \\
+      & Esiste un linguaggio $L\subseteq\{1\}^*$ non r.e.
+      & Anche un alfabeto unario ammette linguaggi non r.e. \\
     \bottomrule
   \end{tabularx}
-
-  \vspace{2mm}
-  \begin{colorblock}[white]{maincolor}{Il test è sempre lo stesso}
-    Una presunta enumerazione costruisce una mappa
-    $F:\NN\times\NN\to B$ universalmente rappresentativa; applicando la
-    diagonale a un endomorfismo senza punti fissi si ottiene la contraddizione.
-  \end{colorblock}
 \end{frame}
 
 \begin{frame}{Primo teorema di incompletezza di Gödel}
