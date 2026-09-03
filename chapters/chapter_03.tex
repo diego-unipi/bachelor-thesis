@@ -872,20 +872,31 @@ So $T$ understands the truth value of every closed formula in $T$ itself.
     \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\mathsf{Truth}_T(\overline{\ulcorner\sigma\urcorner})]; \]
     hence, truth is definable in $T$ if and only if
     \[ [\mathsf{Truth}_T(y)]\circ c_\sigma = [\sigma] \]
-    for every closed $L_{\textnormal{arit}}$-formula $\sigma$.
+    for every closed $L_{\textnormal{arit}}$-formula $\sigma$. Equivalently, truth is definable in $T$ if and only if there exists a morphism $A \to 2$ which makes the following diagram commute for every closed $L_{\textnormal{arit}}$-formula $\sigma$:
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIxIl0sWzEsMCwiMiJdLFswLDEsIkEiXSxbMCwxLCJbXFxzaWdtYV0iXSxbMCwyLCJbXFxvdmVybGluZXtcXHVsY29ybmVyIFxcc2lnbWEgXFx1cmNvcm5lcn1dIiwyXSxbMiwxLCJbXFxtYXRoc2Z7VHJ1dGh9X1QoeSldIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+    \[\begin{tikzcd}
+        1 & 2 \\
+        A
+        \arrow["{[\sigma]}", from=1-1, to=1-2]
+        \arrow["{[\overline{\ulcorner \sigma \urcorner}]}"', from=1-1, to=2-1]
+        \arrow["{[\mathsf{Truth}_T(y)]}"', dashed, from=2-1, to=1-2]
+    \end{tikzcd}\]
 \end{remark}
 
 Following Lawvere, it is convenient to introduce the following relation $\Gamma$ between closed terms and closed formulas that expresses the fact that a closed term is the Gödel code of a closed formula.
-\begin{definition}[$\Gamma$]
+
+\begin{definition}[Code-formula relation $\Gamma$]
     We define
     \[ \Gamma\subseteq\mathrm{Hom}(1,A)\times\mathrm{Hom}(1,2) \]
     by declaring that $d\Gamma\sigma$ if there exists a closed $L_{\textnormal{arit}}$-formula $\theta$ such that
-    \[ d = [\overline{\ulcorner\theta\urcorner}] \qquad\text{and}\qquad \sigma = [\theta]. \]
+    \[ d = [\overline{\ulcorner\theta\urcorner}] \qquad\text{and}\qquad \sigma = [\theta], \]
+    that is there is a closed formula such that $d$ is the the numeral corresponding to its code, and $\sigma$ is the formula itself.
 \end{definition}
 
-\begin{remark}
-    By the previous definition, we have that truth is definable in $T$ if and only if there exists a morphism $[\mathsf{Truth}_T(y)]:A\to2$ such that
-    \[ d\Gamma\sigma\implies[\mathsf{Truth}_T(y)]\circ d = \sigma. \]
+\begin{remark}[Characterization of definability of truth]
+    By the previous remark, we have that truth is definable in $T$ if and only if there exists a morphism $[\mathsf{Truth}_T(y)]:A\to2$ such that
+    \[ d\Gamma\sigma\implies[\mathsf{Truth}_T(y)]\circ d = \sigma, \]
+    for all $d\in\mathrm{Hom}(1,A)$ and $\sigma\in\mathrm{Hom}(1,2)$.
     That means that if $d$ is the Gödel code of a closed formula $\theta$, then $[\mathsf{Truth}_T(y)]\circ d$ is the truth value of $\theta$.
 \end{remark}
 
@@ -909,7 +920,7 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
 \end{theorem}
 
 \begin{proof}
-    Suppose by contradiction that truth is definable in $T$; then we can consider the corresponding morphism
+    Suppose by contradiction that truth is definable in $T$, then we can consider the corresponding morphism
     \[ [\mathsf{Truth}_T(y)] : A \to 2. \]
     We define
     \[ [\mathsf{Sat}_T(y,x)] := [\mathsf{Truth}_T(y)] \circ \textrm{subst} : A \times A \to 2. \]
