@@ -419,34 +419,51 @@
 \end{frame}
 
 \begin{frame}{Primo teorema di incompletezza di Gödel}
-  \centering
-  \begin{tikzpicture}[node distance=4mm and 7mm,scale=.86,transform shape]
-    \node[concept,text width=25mm,font=\bfseries] (lawvere)
-      {Lawvere\\forma prodotto};
-    \node[concept,above right=of lawvere,text width=31mm] (sat)
-      {\scriptsize codici di formule\\\textbf{soddisfazione non definibile}};
-    \node[concept,right=of sat,text width=27mm] (truth)
-      {\textbf{verità}\\\textbf{non definibile}};
-    \node[accent,right=of lawvere,text width=29mm] (direct)
-      {\scriptsize provabilità\\\textbf{Gödel I}\\\scriptsize via diretta};
-    \node[concept,below right=of lawvere,text width=31mm] (diag)
-      {\scriptsize sostituzione\\\textbf{lemma diagonale}};
-    \node[accent,right=of diag,text width=27mm] (godel)
-      {\textbf{Gödel I}\\\scriptsize via classica};
-    \draw[flow] (lawvere) -- (sat);
-    \draw[flow] (sat) -- (truth);
-    \draw[flow,dashed] (lawvere) -- (direct);
-    \draw[flow] (lawvere) -- (diag);
-    \draw[flow] (diag) -- (godel);
-  \end{tikzpicture}
+  \small
+  \begin{block}{Teorema di incompletezza, Gödel (1931)}
+    Se $T$ una teoria aritmetica coerente e ricorsivamente assiomatizzabile,
+    con $\mathsf Q\subseteq T$ e $\NN\models T$, allora $T$ è incompleta.
+  \end{block}
 
   \vspace{2mm}
-  \begin{block}{La struttura sintattica comune}
-    \small
-    \centering
-    una formula con una variabile $\longrightarrow$ il suo codice
-    $\longrightarrow$ sostituzione del codice in se stessa.
-  \end{block}
+  \centering
+  \begin{tikzpicture}[
+      x=1mm,y=1mm,
+      endpoint/.style={rounded corners=3pt,draw=maincolor,line width=1pt,
+        fill=maincolor,text=white,align=center,inner sep=5pt},
+      semanticroute/.style={rounded corners=3pt,draw=sinteflilla,line width=1pt,
+        fill=sinteflilla!8,align=center,inner sep=5pt},
+      syntacticroute/.style={rounded corners=3pt,draw=sintefgreen,line width=1pt,
+        fill=sinteflightgreen!55,align=center,inner sep=5pt},
+      semanticflow/.style={flow,draw=sinteflilla},
+      syntacticflow/.style={flow,draw=sintefgreen}
+    ]
+    \node[endpoint,text width=23mm,minimum height=19mm,font=\bfseries]
+      (lawvere) at (0,0)
+      {Teorema di Lawvere\\[.4mm]};
+    \node[semanticroute,text width=32mm,minimum height=19mm,font=\bfseries]
+      (satisfaction) at (35.5,11.5)
+      {$\mathsf{Sat}$ non è definibile\\in $T$\\[.4mm]
+       {\scriptsize\mdseries Lawvere in $\mathsf{Lind}_T$}};
+    \node[semanticroute,text width=25mm,minimum height=19mm,font=\bfseries]
+      (tarski) at (71.5,11.5)
+      {$\mathsf{Truth}$ non è definibile in $T$\\[.4mm]
+       {\scriptsize\mdseries Corollario immediato\\[-.2mm]}};
+    \node[syntacticroute,text width=56mm,minimum height=19mm,font=\bfseries]
+      (diagonal) at (51.5,-11.5)
+      {Lemma di diagonalizzazione di Gödel\\[.4mm]
+       {\scriptsize\mdseries Adattando la dimostrazione di Lawvere in $\mathsf{Set}$}};
+    \node[endpoint,text width=23mm,minimum height=19mm,font=\bfseries]
+      (godel) at (103,0)
+      {Gödel\\[.4mm]
+       {\scriptsize\mdseries Incompletezza di $T$}};
+
+    \draw[semanticflow] (lawvere.east) -- (satisfaction.west);
+    \draw[semanticflow] (satisfaction.east) -- (tarski.west);
+    \draw[semanticflow] (tarski.east) -- (godel.west);
+    \draw[syntacticflow] (lawvere.east) -- (diagonal.west);
+    \draw[syntacticflow] (diagonal.east) -- (godel.west);
+  \end{tikzpicture}
 \end{frame}
 
 \section{McCallum e Brouwer}
