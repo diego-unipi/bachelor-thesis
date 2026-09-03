@@ -785,7 +785,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 \begin{remark}
     To prove the undefinability of the satisfaction formula, we will only need the Hom-sets above, but to give a complete definition of the category $\mathsf{Lind}_T$, we need to define all the other Hom-sets.
     In order to do this we introduce the notation $L_{\textnormal{arit}}(p_1,\ldots,p_m)$ for the language $L_{\textnormal{arit}} \cup \{p_1,\ldots,p_m\}$, where $p_1,\ldots,p_m$ are new 0-ary relation symbols, and we define the other Hom-sets as follows:
-    \begin{itemize}
+    \begin{itemize}[leftmargin=-1.8pt]
         \item $\mathrm{Hom}(A^n \times 2^m,A) := \{t \in L_{\textnormal{arit}}(p_1,\ldots,p_m)\textnormal{-terms} \mid \FV(t)\subseteq\{x_1,\ldots,x_n\}\}/{=_{T(p_1,\ldots,p_m)}}$;
         \item $\mathrm{Hom}(A^n \times 2^m,2) := \{\varphi \in L_{\textnormal{arit}}(p_1,\ldots,p_m)\textnormal{-formulas} \mid \FV(\varphi)\subseteq\{x_1,\ldots,x_n\}\}/{\equiv_{T(p_1,\ldots,p_m)}}$;
         \item $\mathrm{Hom}(A^n \times 2^m,A^r \times 2^s)$ consists of tuples
@@ -798,7 +798,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
 \begin{remark}[$\mathsf{Lind}_T$ is a CC]
     In order to check that $\mathsf{Lind}_T$ is a category, one should check that: the composition is well-defined, the composition and identity laws hold,
     the universal property of the terminal object $1$, and the universal property of the product. All these properties follow from the corresponding properties of the substitution of terms and formulas in first-order logic,
-    and are not hard to verify, and therefore we omit the details.
+    and are not hard to verify, therefore we omit the details.
 \end{remark}
 
 \begin{example}

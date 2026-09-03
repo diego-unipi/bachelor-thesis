@@ -421,7 +421,8 @@
 \begin{frame}{Primo teorema di incompletezza di Gödel}
   \small
   \begin{block}{Teorema di incompletezza, Gödel (1931)}
-    Se $T$ una teoria aritmetica coerente e ricorsivamente assiomatizzabile,
+    \centering
+    Se $T$ una teoria aritmetica coerente e ricorsivamente assiomatizzabile,\\
     con $\mathsf Q\subseteq T$ e $\NN\models T$, allora $T$ è incompleta.
   \end{block}
 
@@ -439,30 +440,30 @@
       syntacticflow/.style={flow,draw=sintefgreen}
     ]
     \node[endpoint,text width=23mm,minimum height=19mm,font=\bfseries]
-      (lawvere) at (0,0)
+      (lawvere) at (-4,0)
       {Teorema di Lawvere\\[.4mm]};
     \node[semanticroute,text width=32mm,minimum height=19mm,font=\bfseries]
-      (satisfaction) at (35.5,11.5)
-      {$\mathsf{Sat}$ non è definibile\\in $T$\\[.4mm]
-       {\scriptsize\mdseries Lawvere in $\mathsf{Lind}_T$}};
+      (satisfaction) at (33.5,11.5)
+      {$\mathsf{Sat}$ non è\\definibile in $T$\\[.4mm]
+       {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Lawvere in $\mathsf{Lind}_T$}};
     \node[semanticroute,text width=25mm,minimum height=19mm,font=\bfseries]
-      (tarski) at (71.5,11.5)
+      (tarski) at (73.5,11.5)
       {$\mathsf{Truth}$ non è definibile in $T$\\[.4mm]
-       {\scriptsize\mdseries Corollario immediato\\[-.2mm]}};
+       {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Corollario immediato\\[-.2mm]}};
     \node[syntacticroute,text width=56mm,minimum height=19mm,font=\bfseries]
       (diagonal) at (51.5,-11.5)
       {Lemma di diagonalizzazione di Gödel\\[.4mm]
-       {\scriptsize\mdseries Adattando la dimostrazione di Lawvere in $\mathsf{Set}$}};
+       {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Adattando la dimostrazione di Lawvere in $\mathsf{Set}$}};
     \node[endpoint,text width=23mm,minimum height=19mm,font=\bfseries]
-      (godel) at (103,0)
+      (godel) at (107,0)
       {Gödel\\[.4mm]
-       {\scriptsize\mdseries Incompletezza di $T$}};
+       {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Incompletezza di $T$}};
 
-    \draw[semanticflow] (lawvere.east) -- (satisfaction.west);
+    \draw[semanticflow] ([yshift=3mm]lawvere.east) -- (satisfaction.west);
     \draw[semanticflow] (satisfaction.east) -- (tarski.west);
-    \draw[semanticflow] (tarski.east) -- (godel.west);
-    \draw[syntacticflow] (lawvere.east) -- (diagonal.west);
-    \draw[syntacticflow] (diagonal.east) -- (godel.west);
+    \draw[semanticflow] (tarski.east) -- ([yshift=3mm]godel.west);
+    \draw[syntacticflow] ([yshift=-3mm]lawvere.east) -- (diagonal.west);
+    \draw[syntacticflow] (diagonal.east) -- ([yshift=-3mm]godel.west);
   \end{tikzpicture}
 \end{frame}
 
