@@ -990,16 +990,17 @@ rather than reproducing the truth value of every closed formula. As corollary of
     defines truth relative to $\Gamma$, contradicting the previous theorem.
 \end{proof}
 
-\begin{remark}[Diagrams]
-    The proof of Gödel's first incompleteness theorem can be summarized in proving the commutativity of the following diagram in $\mathsf{Lind}_T$:
-    % https://q.uiver.app/#q=WzAsMyxbMCwxLCIxIl0sWzAsMCwiQSJdLFsxLDEsIjIiXSxbMCwxLCJkIl0sWzAsMiwiXFxzaWdtYSIsMl0sWzEsMiwiW1xcbWF0aHNme1ByfV9UKHkpXSJdXQ==
+\begin{remark}[Categorical formulation of Gödel's first incompleteness theorem]
+    The proof of Gödel's first incompleteness theorem can be summarized in proving that $[\mathsf{Pr}_T(y)]$ has, under Gödel's assumptions,
+    the same universal property as $[\mathsf{Truth}_T(y)]$, that is, if $d\Gamma\sigma$, then $[\mathsf{Pr}_T(y)]$ makes the following diagram commute:
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIxIl0sWzAsMSwiQSJdLFsxLDAsIjIiXSxbMCwxLCJkIiwyXSxbMCwyLCJcXHNpZ21hIl0sWzEsMiwiW1xcbWF0aHNme1ByfV9UKHkpXSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
     \[\begin{tikzcd}
-        A & \\
-        1 & 2
-        \arrow["{[\mathsf{Pr}_T(y)]}", from=1-1, to=2-2]
-        \arrow["d", from=2-1, to=1-1]
-        \arrow["\sigma"', from=2-1, to=2-2]
-    \end{tikzcd}\]
+        1 & 2 \\
+        A
+        \arrow["\sigma", from=1-1, to=1-2]
+        \arrow["d"', from=1-1, to=2-1]
+        \arrow["{[\mathsf{Pr}_T(y)]}"', dashed, from=2-1, to=1-2]
+    \end{tikzcd}.\]
 \end{remark}
 
 \subsection*{Gödel's diagonal lemma}
