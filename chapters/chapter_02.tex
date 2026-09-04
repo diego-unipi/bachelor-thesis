@@ -567,7 +567,7 @@ There may be other things that a translation preserves, depending on the specifi
         \item the types are the objects of $\mathcal C$, with the basic types $1$ and $N$, and the type-forming rules are the standard ones; they are defined by the cartesian closed structure of $\mathcal C$;
         \item the terms of type $A$ are the polynomial arrows $\varphi(x_1,\dots,x_n) : 1 \to A$ in $\mathcal C[x_1,\dots,x_n]$, with indeterminate $x_i : 1 \to A_i$, that are obtained from variables $x_i$ and
         basic constants---or closed terms, namely $1 \to A$, through the term-forming rules that, again, are defined by the cartesian closed structure and the chosen WNNO, for example:
-        \[ \frac{a : 1 \to A \quad b : 1 \to B}{\langle a,b\rangle : 1 \to A \times B}, \qquad \frac{f : 1 \to B^A \quad a : 1 \to A}{f^\sharp(a) : 1 \to B}, \qquad \frac{\varphi(x) : 1 \to B}{\lambda_{x \in A} \varphi(x) : 1 \to B^A}, \quad \ldots \]
+        \[ \frac{a : 1 \to A \quad b : 1 \to B}{\langle a,b\rangle : 1 \to A \times B}, \enspace \frac{f : 1 \to B^A \quad a : 1 \to A}{f^\sharp(a) : 1 \to B}, \enspace \frac{\varphi(x) : 1 \to B}{\lambda_{x \in A} \varphi(x) : 1 \to B^A}, \enspace \ldots \]
         where $\langle a, b \rangle$ is the pairing arrow, $f^\sharp(a) := \ev_{B,A}\circ \langle f,a \rangle$ is the evaluation arrow, and $\lambda_{x \in A} \varphi(x) := \ulcorner \kappa_{x \in A}(\varphi(x)) \circ \langle 1_A, !_A \rangle \urcorner$,
         just like we did in the proof of Lambek's normal form, \Cref{cor:lambeks-normal-form}. We define $* = !_1$.
         \item if $\varphi(X)$ and $\psi(Y)$ are terms of type $A$, whose free variables belong to $Z$, we define the equivalence relation
