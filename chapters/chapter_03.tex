@@ -906,8 +906,8 @@ Following Lawvere, it is convenient to introduce the following relation $\Gamma$
     \[ \textrm{subst}:A\times A\to A \]
     such that, for every $L_{\textnormal{arit}}$-formula $\varphi$ with $\FV(\varphi)\subseteq\{x\}$ and every closed term $a:1\to A$,
     \[ \left(\textrm{subst}\circ\langle[\overline{\ulcorner\varphi\urcorner}],a\rangle\right)\,\Gamma\,[\varphi[a/x]]. \]
-    So we're taking the Lindenbaum category of the corresponding extension of $T$, obtained by adding $\textrm{subst}$ as a function symbol defined by the representing formula; this does not change what $T$ proves in the original language, and we keep the fixed Gödel numbering of $L_{\textnormal{arit}}$-formulas.
-    Lastly, passage from numerals to arbitrary closed terms follows from the fact that every closed $L_{\textnormal{arit}}$-term is provably equal in $\mathsf Q$ to a numeral \cite[Lemma~4.34, pp.~100--101]{ZachIncompletenessComputability2026}.
+    So we're taking the Lindenbaum category of the corresponding extension of $T$, obtained by adding $\textrm{subst}$ as a function symbol defined by the representing formula; this does not change what $T$ proves in the original language \cite[\S~16.3(a), p.~122]{Smith2013}, and we keep the fixed Gödel numbering of $L_{\textnormal{arit}}$-formulas.
+    Lastly, the passage from numerals to arbitrary closed terms follows from the fact that every closed $L_{\textnormal{arit}}$-term is provably equal in $\mathsf Q$ to a numeral \cite[Lemma~4.34, pp.~100--101]{ZachIncompletenessComputability2026}.
 \end{remark}
 
 \begin{theorem}[Undefinability of truth]
@@ -951,16 +951,16 @@ Following Lawvere, we say that \emph{provability is representable relative to $\
 \[ [\mathsf{Pr}_T(y)] : A \to 2 \]
 such that, for every closed term $d : 1 \to A$ and closed formula $\sigma : 1 \to 2$,
 \[ d\Gamma\sigma \implies \left([\mathsf{Pr}_T(y)] \circ d = [\top] \iff \sigma = [\top]\right), \]
-i.e., if $d$ is the Gödel code of $\sigma$, then the provability formula represents the truth value of $\sigma$ in $T$.
+i.e. $\sigma$ is true for $T$ if and only if the arrow $[\mathsf{Pr}_T(y)]$ identifies, one of its codes $d$, as a code for the true formula.
 \end{definition}
 
 This is weaker than the definability of truth, since it only requires that the provability formula correctly recognizes the closed formulas that are provable in $T$,
-rather than reproducing the truth value of every closed formula. Under the assumptions that $T$ is complete the two conditions are equivalent.
+rather than reproducing the truth value of every closed formula. As corollary of Gödel's incompleteness proof, it will follow that the two conditions are equivalent.
 
 \begin{remark}[Representability of provability]
-    It is well-known that, if $T$ is a recursively axiomatizable theory such that $\mathsf Q \subseteq T$, then
-    there is a primitive recursive function that expresses the fact that a number encodes a proof of a formula encoded by another number.
-    This primitive recursive function can be represented in $\mathsf Q$, and therefore in $T$. Under the soundness assumption $\mathbb N\models T$ used below, this is enough to ensure that provability is representable relative to $\Gamma$.
+    Let $T$ be a recursively axiomatizable theory such that $\mathsf Q \subseteq T$. By Craig's reaxiomatization theorem, we may choose a primitive recursive axiomatization of $T$ \cite[Propositions~6.15 and~6.16, pp.~146--147]{ZachIncompletenessComputability2026}.
+    Relative to this axiomatization, the binary relation $\mathsf{Prf}_T(x,y)$, which holds if $x$ is the code of a proof in $T$ of the sentence with Gödel number $y$, is primitive recursive \cite[Proposition~3.19, pp.~73--74]{ZachIncompletenessComputability2026}, and is therefore represented in $\mathsf Q$, hence in $T$, by an $L_{\textnormal{arit}}$-formula \cite[Definition~4.28 and Theorem~4.29, pp.~97--98]{ZachIncompletenessComputability2026}.\newline
+    Define $\mathsf{Pr}_T(y):=\exists x\,\mathsf{Prf}_T(x,y)$. If $T\vdash\sigma$, representability of $\mathsf{Prf}_T$ gives $T\vdash\mathsf{Pr}_T(\overline{\ulcorner\sigma\urcorner})$. Conversely, if $T\vdash\mathsf{Pr}_T(\overline{\ulcorner\sigma\urcorner})$, then the soundness assumption $\mathbb N\models T$ used below implies $\mathbb N\models\mathsf{Pr}_T(\overline{\ulcorner\sigma\urcorner})$; hence a proof in $T$ of $\sigma$ exists, so $T\vdash\sigma$. Thus $[\mathsf{Pr}_T(y)]:A\to2$ represents provability relative to $\Gamma$.
 \end{remark}
 
 \begin{theorem}[Gödel's first incompleteness theorem]
