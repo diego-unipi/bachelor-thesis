@@ -126,7 +126,7 @@ If we require only the existence of an arrow that makes the diagram above commut
     in the category itself, instead of its $\Hom$-sets, which is more useful for our purposes.
 \end{notation}
 
-Let's see that if a cartesian closed category has a NNO/WNNO, then a polynomial category over it has the same NNO/WNNO.
+Let's see that if a cartesian closed category has an NNO/WNNO, then a polynomial category over it has the same NNO/WNNO.
 
 \begin{proposition}[NNO/WNNO in polynomial categories]
     If a cartesian closed category $\mathcal{C}$ has a natural number object (resp.\ a weak natural number object), and if $x : 1 \to A$
@@ -134,7 +134,7 @@ Let's see that if a cartesian closed category has a NNO/WNNO, then a polynomial 
 \end{proposition}
 
 \begin{proof}
-    Let $(N,0,s)$ be a NNO (resp. WNNO) in $\mathcal{C}$, and let's consider the diagram in $\mathcal{C}[x]$:
+    Let $(N,0,s)$ be an NNO (resp. WNNO) in $\mathcal{C}$, and let's consider the diagram in $\mathcal{C}[x]$:
     \[ 1 \xrightarrow{\beta(x)} B \xrightarrow{\varphi(x)} B. \]
     We're looking for a polynomial arrow $\chi(x) : N \to B$ such that the following diagram commutes in $\mathcal{C}[x]$:
     % https://q.uiver.app/#q=WzAsNixbMCwwLCIxIl0sWzEsMCwiTiJdLFsyLDAsIk4iXSxbMCwxLCIxIl0sWzEsMSwiQiJdLFsyLDEsIkIiXSxbMCwxLCIwIl0sWzEsMiwicyJdLFs0LDUsIlxcdmFycGhpKHgpIiwyXSxbMSw0LCJcXGNoaSh4KSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDUsIlxcY2hpKHgpIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsNCwiXFxiZXRhKHgpIiwyXSxbMCwzLCIiLDIseyJvZmZzZXQiOjEsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCwzLCIiLDEseyJvZmZzZXQiOi0xLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
@@ -198,8 +198,8 @@ Let's see that if a cartesian closed category has a NNO/WNNO, then a polynomial 
         \arrow["{b'}"', from=2-1, to=2-2]
         \arrow["{f'}"', from=2-2, to=2-3]
     \end{tikzcd}.\]
-    Since $(N,0,s)$ is a NNO (resp. WNNO) in $\mathcal{C}$, there exists an arrow $h' : N \to B^A$ that makes the diagram above commute, and by the functional completeness and the bijection used we can uniquely determine $\chi(x) : N \to B$ in $\mathcal{C}[x]$ such that the original diagram commutes.\newline
-    In the case of a NNO, the uniqueness of $h'$ implies the uniqueness of $\chi(x)$, again thanks to the functional completeness and the bijections used.
+    Since $(N,0,s)$ is an NNO (resp. WNNO) in $\mathcal{C}$, there exists an arrow $h' : N \to B^A$ that makes the diagram above commute, and by the functional completeness and the bijection used we can uniquely determine $\chi(x) : N \to B$ in $\mathcal{C}[x]$ such that the original diagram commutes.\newline
+    In the case of an NNO, the uniqueness of $h'$ implies the uniqueness of $\chi(x)$, again thanks to the functional completeness and the bijections used.
 \end{proof}
 
 \begin{remark}[On the choice of $q$]
@@ -374,7 +374,7 @@ Before ending this section, we give the following definitions, which will be use
 \end{notation}
 
 \begin{remark}
-    For a NNO, the parameterized iterators are unique, so their preservation follows from the preservation of the NNO. Therefore, we can just ask the morphisms to preserve the NNO, without specifying the parameterized iterator. For a WNNO, preserving the chosen parameterized iterators is an additional condition.
+    For an NNO, the parameterized iterators are unique, so their preservation follows from the preservation of the NNO. Therefore, we can just ask the morphisms to preserve the NNO, without specifying the parameterized iterator. For a WNNO, preserving the chosen parameterized iterators is an additional condition.
 \end{remark}
 
 \section{Typed \texorpdfstring{$\lambda$}{lambda}-calculi}
