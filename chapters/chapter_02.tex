@@ -777,7 +777,7 @@ A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix
             i.e., we get again a term of type $A$ with free variables $X = x_1,\dots,x_n$. It's easy to verify that $\eta_\mathcal L$ is a translation and that it is well-defined (the equality of terms in $\mathbf L$ is defined as the equality of polynomial arrows, which is the equality defined by $\mathbf C$, etc.).
         \end{itemize}
         To check that $\eta_\mathcal L$ is an isomorphism, we construct its inverse, $\eta_\mathcal L^{-1} : \mathbf L \circ \mathbf C(\mathcal L) \to \mathcal L$, that maps $[(* \in 1, \varphi(X))]$ to $\varphi(X)$. It's easy to verify that this map is the inverse of $\eta_\mathcal L$ and it is a well-defined translation.\newline
-        Finally we need to check that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality
+        Finally we need to check that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes:
         % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhjYWwgTCJdLFswLDEsIlxcbWF0aGNhbCBMJyJdLFsxLDAsIlxcbWF0aGJmIEwgXFxjaXJjIFxcbWF0aGJmIEMoXFxtYXRoY2FsIEwpIl0sWzEsMSwiXFxtYXRoYmYgTCBcXGNpcmMgXFxtYXRoYmYgQyhcXG1hdGhjYWwgTCcpIl0sWzAsMSwiXFxQaGkiLDJdLFswLDIsIlxcZXRhX3tcXG1hdGhjYWwgTH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwzLCJcXG1hdGhiZiBMIFxcY2lyYyBcXG1hdGhiZiBDKFxcUGhpKSJdLFsxLDMsIlxcZXRhX3tcXG1hdGhjYWwgTCd9IiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
         \[\begin{tikzcd}
             {\mathcal L} & {\mathbf L \circ \mathbf C(\mathcal L)} \\
@@ -786,7 +786,7 @@ A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix
             \arrow["\Phi"', from=1-1, to=2-1]
             \arrow["{\mathbf L \circ \mathbf C(\Phi)}", from=1-2, to=2-2]
             \arrow["{\eta_{\mathcal L'}}"', dashed, from=2-1, to=2-2]
-        \end{tikzcd}\]
+        \end{tikzcd}.\]
         As in the previous case, on the types both composites send $A$ to $\Phi(A)$. On the terms, given $\varphi(X) \in A$, we have
         \[ \eta_{\mathcal L'} \circ \Phi(\varphi(X)) = [(* \in 1, \Phi(\varphi(X)))], \]
         while
