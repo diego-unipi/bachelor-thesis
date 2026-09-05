@@ -111,7 +111,7 @@
   \begin{tikzpicture}[node distance=7mm]
     \only<2->{
     \node[accent,text width=32mm,minimum height=21mm] (diag)
-      {\textbf{1. Diagonalizzazare}\\[3pt]
+      {\textbf{1. Diagonalizzare}\\[3pt]
        $d(x):=f\bigl(\phi(x,x)\bigr)$};}
     \only<3->{
     \node[accent,right=of diag,text width=32mm,minimum height=21mm] (code)
@@ -298,7 +298,7 @@
         Se esiste un morfismo "surgettivo" $\phi$ dello stesso tipo,
         allora ogni endomorfismo $f:B\to B$ ammette un punto fisso:
         \[
-          \exists s : 1 \to s \qquad f \circ s = s.
+          \exists s : 1 \to B \qquad f \circ s = s.
         \]
       \end{block}
       }
@@ -336,7 +336,7 @@
         $V\twoheadrightarrow2^V$: impossibile. \\
     & Paradossi classici
       & negazione su $2$ o permutazione su $3$
-      & Barbiere, Grelling e mentitore (forte) si basano tutte sul fatto che non esiste una mappa $\phi : A \times A \twoheadrightarrow \{0,1\}$,
+      & Barbiere, Grelling e mentitore (forte) si basano tutti sul fatto che non esiste una mappa $\phi : A \times A \twoheadrightarrow \{0,1\}$,
       perché altrimenti codificherebbe la mappa $a \mapsto \neg\phi(a,a)$. \\
     \addlinespace[.7mm]
     \textcolor{maincolor}{$k\mathsf{Top}$}
@@ -366,7 +366,7 @@
     & Teorema di punto fisso per operatori estensionali
       & Se $F:\RE\to\RE$ è estensionale, allora esiste $n\in\NN$ tale che
         $F(W_n)=W_n$.
-      & Ogni operatore estensionale sugli insiemi ricorsivi ammette un punto fisso. \\
+      & Ogni operatore estensionale sugli insiemi r.e. ammette un punto fisso. \\
     & Teorema di Rogers
       & Se $\varphi:\NN\to\NN$ è ricorsiva totale, allora esiste $n\in\NN$
         con $u_1(\varphi(n),-)=u_1(n,-)$.
@@ -405,7 +405,7 @@
       & Non esiste un algoritmo che elenchi tutti gli insiemi decidibili. \\
     & Insiemi semidecidibili
       & Esiste un insieme semidecidibile $A\subseteq\NN$ con complementare $A^{\complement}$ non semidecidibile.
-      & Saper decidere un insieme non significa saper decidere il suo complementare. \\
+      & Saper semi-decidere un insieme non significa saper semi-decidere il suo complementare. \\
     & Insieme delle verità aritmetiche
       & $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ non è ricorsivamente enumerabile.
       & Non c'è un algoritmo che riconosce tutte le proposizioni aritmetiche vere in $\NN$. \\
@@ -422,7 +422,7 @@
   \small
   \begin{block}{Teorema di incompletezza, Gödel (1931)}
     \centering
-    Se $T$ una teoria aritmetica coerente e ricorsivamente assiomatizzabile,\\
+    Se $T$ è una teoria aritmetica coerente e ricorsivamente assiomatizzabile,\\
     con $\mathsf Q\subseteq T$ e $\NN\models T$, allora $T$ è incompleta.
   \end{block}
 
@@ -500,7 +500,7 @@
   \small
   \raggedright
   Equipaggiando lo stesso insieme $|A|$ con una topologia più fine $\tau'$ e una
-  meno fine $\tau''$, allora possono esistere mappa continue e surgettive:
+  meno fine $\tau''$, allora possono esistere mappe continue e surgettive:
   \[
     A' := (|A|,\tau') \twoheadrightarrow X^{(|A|,\tau'')} =: X^{A''}.
   \]
@@ -508,7 +508,7 @@
   \vspace{-2.1mm}
   \begin{block}{Lawvere generalizzato (McCallum, 2020)}
     \footnotesize
-    Siano $\mathcal C$ una categoria cartesiana, $\mathcal S$ una sua sottoclasse, $A',A'' \in \mathcal S$ e $h:A'\to A''$ puntualmente bigettiva.
+    Siano $\mathcal C$ una categoria cartesiana, $\mathcal S$ una sua sottoclasse, $A',A'' \in \mathcal C$ e $h:A'\to A''$ puntualmente bigettiva.
     Se per ogni $X\in\mathcal S$ esiste $g_X:A'\to X^{A''}$ puntualmente surgettiva e se ogni $q:A'\to X$, che fattorizza
     attraverso $\langle g_X,h\rangle$, fattorizza anche attraverso $h$, allora
     ogni endomorfismo degli oggetti di $\mathcal S$ ha un punto fisso.
