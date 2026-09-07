@@ -418,6 +418,44 @@
   \end{tabularx}}
 \end{frame}
 
+\begin{frame}<1-3>{Vediamo un esempio in dettaglio}
+  \framesubtitle{L'halting problem in $\RecTot$}
+  \small
+  Supponiamo di avere un algoritmo che decide se un programma termina su un dato input.
+
+  \vspace{2mm}
+  \centering
+  \begin{tikzpicture}[node distance=3mm,
+      haltingstep/.style={text width=128mm,inner xsep=4pt,inner ysep=3pt,font=\small}]
+    \only<2>{\tikzset{node distance=4.5mm}}
+    \only<3>{\tikzset{node distance=3.5mm}}
+    \node[categoryaccent,haltingstep] (total)
+      {\textcolor{maincolor}{\textbf{1. Il decisore darebbe ci permetterebbe di definire una funzione calcolabile totale}}\\[2pt]
+       \mbox{$F(e,x)=\begin{cases}
+         \text{output del programma }e\text{ su }x & \text{se termina}\\
+         0 & \text{altrimenti}
+       \end{cases}$}.};
+
+    \uncover<2->{
+      \node[accent,haltingstep,below=of total] (universal)
+        {\textcolor{maincolor}{\textbf{2. $F$ è una \textit{mappa universale}}}\\[2pt]
+         Per ogni funzione calcolabile totale $g : \NN \to \NN$, esiste un suo \textit{codice} $\ulcorner g \urcorner$ tale che\\[2pt]
+         \mbox{$F(\ulcorner g \urcorner,x)=g(x)\quad\forall x\in\NN$}.};
+      \draw[flow] (total) -- (universal);
+    }
+
+    \uncover<3->{
+      \node[warning,haltingstep,below=of universal] (contradiction)
+        {\textcolor{maincolor}{\textbf{3. Dunque vale il teorema di Lawvere}}\\[2pt]
+         \mbox{Quindi ogni funzione calcolabile totale da $\NN\to\NN$ avrebbe un punto fisso, ma}\\[2pt]
+         \mbox{$s:\NN\to\NN:n\mapsto n+1$}\\[2pt]
+         {\settowidth{\dimen0}{Quindi ogni funzione calcolabile totale da $\NN\to\NN$ avrebbe un punto fisso, ma}%
+          \makebox[\dimen0][l]{non ha punti fissi, assurdo.}}};
+      \draw[flow] (universal) -- (contradiction);
+    }
+  \end{tikzpicture}
+\end{frame}
+
 \begin{frame}{Primo teorema di incompletezza di Gödel}
   \small
   \begin{block}{Teorema di incompletezza, Gödel (1931)}
