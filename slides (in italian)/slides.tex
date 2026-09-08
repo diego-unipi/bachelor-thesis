@@ -405,7 +405,7 @@
       & Non esiste un algoritmo che elenchi tutti gli insiemi decidibili. \\
     & Insiemi semidecidibili
       & Esiste un insieme semidecidibile $A\subseteq\NN$ con complementare $A^{\complement}$ non semidecidibile.
-      & Saper semi-decidere un insieme non significa saper semi-decidere il suo complementare. \\
+      & Saper semi-decidere un insieme non significa saper semidecidere il suo complementare. \\
     & Insieme delle verità aritmetiche
       & $\mathrm{Th}(\NN;L_{\textnormal{arit}})$ non è ricorsivamente enumerabile.
       & Non c'è un algoritmo che riconosce tutte le proposizioni aritmetiche vere in $\NN$. \\
@@ -430,11 +430,11 @@
     \only<2>{\tikzset{node distance=4.5mm}}
     \only<3>{\tikzset{node distance=3.5mm}}
     \node[categoryaccent,haltingstep] (total)
-      {\textcolor{maincolor}{\textbf{1. Il decisore darebbe ci permetterebbe di definire una funzione calcolabile totale}}\\[2pt]
+      {\textcolor{maincolor}{\textbf{1. Il decisore ci permetterebbe di definire una funzione calcolabile totale}}\\[2pt]
        \mbox{$F(e,x)=\begin{cases}
          \text{output del programma }e\text{ su }x & \text{se termina}\\
          0 & \text{altrimenti}
-       \end{cases}$}.};
+       \end{cases}$}};
 
     \uncover<2->{
       \node[accent,haltingstep,below=of total] (universal)
@@ -447,7 +447,7 @@
     \uncover<3->{
       \node[warning,haltingstep,below=of universal] (contradiction)
         {\textcolor{maincolor}{\textbf{3. Dunque vale il teorema di Lawvere}}\\[2pt]
-         \mbox{Quindi ogni funzione calcolabile totale da $\NN\to\NN$ avrebbe un punto fisso, ma}\\[2pt]
+         \mbox{Quindi ogni funzione calcolabile totale $\NN\to\NN$ avrebbe un punto fisso, ma}\\[2pt]
          \mbox{$s:\NN\to\NN:n\mapsto n+1$}\\[2pt]
          {\settowidth{\dimen0}{Quindi ogni funzione calcolabile totale da $\NN\to\NN$ avrebbe un punto fisso, ma}%
           \makebox[\dimen0][l]{non ha punti fissi, assurdo.}}};
