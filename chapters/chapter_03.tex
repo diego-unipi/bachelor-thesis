@@ -93,7 +93,7 @@ In addition, the function structure determines the morphism structure.
 
 \begin{proof}
     Let $f : B \to B$ be an endomorphism.
-    By the equivalence $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$, Theorem~\ref{thm:curry-howard-lambek-without-wnno-and-iterator}, we apply $\mathbf L : \mathsf{CCC} \to \lambda\text{-}\mathsf{Calc}_0$ to $\mathcal C$ and work in its internal language $\mathbf L(\mathcal C)$.
+    By the equivalence $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}$, Theorem~\ref{thm:curry-howard-lambek-without-wnno-and-iterator}, we apply $\mathbf L : \mathsf{CCC} \to \lambda\text{-}\mathsf{Calc}$ to $\mathcal C$ and work in its internal language $\mathbf L(\mathcal C)$.
     By the definition of $\mathbf L$, the objects of $\mathcal C$ become types and its global elements become closed terms; composition becomes substitution, while evaluation and currying become application and abstraction.
     Using the fact that $\ulcorner f \urcorner : 1 \to B^B$ and $\ulcorner \phi \urcorner : 1 \to (B^A)^A$, and taking the respective closed terms in $\mathbf L(\mathcal C)$, we define the following closed term
     \[ q := \lambda_{x \in A} \ulcorner f \urcorner^\sharp \mathopen{\scalebox{1}[1.35]{$($}}\underbrace{\mathopen{\scalebox{1}[1.15]{$($}}\underbrace{\ulcorner \phi \urcorner^\sharp(x)}_{\makebox[0pt][c]{$\scriptstyle\text{function coded by }x$}}\mathclose{\scalebox{1}[1.15]{$)$}}^\sharp(x)}_{\text{applied to its own code}}\mathclose{\scalebox{1}[1.35]{$)$}} \in B^A. \]
@@ -109,10 +109,10 @@ In addition, the function structure determines the morphism structure.
                     &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(p))^\sharp(p)) &&(\text{$\beta$-reduction}) \\
                     &\underset{\varnothing}{=} \ulcorner f \urcorner^\sharp(s).
     \end{align*}
-    Thus $\ulcorner f \urcorner^\sharp(s) \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$. We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc}_0 \to \mathsf{CCC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$, closed terms determine arrows as equivalence classes of pairs; equality of terms gives equality of the corresponding classes, and composition is defined by substitution.
+    Thus $\ulcorner f \urcorner^\sharp(s) \underset{\varnothing}{=} s$ in $\mathbf L(\mathcal C)$. We now apply $\mathbf C : \lambda\text{-}\mathsf{Calc} \to \mathsf{CCC}$ to $\mathbf L(\mathcal C)$. By the definition of $\mathbf C$, closed terms determine arrows as equivalence classes of pairs; equality of terms gives equality of the corresponding classes, and composition is defined by substitution.
     Therefore, if $u \in 1$ is a variable, we find the following arrow equation in $\mathbf C(\mathbf L(\mathcal C))$:
     \[ [(x \in B,\ulcorner f \urcorner^\sharp(x))] \circ [(u \in 1,s)] = [(u \in 1,s)] \quad\text{in } \mathbf C(\mathbf L(\mathcal C)). \]
-    Finally, the equivalence of categories $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$ provides us the natural isomorphism $\varepsilon : \mathbf C \circ \mathbf L \overset{\cong}{\Rightarrow }1_{\mathsf{CCC}}$,
+    Finally, the equivalence of categories $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}$ provides us the natural isomorphism $\varepsilon : \mathbf C \circ \mathbf L \overset{\cong}{\Rightarrow }1_{\mathsf{CCC}}$,
     whose component at $\mathcal C$ is the isomorphism
     \[ \varepsilon_{\mathcal C} : \mathbf C(\mathbf L(\mathcal C)) \xrightarrow{\cong} \mathcal C. \]
     By the definition of $\varepsilon_{\mathcal C}$ given in the proof of \Cref{thm:curry-howard-lambek-without-wnno-and-iterator}, we have
@@ -128,7 +128,7 @@ For each result, we will introduce the category needed to apply Lawvere's theore
 
 Before we start, we recall a couple of useful notions in computability theory, which will be used multiple times in the following sections.
 
-\begin{notation}[Recursive functions]
+\begin{notation}[Recursive functions]\label{idx:partial-naturals}
     We denote by $\NN_\bot := \NN \cup \{\bot\}$ the set of natural numbers with a bottom element $\bot$,
     which denotes the non-termination of a computation. We assume the notions of \emph{partial recursive function} (or just \emph{recursive function}),
     \emph{total recursive function} and \emph{primitive recursive function}; we won't define them here, but we refer the reader to \Cite[Definition~2.1, pp.~5--6]{Streicher2002} for the detailed definitions.
@@ -154,7 +154,7 @@ We assume the following result.
     \end{itemize}
 \end{proposition}
 
-\begin{notation}[Universal partial recursive function]
+\begin{notation}[Universal partial recursive function]\label{idx:universal-function}
     We denote by $u_k : \NN^{k+1} \to \NN_\bot$ the universal partial recursive function for $k$-ary partial recursive functions, see \Cite[Definition~4.1, p.~13]{Streicher2002} for the definition.
 \end{notation}
 
@@ -257,7 +257,7 @@ Another interesting application of Lawvere's fixed-point theorem is the non-exis
 \end{remark}
 
 \begin{notation}
-    From now until the end of this subsection, we will denote by $k\mathsf{Top}$ the category of compactly generated Hausdorff spaces, whose objects are compactly generated Hausdorff spaces and whose morphisms are continuous maps.
+    From now until the end of this subsection, we will denote by $k\mathsf{Top}$ the category of compactly generated Hausdorff spaces, whose objects are compactly generated Hausdorff spaces and whose morphisms are continuous maps.\label{idx:compactly-generated}
 \end{notation}
 
 \begin{remark}
@@ -338,12 +338,12 @@ What the theorem says is that, if $R$ is a nontrivial extensional property of th
     then in particular $u_1(\alpha,x) = u_1(\beta,x)$, so $\alpha \in H_1^x \iff \beta \in H_1^x$. Therefore, by Rice's theorem, $H_1^x$ is either empty or the whole $\NN$; that is a contradiction, since there are programs that halt on input $x$ - we can define one specifically to do this - and programs that do not halt on input $x$ - for example one that loops forever on every input.
 \end{remark}
 
-In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathcal K_1)$ of \emph{assemblies} over the first Kleene algebra $\mathcal K_1 = (\NN,\cdot)$, where $e \cdot n := u_1(e,n)$.
+In order to prove Rice's theorem, we introduce the category $\mathsf{Asm}(\mathcal K_1)$ of \emph{assemblies} over the first Kleene algebra $\mathcal K_1 = (\NN,\cdot)$, where $e \cdot n := u_1(e,n)$.\label{idx:kleene-algebra}
 
-\begin{definition}[$\mathsf{Asm}(\mathcal K_1)$]
+\begin{definition}[$\mathsf{Asm}(\mathcal K_1)$]\label{idx:assemblies}
     The category $\mathsf{Asm}(\mathcal K_1)$ is called the category of \emph{assemblies} over the first Kleene algebra $\mathcal K_1$, and it is defined as follows:
     \begin{itemize}
-        \item the objects are pairs $X = (|X|,\Vdash_X)$, called \emph{assemblies}, where $|X|$ is a set and $\Vdash_X \subseteq \NN \times |X|$ is a relation, called the \emph{realizability relation}, such that for every $x \in |X|$ there exists $n \in \NN$ for which $n \Vdash_X x$ - we say that $n$ \emph{realizes} $x$;
+        \item the objects are pairs $X = (|X|,\Vdash_X)$, called \emph{assemblies}, where $|X|$ is a set and $\Vdash_X \subseteq \NN \times |X|$ is a relation, called the \emph{realizability relation}, such that for every $x \in |X|$ there exists $n \in \NN$ for which $n \Vdash_X x$ - we say that $n$ \emph{realizes} $x$;\label{idx:realizability}
         \item a morphism of assemblies $f : X \to Y$ is a set-theoretic function $f : |X| \to |Y|$ such that there exists $e \in \NN$, called a \emph{tracker} of $f$, for which
         \[ n \Vdash_X x \implies e \cdot n \ne \bot \text{ and } e \cdot n \Vdash_Y f(x), \]
         for every $x \in |X|$ and $n \in \NN$.
@@ -444,7 +444,7 @@ Finally we can prove Rice's theorem.
     where $\mathrm{dom}(u_1(n,-)) := \{x \in \NN : u_1(n,x) \ne \bot\}$.
 \end{definition}
 
-Fix an acceptable enumeration $(W_n)_{n\in\NN}$ of the recursively enumerable subsets of $\NN$, and let $\mathrm{RE}:=\{W_n\mid n\in\NN\}$.
+Fix an acceptable enumeration $(W_n)_{n\in\NN}$ of the recursively enumerable subsets of $\NN$, and let $\mathrm{RE}:=\{W_n\mid n\in\NN\}$.\label{idx:re-sets}
 In this setting, we can give the following definition.
 
 \begin{definition}[Extensional operator]
@@ -489,7 +489,7 @@ More precisely, the morphism $g$ below plays the role of the term $q(x)=f(\phi(x
     \[ u_1(n,-) = \phi(a)(a) = g(a) = u_1(\varphi(S(a,a)),-) = u_1(\varphi(n),-). \]
 \end{proof}
 
-\subsection*{Existence of $Y$-combinator for reflexive objects}
+\subsection*{Existence of $Y$-combinator for reflexive objects}\label{idx:y-combinator}
 We conclude this section by showing that Lawvere's fixed-point theorem can be used to prove the existence of a $Y$-combinator for reflexive objects in cartesian closed categories.
 The $Y$-combinator is a morphism $Y : U^U \to U$ that sends every endomorphism $f : U \to U$ to one of its fixed points, i.e. $Y \circ \ulcorner f \urcorner : 1 \to U$ is a fixed point of $f$.
 Therefore, it can be seen as a uniform fixed-point operator, and it is the categorical counterpart of the $Y$-combinator in $\lambda$-calculus.
@@ -589,7 +589,7 @@ Using the stronger version of Lawvere's fixed-point theorem just proved, we can 
 In the following we're going to continue the work started in \Cref{sec:many-fixed-points-one-proof}.
 
 \subsection*{Halting problem}
-Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.
+Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, whose objects are $1 = \{*\} = \NN^0$, $\NN^1$, $\NN^2$, $\ldots$, and whose morphisms are total recursive functions between them.\label{idx:total-recursive-category}
 
 \begin{remark}[$\mathsf{Rec_{tot}}$ is a cartesian category]
     One can actually check that $\mathsf{Rec_{tot}}$ is a cartesian category. The identity function is total recursive. The composition of total recursive functions is again total recursive,
@@ -751,7 +751,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
     following the usual conventions of first-order logic, see Notation~\ref{not:free-variables-and-closed-terms}.
 \end{definition}
 
-\begin{notation}[$\mathsf{Q}$, Gödel numbering and numerals]
+\begin{notation}[$\mathsf{Q}$, Gödel numbering and numerals]\label{idx:godel-coding}
     We denote by $\mathsf{Q}$ the \emph{Robinson arithmetic}, see \Cite[\S~10.3, p.~67]{Smith2013}. Furthermore, we will fix a Gödel numbering $\ulcorner - \urcorner$ of the $L_{\textnormal{arit}}$-formulas,
     and denote by $\overline{n}$ the numeral corresponding to $n \in \NN$ in $L_{\textnormal{arit}}$.~\cite[\S~5.2, p.~37, and \S~19.1, pp.~136--137]{Smith2013}
 \end{notation}
@@ -766,7 +766,7 @@ Intuitively, the formula $\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},t)
 So there's a way of expressing the satisfaction of formulas in $T$ in $T$ itself.\newline
 We need to define the category in which we will apply Lawvere's fixed-point theorem. We use the Lindenbaum category of $T$.
 
-\begin{definition}[$\mathsf{Lind}_T$]
+\begin{definition}[$\mathsf{Lind}_T$]\label{idx:lindenbaum}
     Given an $L_{\textnormal{arit}}$-theory $T$, we denote by $\mathsf{Lind}_T$ the \emph{Lindenbaum category} of $T$, whose objects are
     \[ A^n \times 2^m \qquad \text{for $n,m \in \NN$}, \]
     where $A$ represents the sort of variables, and $2$ represents the sort of propositions; here we define $1 := A^0 \times 2^0$. The morphisms are defined as follows:
@@ -778,7 +778,7 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
         \item $\mathrm{Hom}(2,2) := \{\varphi(p) \in L_{\textnormal{arit}}(p)\textnormal{-formulas} \mid \FV(\varphi)=\varnothing\}/{\equiv_{T(p)}}$, where $p$ is a new 0-ary relation symbol;
     \end{itemize}
     Here the equivalence relations are defined by
-    \[ t =_T s \overset{\textnormal{def}}{\iff} T \vdash t = s, \qquad \varphi \equiv_T \psi \overset{\textnormal{def}}{\iff} T \vdash \varphi \leftrightarrow \psi. \]
+    \[ t =_T s \overset{\textnormal{def}}{\iff} T \vdash t = s, \qquad \varphi \equiv_T \psi \overset{\textnormal{def}}{\iff} T \vdash \varphi \leftrightarrow \psi. \]\label{idx:provable-equality}
     The composition of morphisms is defined by substitution, and the identity morphisms are defined as the equivalence classes of the variables $x_i$ and the 0-ary relation symbol $p$.
 \end{definition}
 
@@ -959,7 +959,7 @@ rather than reproducing the truth value of every closed formula. As a corollary 
 
 \begin{remark}[Representability of provability]
     Let $T$ be a recursively axiomatizable theory such that $\mathsf Q \subseteq T$. By Craig's reaxiomatization theorem, we may choose a primitive recursive axiomatization of $T$ \cite[Propositions~6.15 and~6.16, pp.~146--147]{ZachIncompletenessComputability2026}.
-    Relative to this axiomatization, the binary relation $\mathsf{Prf}_T(x,y)$, which holds if $x$ is the code of a proof in $T$ of the sentence with Gödel number $y$, is primitive recursive \cite[Proposition~3.19, pp.~73--74]{ZachIncompletenessComputability2026}, and is therefore represented in $\mathsf Q$, hence in $T$, by an $L_{\textnormal{arit}}$-formula \cite[Definition~4.28 and Theorem~4.29, pp.~97--98]{ZachIncompletenessComputability2026}.\newline
+    Relative to this axiomatization, the binary relation $\mathsf{Prf}_T(x,y)$, which holds if $x$ is the code of a proof in $T$ of the sentence with Gödel number $y$, is primitive recursive \cite[Proposition~3.19, pp.~73--74]{ZachIncompletenessComputability2026}, and is therefore represented in $\mathsf Q$, hence in $T$, by an $L_{\textnormal{arit}}$-formula \cite[Definition~4.28 and Theorem~4.29, pp.~97--98]{ZachIncompletenessComputability2026}.\newline\label{idx:proof-predicate}
     Define $\mathsf{Pr}_T(y):=\exists x\,\mathsf{Prf}_T(x,y)$. If $T\vdash\sigma$, representability of $\mathsf{Prf}_T$ gives $T\vdash\mathsf{Pr}_T(\overline{\ulcorner\sigma\urcorner})$. Conversely, if $T\vdash\mathsf{Pr}_T(\overline{\ulcorner\sigma\urcorner})$, then the soundness assumption $\mathbb N\models T$ used below implies $\mathbb N\models\mathsf{Pr}_T(\overline{\ulcorner\sigma\urcorner})$; hence a proof in $T$ of $\sigma$ exists, so $T\vdash\sigma$. Thus $[\mathsf{Pr}_T(y)]:A\to2$ represents provability relative to $\Gamma$.
 \end{remark}
 
@@ -1221,7 +1221,7 @@ Having established that Lawvere's classical fixed-point theorem does not hold in
 
 We now introduce the particular spaces and the class $\mathcal S$ of topological spaces that contains the closed balls of finite-dimensional Euclidean spaces, used by McCallum to apply this theorem.
 
-\begin{notation}[The spaces $A'$ and $A''$]
+\begin{notation}[The spaces $A'$ and $A''$]\label{idx:mccallum-spaces}
     Let $\omega_1$ be the first uncountable ordinal and let $2:=\{0,1\}$ have the discrete topology.
     Both $A'$ and $A''$ have underlying set $2^{\omega_1}$, the set of binary strings of length $\omega_1$.
     For every $\alpha<\omega_1$ and $s\in 2^\alpha$, set

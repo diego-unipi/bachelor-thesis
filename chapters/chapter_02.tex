@@ -37,7 +37,7 @@ Historically, CCCs equipped with a WNNO were first studied formally by Marie-Fra
 
 If we require only the existence of an arrow that makes the diagram above commute, we obtain the following.
 
-\begin{definition}[Weak natural number object]
+\begin{definition}[Weak natural number object]\label{idx:wnno}
     Given a cartesian closed category $\mathcal{C}$, a \emph{weak natural number object} (WNNO) is an object $N$ together with two arrows $1 \xrightarrow{0} N$ and $N \xrightarrow{s} N$ in $\mathcal C$ such that,
     for all diagrams of the form $1 \xrightarrow{a} A \xrightarrow{f} A$ in $\mathcal{C}$, there exists an arrow $h : N \to A$ that makes the following diagram commute:
     \[\begin{tikzcd}
@@ -63,14 +63,22 @@ If we require only the existence of an arrow that makes the diagram above commut
     \end{cases}. \]
 \end{example}
 
+\begin{example}[NNO in $\textsf{Set}_{\leq 1}$]
+    The category of sets with at most one element $\textsf{Set}_{\leq 1}$ is trivially cartesian closed. In this
+    category the terminal object is the singleton set $1 = \{*\}$, which is also an NNO with $0 = s = 1_1$.
+    Indeed, given any arrow $a : 1 \to A$, the commutativity of the first square gives $h \circ 1_1 = a$,
+    so $h = a$ is uniquely determined. Moreover, the existence of $a : 1 \to A$ forces any endomorphism $f : A \to A$ to be the identity $1_A$,
+    so the commutativity of the second square is trivial. It is also trivial to verify the uniqueness of $h$ since $h = a$.
+\end{example}
+
 \begin{example}[WNNO which is not an NNO]
     Let $\textsf{Pos}$ be the category of partially ordered sets with monotone maps. Its terminal object, up to isomorphism, is the one-element poset; its products are cartesian products equipped with the componentwise order,
     and its exponential objects are sets of monotone maps equipped with the pointwise order:
     \[  f \leq_{B^A} g \quad\overset{\textnormal{def}}{\Longleftrightarrow}\quad f(a) \leq_B g(a) \quad\text{for every } a \in A. \]
     The usual evaluation map is monotone, as is the currying map, and (CCC1) + (CCC2) are easily verified. Thus $\textsf{Pos}$ is cartesian closed.
-    Let $\omega_1$ be the first uncountable ordinal and let $W := (\omega_1)_{\mathrm{disc}}$ be its underlying set equipped with the discrete order, rather than with the usual ordinal order; explicitly:
+    Let $\omega$ be the first infinite ordinal and let $W := (\omega + \omega)_{\mathrm{disc}}$ be the underlying set of $\omega + \omega$ equipped with the discrete order, rather than with the usual ordinal order; explicitly:
     \[ \alpha \leq_W \beta \quad\overset{\textnormal{def}}{\Longleftrightarrow}\quad \alpha = \beta. \]
-    We choose the arrows $0 : 1 \to W : * \mapsto 0$ and $s : W \to W : \alpha \mapsto \alpha + 1$, which are monotone and well-defined since $\omega_1$ is a limit ordinal.\newline
+    We choose the arrows $0 : 1 \to W : * \mapsto 0$ and $s : W \to W : \alpha \mapsto \alpha + 1$, which are monotone and well-defined since $\omega + \omega$ is a limit ordinal.\newline
     Let's consider an arbitrary diagram $1 \xrightarrow{a} A \xrightarrow{f} A$ in $\textsf{Pos}$. Then we can define $h$ by transfinite recursion as follows:
     \[ \begin{cases}
         h(0) = a(*) \\
@@ -94,13 +102,13 @@ If we require only the existence of an arrow that makes the diagram above commut
 
 \begin{example}[NNO in $\textsf{Pos}$]
     $(\NN_{\mathrm{disc}}, 0, s)$, where $\NN_{\mathrm{disc}}$ is the set of natural numbers equipped with the discrete order, is an NNO in $\textsf{Pos}$, thanks to the principle of countable recursion.
-    The reason why this is unique, whereas it need not be unique for $(\omega_1)_{\mathrm{disc}}$, is that the commutativity of the diagram fixes $h(0) = a(*)$ and
+    The reason why this is unique, whereas it need not be unique for $(\omega + \omega)_{\mathrm{disc}}$, is that the commutativity of the diagram fixes $h(0) = a(*)$ and
     recursively defines $h(s(n))$ for every successor of $0 \in N$. Therefore, if we take an ordinal containing a nonzero limit ordinal,
     we obtain an “orbit” under the successor function, determined by a different initial value of $h$; however, the diagram above gives us only two conditions.
 \end{example}
 
 \begin{notation}
-    In a cartesian closed category $\mathcal{C}$ with a WNNO $(N,0,s)$, we will denote by $J_A(a,f)$ an arrow $h : N \to A$ such that $h \circ 0 = a$ and $h \circ s = f \circ h$.
+    In a cartesian closed category $\mathcal{C}$ with a WNNO $(N,0,s)$, we will denote by $J_A(a,f)$ an arrow $h : N \to A$ such that $h \circ 0 = a$ and $h \circ s = f \circ h$.\label{idx:external-iterator}
     Using this notation we can write the following map
     \[ J_A : \Hom(1,A) \times \Hom(A,A) \to \Hom(N,A) \]
     which assigns to each pair $(a,f)$ an arrow $J_A(a,f)$ that makes the diagram
@@ -235,7 +243,7 @@ Now that we have the proposition above, we can define, for each object, an arrow
     \[ \chi_B(x) \circ 0 \underset{x}{=} y(x) \qquad\text{and}\qquad
     \chi_B(x) \circ s \underset{x}{=} v(x)^\sharp \circ \chi_B(x). \]
     Functional completeness associates with this choice the unique arrow
-    \[ I_B := \kappa_{x \in B \times B^B}(\chi_B(x)) : (B \times B^B) \times N \to B \]
+    \[ I_B := \kappa_{x \in B \times B^B}(\chi_B(x)) : (B \times B^B) \times N \to B \]\label{idx:parameterized-iterator}
     in $\mathcal{C}$ such that
     \[ I_B \circ \langle x \circ !_N,1_N\rangle \underset{x}{=} \chi_B(x). \]
     We call $I_B$ the \emph{parameterized iterator} for $B$.
@@ -358,7 +366,7 @@ Before ending this section, we give the following definitions, which will be use
     so $F(h)$ is a solution of the image recursion diagram. This alone does not show that $F$ preserves $(N,0,s)$: a recursion diagram in $\mathcal D$ need not be the image of one in $\mathcal C$. Moreover, when $(N,0,s)$ is only a WNNO, $F(h)$ need not coincide with a solution chosen independently in $\mathcal D$.
 \end{remark}
 
-\begin{definition}[$\mathsf{CCC}_N$]
+\begin{definition}[$\mathsf{CCC}_N$]\label{idx:ccc-n}
     We denote by $\mathsf{CCC}_N$ the category whose objects are tuples
     \[ \left(\mathcal C,N_{\mathcal C},0_{\mathcal C},s_{\mathcal C},(I_A^{\mathcal C})_{A \in \ob(\mathcal C)}\right), \]
     where $\mathcal C$ is a cartesian closed category, $(N_{\mathcal C},0_{\mathcal C},s_{\mathcal C})$ is a chosen WNNO and
@@ -386,7 +394,7 @@ The specific kind of typed $\lambda$-calculus we will consider is a \emph{typed 
 This will be the first step towards establishing Lambek's equivalence of categories.
 
 \begin{definition}
-    A \emph{typed $\lambda$-calculus} is a triple $(\textsf{Ty},\textsf{Tm},\textsf{Eq})$, made of \emph{types}, \emph{terms} and \emph{equations} between terms,
+    A \emph{typed $\lambda$-calculus} is a triple $(\textsf{Ty},\textsf{Tm},\textsf{Eq})$, made of \emph{types}, \emph{terms} and \emph{equations} between terms,\label{idx:typed-calculus}
     which are said to \emph{hold}, all subject to certain closure conditions. We write $a \in A$ to say that $a$ is a term of type $A$.
     The types are defined recursively as follows:
     \begin{itemize}
@@ -400,17 +408,17 @@ This will be the first step towards establishing Lambek's equivalence of categor
         \item[(Tm2)] the type $1$ has a term $* \in 1$;
         \item[(Tm3a)] if $a \in A$ and $b \in B$, then there is a term $\langle a,b\rangle$ of type $A \times B$; (\emph{pairing})
         \item[(Tm3b)] if $c \in A \times B$, then there are $\pi_{A,B}(c) \in A$ and $\pi_{A,B}'(c) \in B$;
-        \item[(Tm4)] if $f \in B^A$ and $a \in A$, then $\ev_{B,A}(f,a)$ is a term of type $B$; (\emph{evaluation})
-        \item[(Tm5)] if $x \in A$ is a variable and $\varphi(x) \in B$ is a term, then $\lambda_{x \in A} \varphi(x) \in B^A$;\newline (\emph{$\lambda$-abstraction})
+        \item[(Tm4)] if $f \in B^A$ and $a \in A$, then $\ev_{B,A}(f,a) \in B$; (\emph{evaluation})
+        \item[(Tm5)] if $x \in A$ is a variable and $\varphi(x) \in B$ is a term, then $\lambda_{x \in A} \varphi(x) \in B^A$;\newline (\emph{$\lambda$-abstraction})\label{idx:abstraction}
         \item[(Tm6a)] there is a term $0 \in N$;
         \item[(Tm6b)] if $n \in N$, then $s(n) \in N$;
-        \item[(Tm7)] if $a \in A$, $f \in A^A$ and $n \in N$, then $I_A(a,f,n) \in A$.
+        \item[(Tm7)] if $a \in A$, $f \in A^A$ and $n \in N$, then $I_A(a,f,n) \in A$.\label{idx:iterator-term}
     \end{itemize}
     In (Tm5) we mean that there can be a free occurrence of $x$ in $\varphi(x)$.
-    We'll often abbreviate $\ev_{B,A}(f,a)$ as $f^\sharp(a)$, when the types are clear from the context.\\
+    We'll often abbreviate $\ev_{B,A}(f,a)$ as $f^\sharp(a)$, when the types are clear from the context.\\\label{idx:term-evaluation}
     We now define recursively the class of equations between terms:
     \begin{itemize}
-        \item[(Eq0)] every equation between terms is of the form $a \underset{X}{=} b$, where $a$ and $b$ are terms of the same type,
+        \item[(Eq0)] every equation between terms is of the form $a \underset{X}{=} b$, where $a$ and $b$ are terms of the same type,\label{idx:term-equality}
         and $X$ is a finite set of variables containing all the free variables of $a$ and $b$;
         \item[(Eq1)] $\underset{X}{=}$ is a binary relation on terms of the same type; specifically, it is an equivalence relation;
         \item[(Eq2)] if $a \underset{X}{=} b$ and $X \subseteq Y$, then $a \underset{Y}{=} b$;
@@ -554,15 +562,15 @@ There may be other things that a translation preserves, depending on the specifi
     Given two translations $\Phi, \Psi : \mathcal L \to \mathcal L'$, we say that they are \emph{equal} if, for every type $A$ of $\mathcal L$, $\Phi(A) = \Psi(A)$, and for every term $a \in A$, $\Phi(a) \underset{\Phi(X)}{=} \Psi(a)$, where $X$ is a finite set of variables containing all the free variables of $a$.
 \end{definition}
 
-\begin{definition}[$\lambda\text{-}\mathsf{Calc}$]
-    We denote by $\lambda\text{-}\mathsf{Calc}$ the category of \emph{typed $\lambda$-calculi}, whose objects are typed $\lambda$-calculi that respect the definition above, possibly with additional basic types, terms, type-forming rules, term-forming rules and equations, and whose morphisms are translations between them.
+\begin{definition}[$\lambda\text{-}\mathsf{Calc}_N$]\label{idx:lambda-calc-n}
+    We denote by $\lambda\text{-}\mathsf{Calc}_N$ the category of \emph{typed $\lambda$-calculi}, whose objects are typed $\lambda$-calculi that respect the definition above, possibly with additional basic types, terms, type-forming rules, term-forming rules and equations, and whose morphisms are translations between them.
     Thus, a morphism is only required to satisfy conditions (i)--(xi) above, even when its source and target have additional structure.
 \end{definition}
 
-\begin{example}[Internal language of a CCC]
+\begin{example}[Internal language of a CCC]\label{idx:internal-language}
     We define a functor
-    \[ \mathbf L : \mathsf{CCC}_N \to \lambda\text{-}\mathsf{Calc}, \]
-    called \emph{internal language} of a CCC. Given an object $\mathcal C$ of $\mathsf{CCC}_N$, the $\lambda$-calculus $\mathbf L(\mathcal C)$ is defined as follows:
+    \[ \mathbf L : \mathsf{CCC}_N \to \lambda\text{-}\mathsf{Calc}_N, \]
+    called \emph{internal language} of a CCC. Given a cartesian closed category $\mathcal C$ of $\mathsf{CCC}_N$, the $\lambda$-calculus $\mathbf L(\mathcal C)$ is defined as follows:
     \begin{itemize}
         \item the types are the objects of $\mathcal C$, with the basic types $1$ and $N$, and the type-forming rules are the standard ones; they are defined by the cartesian closed structure of $\mathcal C$;
         \item the terms of type $A$ are the polynomial arrows $\varphi(x_1,\dots,x_n) : 1 \to A$ in $\mathcal C[x_1,\dots,x_n]$, with indeterminate $x_i : 1 \to A_i$, that are obtained from variables $x_i$ and
@@ -592,14 +600,14 @@ There may be other things that a translation preserves, depending on the specifi
     \end{itemize}
 \end{example}
 
-\begin{notation}[Multi-index notation for indeterminates]
+\begin{notation}[Multi-index notation for indeterminates]\label{idx:multi-index}
     We will sometimes abbreviate the indeterminates of a term $\varphi(x_1,\dots,x_n) : 1 \to A$ as $\varphi(X)$, using $X = x_1,\dots,x_n$. Furthermore, we will use the multi-index notation also for the subscript of the natural inclusion functor $\iota_X : \mathcal C \to \mathcal C[X]$, and for the polynomial category itself, $\mathcal C[X]$.
 \end{notation}
 
 \section{Lambek's equivalence}
-We want to show that the functor $\mathbf L : \mathsf{CCC}_N \to \lambda\text{-}\mathsf{Calc}$ is an equivalence of categories, and to do that we need to define a functor in the opposite direction.
+We want to show that the functor $\mathbf L : \mathsf{CCC}_N \to \lambda\text{-}\mathsf{Calc}_N$ is an equivalence of categories, and to do that we need to define a functor in the opposite direction.
 
-\begin{definition}[CCC defined by a $\lambda$-calculus]
+\begin{definition}[CCC defined by a $\lambda$-calculus]\label{idx:syntactic-category}
     Given a typed $\lambda$-calculus $\mathcal L$, we define a cartesian closed category $\mathbf C(\mathcal L)$ as follows:
     \begin{itemize}
         \item the objects of this category are the types of $\mathcal L$;
@@ -641,7 +649,7 @@ We want to show that the functor $\mathbf L : \mathsf{CCC}_N \to \lambda\text{-}
 Before proving the equivalence, we need to introduce one last idea: we want to find the correspondent construction, in terms of $\lambda$-calculi, of the polynomial category of a CCC.\newline
 Instead of adding an indeterminate arrow $x : 1 \to A$ to the cartesian closed category $\mathbf C(\mathcal L)$, we could add a \emph{parameter} $x$ of type $A$ to the $\lambda$-calculus $\mathcal L$.
 
-\begin{definition}[$\lambda$-calculus with a parameter]
+\begin{definition}[$\lambda$-calculus with a parameter]\label{idx:parameter-calculus}
     Given a typed $\lambda$-calculus $\mathcal L$ and a type $A$ of $\mathcal L$, we define the $\lambda$-calculus with the \emph{adjoint parameter} $x$ of type $A$, denoted by $\mathcal L(x)$,
     as the $\lambda$-calculus obtained by considering $x$ as a closed term of type $A$. Therefore, $\mathcal L(x)$ has the same types of $\mathcal L$; however, the closed terms of $\mathcal L(x)$
 are the terms $\varphi(x)$ of $\mathcal L$, which contain no free variables other than $x$.
@@ -689,7 +697,7 @@ It won't surprise us that $\mathbf C(\mathcal L)[x]$ and $\mathbf C(\mathcal L(x
     This definition is well-posed: after renaming the domain variable, if $f$ is also represented by $(y,\psi(x,y))$, then $\varphi(z,y) \underset{\{z,y\}}{=} \psi(z,y)$ in $\mathcal L$; hence (Eq3b) shows that $g_f = [(y,\lambda_{z \in A}\psi(z,y))]$, while (Eq8) makes the choice of $z$ irrelevant. Using the definitions of identities, composition and the cartesian closed structure in $\mathbf C(\mathcal L(x))$, together with substitution and the $\beta\eta$-equations, one verifies that $\widehat F$ is a cartesian closed functor. If $f$ contains no occurrence of $x$, the same equations give $\widehat F(f)=F(f)$, while for the parameter they give $\widehat F(x)=b$; hence $\widehat F$ extends $F$, and the preceding computation proves its uniqueness.
 \end{proof}
 
-Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and $\lambda\text{-}\mathsf{Calc}$. Let's recall the categorical definitions needed.
+Finally we can prove the equivalence of categories between $\mathsf{CCC}_N$ and $\lambda\text{-}\mathsf{Calc}_N$. Let's recall the categorical definitions needed.
 
 \begin{definition}[Natural transformation]
     Given two functors $F,G : \mathcal C \to \mathcal D$, a \emph{natural transformation} $\eta : F \Rightarrow G$ is a family of arrows $\{\eta_A : F(A) \to G(A) | A \in \ob(\mathcal C)\}$,
@@ -725,12 +733,12 @@ The precise categorical equivalence used here, with chosen WNNOs and iterators, 
 A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix]{LambekScott1994}. Lambek also presented this formulation at the 1985 LITP Spring School, whose proceedings appeared the following year \parencite{Lambek1986}.
 
 \begin{theorem}[Curry--Howard--Lambek correspondence, {\cite[Part~I, Thm.~11.3]{LambekScott1994}}]
-    $\mathsf{CCC}_N \simeq \lambda\text{-}\mathsf{Calc}$.
+    $\mathsf{CCC}_N \simeq \lambda\text{-}\mathsf{Calc}_N$.
 \end{theorem}
 
 \begin{proof}
-    To prove the equivalence we need to find two natural isomorphisms $\mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$ and $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}}$.
-    We proceed separately for each one, and instead of finding a natural isomorphism $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}}$, we equivalently find a natural isomorphism $1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C$.
+    To prove the equivalence we need to find two natural isomorphisms $\mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$ and $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}_N}$.
+    We proceed separately for each one, and instead of finding a natural isomorphism $\mathbf L \circ \mathbf C \Rightarrow 1_{\lambda\text{-}\mathsf{Calc}_N}$, we equivalently find a natural isomorphism $1_{\lambda\text{-}\mathsf{Calc}_N} \Rightarrow \mathbf L \circ \mathbf C$.
     \begin{itemize}
         \item[$\boxed{\mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}}$] We want to define $\varepsilon : \mathbf C \circ \mathbf L \Rightarrow 1_{\mathsf{CCC}_N}$, for each $\mathcal C \in \ob(\mathsf{CCC}_N)$, i.e.,
         we want a cartesian closed functor which strictly preserves WNNOs and iterators $\varepsilon_\mathcal C : \mathbf C \circ \mathbf L(\mathcal C) \to \mathcal C$ such that, given a cartesian closed functor $F : \mathcal C \to \mathcal D$, the diagram of naturality commutes and $\varepsilon_\mathcal C$ is an isomorphism.
@@ -765,7 +773,7 @@ A preliminary version of Part~I had circulated in 1982 \parencite[Preface, p.~ix
         By Lambek's normal form, we know $\Hom_{\mathcal C[y]}(1,C) \cong \Hom_\mathcal C(B,C)$,
         but $\Hom_{\mathbf C \circ \mathbf L(\mathcal C)}(B,C) \cong \Hom_{\mathcal C[y]}(1,C)$, by definition, since we take the equivalence classes of terms $\varphi(y) \in C$ that are said to be equal if they are equal in $\mathcal C[y]$.
         Therefore, $\varepsilon_\mathcal C$ is an isomorphism in $\mathsf{CCC}_N$; hence, $\varepsilon$ is a natural isomorphism.
-        \item[$\boxed{1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C}$] We want to define $\eta : 1_{\lambda\text{-}\mathsf{Calc}} \Rightarrow \mathbf L \circ \mathbf C$, for each $\mathcal L \in \ob(\lambda\text{-}\mathsf{Calc})$, i.e.,
+        \item[$\boxed{1_{\lambda\text{-}\mathsf{Calc}_N} \Rightarrow \mathbf L \circ \mathbf C}$] We want to define $\eta : 1_{\lambda\text{-}\mathsf{Calc}_N} \Rightarrow \mathbf L \circ \mathbf C$, for each $\mathcal L \in \ob(\lambda\text{-}\mathsf{Calc}_N)$, i.e.,
         we want a translation $\eta_\mathcal L : \mathcal L \to \mathbf L \circ \mathbf C(\mathcal L)$ such that, given a translation $\Phi : \mathcal L \to \mathcal L'$, the diagram of naturality commutes and $\eta_{\mathcal L}$ is an isomorphism.\newline
         Let's define $\eta_\mathcal L$ as follows:
         \begin{itemize}
@@ -805,15 +813,15 @@ We can now give a precise meaning to the idea that a $\lambda$-calculus is an in
 \end{definition}
 
 \begin{remark}[Internal language of a CCC]
-    It's easy to see that $\mathcal L_0$ is an initial object in $\lambda\text{-}\mathsf{Calc}$, since for each typed $\lambda$-calculus $\mathcal L$, there exists a unique translation $\mathcal L_0 \to \mathcal L$.
+    It's easy to see that $\mathcal L_0$ is an initial object in $\lambda\text{-}\mathsf{Calc}_N$, since for each typed $\lambda$-calculus $\mathcal L$, there exists a unique translation $\mathcal L_0 \to \mathcal L$.
     Therefore, the simply typed $\lambda$-calculus is interpreted in every cartesian closed category with a chosen WNNO and an iterator; hence, it is the internal language of every CCC with a chosen WNNO and an iterator.
 \end{remark}
 
 The above equivalence of categories is the most general in the context of cartesian categories; we can specialize it to the case of cartesian closed categories without a chosen WNNO and iterator.
 Let's first define the following.
 
-\begin{definition}[$\lambda\text{-}\mathsf{Calc}_0$]
-    We denote by $\lambda\text{-}\mathsf{Calc}_0$ the category whose objects are typed $\lambda$-calculi as defined above, but without:
+\begin{definition}[$\lambda\text{-}\mathsf{Calc}$]\label{idx:lambda-calc}
+    We denote by $\lambda\text{-}\mathsf{Calc}$ the category whose objects are typed $\lambda$-calculi as defined above, but without:
     \begin{itemize}
         \item the basic type $N$ in (Ty1);
         \item the term-forming rules for zero, successor and the iterator, namely (Tm6a), (Tm6b) and (Tm7);
@@ -827,12 +835,12 @@ the chosen WNNO and iterator, we have a proof of the following equivalence of ca
 
 \begin{theorem}[Curry--Howard--Lambek without WNNO and iterator]\label{thm:curry-howard-lambek-without-wnno-and-iterator}
     \leavevmode\newline
-    $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}_0$.
+    $\mathsf{CCC} \simeq \lambda\text{-}\mathsf{Calc}$.
 \end{theorem}
 
 Before ending this section, we state another, even weaker, version of the Curry--Howard--Lambek correspondence, which is the equivalence of categories between cartesian categories and typed cartesian calculi without WNNOs and iterators.
 
-\begin{definition}[$\lambda\text{-}\mathsf{Calc}_\times$]
+\begin{definition}[$\lambda\text{-}\mathsf{Calc}_\times$]\label{idx:lambda-calc-cartesian}
     We denote by $\lambda\text{-}\mathsf{Calc}_\times$ the category whose objects are typed $\lambda$-calculi as defined above, but without:
     \begin{itemize}
         \item the type-forming rule for exponentials, namely (Ty3);
@@ -847,7 +855,7 @@ Before ending this section, we state another, even weaker, version of the Curry-
     Its morphisms are translations, as defined above, without the requirements involving exponentials, $N$, $0$, $s$ and $I_A$, and they are required to commute with simultaneous substitution.
 \end{definition}
 
-\begin{notation}[Category of cartesian categories]
+\begin{notation}[Category of cartesian categories]\label{idx:cc}
     We denote by $\mathsf{CC}$ the category of cartesian categories, whose morphisms are cartesian functors.
 \end{notation}
 

@@ -9,7 +9,7 @@ The view that deductive systems can be seen as graphs with additional structure,
 Following \cite{LambekScott1994}, we will define a category as a particular kind of graph, but first we'll construct a series of structures that will provide us
 with a working intuitionistic deductive system made entirely of objects and arrows.
 
-\begin{definition}[Graph]
+\begin{definition}[Graph]\label{idx:graph}
     A \emph{graph} $\mathcal G$ is given by a class of \emph{objects}, $\ob(\mathcal G)$, a class of \emph{arrows}, $\mor(\mathcal G)$, and two functions
     \emph{source} and \emph{target}
     \[ s,t:\mor(\mathcal G)\to\ob(\mathcal G),\]
@@ -17,7 +17,7 @@ with a working intuitionistic deductive system made entirely of objects and arro
 \end{definition}
 
 \begin{notation}
-    We will denote by $\Hom_{\mathcal G}(A,B)$, omitting the subscript when it is clear from the context, the class of arrows $f$ such that $s(f)=A$ and $t(f)=B$.
+    We will denote by $\Hom_{\mathcal G}(A,B)$, omitting the subscript when it is clear from the context, the class of arrows $f$ such that $s(f)=A$ and $t(f)=B$.\label{idx:hom}
 \end{notation}
 
 \begin{definition}[Deductive system]
@@ -36,7 +36,7 @@ with a working intuitionistic deductive system made entirely of objects and arro
 
 The objects of a deductive system can be thought of as \emph{propositions}, the arrows as \emph{proofs} and the composition as a \emph{rule of inference}.
 
-\begin{definition}[Conjunction calculus]
+\begin{definition}[Conjunction calculus]\label{idx:conjunction}
     A \emph{conjunction calculus} is a deductive system $\mathcal C$, with a special object $\top$, the \emph{tautological proposition}, and a function
     \[ \wedge : \ob(\mathcal C)\times\ob(\mathcal C) \to \ob(\mathcal C) : (A,B) \mapsto A\wedge B, \]
     called \emph{conjunction}. The following rules, which state the existence of certain classes of arrows, also hold:
@@ -76,7 +76,7 @@ Continuing this analogy, one could think of (Conj 2a) and (Conj 2b) as the \emph
 
 We are still far from having a complete intuitionistic deductive system: for example, we still have no way to express implication. We therefore give the following definition.
 
-\begin{definition}[Positive intuitionistic calculus]
+\begin{definition}[Positive intuitionistic calculus]\label{idx:implication}
     A \emph{positive intuitionistic propositional calculus} is a conjunction calculus $\mathcal P$ with a function
     \[ \Leftarrow : \ob(\mathcal P)\times\ob(\mathcal P) \to \ob(\mathcal P) : (A,B) \mapsto A \Leftarrow B, \]
     called \emph{implication}, and the following rules of inference:
@@ -110,11 +110,11 @@ We are still far from having a complete intuitionistic deductive system: for exa
 Before moving on, let's also define two more rules of inference which follow from the previous ones and will be very useful in the next sections.
 
 \begin{example}
-    Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ (often called \emph{Lawvere's name} of $f$) as
+    Given an arrow $f : A \to B$ we can define the arrow $\ulcorner f \urcorner$ (often called \emph{Lawvere's name} of $f$) as\label{idx:lawvere-name}
     \[ \frac{A \xrightarrow{f} B}{\top \xrightarrow{\ulcorner f \urcorner} B \Leftarrow A}, \]
     which is just $\ulcorner f \urcorner := (f \circ \pi_{\top,A}')^*$. Similarly, given $g : \top \to B \Leftarrow A$, we can define
     \[ \frac{\top \xrightarrow{g} B \Leftarrow A}{A \xrightarrow{g^\sharp} B} \]
-    with $g^\sharp := \ev_{B,A} \circ \langle g \circ !_A,1_A\rangle$.
+    with $g^\sharp := \ev_{B,A} \circ \langle g \circ !_A,1_A\rangle$.\label{idx:global-evaluation}
 \end{example}
 
 We now need to add falsehood and disjunction to our positive intuitionistic propositional calculus, to obtain a complete intuitionistic propositional calculus.
@@ -200,7 +200,7 @@ We will use the following definition, which is equivalent to the usual one but a
 The condition (CC1) states that $\top$ is the terminal object of the category, while (CC2a), (CC2b) and (CC2c) state that $A \land B$
 satisfies the universal property of the product of $A$ and $B$, with $\pi_{A,B}$ and $\pi_{A,B}'$ as projections.
 
-\begin{notation}[Terminal object and product]
+\begin{notation}[Terminal object and product]\label{idx:products}
     From now on, we will denote by $1$ the terminal object of a cartesian category, and by $A \times B$ the product of two objects $A$ and $B$.
 \end{notation}
 
@@ -231,7 +231,7 @@ As a consequence of the definition, we have the following useful lemma.
 
 The distributive law immediately implies the fact that $\cdot \times \cdot$ is a functor.
 
-\begin{notation}[Product of arrows]
+\begin{notation}[Product of arrows]\label{idx:product-arrows}
     Given $f : A \to B$ and $g : C \to D$, we will write $f \times g : A \times C \to B \times D$ for the arrow $\langle f \circ \pi_{A,C}, g \circ \pi_{A,C}'\rangle$.
 \end{notation}
 
@@ -273,7 +273,7 @@ We are now ready to give the definition of a cartesian closed category, which wi
 
 Even though the definition just given seems a bit abstract, we can give an equivalent, more concrete, definition of cartesian closed category as follows.
 
-\begin{remark}[Equivalent definition of cartesian closed category]
+\begin{remark}[Equivalent definition of cartesian closed category]\label{idx:currying}
     Define the functions
     \begin{align*}
         & \Phi : \Hom(A \times B, C) \to \Hom(A, C \Leftarrow B) : h \mapsto h^*, \\
@@ -288,7 +288,7 @@ Even though the definition just given seems a bit abstract, we can give an equiv
 
 The second definition is exactly the universal property of the exponential object, that is $\Hom(A \times B, C) \cong \Hom(A, C^B)$. Therefore we can also say that a cartesian closed category is a cartesian category that is closed under exponentials.
 
-\begin{notation}[Exponential object]
+\begin{notation}[Exponential object]\label{idx:exponential}
     From now on, we will denote by $B^A$ the exponential object of $B$ and $A$ in a cartesian closed category.
 \end{notation}
 
@@ -353,7 +353,7 @@ In order to obtain polynomial categories, we first need to give a precise defini
 
 We proceed in two steps: first, we define the positive intuitionistic propositional calculus generated by a graph; then, we define the cartesian closed category generated by a positive intuitionistic propositional calculus.
 
-\begin{definition}[Positive intuitionistic calculus freely generated by a graph]
+\begin{definition}[Positive intuitionistic calculus freely generated by a graph]\label{idx:free-calculus}
     Given a graph $\mathcal G$, the \emph{positive intuitionistic propositional calculus freely generated by $\mathcal G$}, written as $\mathcal P(\mathcal G)$,
     is the smallest positive intuitionistic propositional calculus whose formulas include the objects of $\mathcal G$ and whose proofs include the arrows of $\mathcal G$.
     More precisely, we can give a recursive definition of both the objects and the arrows of $\mathcal P(\mathcal G)$:
@@ -405,7 +405,7 @@ pairing, currying, and containing the category, cartesian and cartesian closed a
 
 We can now give the definition of a cartesian closed category generated by a graph, which will be well-defined thanks to the previous lemma.
 
-\begin{definition}[Cartesian closed category generated by a graph]
+\begin{definition}[Cartesian closed category generated by a graph]\label{idx:free-ccc}
     Given a graph $\mathcal G$, the \emph{cartesian closed category freely generated} by $\mathcal G$, written as $\mathcal F(\mathcal G)$,
     is the quotient of $\mathcal P(\mathcal G)$ by the smallest equivalence relation on parallel arrows that contains the category, cartesian and cartesian closed axioms and is compatible with composition, pairing and currying.
 \end{definition}
@@ -550,7 +550,7 @@ given two objects $A_0$ and $A$ of a (cartesian, cartesian closed) category $\ma
     as the cartesian closed category freely generated by the graph $\mathcal U(\mathcal C)$ with the additional arrow $x : A_0 \to A$, quotiented in order to preserve the relations between the arrows of $\mathcal C$ and make the natural map a (cartesian, cartesian closed) functor.
 \end{definition}
 
-\begin{notation}[Polynomial arrows]
+\begin{notation}[Polynomial arrows]\label{idx:polynomial-arrows}
     We will denote by $\varphi(x), \psi(x), \ldots$ the arrows of $\mathcal C[x]$ that are generated by the indeterminate arrow $x : A_0 \to A$. These arrows
     can be thought of as proofs under the \emph{assumption} $x : A_0 \to A$.
 \end{notation}
@@ -567,7 +567,7 @@ This provides us with an explicit description of the arrows of $\mathcal C[x]$ a
         where $A, B \in \ob(\mathcal C)$, $h \in \mor(\mathcal C)$ and $x : A_0 \to A$ is the indeterminate arrow. In particular, the identity, terminal, projection and evaluation arrows of $\mathcal C$ are included among the arrows $h$;
         \item now we need to impose the equivalence relation $\sim$ on the arrows so that the quotient $\mathcal C[x]$ is a (cartesian, cartesian closed) category and the map
         \[ \iota_x : \mathcal C \to \mathcal C[x] : X \mapsto X, f \mapsto [f], \]
-        is a (cartesian, cartesian closed) functor. We choose the smallest equivalence relation on parallel arrows satisfying the following properties, and we denote it by $\underset{x}{=}$:
+        is a (cartesian, cartesian closed) functor. We choose the smallest equivalence relation on parallel arrows satisfying the following properties, and we denote it by $\underset{x}{=}$:\label{idx:polynomial-equality}
         \begin{itemize}[label=$\ast$]
             \item if $\varphi(x) \underset{x}{=} \varphi'(x)$ and $\psi(x) \underset{x}{=} \psi'(x)$, then $\varphi(x) \circ \psi(x) \underset{x}{=} \varphi'(x) \circ \psi'(x)$;
             \item if $\varphi(x) \underset{x}{=} \varphi'(x)$ and $\psi(x) \underset{x}{=} \psi'(x)$, then $\langle \varphi(x), \psi(x)\rangle \underset{x}{=} \langle \varphi'(x), \psi'(x)\rangle$;
@@ -585,7 +585,7 @@ This provides us with an explicit description of the arrows of $\mathcal C[x]$ a
     One can easily check that this equivalence relation also contains the remaining properties above. Therefore, the quotient is a (cartesian, cartesian closed) category, and the map $\iota_x : \mathcal C \to \mathcal C[x]$ is a (cartesian, cartesian closed) functor. Hence, the definition above is well-posed.
 \end{remark}
 
-\begin{notation}[Canonical functor $\mathcal C \to \mathcal C{[x]}$]
+\begin{notation}[Canonical functor $\mathcal C \to \mathcal C{[x]}$]\label{idx:polynomial-inclusion}
     From now on we will denote by $\iota_x : \mathcal C \to \mathcal C[x]$ the canonical functor from $\mathcal C$ to $\mathcal C[x]$, which is a (cartesian, cartesian closed) functor.
     When it is clear from the context, we will sometimes omit the subscript $x$ and just write $\iota : \mathcal C \to \mathcal C[x]$.
 \end{notation}
@@ -643,7 +643,7 @@ Let's see an important consequence of this universal property.
 \end{proof}
 
 \begin{notation}
-    $S[a/x]$ can be regarded as the process of \emph{substituting} the arrow $a$ for the indeterminate arrow $x$; therefore, we will use the notation:
+    $S[a/x]$ can be regarded as the process of \emph{substituting} the arrow $a$ for the indeterminate arrow $x$; therefore, we will use the notation:\label{idx:substitution}
     \[ S[a/x](\varphi(x)) = \varphi(a). \]
 \end{notation}
 
@@ -717,7 +717,7 @@ We now give a constructive proof of the deduction theorem stated above.
 \end{proof}
 
 \begin{notation}
-    From now on we will denote by $\kappa_{x \in A}\varphi(x)$ the arrow in $\mathcal P$ associated to $\varphi(x)$ by the deduction theorem above.
+    From now on we will denote by $\kappa_{x \in A}\varphi(x)$ the arrow in $\mathcal P$ associated to $\varphi(x)$ by the deduction theorem above.\label{idx:deduction}
     The subscript $x \in A$ indicates that $x$ is of \emph{type} $A$, i.e.,\ $x : \top \to A$.
 \end{notation}
 
