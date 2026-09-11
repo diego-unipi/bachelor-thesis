@@ -135,7 +135,34 @@
 
 \section{Il teorema di Lawvere}
 
-\begin{frame}{Lawvere formalizza il principio diagonale}
+\begin{frame}{Dove formalizzare il principio diagonale}
+  \small
+  \vspace{1mm}
+  \makebox[\linewidth][c]{\parbox{\dimexpr\linewidth+4mm\relax}{Il setting per formalizzare il principio diagonale è quello delle categorie cartesiane/cartesiane chiuse.}}
+
+  \vspace{1mm}
+  \begin{block}{\textbf{Categoria cartesiana}}
+    Una \textbf{categoria cartesiana} è una categoria con prodotti finiti, ossia:
+    \begin{itemize}
+      \item un oggetto terminale $1$;
+      \item prodotti binari $A\times B$ per ogni coppia di oggetti $A,B$.
+    \end{itemize}
+  \end{block}
+
+  \vspace{3mm}
+  \begin{block}{\textbf{Categoria cartesiana chiusa}}
+    Una \textbf{categoria cartesiana chiusa} è una categoria cartesiana che ammette:
+    \begin{itemize}
+      \item un esponenziale $B^A$ per ogni coppia di oggetti $A,B$, con la
+        proprietà di indurre una bigezione:
+        \[
+          \Hom(X\times A,B)\cong\Hom(X,B^A).
+        \]
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[t]{Lawvere formalizza il principio diagonale}
   \small
   Lawvere generalizza il principio precedente: una codifica universale forza
   punti fissi.
@@ -169,7 +196,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Lawvere formalizza il principio diagonale}
+\begin{frame}[t]{Lawvere formalizza il principio diagonale}
   \small
   Lawvere generalizza il principio precedente: una codifica universale forza
   punti fissi.
@@ -216,6 +243,7 @@
     \overset{\cong}{\to}\Hom(A,B^A), \quad
     (-)^\sharp\colon\!\Hom(A,B^A)
     \overset{\cong}{\to}\Hom(A\times A,B).\)
+  \vspace{-1mm}
 \end{frame}
 
 \section{Curry--Howard--Lambek}
@@ -421,33 +449,31 @@
 \begin{frame}<1-3>{Vediamo un esempio in dettaglio}
   \framesubtitle{L'halting problem in $\RecTot$}
   \small
-  Supponiamo di avere un algoritmo che decide se un programma termina su un dato input.
+  \begin{block}{Halting problem (Turing, 1937)}
+    \centering
+    L'halting set $H_1 = \{ (\alpha, x) \in \NN^2 | u_1(\alpha, x) \ne \bot \}$ non è decidibile.
+  \end{block}
 
   \vspace{2mm}
   \centering
-  \begin{tikzpicture}[node distance=3mm,
+  \begin{tikzpicture}[node distance=5mm,
       haltingstep/.style={text width=128mm,inner xsep=4pt,inner ysep=3pt,font=\small}]
-    \only<2>{\tikzset{node distance=4.5mm}}
-    \only<3>{\tikzset{node distance=3.5mm}}
     \node[categoryaccent,haltingstep] (total)
-      {\textcolor{maincolor}{\textbf{1. Il decisore ci permetterebbe di definire una funzione calcolabile totale}}\\[2pt]
-       \mbox{$F(e,x)=\begin{cases}
+      {\mbox{$F(e,x)=\begin{cases}
          \text{output del programma }e\text{ su }x & \text{se termina}\\
          0 & \text{altrimenti}
        \end{cases}$}};
 
     \uncover<2->{
       \node[accent,haltingstep,below=of total] (universal)
-        {\textcolor{maincolor}{\textbf{2. $F$ è una \textit{mappa universale}}}\\[2pt]
-         Per ogni funzione calcolabile totale $g : \NN \to \NN$, esiste un suo \textit{codice} $\ulcorner g \urcorner$ tale che\\[2pt]
+        {Per ogni funzione calcolabile totale $g : \NN \to \NN$, esiste un suo \textit{codice} $\ulcorner g \urcorner$ tale che\\[2pt]
          \mbox{$F(\ulcorner g \urcorner,x)=g(x)\quad\forall x\in\NN$}.};
       \draw[flow] (total) -- (universal);
     }
 
     \uncover<3->{
       \node[warning,haltingstep,below=of universal] (contradiction)
-        {\textcolor{maincolor}{\textbf{3. Dunque vale il teorema di Lawvere}}\\[2pt]
-         \mbox{Quindi ogni funzione calcolabile totale $\NN\to\NN$ avrebbe un punto fisso, ma}\\[2pt]
+        {\mbox{Quindi ogni funzione calcolabile totale $\NN\to\NN$ avrebbe un punto fisso, ma}\\[2pt]
          \mbox{$s:\NN\to\NN:n\mapsto n+1$}\\[2pt]
          {\settowidth{\dimen0}{Quindi ogni funzione calcolabile totale $\NN\to\NN$ avrebbe un punto fisso, ma}%
           \makebox[\dimen0][l]{non ha punti fissi, assurdo.}}};
@@ -458,10 +484,10 @@
 
 \begin{frame}{Primo teorema di incompletezza di Gödel}
   \small
-  \begin{block}{Teorema di incompletezza, Gödel (1931)}
+  \begin{block}{Teorema di incompletezza (Gödel, 1931)}
     \centering
     Se $T$ è una teoria aritmetica coerente e ricorsivamente assiomatizzabile,\\
-    con $\mathsf Q\subseteq T$ e $\NN\models T$, allora $T$ è incompleta.
+    con $\mathsf{PA}\subseteq T$ e $\NN\models T$, allora $T$ è incompleta.
   \end{block}
 
   \vspace{2mm}
@@ -480,14 +506,10 @@
     \node[endpoint,text width=23mm,minimum height=19mm,font=\bfseries]
       (lawvere) at (-4,0)
       {Teorema di Lawvere\\[.4mm]};
-    \node[semanticroute,text width=32mm,minimum height=19mm,font=\bfseries]
-      (satisfaction) at (33.5,11.5)
-      {$\mathsf{Sat}$ non è\\definibile in $T$\\[.4mm]
+    \node[semanticroute,text width=56mm,minimum height=13mm,font=\bfseries]
+      (satisfaction) at (51.5,11.5)
+      {$\mathsf{Sat}$ non è definibile in $T$\\[.4mm]
        {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Lawvere in $\mathsf{Lind}_T$}};
-    \node[semanticroute,text width=25mm,minimum height=19mm,font=\bfseries]
-      (tarski) at (73.5,11.5)
-      {$\mathsf{Truth}$ non è definibile in $T$\\[.4mm]
-       {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Corollario immediato\\[-.2mm]}};
     \node[syntacticroute,text width=56mm,minimum height=19mm,font=\bfseries]
       (diagonal) at (51.5,-11.5)
       {Lemma di diagonalizzazione di Gödel\\[.4mm]
@@ -498,8 +520,7 @@
        {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Incompletezza di $T$}};
 
     \draw[semanticflow] ([yshift=3mm]lawvere.east) -- (satisfaction.west);
-    \draw[semanticflow] (satisfaction.east) -- (tarski.west);
-    \draw[semanticflow] (tarski.east) -- ([yshift=3mm]godel.west);
+    \draw[semanticflow] (satisfaction.east) -- ([yshift=3mm]godel.west);
     \draw[syntacticflow] ([yshift=-3mm]lawvere.east) -- (diagonal.west);
     \draw[syntacticflow] (diagonal.east) -- ([yshift=-3mm]godel.west);
   \end{tikzpicture}
@@ -509,20 +530,30 @@
 
 \begin{frame}{Per Brouwer, Lawvere classico non basta}
   \small
+  \begin{block}{Teorema di punto fisso (Brouwer, 1911)}
+    \raggedright
+    Sia $D$ una palla chiusa in uno spazio euclideo di dimensione finita. Si ha che ogni mappa continua $f:D\to D$ ha un punto fisso, cioè esiste $x\in D$ tale che $f(x)=x$.
+  \end{block}
+
+  \vspace{0mm}
   \raggedright
   L'applicazione diretta di Lawvere richiede una suriezione continua, che non esiste nemmeno in un caso molto semplice come:
+  {\setlength{\abovedisplayskip}{2pt}
+  \setlength{\abovedisplayshortskip}{2pt}
+  \setlength{\belowdisplayskip}{2pt}
+  \setlength{\belowdisplayshortskip}{2pt}
   \[
     A\twoheadrightarrow[0,1]^A.
-  \]
-  \vspace{2mm}
+  \]}
+  \vspace{-3mm}
   \begin{colorblock}[white]{sintefred}{Ostacolo (McCallum, 2020)}
     In $\mathsf{ZFC}$ non esiste alcuno spazio topologico $A$ per cui sia
     definita la topologia esponenziale su $[0,1]^A$ ed esista una suriezione continua $A\twoheadrightarrow[0,1]^A$.
   \end{colorblock}
 
   \vspace{2mm}
-  \begin{center}
-    \begin{tikzpicture}[node distance=8mm]
+  {\centering
+    \begin{tikzpicture}[node distance=8mm,scale=.9,transform shape]
       \node[concept] (law) {Lawvere classico};
       \node[warning,dashed,right=of law] (missing) {ipotesi topologica\\non realizzabile};
       \node[concept,right=of missing] (brouwer) {Brouwer};
@@ -531,7 +562,7 @@
         node[midway,inner sep=0pt,text=sintefred,font=\LARGE] {$\boldsymbol{\times}$}
         (brouwer);
     \end{tikzpicture}
-  \end{center}
+  \par}
 \end{frame}
 
 \begin{frame}{Idea: usare due topologie diverse}
