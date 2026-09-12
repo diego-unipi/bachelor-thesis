@@ -263,7 +263,10 @@
       -- node[midway,above=1mm,font=\tiny,fill=white,inner sep=.5pt]
          {Curry--Howard}
       ([yshift=2mm]lambda.west);
-    \draw[flowgray] ([yshift=-2mm]lambda.west) -- ([yshift=-2mm]logic.east);
+    \draw[flowgray] ([yshift=-2mm]lambda.west)
+      -- node[midway,below=1mm,inner sep=0pt]
+         {\includegraphics[width=7mm]{../images/lean-logo-official-TM-transparent.pdf}}
+      ([yshift=-2mm]logic.east);
     \draw[flowgray] ([yshift=2mm]lambda.east)
       -- node[midway,above=1mm,font=\tiny,fill=white,inner sep=.5pt]
          {Lambek}
