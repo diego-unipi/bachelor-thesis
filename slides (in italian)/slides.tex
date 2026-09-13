@@ -102,14 +102,15 @@
   \begin{tikzpicture}
     \node[rounded corners=3pt,draw=maincolor,line width=1pt,fill=white,
           text width=108mm,align=left,inner sep=7pt,font=\small]
-      {\textcolor{maincolor}{\textbf{Idea}}:
-       Nei casi diagonali il punto fisso emerge duplicando un oggetto,
-       codificando la mappa ottenuta e applicandola al proprio codice.};
+      {Tipicamente, nei casi diagonali, si ha una mappa $\phi:A\times A\to B$, detta \textcolor{maincolor}{\textbf{codifica universale}} (o semplicemente codifica), che codifica ogni mappa $d : A \to B$,
+      i.e., esiste un codice $a_f$ per cui $\phi(a_f,-)=d(-)$.\\[1mm]};
   \end{tikzpicture}
 
-  \vspace{7mm}
+  \vspace{2mm}
+  \uncover<2->{Presa $f : B \to B$ possiamo allora:}\par
+  \vspace{2mm}
   \begin{tikzpicture}[node distance=7mm]
-    \only<2->{
+    \uncover<2->{
     \node[accent,text width=32mm,minimum height=21mm] (diag)
       {\textbf{1. Diagonalizzare}\\[3pt]
        $d(x):=f\bigl(\phi(x,x)\bigr)$};}
@@ -126,7 +127,7 @@
   \end{tikzpicture}
 
   \vspace{-2mm}
-  \only<5>{
+  \uncover<5>{
   \[
     s=\phi(p,p)=d(p)=f\bigl(\phi(p,p)\bigr)=f(s)
   \]
