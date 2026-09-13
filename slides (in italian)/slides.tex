@@ -313,17 +313,6 @@
   \vspace{2mm}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.47\textwidth}
-      {\setbeamercolor{block title}{fg=black,bg=lawverered}
-      \setbeamercolor{block body}{fg=black,bg=lawverered!25}
-      \begin{block}{Teoremi di impossibilità}
-        Se un oggetto $B$ ammette un endomorfismo senza punti fissi, allora non esiste una mappa "surgettiva" del tipo:
-        \[
-          \phi : A \times A \to B \quad\text{ o }\quad \phi : A \to B^A.
-        \]
-      \end{block}
-      }
-    \end{column}
-    \begin{column}{.47\textwidth}
       {\setbeamercolor{block title}{fg=black,bg=lawveregreen}
       \setbeamercolor{block body}{fg=black,bg=lawveregreen!25}
       \begin{block}{Teoremi di esistenza}
@@ -331,6 +320,17 @@
         allora ogni endomorfismo $f:B\to B$ ammette un punto fisso:
         \[
           \exists s : 1 \to B \qquad f \circ s = s.
+        \]
+      \end{block}
+      }
+    \end{column}
+    \begin{column}{.47\textwidth}
+      {\setbeamercolor{block title}{fg=black,bg=lawverered}
+      \setbeamercolor{block body}{fg=black,bg=lawverered!25}
+      \begin{block}{Teoremi di impossibilità}
+        Se un oggetto $B$ ammette un endomorfismo senza punti fissi, allora non esiste una mappa "surgettiva" del tipo:
+        \[
+          \phi : A \times A \to B \quad\text{ o }\quad \phi : A \to B^A.
         \]
       \end{block}
       }
@@ -511,11 +511,11 @@
       (lawvere) at (-4,0)
       {Teorema di Lawvere\\[.4mm]};
     \node[semanticroute,text width=56mm,minimum height=13mm,font=\bfseries]
-      (satisfaction) at (51.5,11.5)
+      (satisfaction) at (51.5,-11.5)
       {$\mathsf{Sat}$ non è definibile in $T$\\[.4mm]
        {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Lawvere in $\mathsf{Lind}_T$}};
     \node[syntacticroute,text width=56mm,minimum height=19mm,font=\bfseries]
-      (diagonal) at (51.5,-11.5)
+      (diagonal) at (51.5,11.5)
       {Lemma di diagonalizzazione di Gödel\\[.4mm]
        {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Adattando la dimostrazione di Lawvere in $\mathsf{Set}$}};
     \node[endpoint,text width=23mm,minimum height=19mm,font=\bfseries]
@@ -523,10 +523,10 @@
       {Gödel\\[.4mm]
        {\scriptsize\mdseries\spaceskip=0pt\xspaceskip=0pt Incompletezza di $T$}};
 
-    \draw[semanticflow] ([yshift=3mm]lawvere.east) -- (satisfaction.west);
-    \draw[semanticflow] (satisfaction.east) -- ([yshift=3mm]godel.west);
-    \draw[syntacticflow] ([yshift=-3mm]lawvere.east) -- (diagonal.west);
-    \draw[syntacticflow] (diagonal.east) -- ([yshift=-3mm]godel.west);
+    \draw[semanticflow] ([yshift=-3mm]lawvere.east) -- (satisfaction.west);
+    \draw[semanticflow] (satisfaction.east) -- ([yshift=-3mm]godel.west);
+    \draw[syntacticflow] ([yshift=3mm]lawvere.east) -- (diagonal.west);
+    \draw[syntacticflow] (diagonal.east) -- ([yshift=3mm]godel.west);
   \end{tikzpicture}
 \end{frame}
 
