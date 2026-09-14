@@ -103,7 +103,7 @@
     \node[rounded corners=3pt,draw=maincolor,line width=1pt,fill=white,
           text width=108mm,align=left,inner sep=7pt,font=\small]
       {Tipicamente, nei casi diagonali, si ha una mappa $\phi:A\times A\to B$, detta \textcolor{maincolor}{\textbf{codifica universale}} (o semplicemente codifica), che codifica ogni mappa $d : A \to B$,
-      i.e., esiste un codice $a_f$ per cui $\phi(a_f,-)=d(-)$.\\[1mm]};
+      i.e., esiste un codice $a_d$ per cui $\phi(a_d,-)=d(-)$.\\[1mm]};
   \end{tikzpicture}
 
   \vspace{2mm}
@@ -163,41 +163,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}[t]{Lawvere formalizza il principio diagonale}
-  \small
-  Lawvere generalizza il principio precedente: una codifica universale forza
-  punti fissi.
-
-  \vspace{0mm}
-  \begin{block}{Teorema di Lawvere (1969)}
-    \vspace{1mm}
-    \begin{columns}[T,onlytextwidth]
-      \begin{column}{.47\textwidth}
-        \centering
-        \textcolor{maincolor}{\textbf{Forma esponenziale}}\par\smallskip
-        In una categoria cartesiana chiusa, se\par\smallskip
-        $\phi:A\longrightarrow B^A$\par\smallskip
-        è debolmente suriettiva sui punti,
-      \end{column}
-      \begin{column}{.47\textwidth}
-        \centering
-        \textcolor{maincolor}{\textbf{Forma diagonale}}\par\smallskip
-        In una categoria cartesiana, se\par\smallskip
-        $\Phi:A\times A\longrightarrow B$\par\smallskip
-        è debolmente suriettiva sui punti,
-      \end{column}
-    \end{columns}
-
-  \vspace{2mm}
-    \centering
-    {\color{darkgray}\rule{.82\linewidth}{.4pt}}\par\smallskip
-    \textbf{allora}:
-    ogni endomorfismo $f:B\to B$ ammette un punto fisso
-    $s:1\to B$, cioè $f\circ s=s$.
-  \end{block}
-\end{frame}
-
-\begin{frame}[t]{Lawvere formalizza il principio diagonale}
+\begin{frame}<1-2>[t]{Lawvere formalizza il principio diagonale}
   \small
   Lawvere generalizza il principio precedente: una codifica universale forza
   punti fissi.
@@ -230,6 +196,7 @@
     $s:1\to B$, cioè $f\circ s=s$.
   \end{block}
 
+  \uncover<2->{%
   \vspace{1mm}
   \centering
   In una categoria cartesiana chiusa le due forme sono equivalenti per currying:
@@ -245,6 +212,7 @@
     (-)^\sharp\colon\!\Hom(A,B^A)
     \overset{\cong}{\to}\Hom(A\times A,B).\)
   \vspace{-1mm}
+  }
 \end{frame}
 
 \section{Curry--Howard--Lambek}
@@ -257,7 +225,7 @@
     \node[logicaccent,text width=32mm,minimum height=18mm] (logic)
       {\textbf{Logica intuizionista}\\proposizioni\\dimostrazioni};
     \node[accent,right=of logic,text width=32mm,minimum height=18mm] (lambda)
-      {\textbf{$\lambda$-calcolo tipato}\\tipi\\termini};
+      {\textbf{$\lambda$-calcolo tipato}\\tipi\\programmi};
     \node[categoryaccent,right=of lambda,text width=32mm,minimum height=18mm] (cat)
       {\textbf{Categorie}\\\textbf{cartesiane chiuse}\\oggetti / morfismi};
     \draw[flowgray] ([yshift=2mm]logic.east)
@@ -359,7 +327,7 @@
     \midrule
     \multirow{3}{*}[-6mm]{\textcolor{maincolor}{$\mathsf{Set}$}}
       & Cantor
-      & $\neg:2\to2$
+      & $\neg : \{0,1\} = 2 \to 2$
       & Nessuna suriezione $A\twoheadrightarrow2^A$; in particolare, adattando la dimostrazione di Lawvere nel caso di $\NN$ e $\RR$,
       si ottiene l'argomento diagonale di Cantor, per cui $|\NN|<|\RR|$.\\
     & Russell
@@ -450,7 +418,7 @@
   \end{tabularx}}
 \end{frame}
 
-\begin{frame}<1-3>{Vediamo un esempio in dettaglio}
+\begin{frame}<1-4>{Vediamo un esempio in dettaglio}
   \framesubtitle{L'halting problem in $\RecTot$}
   \small
   \begin{block}{Halting problem (Turing, 1937)}
@@ -460,6 +428,7 @@
 
   \vspace{2mm}
   \centering
+  \uncover<2->{%
   \begin{tikzpicture}[node distance=5mm,
       haltingstep/.style={text width=128mm,inner xsep=4pt,inner ysep=3pt,font=\small}]
     \node[categoryaccent,haltingstep] (total)
@@ -468,14 +437,14 @@
          0 & \text{altrimenti}
        \end{cases}$}};
 
-    \uncover<2->{
+    \uncover<3->{
       \node[accent,haltingstep,below=of total] (universal)
         {Per ogni funzione calcolabile totale $g : \NN \to \NN$, esiste un suo \textit{codice} $\ulcorner g \urcorner$ tale che\\[2pt]
          \mbox{$F(\ulcorner g \urcorner,x)=g(x)\quad\forall x\in\NN$}.};
       \draw[flow] (total) -- (universal);
     }
 
-    \uncover<3->{
+    \uncover<4->{
       \node[warning,haltingstep,below=of universal] (contradiction)
         {\mbox{Quindi ogni funzione calcolabile totale $\NN\to\NN$ avrebbe un punto fisso, ma}\\[2pt]
          \mbox{$s:\NN\to\NN:n\mapsto n+1$}\\[2pt]
@@ -484,6 +453,7 @@
       \draw[flow] (universal) -- (contradiction);
     }
   \end{tikzpicture}
+  }
 \end{frame}
 
 \begin{frame}{Primo teorema di incompletezza di Gödel}
@@ -534,7 +504,7 @@
 
 \begin{frame}{Per Brouwer, Lawvere classico non basta}
   \small
-  \begin{block}{Teorema di punto fisso (Brouwer, 1911)}
+  \begin{block}{Teorema (Brouwer, 1911)}
     \raggedright
     Sia $D$ una palla chiusa in uno spazio euclideo di dimensione finita. Si ha che ogni mappa continua $f:D\to D$ ha un punto fisso, cioè esiste $x\in D$ tale che $f(x)=x$.
   \end{block}
