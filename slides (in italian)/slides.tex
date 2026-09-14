@@ -83,8 +83,8 @@
     \node[concept,text width=30mm,font=\bfseries] (fixed) {Teoremi di punto fisso};
     \node[warning,below left=of fixed,text width=40mm] (general)
       {Geometrici, topologici\\e di ordinamenti};
-    \node[accent,below right=of fixed,text width=40mm] (diagonal)
-      {Diagonali: formalizzano\\l'autoreferenzialità};
+    \node[accent,below right=of fixed,text width=40mm,align=center] (diagonal)
+      {Diagonali: si dimostrano\\tramite l'autoreferenzialità};
     \draw[flow] (fixed) -- (general);
     \draw[flow] (fixed) -- (diagonal);
     \node[below=4mm of general,align=center,font=\footnotesize] (examples_left)
@@ -102,34 +102,34 @@
   \begin{tikzpicture}
     \node[rounded corners=3pt,draw=maincolor,line width=1pt,fill=white,
           text width=108mm,align=left,inner sep=7pt,font=\small]
-      {Tipicamente, nei casi diagonali, si ha una mappa $\phi:A\times A\to B$, detta \textcolor{maincolor}{\textbf{codifica universale}} (o semplicemente codifica), che codifica ogni mappa $d : A \to B$,
-      i.e., esiste un codice $a_d$ per cui $\phi(a_d,-)=d(-)$.\\[1mm]};
+      {Tipicamente, nei casi diagonali, si ha una mappa $\phi:A\times A\to B$, detta \textcolor{maincolor}{\textbf{codifica universale}} (o semplicemente codifica), tale che:
+      \[ \forall d : A \to B \quad \exists \ulcorner d \urcorner \in A \quad \text{ per cui } \quad\phi(\ulcorner d \urcorner,-)=d(-) \]\\[1mm]};
   \end{tikzpicture}
 
   \vspace{2mm}
-  \uncover<2->{Presa $f : B \to B$ possiamo allora:}\par
+  \uncover<2->{Dato $f : B \to B$ possiamo trovare un punto fisso nel modo seguente:}\par
   \vspace{2mm}
   \begin{tikzpicture}[node distance=7mm]
-    \uncover<2->{
+    \uncover<3->{
     \node[accent,text width=32mm,minimum height=21mm] (diag)
       {\textbf{1. Diagonalizzare}\\[3pt]
        $d(x):=f\bigl(\phi(x,x)\bigr)$};}
-    \only<3->{
+    \only<4->{
     \node[accent,right=of diag,text width=32mm,minimum height=21mm] (code)
       {\textbf{2. \mbox{Prenderne} il codice}\\[3pt]
-       $\phi(p,-)=d(-)$};}
-    \only<4->{
-    \node[accent,right=of code,text width=32mm,minimum height=21mm] (self)
-      {\textbf{3. Applicare la funzione al codice}\\[3pt]
-       $s:=\phi(p,p)$};}
-    \only<3->{\draw[flowaccent] (diag) -- (code);}
-    \only<4->{\draw[flowaccent] (code) -- (self);}
+       $\phi(\ulcorner d \urcorner,-)=d(-)$};}
+    \only<5->{
+    \node[accent,right=of code,text width=40mm,minimum height=21mm] (self)
+      {\textbf{3. Applicare la \mbox{funzione} al suo codice}\\[3pt]
+       $s:=\phi(\ulcorner d \urcorner,\ulcorner d \urcorner)$};}
+    \only<4->{\draw[flowaccent] (diag) -- (code);}
+    \only<5->{\draw[flowaccent] (code) -- (self);}
   \end{tikzpicture}
 
   \vspace{-2mm}
-  \uncover<5>{
+  \uncover<6>{
   \[
-    s=\phi(p,p)=d(p)=f\bigl(\phi(p,p)\bigr)=f(s)
+    s=\phi(\ulcorner d \urcorner,\ulcorner d \urcorner)=d(\ulcorner d \urcorner)=f\bigl(\phi(\ulcorner d \urcorner,\ulcorner d \urcorner)\bigr)=f(s)
   \]
   }
 \end{frame}
@@ -143,7 +143,7 @@
 
   \vspace{1mm}
   \begin{block}{\textbf{Categoria cartesiana}}
-    Una \textbf{categoria cartesiana} è una categoria con prodotti finiti, ossia:
+    Una \textbf{categoria cartesiana} è una categoria che ammette:
     \begin{itemize}
       \item un oggetto terminale $1$;
       \item prodotti binari $A\times B$ per ogni coppia di oggetti $A,B$.
@@ -342,7 +342,77 @@
     \textcolor{maincolor}{$k\mathsf{Top}$}
       & Suriezioni continue
       & un $t:X\to X$ continuo senza punti fissi
-      & Nessuna suriezione continua $I\twoheadrightarrow X^I$;
+      & Nessuna suriezione continua $I\twoheadrightarrow X^I = C^0(I,X)$;
+        ad esempio: $S^1$ con la mappa antipodale, gruppi topologici non banali, lo spazio di Cantor $2^{\NN}$. \\
+    \bottomrule
+  \end{tabularx}
+\end{frame}
+
+\begin{frame}<1-4>{Vediamo un esempio in dettaglio}
+  \framesubtitle{Il teorema di Cantor in $\mathsf{Set}$}
+  \small
+  \begin{block}{Teorema di Cantor (1891)}
+    \centering
+    Per ogni insieme $A$, si ha che $|A|<|2^A|$.
+  \end{block}
+
+  \vspace{2mm}
+  \centering
+  \uncover<2->{%
+  \begin{tikzpicture}[node distance=5mm,
+      cantorstep/.style={text width=128mm,inner xsep=4pt,inner ysep=3pt,font=\small}]
+    \node[categoryaccent,cantorstep] (surjection)
+      {\mbox{Supponiamo per assurdo che $|A| \geq 2^{|A|}$.}};
+
+    \uncover<3->{
+      \node[accent,cantorstep,below=of surjection] (universal)
+        {\mbox{Allora esiste una mappa surgettiva $f : A \twoheadrightarrow 2^A$.}};
+      \draw[flow] (surjection) -- (universal);
+    }
+
+    \uncover<4->{
+      \node[warning,cantorstep,below=of universal] (contradiction)
+        {\begin{minipage}{\linewidth}
+         \raggedright
+         \mbox{Dunque si applica Lawvere, per cui ogni endomorfismo di $2$ deve avere un punto fisso,}\\[1pt]
+         in particolare:\\[1pt]
+         \makebox[\linewidth][c]{$\neg : 2 = \{0,1\} \to 2$}\\[1pt]
+         deve averlo, assurdo.
+         \end{minipage}};
+      \draw[flow] (universal) -- (contradiction);
+    }
+  \end{tikzpicture}
+  }
+\end{frame}
+
+\begin{frame}{Applicazioni di Lawvere}
+  \framesubtitle{Teoria degli insiemi e topologia}
+  \scriptsize
+  \renewcommand{\arraystretch}{1.30}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}>{\centering\arraybackslash}p{.09\textwidth} >{\bfseries}L{.14\textwidth} L{.24\textwidth} Y@{}}
+    \toprule
+    \textcolor{maincolor}{\bfseries Categoria}
+      & Risultato & Mappa senza punti fissi & Cosa non può essere universale \\
+    \midrule
+    \multirow{3}{*}[-6mm]{\textcolor{maincolor}{$\mathsf{Set}$}}
+      & Cantor
+      & $\neg : \{0,1\} = 2 \to 2$
+      & Nessuna suriezione $A\twoheadrightarrow2^A$; in particolare, adattando la dimostrazione di Lawvere nel caso di $\NN$ e $\RR$,
+      si ottiene l'argomento diagonale di Cantor, per cui $|\NN|<|\RR|$.\\
+    & Russell
+      & ancora $\neg:2\to2$
+      & Se la classe $V$ fosse un insieme, $a\mapsto\mathbf1_a$ darebbe
+        $V\twoheadrightarrow2^V$: impossibile. \\
+    & Paradossi classici
+      & negazione su $2$ o permutazione su $3$
+      & Barbiere, Grelling e mentitore (forte) si basano tutti sul fatto che non esiste una mappa $\phi : A \times A \twoheadrightarrow \{0,1\}$,
+      perché altrimenti codificherebbe la mappa $a \mapsto \neg\phi(a,a)$. \\
+    \addlinespace[.7mm]
+    \textcolor{maincolor}{$k\mathsf{Top}$}
+      & Suriezioni continue
+      & un $t:X\to X$ continuo senza punti fissi
+      & Nessuna suriezione continua $I\twoheadrightarrow X^I = C^0(I,X)$;
         ad esempio: $S^1$ con la mappa antipodale, gruppi topologici non banali, lo spazio di Cantor $2^{\NN}$. \\
     \bottomrule
   \end{tabularx}
@@ -432,7 +502,7 @@
   \begin{tikzpicture}[node distance=5mm,
       haltingstep/.style={text width=128mm,inner xsep=4pt,inner ysep=3pt,font=\small}]
     \node[categoryaccent,haltingstep] (total)
-      {\mbox{$F(e,x)=\begin{cases}
+      {\mbox{$\phi(e,x)=\begin{cases}
          \text{output del programma }e\text{ su }x & \text{se termina}\\
          0 & \text{altrimenti}
        \end{cases}$}};
@@ -440,7 +510,7 @@
     \uncover<3->{
       \node[accent,haltingstep,below=of total] (universal)
         {Per ogni funzione calcolabile totale $g : \NN \to \NN$, esiste un suo \textit{codice} $\ulcorner g \urcorner$ tale che\\[2pt]
-         \mbox{$F(\ulcorner g \urcorner,x)=g(x)\quad\forall x\in\NN$}.};
+         \mbox{$\phi(\ulcorner g \urcorner,x)=g(x)\quad\forall x\in\NN$}.};
       \draw[flow] (total) -- (universal);
     }
 
