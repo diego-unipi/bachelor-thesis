@@ -1,7 +1,7 @@
 \chapter{Lawvere's fixed-point theorem}
 We have developed the necessary tools to prove Lawvere's fixed-point theorem; therefore, we can now state and prove it.
 We will see two versions of this theorem, one for cartesian closed categories, and one for cartesian categories.
-Moreover, we will show, in both cases, all the main applications and examples of the theorems, focusing on how diagonal arguments and fixed-point theorems
+Moreover, we will show many applications and examples for either case. We will focus on how diagonal arguments and fixed-point theorems
 can be retrieved as instances of Lawvere's theorem, choosing the appropriate category to work in.
 
 \section{Surjections and fixed points in categories}
@@ -53,7 +53,7 @@ In addition, the function structure determines the morphism structure.
 \begin{example}[Point-surjective morphism that is not surjective]
     In the category $\mathsf{Grp}$, consider the unique homomorphism $i : 1 \to \ZZ$, where $1 = \{e\}$ and $i(e) = 0$. This map is point-surjective, since
     the only possible homomorphism $1 \to \ZZ$ is the trivial one; therefore, the only global element of $\ZZ$ is $0$, and $i$ realizes it by taking $1_1$.
-    However, this map is not surjective, since if there was $s : \ZZ \to 1$ such that $i \circ s = 1_\ZZ$, then $U(i) \circ U(s) = 1_{U(\ZZ)}$, where $U : \mathsf{Grp} \to \mathsf{Set}$ is the forgetful functor.
+    However, this map is not surjective, since if there were $s : \ZZ \to 1$ such that $i \circ s = 1_\ZZ$, then $U(i) \circ U(s) = 1_{U(\ZZ)}$, where $U : \mathsf{Grp} \to \mathsf{Set}$ is the forgetful functor.
     Therefore $U(i) : U(1) \to U(\ZZ)$ would be surjective, but this is impossible since $|U(1)| = 1 < |U(\ZZ)| = \aleph_0$.
 \end{example}
 
@@ -126,38 +126,6 @@ In addition, the function structure determines the morphism structure.
 Let's now see how Lawvere's fixed-point theorem can be used to prove many other fixed-point theorems, diagonal arguments and even other useful results in logic and mathematics in general.
 For each result, we will introduce the category needed to apply Lawvere's theorem, and we will show how the hypotheses of the theorem are satisfied in that category.
 
-Before we start, we recall a couple of useful notions in computability theory, which will be used multiple times in the following sections.
-
-\begin{notation}[Recursive functions]\label{idx:partial-naturals}
-    We denote by $\NN_\bot := \NN \cup \{\bot\}$ the set of natural numbers with a bottom element $\bot$,
-    which denotes the non-termination of a computation. We assume the notions of \emph{partial recursive function} (or just \emph{recursive function}),
-    \emph{total recursive function} and \emph{primitive recursive function}; we won't define them here, but we refer the reader to \Cite[Definition~2.1, pp.~5--6]{Streicher2002} for the detailed definitions.
-\end{notation}
-
-\begin{definition}[Decidable and semidecidable sets]
-    We say that a subset $A \subseteq \NN^k$ is \emph{decidable} if there exists a total recursive function $f : \NN^k \to \NN$ such that
-    \[ A = \{\vec x \in \NN^k : f(\vec x) = 0\}. \]
-    Similarly, we say that a subset $A \subseteq \NN^k$ is \emph{semidecidable} if there exists a partial recursive function $f : \NN^k \to \NN_\bot$ such that
-    \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
-\end{definition}
-
-We assume the following result.
-
-\begin{proposition}[{\cite[Definition~5.1 and Lemma~5.1, pp.~17--18]{Streicher2002}}]
-    Given a subset $A \subseteq \NN^k$, TFAE:
-    \begin{itemize}
-        \item $A$ is semidecidable;
-        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., either $A = \varnothing$ or there exists a total recursive function $f : \NN \to \NN^k$ such that $A = \Img(f)$;
-        \item $A$ is the domain of a partial recursive function, i.e.
-        \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}, \]
-        for some partial recursive function $f : \NN^k \to \NN_\bot$.
-    \end{itemize}
-\end{proposition}
-
-\begin{notation}[Universal partial recursive function]\label{idx:universal-function}
-    We denote by $u_k : \NN^{k+1} \to \NN_\bot$ the universal partial recursive function for $k$-ary partial recursive functions, see \Cite[Definition~4.1, p.~13]{Streicher2002} for the definition.
-\end{notation}
-
 \subsection*{Cantor's theorem}
 In $\mathsf{Set}$ we can prove Cantor's theorem, on the non-existence of surjections from a set to its power set.
 
@@ -190,9 +158,12 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
         \iota^{-1}(x) & \text{if $x \in \Img(\iota)$} \\
         (0)_{i \in \NN} & \text{otherwise}
     \end{cases}. \]
-    Given an arbitrary map $f : \NN \to \RR$, define $\phi:=s \circ f : \NN \to 2^\NN$.
-    We specialize the construction in the proof of Lawvere's fixed-point theorem to $\mathcal C=\mathsf{Set}$, $A=\NN$, $B=2$, the map $\phi$, and the endomorphism $\neg : 2 \to 2$.
-    We construct the term
+    Given an arbitrary map $f : \NN \to \RR$, we can define $\phi:=s \circ f : \NN \to 2^\NN$, which is the encoding required to apply Lawvere's fixed-point theorem (one can easily verify that if $f$ is surjective, then $\phi$ is weakly point-surjective).
+\end{proof}
+
+\begin{remark}[Explicit construction of Cantor's diagonal element]
+    We can specialize the construction in the proof of Lawvere's fixed-point theorem to $\mathcal C=\mathsf{Set}$, $A=\NN$, $B=2$, the map $\phi$, and the endomorphism $\neg : 2 \to 2$.
+    This way we get an explicit construction of Cantor's diagonal element. We construct the term
     \[ d := \lambda_{i \in \NN}\ulcorner \neg \urcorner^\sharp((\ulcorner \phi \urcorner^\sharp(i))^\sharp(i)) \in 2^\NN, \]
     and, under the identification of the elements of $2^\NN$ with binary sequences, we have, by $\beta$-reduction, that
     \[ d^\sharp(i) \underset{\{i\}}{=} \ulcorner \neg \urcorner^\sharp((\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(i)))^\sharp(i)). \]
@@ -205,7 +176,7 @@ Even though this result can be obtained as a corollary of Cantor's theorem, we c
     \[ \ulcorner \phi \urcorner^\sharp(k) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner f \urcorner^\sharp(k)) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(x_d) \underset{\varnothing}{=}\ulcorner s \urcorner^\sharp(\ulcorner \iota \urcorner^\sharp(d)) \underset{\varnothing}{=}d, \]
     where the last equality holds since, in $\mathsf{Set}$, $s \circ \iota = 1_{2^\NN}$, so we have a contradiction.
     Therefore $x_d \notin \Img(f)$, and, since $f : \NN \to \RR$ was arbitrary, there is no surjection $\NN \twoheadrightarrow \RR$, because we constructed the diagonal element $x_d \in \RR$.
-\end{proof}
+\end{remark}
 
 \subsection*{Russell's paradox}
 Another instance of Lawvere's argument in $\mathsf{Set}$ is Russell's paradox, which can be, informally, stated as the class of all sets is not a set.
@@ -317,6 +288,39 @@ Other interesting examples include the following.
     \[ f(x_0,x_1,x_2,\dots) := (1-x_0,x_1,x_2,\dots) \]
     is a continuous endomorphism without fixed points: if there was one, we'd have $x_0 = \frac 12 \not\in 2$, so there is no continuous surjection $g : I \twoheadrightarrow (2^\NN)^I$, for any compactly generated Hausdorff space $I$.
 \end{example}
+
+\subsection*{Interlude: some useful notions in computability theory}
+We recall a couple of useful notions in computability theory, which will be used multiple times in the following paragraphs.
+
+\begin{notation}[Recursive functions]\label{idx:partial-naturals}
+    We denote by $\NN_\bot := \NN \cup \{\bot\}$ the set of natural numbers with a bottom element $\bot$,
+    which denotes the non-termination of a computation. We assume the notions of \emph{partial recursive function} (or just \emph{recursive function}),
+    \emph{total recursive function} and \emph{primitive recursive function}; we won't define them here, but we refer the reader to \Cite[Definition~2.1, pp.~5--6]{Streicher2002} for the detailed definitions.
+\end{notation}
+
+\begin{definition}[Decidable and semidecidable sets]
+    We say that a subset $A \subseteq \NN^k$ is \emph{decidable} if there exists a total recursive function $f : \NN^k \to \NN$ such that
+    \[ A = \{\vec x \in \NN^k : f(\vec x) = 0\}. \]
+    Similarly, we say that a subset $A \subseteq \NN^k$ is \emph{semidecidable} if there exists a partial recursive function $f : \NN^k \to \NN_\bot$ such that
+    \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}. \]
+\end{definition}
+
+We assume the following result.
+
+\begin{proposition}[{\cite[Definition~5.1 and Lemma~5.1, pp.~17--18]{Streicher2002}}]
+    Given a subset $A \subseteq \NN^k$, TFAE:
+    \begin{itemize}
+        \item $A$ is semidecidable;
+        \item $A$ is \emph{recursively enumerable} (r.e.), i.e., either $A = \varnothing$ or there exists a total recursive function $f : \NN \to \NN^k$ such that $A = \Img(f)$;
+        \item $A$ is the domain of a partial recursive function, i.e.
+        \[ A = \{\vec x \in \NN^k : f(\vec x) \ne \bot\}, \]
+        for some partial recursive function $f : \NN^k \to \NN_\bot$.
+    \end{itemize}
+\end{proposition}
+
+\begin{notation}[Universal partial recursive function]\label{idx:universal-function}
+    We denote by $u_k : \NN^{k+1} \to \NN_\bot$ the universal partial recursive function for $k$-ary partial recursive functions, see \Cite[Definition~4.1, p.~13]{Streicher2002} for the definition.
+\end{notation}
 
 \subsection*{Rice's theorem}
 Let's now see how to apply Lawvere's fixed-point theorem to obtain some result in computability theory. Specifically, we prove in this subsection Rice's theorem.
@@ -1023,6 +1027,15 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
     that substitutes the Gödel code of $\chi$ for the free variable $x$ in $\theta$. For the given formula $\varphi(x)$, define the endomorphism
     \[ \Phi_\varphi : \mathsf{Form}_0\to\mathsf{Form}_0 : \sigma\mapsto\varphi[\overline{\ulcorner\sigma\urcorner}/x], \]
     i.e.,\ $\Phi_\varphi(-) := F(\varphi,-)|_{\mathsf{Form}_0}$.
+    Since substitution on Gödel codes is primitive recursive, strong representability of primitive recursive functions in $\mathsf Q$ provides a formula $\theta\in\mathsf{Form}_1$ such that
+    \[ \mathsf Q\vdash F(\theta,\chi)\leftrightarrow\Phi_\varphi(F(\chi,\chi)) \]
+    for every $\chi\in\mathsf{Form}_1$. Taking $\chi=\theta$, the diagonal step in the proof of Lawvere's fixed-point theorem in the cartesian form gives a closed formula $\psi$ satisfying
+    \[ \mathsf Q\vdash\psi\leftrightarrow\Phi_\varphi(\psi). \]
+    By the definition of $\Phi_\varphi$, this is precisely
+    \[ \mathsf Q\vdash\psi\leftrightarrow\varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
+\end{proof}
+
+\begin{remark}[Explicit construction of Gödel's diagonal sentence]
     Following the Curry--Howard--Lambek proof of Lawvere's fixed-point theorem in the cartesian form, we have $\mathsf{Form}_1 = A$, $\mathsf{Form}_0 = B$, $F = \phi$ and $\Phi_\varphi = f$. Accordingly, the diagonal morphism corresponding to the term $q(x)$ in that proof is
     \[ g := \Phi_\varphi\circ F\circ\Delta_{\mathsf{Form}_1} : \mathsf{Form}_1\to\mathsf{Form}_0. \]
     Since both the predicate of being the code of an element of $\mathsf{Form}_1$ and substitution on Gödel codes are primitive recursive, there is a total primitive recursive function $D:\NN\to\NN$, with an arbitrary fixed value on numbers that do not encode elements of $\mathsf{Form}_1$, such that
@@ -1048,7 +1061,7 @@ proof of Lawvere's fixed-point theorem in the cartesian form. This is another wa
     \[ g(\theta) = \Phi_\varphi(F(\theta,\theta)) = \Phi_\varphi(\psi) = \varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
     Therefore
     \[ \mathsf Q\vdash\psi\leftrightarrow\varphi[\overline{\ulcorner\psi\urcorner}/x]. \]
-\end{proof}
+\end{remark}
 
 \begin{remark}
     From the diagonal lemma, we can derive Gödel's first incompleteness theorem following the classical argument.
