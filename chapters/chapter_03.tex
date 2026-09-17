@@ -589,7 +589,7 @@ We can also prove a generalization of Lawvere's fixed-point theorem that holds i
 \end{proof}
 
 \section{Gödel's incompleteness and other classical results}\label{sec:godel-incompleteness-and-other-classical-results}
-Using the stronger version of Lawvere's fixed-point theorem just proved, we can show how to obtain even more classical results.
+The stronger version of Lawvere's fixed-point theorem subsumes a number of classical results.
 In the following we're going to continue the work started in \Cref{sec:many-fixed-points-one-proof}.
 
 \subsection*{Halting problem}
@@ -599,7 +599,7 @@ Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, 
     One can actually check that $\mathsf{Rec_{tot}}$ is a cartesian category. The identity function is total recursive. The composition of total recursive functions is again total recursive,
     and the associativity and identity laws follow from the corresponding laws in $\mathsf{Set}$.\newline
     The terminal object is $1 = \{*\}$. The product of $\NN^n$ and $\NN^m$ is $\NN^{n+m}$, and the usual projections are total recursive functions. The fact that $1$ is terminal and that the product satisfies the universal property follows from the corresponding facts in $\mathsf{Set}$.
-    Formally, we could say that $\mathsf{Rec_{tot}}$ is a \emph{concrete category}, i.e., there exists a \emph{faithful} - injective on morphisms - functor $U : \mathsf{Rec_{tot}} \to \mathsf{Set}$, that is the forgetful functor.
+    Formally, $\mathsf{Rec_{tot}}$ is a concrete category so we have a faithful functor $U : \mathsf{Rec_{tot}} \to \mathsf{Set}$, that is the forgetful functor.
     Therefore, given a total recursive function $f : \NN^n \to 1$, the associated function $U(f) : \NN^n \to \{*\}$ is unique, since $1$ is terminal in $\mathsf{Set}$, so $f$ is unique. Similarly one can check the universal property of the product.
 \end{remark}
 
@@ -625,7 +625,7 @@ Let's consider the category of total recursive functions, $\mathsf{Rec_{tot}}$, 
     but this is clearly a contradiction, since $s : \NN \to \NN : n \mapsto n + 1$ has none.
 \end{proof}
 
-\subsection*{Non-uniform enumerability of total recursive functions}
+\subsection*{Failure of enumerability of total recursive functions}
 Following the previous example, we can also prove that the total recursive functions are not uniformly enumerable.
 
 \begin{definition}[Uniformly enumerable sequence of functions]
@@ -648,7 +648,7 @@ Following the previous example, we can also prove that the total recursive funct
     and just like in the previous proof, we get a contradiction taking the successor function $s : \NN \to \NN$.
 \end{proof}
 
-\subsection*{Non-uniform enumerability of decidable sets}
+\subsection*{Failure of enumerability of decidable sets}
 Equivalently, we can prove that the decidable sets are not uniformly enumerable.
 
 \begin{definition}[Uniformly enumerable sequence of sets]
@@ -748,7 +748,7 @@ Let's see an application in $\mathsf{Set}$ of Lawvere's fixed-point theorem in t
 \end{remark}
 
 
-\subsection*{Undefinability of the satisfaction formula}
+\subsection*{Undefinability of the satisfaction}
 
 \begin{definition}[$L_{\textnormal{arit}}$ and free variables]
     Let $L_{\textnormal{arit}}$ be the \emph{language of arithmetic}, i.e.,\ $L_{\textnormal{arit}} := \{0,+,\cdot,s\}$, and let $\FV$ denote the set of free variables of an $L_{\textnormal{arit}}$-formula,
@@ -811,8 +811,8 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
         \item the variable $x_i$ determines the projection $\pi_i=[x_i]:A^n\to A$;
         \item the term $x_1+x_2$ determines the morphism $[x_1+x_2]:A^2\to A$;
         \item the formula $x_1=x_2$ determines the morphism $[x_1=x_2]:A^2\to2$;
-        \item the numeral $\overline{n}$ determines a point $[\overline{n}] : 1 \to A$;
-        \item a closed $L_{\textnormal{arit}}$-formula $\sigma$ determines a point $[\sigma] : 1 \to 2$.
+        \item the numeral $\overline{n}$ determines an element $[\overline{n}] : 1 \to A$;
+        \item a closed $L_{\textnormal{arit}}$-formula $\sigma$ determines an element $[\sigma] : 1 \to 2$.
         \item the formula $\neg p$ determines the negation morphism $[\neg p]:2\to2$;
         \item a formula in two free arithmetic variables determines a morphism $A^2\to2$; in particular, if the satisfaction relation is definable, there exists a morphism
         \[ [\mathsf{Sat}_T(y,x)] : A\times A \to 2; \]
@@ -848,13 +848,6 @@ We need to define the category in which we will apply Lawvere's fixed-point theo
     \[ [\neg \sigma] = [\sigma] \overset{\textnormal{def of $\equiv_T$}}{\implies} T \vdash \neg \sigma \leftrightarrow \sigma, \]
     contradicting the consistency of $T$. Therefore, the satisfaction relation is not definable in $T$.
 \end{proof}
-
-\begin{remark}[Uniform satisfaction formula]
-    We could prove, in the same way, a stronger version of the undefinability of satisfaction, using the definition
-    \[ T\vdash\forall x\left(\varphi(x)\leftrightarrow\mathsf{Sat}_T(\overline{\ulcorner\varphi\urcorner},x)\right), \]
-    that is the existence of a uniformly definable satisfaction formula, i.e., the theory understands that the formula $\mathsf{Sat}_T(y,x)$ defines the satisfaction relation for every value of $x$ at once, and not only pointwise, for every closed term $t$.\newline
-    However, the pointwise formulation above is the correct formulation to obtain the next undefinability result, following Lawvere's original proof of Gödel's first incompleteness theorem.
-\end{remark}
 
 \subsection*{Tarski's undefinability theorem}
 Now that we have proved the undefinability of the satisfaction relation, we can prove the undefinability of truth as a consequence, following Lawvere.
@@ -959,7 +952,7 @@ i.e. $\sigma$ is true for $T$ if and only if the arrow $[\mathsf{Pr}_T(y)]$ iden
 \end{definition}
 
 This is weaker than the definability of truth, since it only requires that the provability formula correctly recognizes the closed formulas that are provable in $T$,
-rather than reproducing the truth value of every closed formula. As a corollary of Gödel's incompleteness proof, it will follow that, assuming completeness, the two conditions are equivalent.
+rather than reproducing the truth value of every closed formula.
 
 \begin{remark}[Representability of provability]
     Let $T$ be a recursively axiomatizable theory such that $\mathsf Q \subseteq T$. By Craig's reaxiomatization theorem, we may choose a primitive recursive axiomatization of $T$ \cite[Propositions~6.15 and~6.16, pp.~146--147]{ZachIncompletenessComputability2026}.
@@ -1159,16 +1152,9 @@ and for which there exists a topological space $A$ that can be used to define an
 a class existed, then one could recover Brouwer's fixed-point theorem as a corollary of Lawvere's theorem. Unfortunately, this is not the case in general: as McCallum pointed out, it already fails for the unit interval $[0,1]$.
 
 \begin{theorem}[{\cite[Theorem.~3.1.]{McCallum2020}}]
-    It is provable in $\mathsf{ZFC}$ that there does not exist any topological space $A$ for which the exponential topology on $[0,1]^A$ is defined
+    It does not exist any topological space $A$ for which the exponential topology on $[0,1]^A$ is defined
     and such that there is a continuous surjection $g : A \to [0,1]^A$.
 \end{theorem}
-
-\begin{proof}[Proof sketch.]
-    Assume that such $A$ and $g$ exist, and set $B:=(A,g)$. McCallum constructs a pair $B'=(A',g') \in L_\alpha(\RR)$ with the same properties relative to $L(\RR)$ for some countable limit ordinal $\alpha$, where $L_\alpha(\RR)$ is the $\alpha$-th level of Gödel's constructible universe over the reals, \cite{WikipediaConstructibleUniverse2026}.\newline
-    For a suitable choice of a real $r$, McCallum ensures that every continuous $f:[0,1] \to [0,1]$ belonging to $L[B',\rho]$, where $\rho$ assigns to every countable ordinal $\beta$ that is a limit of limit ordinals an $\omega$-sequence of limit ordinals cofinal in $\beta$ and is restricted to $\alpha$, lies in $L_\alpha[r]$. He then constructs a model $S$ of second-order arithmetic, with the standard natural numbers, containing numerical codes for the elements and membership relation of $L_\alpha[r]$, and satisfying $\mathsf{RCA}_0$ and $\neg\mathsf{WKL}_0$, the Recursive Comprehension Axiom and the negation of Weak König's Lemma, respectively \cite{WikipediaReverseMathematics2026}.\newline
-    Using the equivalence of Brouwer's fixed-point theorem with $\mathsf{WKL}_0$ over $\mathsf{RCA}_0$ \cite{WikipediaReverseMathematics2026}, McCallum claims that, by following the construction used to prove this equivalence, one obtains in $S$ a continuous map $f:[0,1] \to [0,1]$ with no fixed point in $L_\alpha[r]$.\newline
-    If $B'$ occurs in $L_\alpha[r]$, and hence has its transitive closure fully encoded in $S$, then Lawvere's constructive proof can be carried out inside $S$: applied to $g'$ and $f$, it would produce a fixed point of $f$, contradicting McCallum's construction of $f$ as a map with no fixed points.
-\end{proof}
 
 Having established that Lawvere's classical fixed-point theorem does not hold in the category of topological spaces, McCallum proves a slightly modified version of Lawvere's theorem as follows.
 
