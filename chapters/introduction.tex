@@ -4,10 +4,10 @@
 
 Fixed-point theorems are an evergreen in mathematics, from analysis and topology to logic and computation.
 Early examples include Brouwer's theorem in 1911 \parencite{Brouwer1911}, Banach's contraction theorem in 1922
-\parencite{Banach1922}, Schauder's generalization for infinite-dimensional spaces in 1930 \parencite{Schauder1930}, and Tarski's lattice-theoretic theorem in 1955 \parencite{Tarski1955}.
+\parencite{Banach1922}, Schauder's generalization for infinite-dimensional spaces in 1930 \parencite{Schauder1930}, Nash's existence theorem for equilibria in finite games in 1950, proved using Kakutani's fixed-point theorem \parencite{Nash1950}, and Tarski's lattice-theoretic theorem in 1955 \parencite{Tarski1955}.
 A particular family of these results is the diagonal family, in which self-reference turns representability into a fixed point or, contrapositively, into an impossibility theorem.
 
-Between 1891 and 1937, diagonalization became one of the most characteristic methods among logicians, who formulated the limits of enumeration, comprehension, definability, formal proof, and computation.
+Between 1891 and 1937, diagonalization became one of the most characteristic methods among logicians, who investigated the limits of set theory, definability and computation.
 In 1891, Cantor proved that there is no enumeration that exhausts all binary sequences \parencite{Cantor1891}.
 In 1903, Russell published his contradiction concerning classes and described its connection with Cantor's argument \parencite{Russell1903}.
 In 1931, Gödel proved his first incompleteness theorem and explicitly compared its construction with Richard's 1905 antinomy and the liar paradox \parencite{Godel1931}. In 1933, Tarski published his analysis of truth in formalized languages \parencite{Tarski1933}.
@@ -23,8 +23,7 @@ and Carnap's generalization of Gödel's construction to arbitrary formulas, in 1
 \begin{displayquote}
 The original aim of this article \parencite{Lawvere1969} was to demystify the incompleteness theorem of Gödel and the truth-definition theory of Tarski by showing that both are consequences of some
 very simple algebra in the cartesian-closed setting. It was always hard for many to comprehend how Cantor's mathematical theorem could be re-christened as a \enquote{paradox} by Russell and how Gödel's theorem could be so often declared to be the most significant
-result of the 20th century. There was always the suspicion among scientists that such extra-mathematical publicity movements concealed an agenda for re-establishing belief
-as a substitute for science. Now, one hundred years after Gödel's birth, the organized attempts to harness his great mathematical work to such an agenda have become explicit.
+result of the 20th century.
 \end{displayquote}
 
 \begin{flushright}
@@ -32,13 +31,13 @@ as a substitute for science. Now, one hundred years after Gödel's birth, the or
 {\small Received 5 December 2005; reprint published 24 February 2006; originally published 1969 \parencite[Author Commentary, pp.~1--2]{Lawvere2006}.}
 \end{flushright}
 
-The breakthrough came from Lawvere. Following the ideas developed from lectures delivered in Chicago in May 1967 and the resulting paper, Lawvere presented his theorem at the 1968 Battelle conference in Seattle, later published in 1969 \parencite[Author Commentary, p.~1]{Lawvere2006}.
+The unifying idea was developed by Lawvere. Following the ideas developed from lectures delivered in Chicago in May 1967 and the resulting paper, Lawvere presented his theorem at the 1968 Battelle conference in Seattle, later published in 1969 \parencite[Author Commentary, p.~1]{Lawvere2006}.
 In this article he distilled these similarities into a precise fixed-point theorem in cartesian closed categories, treating Cantor's theorem and Russell's paradox and deriving
 Tarski's undefinability theorem and Gödel incompleteness under some representability assumptions \parencite[\S\S~1--3]{Lawvere1969}.
 Finally Yanofsky broadened this unifying presentation to self-reference and computability in 2003, \parencite{Yanofsky2003}.
 
 In this exposition, we are going to prove the original version of Lawvere's theorem, a variant, and a generalization of it. After that, we will make a survey of the diagonal results and fixed-point theorems that can be derived from it,
-culminating in Gödel's incompleteness theorem and in McCallum's derivation of Brouwer's fixed-point theorem \parencite{McCallum2020}.
+culminating in Gödel's incompleteness theorem and a sketch of McCallum's derivation of Brouwer's fixed-point theorem \parencite{McCallum2020}.
 
 The proof of Lawvere's theorem and its variant will be carried out using the internal language of cartesian closed categories and the Curry--Howard--Lambek correspondence.
 Such categories will be constructed in the first chapter of this thesis; their internal language, as typed $\lambda$-calculus, and the Curry--Howard--Lambek correspondence will be

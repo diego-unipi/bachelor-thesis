@@ -1151,10 +1151,10 @@ Let's see the first result. One would like to find a class of topological spaces
 and for which there exists a topological space $A$ that can be used to define an exponential topology on every object in the class, together with the continuous surjection required by Lawvere's theorem. If such
 a class existed, then one could recover Brouwer's fixed-point theorem as a corollary of Lawvere's theorem. Unfortunately, this is not the case in general: as McCallum pointed out, it already fails for the unit interval $[0,1]$.
 
-\begin{theorem}[{\cite[Theorem.~3.1.]{McCallum2020}}]
+\begin{fact}[{\cite[Theorem.~3.1.]{McCallum2020}}]
     It does not exist any topological space $A$ for which the exponential topology on $[0,1]^A$ is defined
     and such that there is a continuous surjection $g : A \to [0,1]^A$.
-\end{theorem}
+\end{fact}
 
 Having established that Lawvere's classical fixed-point theorem does not hold in the category of topological spaces, McCallum proves a slightly modified version of Lawvere's theorem as follows.
 
@@ -1218,7 +1218,8 @@ Having established that Lawvere's classical fixed-point theorem does not hold in
     so $x$ is a fixed point of $t$.
 \end{proof}
 
-We now introduce the particular spaces and the class $\mathcal S$ of topological spaces that contains the closed balls of finite-dimensional Euclidean spaces, used by McCallum to apply this theorem.
+Now we introduce the class $\mathcal S$ of \emph{nice} topological spaces that contains the closed balls of finite-dimensional Euclidean spaces.
+This is the class used by McCallum to apply his theorem.
 
 \begin{notation}[The spaces $A'$ and $A''$]\label{idx:mccallum-spaces}
     Let $\omega_1$ be the first uncountable ordinal and let $2:=\{0,1\}$ have the discrete topology.
@@ -1235,7 +1236,7 @@ We now introduce the particular spaces and the class $\mathcal S$ of topological
     Let $\mathcal S$ be the class of all topological spaces $X$ satisfying the following conditions; its members are called \emph{nice}:
     \begin{enumerate}[label=(\roman*)]
         \item $X$ is compact, contractible, and there is a continuous surjection $A'\twoheadrightarrow X$;
-        \item there is a decomposition $X=U\sqcup V$, where $U$ is open and dense and $V=X\setminus U$, together with a compatible metric $d$ satisfying the following local homogeneity conditions:
+        \item there is a decomposition $X=U\sqcup V$, where $U$ is open and dense, and there is a compatible metric $d$ on $X$ satisfying the following local homogeneity conditions:
         \begin{enumerate}[label=(\alph*)]
             \item there is an $\varepsilon_U>0$ such that, for every $0<\delta<\varepsilon_U$, any two distinct open $d$-balls of radius $\delta$, centred at points of $U$ and whose closures are disjoint from $V$, are isometric;
             \item there is an $\varepsilon_V>0$ such that, for every $0<\delta<\varepsilon_V$, any two open $d$-balls of radius $\delta$ centred at points of $V$ are isometric.
@@ -1251,7 +1252,7 @@ Furthermore, since all the spaces in $\mathcal S$ are compact and have a compati
 In order to prove the desired result, we need to prove that for every $X\in\mathcal S$ there is a continuous surjection $g_X :A'\twoheadrightarrow X^{A''}$, and that every continuous map $q:A'\to X$ which factors through $\langle g_X,h\rangle$ also factors through $h$.
 McCallum proves this in the following theorem.
 
-\begin{theorem}[{\cite[Theorem~2.1]{McCallum2020}}]
+\begin{fact}[{\cite[Theorem~2.1]{McCallum2020}}]
     \label{thm:mccallum-brouwer}
     Let $A'$ and $A''$ be the spaces defined above and let $X\in\mathcal S$.
     Then there is a continuous surjection
@@ -1259,11 +1260,7 @@ McCallum proves this in the following theorem.
     where $X^{A''}$ carries the exponential topology computed in $k\mathsf{Top}$, such that every continuous map $q:A'\to X$ which factors through $\langle g,h\rangle$ also factors through $h$.
     Consequently, every continuous endomorphism of $X$ has a fixed point.
     Since closed balls in finite-dimensional Euclidean spaces belong to $\mathcal S$, Brouwer's fixed-point theorem follows from \Cref{thm:mccallum-generalized-lawvere}.
-\end{theorem}
-
-\begin{proof}
-    The proof is very long and technical so we will not give it here, and refer the reader to the original paper \Cite[p.~4--8]{McCallum2020}.
-\end{proof}
+\end{fact}
 
 Finally, we obtain as a corollary of the previous theorem Brouwer's fixed-point theorem.
 
