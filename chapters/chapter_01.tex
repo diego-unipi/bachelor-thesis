@@ -250,12 +250,14 @@ The distributive law immediately implies the fact that $\cdot \times \cdot$ is a
                            &= 1_{A \times B} &&(\textnormal{by CC2c}).
         \end{align*}
         \item[$\boxed{\textnormal{composition}}$] Given $f : A \to B$, $g : C \to D$, $f' : B \to B'$ and $g' : D \to D'$, similar steps give the following:
-        \begin{align*}
+        \[
+        \makebox[\linewidth][c]{$\begin{aligned}
             (f' \times g') \circ (f \times g) &= \langle f' \circ \pi_{B,D}, g' \circ \pi_{B,D}'\rangle \circ (f \times g) &&(\textnormal{by definition of $\times$}) \\
                                               &= \langle (f' \circ \pi_{B,D}) \circ (f \times g), (g' \circ \pi_{B,D}') \circ (f \times g)\rangle &&(\textnormal{by distributive law})\\
                                               &= \langle (f' \circ f) \circ \pi_{A,C}, (g' \circ g) \circ \pi_{A,C}'\rangle &&(\textnormal{by CC2a and CC2b}) \\
                                               &= (f' \circ f) \times (g' \circ g) &&(\textnormal{by definition of $\times$}).
-        \end{align*}
+        \end{aligned}$}
+        \]
     \end{itemize}
 \end{proof}
 
@@ -764,7 +766,7 @@ We now give a constructive proof of the deduction theorem stated above.
                 \kappa_{x \in A}(\psi(x) \circ \chi(x)) \circ \langle x \circ !_B, 1_B\rangle &\underset{x}{=} \kappa_{x \in A}(\psi(x)) \circ \langle \pi_{A,B}, \kappa_{x \in A}(\chi(x))\rangle \circ \langle x \circ !_B, 1_B\rangle \\
                                                                                               &\underset{x}{=} \kappa_{x \in A}(\psi(x)) \circ \langle x \circ !_B, \kappa_{x \in A}(\chi(x)) \circ \langle x \circ !_B, 1_B\rangle \rangle \\
                                                                                               &\underset{x}{=} \kappa_{x \in A}(\psi(x)) \circ \langle x \circ !_B, \chi(x)\rangle \\
-                                                                                              &\underset{x}{=} \kappa_{x \in A}(\psi(x)) \circ \langle x \circ !_D, 1_D\rangle \circ \chi(x) &&(\textnormal{by $\spadesuit$})\\
+                                                                                              &\underset{x}{=} \kappa_{x \in A}(\psi(x)) \circ \langle x \circ !_D, 1_D\rangle \circ \chi(x) \quad(\textnormal{by $\spadesuit$})\\
                                                                                               &\underset{x}{=} \psi(x) \circ \chi(x),
             \end{align*}
             where $\spadesuit$ is the identity $\langle x \circ !_B, h \rangle = \langle x \circ !_D, 1_D\rangle \circ h$, for every $h : B \to D$, and the third and last equalities are by the inductive hypothesis.
